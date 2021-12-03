@@ -20,19 +20,19 @@ export default function Canvas() {
 
 	useEffect(() => {
 		let canvas = canvasRef.current;
-		// canvas.width = window.innerWidth;
-		// canvas.height = window.innerHeight;
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
 		let context = canvas.getContext("2d");
 
 		// adjusting the scaling of our canvas
-		let ratio = getPixelRatio(context);
+		// let ratio = getPixelRatio(context);
 		let width = getComputedStyle(canvas).getPropertyValue("width").slice(0, -2);
 		let height = getComputedStyle(canvas)
 			.getPropertyValue("height")
 			.slice(0, -2);
 
-		canvas.width = width * ratio;
-		canvas.height = height * ratio;
+		// canvas.width = width * ratio;
+		// canvas.height = height * ratio;
 		canvas.style.width = `${width}px`;
 		canvas.style.height = `${height}px`;
 

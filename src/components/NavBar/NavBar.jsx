@@ -1,6 +1,7 @@
 import "./NavBar.scss"
 import { useRef, useEffect } from "react";
 import { gsap } from "gsap/all";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 export default function NavBar() {
 
@@ -10,15 +11,17 @@ export default function NavBar() {
         gsap.fromTo(navRef.current, { y: '-100%', opacity: 0 }, { delay: 1, y: "0%", opacity: 1, duration: 1 });
     })
     return (
-        <div className='navbar' ref={navRef}>
-            <div className="wrapper">
-                <div className="left"></div>
-                <h1><a href="#project">Project</a></h1>
-                <h1><a href="#blog">Blog</a></h1>
-                <h1><a href="#portfolio">Portfolio</a></h1>
-                <div className="right">
+        <Router>
+            <nav className='navbar' ref={navRef}>
+                <div className="wrapper">
+                    <div className="left"></div>
+                    <h1><a href="#project">Project</a></h1>
+                    <h1><a href="#portfolio">Portfolio</a></h1>
+                    <h1><Link to="/blogs">Blog</Link></h1>
+                    <div className="right">
+                    </div>
                 </div>
-            </div>
-        </div>
+            </nav>
+        </Router>
     )
 }

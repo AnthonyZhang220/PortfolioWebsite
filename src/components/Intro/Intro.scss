@@ -3,12 +3,12 @@
 .intro {
 	background-color: white;
 	display: flex;
-	
-	#canvas{
-		height:100%;
-		width:100%;
+
+	#canvas {
+		height: 100%;
+		width: 100%;
 		position: absolute;
-		top:0;
+		top: 0;
 		left: 0;
 	}
 
@@ -36,7 +36,19 @@
 
 	.left {
 		flex: 0.45;
+		z-index: 2;
+
+		.imgContainer {
+			width: 100%;
+			height: 100%;
+			padding-left: 50px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			font-size: 30px;
+		}
 	}
+	
 	.right {
 		flex: 0.55;
 
@@ -67,9 +79,9 @@
 
 				.ityped-cursor {
 					opacity: 1;
-					-webkit-animation: blink .4s infinite;
-					-moz-animation: blink .4s infinite;
-					animation: blink .4s infinite;
+					-webkit-animation: blink 0.4s infinite;
+					-moz-animation: blink 0.4s infinite;
+					animation: blink 0.4s infinite;
 					animation-direction: alternate;
 				}
 
