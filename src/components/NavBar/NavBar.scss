@@ -14,11 +14,15 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		font-size:15px;
+		font-size:10px;
 
 		a {
 			color:black;
 			text-decoration: none;
+
+			&:hover{
+				color: $mainColor2;
+			}
 		}
 	}
 }

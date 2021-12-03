@@ -1,8 +1,8 @@
 import "./ProjectList.scss"
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
-import { gsap } from "gsap/all";
-import { ScrollTrigger } from "gsap/all";
-import { useEffect, useRef } from "react";
+// import { gsap } from "gsap/all";
+// import { ScrollTrigger } from "gsap/all";
+// import { useEffect, useRef } from "react";
 
 export default function ProjectList({ name, picture, description, tech, url, source, GitHub }) {
 

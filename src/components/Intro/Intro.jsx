@@ -2,6 +2,7 @@ import "./Intro.scss"
 import { useEffect, useRef } from "react";
 import { init } from 'ityped';
 import { gsap } from "gsap/all";
+import Canvas from "../Canvas/Canvas";
 
 export default function Intro() {
 
@@ -16,7 +17,7 @@ export default function Intro() {
     })
 
     useEffect(() => {
-        gsap.fromTo(arrowdownRef.current, {y: "-100%", opacity: 0}, { delay: 2, y:"0%", opacity: 1, duration: 1 });
+        gsap.fromTo(arrowdownRef.current, { y: "-100%", opacity: 0 }, { delay: 2, y: "0%", opacity: 1, duration: 1 });
     })
 
     useEffect(() => {
@@ -30,21 +31,22 @@ export default function Intro() {
 
     return (
         <div className='intro' id='intro'>
-            <div className="left">
-                <div className="imgContainer">
+                <Canvas id="canvas"/>
+                <div className="left">
+                    <div className="imgContainer">
 
+                    </div>
                 </div>
-            </div>
-            <div className="right" ref={rightRef}>
-                <div className="wrapper">
-                    <h2>Welcome, I'm</h2>
-                    <h1>Anthony Zhang</h1>
-                    <h3>Frontend <span ref={textRef}></span></h3>
+                <div className="right" ref={rightRef}>
+                    <div className="wrapper">
+                        <h2>Welcome, I'm</h2>
+                        <h1>Anthony Zhang</h1>
+                        <h3>Frontend <span ref={textRef}></span></h3>
+                    </div>
                 </div>
-            </div>
                 <a href="#portfolio">
                     <i className="fas fa-chevron-down" ref={arrowdownRef}></i>
                 </a>
-        </div>
+            </div>
     )
 }
