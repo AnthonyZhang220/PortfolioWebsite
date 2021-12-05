@@ -13,12 +13,22 @@ export default function NavBar() {
     return (
         <Router>
             <nav className='navbar' ref={navRef}>
-                <div className="wrapper">
-                    <div className="left"></div>
-                    <h1><a href="#project">Project</a></h1>
-                    <h1><a href="#portfolio">Portfolio</a></h1>
-                    <h1><Link to="/blogs">Blog</Link></h1>
-                    <div className="right">
+                <div className="left">
+                    <div className="logo">
+                        <h1>[A-Z]</h1>
+                    </div>
+                </div>
+                <div className="right">
+                    <div className="wrapper">
+                        <div>
+                        <h1><a href="#project">Project</a></h1>
+
+                        </div>
+                        <div>
+                            
+                        </div>
+                        <h1><a href="#portfolio">Portfolio</a></h1>
+                        <h1><Link to="/blogs">Blog</Link></h1>
                     </div>
                 </div>
             </nav>

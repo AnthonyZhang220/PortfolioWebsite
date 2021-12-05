@@ -8,20 +8,21 @@ export default function Intro() {
 
     const textRef = useRef(null);
     const leftRef = useRef(null);
+    const midRef = useRef(null);
     const rightRef = useRef(null);
     const arrowdownRef = useRef(null);
 
     useEffect(() => {
-        gsap.fromTo(leftRef.current, {
+        gsap.fromTo(rightRef.current, {
             x: '25%', opacity: 0
-        }, { x: '50%', opacity: 1, duration: 1.5 }
+        }, { delay: 1.5, x: '0%', opacity: 1, duration: 1.5 }
         )
     })
 
     useEffect(() => {
-        gsap.fromTo(rightRef.current, {
-            x: '25%', opacity: 0
-        }, { x: "0%", opacity: 1, duration: 1.5 });
+        gsap.fromTo(midRef.current, {
+            y: '25%', opacity: 0
+        }, { y: "0%", opacity: 1, duration: 1.5 });
     })
 
     useEffect(() => {
@@ -38,39 +39,42 @@ export default function Intro() {
     }, [])
 
 
-    const [clicked, setClicked] = useState(false);
+
+    // const [clicked, setClicked] = useState(false);
 
 
     return (
         <div className='intro' id='intro'>
             <Canvas id="canvas" />
             <div className="left" ref={leftRef}>
-                <div className="imgContainer">
-                    <div className="linkedin">
-                        <a href="https://www.linkedin.com/in/anthony-xiangyu-zhang/" target="_blank" rel="noreferrer"><i class="fab fa-linkedin fa-fw"></i></a>
-                    </div>
-                    <div className="github">
-                        <a href="https://github.com/AnthonyZhang220" target="_blank" rel="noreferrer"><i class="fab fa-github fa-fw"></i></a>
-                    </div>
-                    <div className="stackoverflow">
-                        <a href="https://stackoverflow.com/users/6162027/anthony220" target="_blank" rel="noreferrer"> <i class="fab fa-stack-overflow fa-fw"></i></a>
-                    </div>
-                </div>
             </div>
-            <div className="right" ref={rightRef}>
+            <div className="mid" ref={midRef}>
                 <div className="wrapper">
                     <h2>Welcome, I'm</h2>
                     <h1>Anthony Zhang</h1>
                     <h3>Frontend <span ref={textRef}></span></h3>
                     <div className="email">
-                        <button type='button' onClick={clicked}>Send me an Email</button>
+                        <button type='button'>Send me an Email</button>
+                    </div>
+                    <div className="arrowdown" ref={arrowdownRef}>
+                        <a href="#portfolio">
+                            <i className="fas fa-chevron-down"></i>
+                        </a>
                     </div>
                 </div>
             </div>
-            <div className="arrowdown">
-                <a href="#portfolio">
-                    <i className="fas fa-chevron-down" ref={arrowdownRef}></i>
-                </a>
+            <div className="right" ref={rightRef}>
+                <div className="imgContainer">
+                    <div className="linkedin">
+                        <a href="https://www.linkedin.com/in/anthony-xiangyu-zhang/" target="_blank" rel="noreferrer"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                    <div className="github">
+                        <a href="https://github.com/AnthonyZhang220" target="_blank" rel="noreferrer"><i class="fab fa-github"></i></a>
+                    </div>
+                    <div className="stackoverflow">
+                            <a href="https://stackoverflow.com/users/6162027/anthony220" target="_blank" rel="noreferrer"> <i class="fab fa-stack-overflow"></i></a>
+                    </div>
+                </div>
             </div>
         </div>
     )
