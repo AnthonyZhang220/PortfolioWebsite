@@ -2,7 +2,8 @@ import "./Project.scss"
 import ProjectList from "./ProjectList/ProjectList"
 import { projectdata } from "./ProjectData.js"
 import { useEffect, useRef } from "react";
-import { gsap, ScrollTrigger } from "gsap/all";
+import { gsap } from "gsap/all";
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 export default function Project() {
 
@@ -11,20 +12,22 @@ export default function Project() {
 
     useEffect(() => {
         gsap.fromTo(listRef.current, {
-            y: "50%", opacity: 0.5
+            y: "100%", opacity: 0
         }, {
-            y: "0%", opacity: 1, duration: 1,
+            y: "0%", opacity: 1, duration: 2,
             scrollTrigger: {
                 trigger: listRef.current,
+                markers: true,
             },
         });
     })
+
     return (
         <div className='project' id='project'>
             <h1>Project</h1>
             <ul>
                 {projectdata.map((project, index) => (
-                    <ProjectList {...project} key={index} ref={listRef}/>
+                    <ProjectList {...project} key={index} ref={listRef} />
                 ))}
             </ul>
         </div>

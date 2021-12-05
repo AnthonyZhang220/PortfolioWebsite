@@ -50,15 +50,20 @@ export default function Intro() {
             </div>
             <div className="mid" ref={midRef}>
                 <div className="wrapper">
-                    <h2>Welcome, I'm</h2>
-                    <h1>Anthony Zhang</h1>
-                    <h3>Frontend <span ref={textRef}></span></h3>
-                    <div className="email">
-                        <button type='button'>Send me an Email</button>
+                    <div className="top-spacing"></div>
+                    <div className="greetings">
+                        <h2>Welcome, I'm</h2>
+                        <h1>Anthony Zhang</h1>
+                        <h3>Frontend <span ref={textRef}></span></h3>
+                        <div className="email">
+                            <button type='button'>Send me an Email</button>
+                        </div>
                     </div>
-                    <div className="arrowdown" ref={arrowdownRef}>
+                    <div className="bottom-spacing">
                         <a href="#portfolio">
-                            <i className="fas fa-chevron-down"></i>
+                            <div className="arrowdown" ref={arrowdownRef}>
+                                <i className="fas fa-chevron-down"></i>
+                            </div>
                         </a>
                     </div>
                 </div>
@@ -72,7 +77,7 @@ export default function Intro() {
                         <a href="https://github.com/AnthonyZhang220" target="_blank" rel="noreferrer"><i class="fab fa-github"></i></a>
                     </div>
                     <div className="stackoverflow">
-                            <a href="https://stackoverflow.com/users/6162027/anthony220" target="_blank" rel="noreferrer"> <i class="fab fa-stack-overflow"></i></a>
+                        <a href="https://stackoverflow.com/users/6162027/anthony220" target="_blank" rel="noreferrer"> <i class="fab fa-stack-overflow"></i></a>
                     </div>
                 </div>
             </div>

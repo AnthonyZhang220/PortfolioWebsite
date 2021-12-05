@@ -6,6 +6,15 @@ import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
 
 export default function ProjectList({ name, picture, description, tech, url, source, GitHub }) {
 
+    // gsap.registerPlugin(ScrollTrigger);
+    // const listRef = useRef(null);
+
+    // useEffect(() => {
+    //     gsap.to(listRef.current, {
+    //         ScrollTrigger:listRef.current,
+    //     });
+    // })
+
     return (
         <li className="projectlist" >
             <div className="container">

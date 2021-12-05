@@ -28,103 +28,128 @@
 			align-items: center;
 			justify-content: center;
 
-			h1 {
-				font-size: 60px;
-				margin: 10px 0;
+
+			.top-spacing {
+				flex: 0.2;
 			}
 
-			h2 {
-				font-size: 35px;
-			}
-
-			h3 {
-				font-size: 30px;
-
-				span {
-					font-size: inherit;
-					color: $mainColor2;
-				}
-
-				.ityped-cursor {
-					opacity: 1;
-					-webkit-animation: blink 0.4s infinite;
-					-moz-animation: blink 0.4s infinite;
-					animation: blink 0.4s infinite;
-					animation-direction: alternate;
-				}
-
-				@keyframes blink {
-					50% {
-						opacity: 1;
-					}
-					100% {
-						opacity: 0;
-					}
-				}
-
-				@-webkit-keyframes blink {
-					50% {
-						opacity: 1;
-					}
-					100% {
-						opacity: 0;
-					}
-				}
-
-				@-moz-keyframes blink {
-					50% {
-						opacity: 1;
-					}
-					100% {
-						opacity: 0;
-					}
-				}
-			}
-			.email {
-				margin-top: 20px;
-				padding: 20px;
-				button {
-					background-color: greenyellow;
-					border-radius: 20px;
-					border: 1px;
-				}
-			}
-			.arrowdown {
-				font-size: 50px;
+			.greetings {
+				flex: 0.5;
+				display: flex;
+				flex-direction: column;
 				align-items: center;
+				justify-content: center;
 
-				// position: absolute;
-				// bottom: 20px;
-				// left: 50%;
-
-				i {
-					color: black;
-					text-decoration: none;
-					animation: arrowBlink 2s infinite;
-					animation: slide 3s linear infinite;
+				h1 {
+					font-size: 60px;
+					margin: 10px 0;
 				}
 
-				@keyframes arrowBlink {
-					50% {
-						opacity: 1;
+				h2 {
+					font-size: 35px;
+				}
+
+				h3 {
+					font-size: 30px;
+
+					span {
+						font-size: inherit;
+						color: $mainColor2;
 					}
-					100% {
-						opacity: 0;
-					}
-					50% {
+					
+					.ityped-cursor {
 						opacity: 1;
+						-webkit-animation: blink 0.4s infinite;
+						-moz-animation: blink 0.4s infinite;
+						animation: blink 0.4s infinite;
+						animation-direction: alternate;
+					}
+					
+					@keyframes blink {
+						50% {
+							opacity: 1;
+						}
+						100% {
+							opacity: 0;
+						}
+					}
+
+					@-webkit-keyframes blink {
+						50% {
+							opacity: 1;
+						}
+						100% {
+							opacity: 0;
+						}
+					}
+					
+					@-moz-keyframes blink {
+						50% {
+							opacity: 1;
+						}
+						100% {
+							opacity: 0;
+						}
 					}
 				}
-				@keyframes slide {
-					0% {
-						opacity: 0;
-						transform: translateY(-15px);
-					}
-					100% {
-						opacity: 1;
+
+				.email {
+					margin-top: 20px;
+					
+
+					button {
+						padding: 20px;
+						background-color: greenyellow;
+						border-radius: 20px;
+						border: 1px;
 					}
 				}
 			}
+
+			.bottom-spacing{
+				display:flex;
+				flex-direction: column;
+				flex: 0.3;
+				justify-content: flex-end;
+				align-items: center;
+				align-content: stretch;
+
+				.arrowdown {
+					font-size: 50px;
+					align-self: auto;
+					flex:0 1 50px;
+
+	
+					i {
+						color: black;
+						text-decoration: none;
+						animation: arrowBlink 2s infinite;
+						animation: slide 3s linear infinite;
+					}
+	
+					@keyframes arrowBlink {
+						50% {
+							opacity: 1;
+						}
+						100% {
+							opacity: 0;
+						}
+						50% {
+							opacity: 1;
+						}
+					}
+					@keyframes slide {
+						0% {
+							opacity: 0;
+							transform: translateY(-15px);
+						}
+						100% {
+							opacity: 1;
+						}
+					}
+				}
+			}
+
 		}
 	}
 
@@ -140,19 +165,19 @@
 			justify-content: center;
 			align-items: center;
 			// font-size: 40px;
-			
+
 			.linkedin,
 			.github,
 			.stackoverflow {
-				padding-right: 30%;
+				// padding-right: 30%;
 				// vertical-align: middle;
 				flex-direction: row;
 				margin: 20px;
 				overflow: hidden;
-				
+
 				a {
 					color: black;
-					
+
 					i {
 						text-align: center;
 						width: 2em;
