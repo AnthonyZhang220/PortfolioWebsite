@@ -53,16 +53,18 @@ export default function Canvas() {
 		})
 
 		window.addEventListener("click", function (event) {
-
+			
 			// context.beginPath();
 			// context.arc(mouse.x, mouse.y, 3, 0, Math.PI * 2, false);
 			// context.strokeStyle = "black";
 			// context.stroke();
 			// context.fill();
-			let newCircle = new Circle(event.x, event.y, Math.random() - 0.5, Math.random() - 0.5, 3);
+			const newCircle = new Circle(event.clientX, event.clientY, Math.random() - 0.5, Math.random() - 0.5, 3);
 
 			// let newCircle = new Circle(mouse.x, mouse.y);
 			newCircle.draw();
+			console.log(event);
+			
 
 		})
 
@@ -109,7 +111,6 @@ export default function Canvas() {
 					} else if (this.radius > minRadius) {
 						this.radius -= 1;
 					}
-					// interactivity click
 
 					this.draw();
 				};
