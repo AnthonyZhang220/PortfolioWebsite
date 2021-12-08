@@ -5,16 +5,24 @@ import Project from "./components/Project/Project";
 import Works from "./components/Works/Works";
 import Contact from "./components/Contact/Contact";
 import Blog from "./components/Blog/Blog";
+import { useEffect } from "react";
+import { gsap } from "gsap/all";
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
 import { BrowserRouter as Route } from "react-router-dom";
 
 import "./App.scss"
 
 function App() {
+
+	gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.defaults({ scroller:".sections"})
+	
 	return (
 
 		<div className="App">
 			<NavBar />
-			<div className="sections">
+			<section className="sections">
 				<Route exact path="/">
 					<Intro />
 					<Portfolio />
@@ -22,7 +30,7 @@ function App() {
 					<Works />
 					<Contact />
 				</Route>
-			</div>
+			</section>
 			<Route exact path="/blogs">
 				<Blog />
 			</Route>
