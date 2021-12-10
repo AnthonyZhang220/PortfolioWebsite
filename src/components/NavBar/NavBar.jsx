@@ -18,16 +18,22 @@ export default function NavBar() {
                         <h1>[A-Z]</h1>
                     </div>
                 </div>
-                <div className="right">
+                <div className="mid">
                     <div className="wrapper">
                         <div>
                             <h1><a href="#project">Project</a></h1>
                         </div>
                         <div>
+                            <h1><a href="#portfolio">Portfolio</a></h1>
                         </div>
-                        <h1><a href="#portfolio">Portfolio</a></h1>
-                        <h1><Link to="/blogs">Blog</Link></h1>
+                        <div>
+                            <h1><Link to="/blogs">Blog</Link></h1>
+                        </div>
                     </div>
+                </div>
+                
+                <div className="right">
+                    <div></div>
                 </div>
             </nav>
         </Router>
