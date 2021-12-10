@@ -1,3 +1,5 @@
+@import "./global.scss";
+
 .App {
 	height: 100vh;
 
@@ -8,11 +10,35 @@
 		position: relative;
 		top: 40px;
 
+
+
+
 		scroll-behavior: smooth;
+		// scrollbar-color: $mainColor2;
 		// scroll-snap-type: y mandatory;
-		scrollbar-width: none; //for firefox
-		&::-webkit-scrollbar {
-			display: none;
+		scrollbar-width: thin; //for firefox
+		// &::-webkit-scrollbar {
+		// 	display: none;
+		// }
+
+		&::-webkit-scrollbar-track{
+			background-color: transparent;
+		}
+
+		&::-webkit-scrollbar-thumb{
+			background-color: #d6dee1;
+			border-radius: 20px;
+			border: 2px solid transparent;
+			background-clip: content-box;
+		}
+
+		&::-webkit-scrollbar-thumb:hover {
+			background-color: #a8bbbf;
+		  }
+
+
+		&::-webkit-scrollbar{
+			width:14px;
 		}
 
 		> * {

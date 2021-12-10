@@ -12,22 +12,22 @@ export default function Project() {
 
     useEffect(() => {
         gsap.fromTo(listRef.current, {
-            y: "-50%", opacity: 0
+            y: "25%", opacity: 0
         }, {
-            y: "0%", opacity: 1, duration: 4,
+            y: "0%", opacity: 1, duration: 2,
             scrollTrigger: {
                 // scroller: window,
                 trigger: listRef.current,
                 // markers: true,
-                start: "top center"
+                start: "top bottom"
             },
         });
     })
 
     return (
-        <div className='project' id='project' ref={listRef}>
+        <div className='project' id='project' >
             <h1>Project</h1>
-            <ul>
+            <ul ref={listRef}>
                 {projectdata.map((project, index) => (
                     <ProjectList {...project} key={index}/>
                 ))}

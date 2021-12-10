@@ -56,7 +56,7 @@ export default function Intro() {
                         <h1>Anthony Zhang</h1>
                         <h3>Frontend <span ref={textRef}></span></h3>
                         <div className="email">
-                            <button type='button'>Send me an Email</button>
+                            <button type='button'><h3>Start a Conversation</h3></button>
                         </div>
                     </div>
                     <div className="bottom-spacing">

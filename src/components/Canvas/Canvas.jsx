@@ -16,15 +16,15 @@ const getPixelRatio = (context) => {
 
 export default function Canvas() {
 	const canvasRef = useRef(null);
-	// const [animation, setAnimation] = useState(null);
 
 	useEffect(() => {
 		let canvas = canvasRef.current;
-		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight;
 		let context = canvas.getContext("2d");
 
-		// adjusting the scaling of our canvas
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+
+		// adjusting the scaling of the canvas
 		// let ratio = getPixelRatio(context);
 		let width = getComputedStyle(canvas).getPropertyValue("width").slice(0, -2);
 		let height = getComputedStyle(canvas)
@@ -36,117 +36,142 @@ export default function Canvas() {
 		canvas.style.width = `${width}px`;
 		canvas.style.height = `${height}px`;
 
-		//mousemovement
 
+		//declar variable
+
+		//array that contains circles
+		let circleArray = []
+		//frames per second
+		let FPS = 60;
+		//number of circles
+		let circleInitialNum = 50;
 		let mouse = {
-			x: undefined,
-			y: undefined,
+			x: 0,
+			y: 0,
 		}
-		let maxRadius = 30;
-		let minRadius = 5;
-		// let colorArray = [];
-		let circleArray = [];
 
-		window.addEventListener("mousemove", function (event) {
-			mouse.x = event.x;
-			mouse.y = event.y;
-		})
+		//push each circle to array
+		for (let i = 0; i < circleInitialNum; i++) {
+			circleArray.push({
+				radius: Math.random() * 4 + 1,
+				x: Math.random() * canvas.width,
+				y: Math.random() * canvas.height,
+				dx: Math.random() - 0.5,
+				dy: Math.random() - 0.5,
+			})
+		}
 
-		window.addEventListener("click", function (event) {
-			
-			// context.beginPath();
-			// context.arc(mouse.x, mouse.y, 3, 0, Math.PI * 2, false);
-			// context.strokeStyle = "black";
-			// context.stroke();
-			// context.fill();
-			const newCircle = new Circle(event.clientX, event.clientY, Math.random() - 0.5, Math.random() - 0.5, 3);
+		//draw
+		function draw() {
+			context.globalCompositeOperation = "lighter";
 
-			// let newCircle = new Circle(mouse.x, mouse.y);
-			newCircle.draw();
-			console.log(event);
-			
+			for (let i = 0; i < circleArray.length; i++) {
 
-		})
+				let circle = circleArray[i]
 
+				let color = "black";
 
-		class Circle {
-			constructor(x, y, dx, dy, radius) {
-				this.x = x;
-				this.y = y;
-				this.dx = dx;
-				this.dy = dy;
-				this.radius = radius;
+				context.fillStyle = color;
+				context.beginPath();
+				context.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
+				context.fill();
+				context.fillStyle = color;
+				context.stroke();
+			};
 
-				this.draw = function () {
-					let color = "#c4cbd0";
-					context.beginPath();
-					context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-					context.strokeStyle = color;
-					context.fillStyle = color;
-					context.stroke();
-					context.fill();
-				};
+			//draw line
+			context.beginPath();
+			for (let i = 0; i < circleArray.length; i++) {
+				let circleI = circleArray[i];
+				context.moveTo(circleI.x, circleI.y);
+				if (distance(mouse, circleI) < 150) {
+					context.lineTo(mouse.x, mouse.y);
+				}
 
-				this.update = function () {
-					if (
-						this.x + this.radius > window.innerWidth ||
-						this.x - this.radius < 0
-					) {
-						this.dx = -this.dx;
+				for (let j = 0; j < circleArray.length; j++) {
+					let circleII = circleArray[j];
+					if (distance(circleI, circleII) < 150) {
+						//context.globalAlpha = (1 / 150 * distance(circleI, circleII).toFixed(1));
+						context.lineTo(circleII.x, circleII.y);
 					}
-					if (
-						this.y + this.radius > window.innerHeight ||
-						this.y - this.radius < 0
-					) {
-						this.dy = -this.dy;
-					}
-
-					this.x += this.dx;
-					this.y += this.dy;
-
-					//interactivity hover
-					if (mouse.x - this.x < 50 && mouse.x - this.x > -50 && mouse.y - this.y < 50 && mouse.y - this.y > -50) {
-						if (this.radius < maxRadius)
-							this.radius += 0.5;
-					} else if (this.radius > minRadius) {
-						this.radius -= 1;
-					}
-
-					this.draw();
-				};
+				}
 			}
+			context.lineWidth = 0.1;
+			context.strokeStyle = 'black';
+			context.stroke();
 		}
 
 
-		for (let i = 0; i < 1000; i++) {
-			// let circle = new Circle(200, 200, 3, 30);
-			let radius = 5;
-			let x = (Math.random() * window.innerWidth - radius * 2) * radius;
-			let y = (Math.random() * window.innerHeight - radius * 2) * radius;
-			let dx = Math.random() - 0.5;
-			let dy = Math.random() - 0.5;
-			circleArray.push(new Circle(x, y, dx, dy, radius));
-		}
+
+
+		function distance(point1, point2) {
+			let xs = 0;
+			let ys = 0;
+
+			xs = point2.x - point1.x;
+			xs = xs * xs;
+
+			ys = point2.y - point1.y;
+			ys = ys * ys;
+
+			return Math.sqrt(xs + ys);
+		};
+
+
+		//update circle locations
+		function update() {
+			for (let i = 0; i < circleArray.length; i++) {
+				let circle = circleArray[i];
+
+				circle.x += circle.dx;
+				circle.y += circle.dy;
+
+				if (circle.x < 0 || circle.x > canvas.width) circle.dx = -circle.dx;
+				if (circle.y < 0 || circle.y > canvas.height) circle.dy = -circle.dy;
+			}
+
+		};
+
+
+
+		//mouse
+		window.addEventListener("mousemove", function (event) {
+			mouse.x = event.clientX;
+			mouse.y = event.clientY;
+		})
+
+
+		//click to add circle
+		window.addEventListener("click", function (event) {
+			circleArray.push({
+				radius: Math.random() * 4 + 1,
+				x: event.clientX,
+				y: event.clientY,
+				dx: Math.random() - 0.5,
+				dy: Math.random() - 0.5,
+			})
+		})
 
 		let requestId;
 
 		const animate = () => {
 			context.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
-			for (let i = 0; i < circleArray.length; i++) {
-				circleArray[i].update();
-			}
+			draw();
+			update();
 
-			requestId = requestAnimationFrame(animate);
+			requestAnimationFrame(animate);
 
 		};
 
 		animate();
 
+
 		return () => {
 			cancelAnimationFrame(requestId);
 		};
-	}, []);
+
+	});
 
 	return <canvas id="canvas" ref={canvasRef}></canvas>;
 }
