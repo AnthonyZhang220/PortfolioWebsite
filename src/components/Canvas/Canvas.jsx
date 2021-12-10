@@ -1,18 +1,6 @@
 import { useEffect, useRef } from "react";
 import "./Canvas.scss";
 
-const getPixelRatio = (context) => {
-	let backingStore =
-		context.backingStorePixelRatio ||
-		context.webkitBackingStorePixelRatio ||
-		context.mozBackingStorePixelRatio ||
-		context.msBackingStorePixelRatio ||
-		context.oBackingStorePixelRatio ||
-		context.backingStorePixelRatio ||
-		1;
-
-	return (window.devicePixelRatio || 1) / backingStore;
-};
 
 export default function Canvas() {
 	const canvasRef = useRef(null);
@@ -25,14 +13,26 @@ export default function Canvas() {
 		canvas.height = window.innerHeight;
 
 		// adjusting the scaling of the canvas
-		// let ratio = getPixelRatio(context);
+		const getPixelRatio = (context) => {
+			let backingStore =
+				context.backingStorePixelRatio ||
+				context.webkitBackingStorePixelRatio ||
+				context.mozBackingStorePixelRatio ||
+				context.msBackingStorePixelRatio ||
+				context.oBackingStorePixelRatio ||
+				context.backingStorePixelRatio ||
+				1;
+
+			return (window.devicePixelRatio || 1) / backingStore;
+		};
+		let ratio = getPixelRatio(context);
 		let width = getComputedStyle(canvas).getPropertyValue("width").slice(0, -2);
 		let height = getComputedStyle(canvas)
 			.getPropertyValue("height")
 			.slice(0, -2);
 
-		// canvas.width = width * ratio;
-		// canvas.height = height * ratio;
+		canvas.width = width * ratio;
+		canvas.height = height * ratio;
 		canvas.style.width = `${width}px`;
 		canvas.style.height = `${height}px`;
 
@@ -53,7 +53,7 @@ export default function Canvas() {
 		//push each circle to array
 		for (let i = 0; i < circleInitialNum; i++) {
 			circleArray.push({
-				radius: Math.random() * 4 + 1,
+				radius: Math.random() * 5 + 2,
 				x: Math.random() * canvas.width,
 				y: Math.random() * canvas.height,
 				dx: Math.random() - 0.5,
@@ -63,13 +63,13 @@ export default function Canvas() {
 
 		//draw
 		function draw() {
-			context.globalCompositeOperation = "lighter";
+			// context.globalCompositeOperation = "lighter";
 
 			for (let i = 0; i < circleArray.length; i++) {
 
 				let circle = circleArray[i]
 
-				let color = "black";
+				let color = "lightgrey";
 
 				context.fillStyle = color;
 				context.beginPath();
@@ -84,20 +84,20 @@ export default function Canvas() {
 			for (let i = 0; i < circleArray.length; i++) {
 				let circleI = circleArray[i];
 				context.moveTo(circleI.x, circleI.y);
-				if (distance(mouse, circleI) < 150) {
+				if (distance(mouse, circleI) < 300) {
 					context.lineTo(mouse.x, mouse.y);
 				}
 
 				for (let j = 0; j < circleArray.length; j++) {
 					let circleII = circleArray[j];
-					if (distance(circleI, circleII) < 150) {
+					if (distance(circleI, circleII) < 300) {
 						//context.globalAlpha = (1 / 150 * distance(circleI, circleII).toFixed(1));
 						context.lineTo(circleII.x, circleII.y);
 					}
 				}
 			}
-			context.lineWidth = 0.1;
-			context.strokeStyle = 'black';
+			context.lineWidth = 0.5;
+			context.strokeStyle = 'lightgrey';
 			context.stroke();
 		}
 
@@ -137,14 +137,15 @@ export default function Canvas() {
 		//mouse
 		window.addEventListener("mousemove", function (event) {
 			mouse.x = event.clientX;
-			mouse.y = event.clientY;
+			mouse.y = event.clientY - 40;
 		})
 
 
 		//click to add circle
 		window.addEventListener("click", function (event) {
+			console.log(event.clientX)
 			circleArray.push({
-				radius: Math.random() * 4 + 1,
+				radius: Math.random() * 6 + 2,
 				x: event.clientX,
 				y: event.clientY,
 				dx: Math.random() - 0.5,
@@ -155,7 +156,7 @@ export default function Canvas() {
 		let requestId;
 
 		const animate = () => {
-			context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+			context.clearRect(0, 0, canvas.width, canvas.height);
 
 			draw();
 			update();
