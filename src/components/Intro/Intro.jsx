@@ -2,7 +2,7 @@ import "./Intro.scss"
 import { useEffect, useRef, useState } from "react";
 import { init } from 'ityped';
 import { gsap } from "gsap/all";
-import Canvas from "../Canvas/Canvas";
+import Canvas from "../Canvas/Canvas"
 
 export default function Intro() {
 
@@ -45,7 +45,7 @@ export default function Intro() {
 
     return (
         <div className='intro' id='intro'>
-            <Canvas id="canvas" />
+            <Canvas id="canvas"></Canvas>
             <div className="left" ref={leftRef}>
             </div>
             <div className="mid" ref={midRef}>
@@ -82,5 +82,6 @@ export default function Intro() {
                 </div>
             </div>
         </div>
+
     )
 }

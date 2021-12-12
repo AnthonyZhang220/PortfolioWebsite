@@ -5,6 +5,7 @@ import Project from "./components/Project/Project";
 import Works from "./components/Works/Works";
 import Contact from "./components/Contact/Contact";
 import Blog from "./components/Blog/Blog";
+// import Canvas from "./components/Canvas/Canvas"
 import { gsap } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
@@ -15,7 +16,7 @@ import "./App.scss"
 function App() {
 
 	gsap.registerPlugin(ScrollTrigger);
-    ScrollTrigger.defaults({ scroller:".sections"})
+	ScrollTrigger.defaults({ scroller: ".sections" })
 
 	return (
 

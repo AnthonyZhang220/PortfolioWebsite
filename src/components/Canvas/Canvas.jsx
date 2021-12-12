@@ -13,28 +13,28 @@ export default function Canvas() {
 		canvas.height = window.innerHeight;
 
 		// adjusting the scaling of the canvas
-		const getPixelRatio = (context) => {
-			let backingStore =
-				context.backingStorePixelRatio ||
-				context.webkitBackingStorePixelRatio ||
-				context.mozBackingStorePixelRatio ||
-				context.msBackingStorePixelRatio ||
-				context.oBackingStorePixelRatio ||
-				context.backingStorePixelRatio ||
-				1;
+		// const getPixelRatio = (context) => {
+		// 	let backingStore =
+		// 		context.backingStorePixelRatio ||
+		// 		context.webkitBackingStorePixelRatio ||
+		// 		context.mozBackingStorePixelRatio ||
+		// 		context.msBackingStorePixelRatio ||
+		// 		context.oBackingStorePixelRatio ||
+		// 		context.backingStorePixelRatio ||
+		// 		1;
 
-			return (window.devicePixelRatio || 1) / backingStore;
-		};
-		let ratio = getPixelRatio(context);
-		let width = getComputedStyle(canvas).getPropertyValue("width").slice(0, -2);
-		let height = getComputedStyle(canvas)
-			.getPropertyValue("height")
-			.slice(0, -2);
+		// 	return (window.devicePixelRatio || 1) / backingStore;
+		// };
+		// let ratio = getPixelRatio(context);
+		// let width = getComputedStyle(canvas).getPropertyValue("width").slice(0, -2);
+		// let height = getComputedStyle(canvas)
+		// 	.getPropertyValue("height")
+		// 	.slice(0, -2);
 
-		canvas.width = width * ratio;
-		canvas.height = height * ratio;
-		canvas.style.width = `${width}px`;
-		canvas.style.height = `${height}px`;
+		// canvas.width = width * ratio;
+		// canvas.height = height * ratio;
+		// canvas.style.width = `${width}px`;
+		// canvas.style.height = `${height}px`;
 
 
 		//declar variable
@@ -44,18 +44,18 @@ export default function Canvas() {
 		//frames per second
 		let FPS = 60;
 		//number of circles
-		let circleInitialNum = 50;
+		let circleInitialNum = 30;
 		let mouse = {
-			x: 0,
-			y: 0,
+			x: undefined,
+			y: undefined,
 		}
 
 		//push each circle to array
 		for (let i = 0; i < circleInitialNum; i++) {
 			circleArray.push({
-				radius: Math.random() * 5 + 2,
-				x: Math.random() * canvas.width,
-				y: Math.random() * canvas.height,
+				radius: Math.random() * 6 + 4,
+				x: Math.random() * window.innerWidth,
+				y: Math.random() * window.innerHeight,
 				dx: Math.random() - 0.5,
 				dy: Math.random() - 0.5,
 			})
@@ -65,6 +65,7 @@ export default function Canvas() {
 		function draw() {
 			// context.globalCompositeOperation = "lighter";
 
+			//draw circle
 			for (let i = 0; i < circleArray.length; i++) {
 
 				let circle = circleArray[i]
@@ -96,8 +97,11 @@ export default function Canvas() {
 					}
 				}
 			}
-			context.lineWidth = 0.5;
-			context.strokeStyle = 'lightgrey';
+			context.lineWidth = 1;
+			const gradientColor = function(){
+				
+			}
+			context.strokeStyle = gradientColor;
 			context.stroke();
 		}
 
@@ -126,15 +130,32 @@ export default function Canvas() {
 				circle.x += circle.dx;
 				circle.y += circle.dy;
 
-				if (circle.x < 0 || circle.x > canvas.width) circle.dx = -circle.dx;
-				if (circle.y < 0 || circle.y > canvas.height) circle.dy = -circle.dy;
+				if (circle.x < 0 || circle.x > window.innerWidth) circle.dx = -circle.dx;
+				if (circle.y < 0 || circle.y > window.innerHeight) circle.dy = -circle.dy;
 			}
 
 		};
 
+		//get mouse position on canvas
+		function getMousePos(canvas, event) {
+			let rect = canvas.getBoundingClientRect();
+
+			return {
+				x: event.clientX - rect.left,
+				y: event.clientY - rect.top,
+			};
+
+		}
+
+		// canvas.addEventListener("mousemove", function (event) {
+		// 	let mousePos = getMousePos(canvas, event);
+
+		// 	mouse.x = mousePos.x;
+		// 	mouse.y = mousePos.y;
+		// })
 
 
-		//mouse
+		// mouse
 		window.addEventListener("mousemove", function (event) {
 			mouse.x = event.clientX;
 			mouse.y = event.clientY - 40;
@@ -145,12 +166,18 @@ export default function Canvas() {
 		window.addEventListener("click", function (event) {
 			console.log(event.clientX)
 			circleArray.push({
-				radius: Math.random() * 6 + 2,
+				radius: Math.random() * 6 + 4,
 				x: event.clientX,
-				y: event.clientY,
+				y: event.clientY -40,
 				dx: Math.random() - 0.5,
 				dy: Math.random() - 0.5,
 			})
+		})
+
+		//resize window
+		window.addEventListener("resize", function () {
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
 		})
 
 		let requestId;
