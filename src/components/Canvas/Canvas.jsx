@@ -70,7 +70,7 @@ export default function Canvas() {
 
 				let circle = circleArray[i]
 
-				let color = "lightgrey";
+				let color = "lightgray";
 
 				context.fillStyle = color;
 				context.beginPath();
@@ -88,6 +88,11 @@ export default function Canvas() {
 				if (distance(mouse, circleI) < 300) {
 					context.lineTo(mouse.x, mouse.y);
 				}
+				const gradientColor = function(){
+					let gradientColor = `x`;
+				}
+
+				// let gradientColor = `rgb(${})`
 
 				for (let j = 0; j < circleArray.length; j++) {
 					let circleII = circleArray[j];
@@ -98,10 +103,8 @@ export default function Canvas() {
 				}
 			}
 			context.lineWidth = 1;
-			const gradientColor = function(){
-				
-			}
-			context.strokeStyle = gradientColor;
+
+			context.strokeStyle = "lightgray";
 			context.stroke();
 		}
 
@@ -158,7 +161,7 @@ export default function Canvas() {
 		// mouse
 		window.addEventListener("mousemove", function (event) {
 			mouse.x = event.clientX;
-			mouse.y = event.clientY - 40;
+			mouse.y = event.clientY - 60;
 		})
 
 
@@ -168,7 +171,7 @@ export default function Canvas() {
 			circleArray.push({
 				radius: Math.random() * 6 + 4,
 				x: event.clientX,
-				y: event.clientY -40,
+				y: event.clientY - 60,
 				dx: Math.random() - 0.5,
 				dy: Math.random() - 0.5,
 			})

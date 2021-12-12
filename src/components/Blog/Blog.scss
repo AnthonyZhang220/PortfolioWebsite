@@ -1,0 +1,38 @@
+.blog {
+	display: flex;
+    height: calc(100vh - 60px);
+
+	.left {
+		flex: 0.25;
+	}
+
+	.mid {
+		flex: 0.5;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		font-size: 80px;
+
+		.main {
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            
+
+			i {
+                flex: 0 1 auto;
+				font-size: inherit;
+			}
+
+			h1 {
+				font-size: inherit;
+			}
+		}
+	}
+
+	.right {
+		flex: 0.25;
+	}
+}
