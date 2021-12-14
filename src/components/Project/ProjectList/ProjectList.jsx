@@ -21,7 +21,9 @@ export default function ProjectList({ name, picture, description, tech, url, sou
                 <img src={picture} alt={name} />
                 <h2>{name} </h2>
                 <HorizontalRuleIcon className='horizontalrule'></HorizontalRuleIcon>
-                <p>{description}</p>
+                <div className="description">
+                    {description}
+                </div>
                 <div className="buttonwrapper">
                     <div className="left">
                         <button><link rel="stylesheet" href={url} />Source</button>

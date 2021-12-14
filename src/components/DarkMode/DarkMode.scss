@@ -1,0 +1,15 @@
+.darkmode-button{
+
+    button{
+        border:none;
+        background-color: transparent;
+
+        i{
+            font-size: 20px;
+        }
+        
+        &:hover{
+            cursor:pointer;
+        }
+    }
+}

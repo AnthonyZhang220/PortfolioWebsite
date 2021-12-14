@@ -2,7 +2,9 @@ import "./Intro.scss"
 import { useEffect, useRef, useState } from "react";
 import { init } from 'ityped';
 import { gsap } from "gsap/all";
-import Canvas from "../Canvas/Canvas"
+import Canvas from "../Canvas/Canvas";
+import BackToTop from "../BackToTop/BackToTop";
+import { ScrollToPlugin } from 'gsap/all'
 
 export default function Intro() {
 
@@ -11,6 +13,10 @@ export default function Intro() {
     const midRef = useRef(null);
     const rightRef = useRef(null);
     const arrowdownRef = useRef(null);
+    const backtotopRef = useRef(null);
+    const introRef = useRef(null);
+
+    gsap.registerPlugin(ScrollToPlugin);
 
     useEffect(() => {
         gsap.fromTo(rightRef.current, {
@@ -30,6 +36,41 @@ export default function Intro() {
     })
 
     useEffect(() => {
+        gsap.fromTo(arrowdownRef.current, { y: "0%", opacity: 1 }, {
+            y: "50%", opacity: 0, duration: 3,
+            scrollTrigger: {
+                trigger: introRef.current,
+                start: "center top",
+            }
+        })
+
+    })
+
+
+    function backtotop() {
+        console.log("clicked")
+        const tween = gsap.to(window, { scrollTo: { y: 0 } });
+        tween.play();
+    }
+
+    useEffect(() => {
+        gsap.set(backtotopRef.current, { y: 50 });
+
+        gsap.to(backtotopRef.current, {
+            y: 0,
+            autoAlpha: 1,
+            scrollTrigger: {
+                trigger: "body",
+                start: "top -50%",
+                end: "top -50%",
+                toggleActions: "play none reverse none"
+            }
+        });
+
+
+    })
+
+    useEffect(() => {
         init(textRef.current, {
             showCursor: true,
             backDelay: 1500,
@@ -44,7 +85,7 @@ export default function Intro() {
 
 
     return (
-        <div className='intro' id='intro'>
+        <div className='intro' id='intro' ref={introRef}>
             <Canvas id="canvas"></Canvas>
             <div className="left" ref={leftRef}>
             </div>
@@ -71,16 +112,17 @@ export default function Intro() {
             <div className="right" ref={rightRef}>
                 <div className="imgContainer">
                     <div className="linkedin">
-                        <a href="https://www.linkedin.com/in/anthony-xiangyu-zhang/" target="_blank" rel="noreferrer"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.linkedin.com/in/anthony-xiangyu-zhang/" target="_blank" rel="noreferrer"><i className="fab fa-linkedin"></i></a>
                     </div>
                     <div className="github">
-                        <a href="https://github.com/AnthonyZhang220" target="_blank" rel="noreferrer"><i class="fab fa-github"></i></a>
+                        <a href="https://github.com/AnthonyZhang220" target="_blank" rel="noreferrer"><i className="fab fa-github"></i></a>
                     </div>
                     <div className="stackoverflow">
-                        <a href="https://stackoverflow.com/users/6162027/anthony220" target="_blank" rel="noreferrer"> <i class="fab fa-stack-overflow"></i></a>
+                        <a href="https://stackoverflow.com/users/6162027/anthony220" target="_blank" rel="noreferrer"> <i className="fab fa-stack-overflow"></i></a>
                     </div>
                 </div>
             </div>
+            <BackToTop className="backtotop" ref={backtotopRef} onClick={backtotop}></BackToTop>
         </div>
 
     )

@@ -1,7 +1,9 @@
-import "./NavBar.scss"
+import DarkMode from "../DarkMode/DarkMode";
+import Language from "../Language/Language"
 import { useRef, useEffect } from "react";
 import { gsap } from "gsap/all";
-import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
+import "./NavBar.scss"
 
 export default function NavBar() {
 
@@ -10,30 +12,27 @@ export default function NavBar() {
     useEffect(() => {
         gsap.fromTo(navRef.current, { y: '-100%', opacity: 0 }, { delay: 1, y: "0%", opacity: 1, duration: 1 });
     })
-    return (
 
+    return (
         <nav className='navbar' ref={navRef}>
             <div className="left">
-                <div className="logo">
-                    <h1><Link to="/">[A-Z]</Link></h1>
-                </div>
             </div>
             <div className="mid">
-                <div className="wrapper">
-                    <div>
-                        <h1><a href="#project">Project</a></h1>
-                    </div>
-                    <div>
-                        <h1><a href="#portfolio">Portfolio</a></h1>
-                    </div>
-                    <div>
-                        <h1><Link to="/blogs">Blog</Link></h1>
-                    </div>
+                <div className="hashlink">
+                    <HashLink to="/#project">Project</HashLink>
                 </div>
+                <div className="hashlink">
+                    <HashLink to="/#portfolio">Portfolio</HashLink>
+                </div>
+                <HashLink to="/blogs"><div className="hashlink">Blog</div></HashLink>
             </div>
-
             <div className="right">
-                <div></div>
+                <div className="darkmode-button">
+                    <DarkMode></DarkMode>
+                </div>
+                <div className="language">
+                    <Language></Language>
+                </div>
             </div>
         </nav>
     )

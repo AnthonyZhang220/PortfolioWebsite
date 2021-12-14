@@ -44,7 +44,7 @@ export default function Canvas() {
 		//frames per second
 		let FPS = 60;
 		//number of circles
-		let circleInitialNum = 30;
+		let circleInitialNum = 15;
 		let mouse = {
 			x: undefined,
 			y: undefined,
@@ -56,8 +56,8 @@ export default function Canvas() {
 				radius: Math.random() * 6 + 4,
 				x: Math.random() * window.innerWidth,
 				y: Math.random() * window.innerHeight,
-				dx: Math.random() - 0.5,
-				dy: Math.random() - 0.5,
+				dx: Math.random() - 0.4,
+				dy: Math.random() - 0.4,
 			})
 		}
 
@@ -79,14 +79,14 @@ export default function Canvas() {
 				context.fillStyle = color;
 				context.stroke();
 			};
-
+			
 			//draw line
 			context.beginPath();
 			for (let i = 0; i < circleArray.length; i++) {
 				let circleI = circleArray[i];
 				context.moveTo(circleI.x, circleI.y);
 				if (distance(mouse, circleI) < 300) {
-					context.lineTo(mouse.x, mouse.y);
+					// context.lineTo(mouse.x, mouse.y);
 				}
 				const gradientColor = function(){
 					let gradientColor = `x`;
@@ -97,17 +97,26 @@ export default function Canvas() {
 				for (let j = 0; j < circleArray.length; j++) {
 					let circleII = circleArray[j];
 					if (distance(circleI, circleII) < 300) {
-						//context.globalAlpha = (1 / 150 * distance(circleI, circleII).toFixed(1));
+						// context.globalAlpha = (1 / 150 * distance(circleI, circleII).toFixed(1));
 						context.lineTo(circleII.x, circleII.y);
+						// context.globalAlpha = 0.5 - lineOpacity(circleI,circleII);
 					}
 				}
 			}
-			context.lineWidth = 1;
-
+			
+			context.lineWidth = 2;
+			// context.lineCap = "round";
 			context.strokeStyle = "lightgray";
 			context.stroke();
 		}
-
+	
+		//change opacity according to distance between two circles
+		function lineOpacity(circle1, circle2){
+			let d = distance(circle1, circle2);
+			let screen = Math.sqrt(Math.pow(window.innerHeight,2) + Math.pow(window.innerWidth,2))
+			let ratio = d / screen;
+			return ratio;
+		}
 
 
 
@@ -161,20 +170,21 @@ export default function Canvas() {
 		// mouse
 		window.addEventListener("mousemove", function (event) {
 			mouse.x = event.clientX;
-			mouse.y = event.clientY - 60;
+			mouse.y = event.clientY;
 		})
 
 
 		//click to add circle
 		window.addEventListener("click", function (event) {
-			console.log(event.clientX)
-			circleArray.push({
-				radius: Math.random() * 6 + 4,
-				x: event.clientX,
-				y: event.clientY - 60,
-				dx: Math.random() - 0.5,
-				dy: Math.random() - 0.5,
-			})
+			if(circleArray.length < 30){
+				circleArray.push({
+					radius: Math.random() * 6 + 4,
+					x: event.clientX,
+					y: event.clientY,
+					dx: Math.random() - 0.5,
+					dy: Math.random() - 0.5,
+				})
+			}
 		})
 
 		//resize window

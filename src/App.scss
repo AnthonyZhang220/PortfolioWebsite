@@ -1,3 +1,66 @@
-.App {
-	height: 100vh;
+body {
+
+	.App {
+		// height: 100vh;
+		overflow: hidden;
+
+	}
+	scroll-behavior: smooth;
+	// scrollbar-color: $mainColor2;
+	// scroll-snap-type: y mandatory;
+	scrollbar-width: thin; //for firefox
+	// &::-webkit-scrollbar {
+	// 	display: none;
+	// }
+
+	&::-webkit-scrollbar-track {
+		background-color: transparent;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: #d6dee1;
+		border-radius: 20px;
+		border: 2px solid transparent;
+		background-clip: content-box;
+	}
+
+	&::-webkit-scrollbar-thumb:hover {
+		background-color: #a8bbbf;
+	}
+
+	&::-webkit-scrollbar {
+		width: 14px;
+	}
+}
+
+::root {
+}
+
+.darkmode {
+	background-color: #121212;
+	color: rgba(255, 255, 255, 0.87);
+
+	a {
+		color: rgba(255, 255, 255, 0.87);
+	}
+
+	i {
+		color: rgba(255, 255, 255, 0.87);
+	}
+
+	span {
+		color: rgba(255, 255, 255, 0.87);
+	}
+
+	p {
+		color: rgba(255, 255, 255, 0.87);
+	}
+
+	h1 {
+		color: rgba(255, 255, 255, 0.87);
+	}
+
+	h2 {
+		color: rgba(255, 255, 255, 0.87);
+	}
 }

@@ -10,7 +10,7 @@ import "./Home.scss"
 function Home() {
 
     gsap.registerPlugin(ScrollTrigger);
-    ScrollTrigger.defaults({ scroller: ".sections" })
+    ScrollTrigger.defaults({ scroller: "body" })
 
     return (
         <section className="sections">

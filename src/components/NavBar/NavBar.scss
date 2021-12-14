@@ -6,8 +6,9 @@ nav {
 	height: 60px;
 	position: fixed;
 	top: 0;
-	z-index: -1;
+	z-index: 3;
 	display: flex;
+	line-height: normal;
 
 	.left {
 		flex: 0.3;
@@ -15,46 +16,47 @@ nav {
 		align-items: center;
 		justify-content: center;
 
-		.logo {
-			flex: 0 1 auto;
-			color: black;
-
-			h1 {
-				text-decoration: none;
-			}
-		}
 	}
 
 	.mid {
 		flex: 0.4;
 		display: flex;
-		align-items: center;
+		flex-direction: row;
 		justify-content: space-between;
-
-		.wrapper {
-			display: flex;
-			justify-content: space-around;
-			align-items: center;
-			font-size: 10px;
-			flex-direction: row;
-
-			h1 {
-				flex: 0 1 auto;
-				font-size: 20px;
-
-				a {
-					color: black;
-					text-decoration: none;
-
-					&:hover {
-						color: $mainColor2;
-					}
-				}
+		align-items: center;
+		letter-spacing: 1px;
+		
+		a {
+			// color:black;
+			font-size: 20px;
+			text-decoration: none;
+			
+			&:hover {
+				color: $mainColor2;
 			}
 		}
 	}
 
 	.right {
 		flex: 0.3;
+		display: flex;
+		justify-content: space-evenly;
+		align-items: center;
+
+		.darkmode-button{
+			display: flex;
+			flex: 0.4;
+			align-items: center;
+			justify-content: flex-end;
+		}
+
+		.language{
+			display:flex;
+			flex:0.4;
+			align-items: center;
+			justify-content: flex-start;
+		}
+
+
 	}
 }
