@@ -54,7 +54,7 @@ export default function Intro() {
     }
 
     useEffect(() => {
-        gsap.set(backtotopRef.current, { y: 50 });
+        gsap.set(backtotopRef.current, { y: 100 });
 
         gsap.to(backtotopRef.current, {
             y: 0,
@@ -66,8 +66,6 @@ export default function Intro() {
                 toggleActions: "play none reverse none"
             }
         });
-
-
     })
 
     useEffect(() => {

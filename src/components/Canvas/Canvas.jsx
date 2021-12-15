@@ -63,21 +63,20 @@ export default function Canvas() {
 
 		//draw
 		function draw() {
-			// context.globalCompositeOperation = "lighter";
-
+			
+			let color = "rgba(192,192,192)";
+			
 			//draw circle
 			for (let i = 0; i < circleArray.length; i++) {
-
+				
 				let circle = circleArray[i]
-
-				let color = "lightgray";
-
-				context.fillStyle = color;
+				
+				
 				context.beginPath();
 				context.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
-				context.fill();
+				// context.stroke();
 				context.fillStyle = color;
-				context.stroke();
+				context.fill();
 			};
 			
 			//draw line
@@ -85,28 +84,24 @@ export default function Canvas() {
 			for (let i = 0; i < circleArray.length; i++) {
 				let circleI = circleArray[i];
 				context.moveTo(circleI.x, circleI.y);
-				if (distance(mouse, circleI) < 300) {
-					// context.lineTo(mouse.x, mouse.y);
-				}
-				const gradientColor = function(){
-					let gradientColor = `x`;
-				}
-
-				// let gradientColor = `rgb(${})`
+				// if (distance(mouse, circleI) < 300) {
+				// 	context.lineTo(mouse.x, mouse.y);
+				// }
 
 				for (let j = 0; j < circleArray.length; j++) {
 					let circleII = circleArray[j];
-					if (distance(circleI, circleII) < 300) {
+					if (distance(circleI, circleII) < 350) {
 						// context.globalAlpha = (1 / 150 * distance(circleI, circleII).toFixed(1));
+
 						context.lineTo(circleII.x, circleII.y);
 						// context.globalAlpha = 0.5 - lineOpacity(circleI,circleII);
 					}
 				}
 			}
+			color = "rgba(192,192,192,0.5)";
 			
 			context.lineWidth = 2;
-			// context.lineCap = "round";
-			context.strokeStyle = "lightgray";
+			context.strokeStyle = color;
 			context.stroke();
 		}
 	
@@ -159,13 +154,6 @@ export default function Canvas() {
 
 		}
 
-		// canvas.addEventListener("mousemove", function (event) {
-		// 	let mousePos = getMousePos(canvas, event);
-
-		// 	mouse.x = mousePos.x;
-		// 	mouse.y = mousePos.y;
-		// })
-
 
 		// mouse
 		window.addEventListener("mousemove", function (event) {
@@ -176,7 +164,7 @@ export default function Canvas() {
 
 		//click to add circle
 		window.addEventListener("click", function (event) {
-			if(circleArray.length < 30){
+			if(circleArray.length < 25){
 				circleArray.push({
 					radius: Math.random() * 6 + 4,
 					x: event.clientX,

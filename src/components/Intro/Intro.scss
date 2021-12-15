@@ -9,6 +9,7 @@
 
 	#canvas {
 		position: fixed;
+		z-index:0;
 	}
 
 	.left {
@@ -195,11 +196,12 @@
 
 	.backtotop {
 		position: fixed;
-		bottom: 45px;
-		right: 40px;
-		opacity: 0;
-		button {
-			border: none;
-		}
+		bottom: 55px;
+		right: 60px;
+		z-index:5;
+
+		font-size: 35px;
+		cursor: pointer;
+
 	}
 }

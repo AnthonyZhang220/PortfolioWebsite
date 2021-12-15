@@ -8,7 +8,7 @@ export default function Blog() {
             <div className="mid">
                 <div className="main">
                     <div className="icon">
-                        <i class="fas fa-drafting-compass"></i>
+                        <i className="fas fa-drafting-compass"></i>
                     </div>
                     <div className="title">
                         <h1>
