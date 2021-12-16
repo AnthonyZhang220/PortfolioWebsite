@@ -1,9 +1,16 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./Canvas.scss";
 
 
 export default function Canvas() {
 	const canvasRef = useRef(null);
+	const [color, getColor] = useState("")
+	
+	let colorArray = ["#ACDDDE", "#CAF1DE", "#E1F8DC", "#FEF8DD", "#FFE7C7", "#F7D8BA"];
+	
+	function randomColor() {
+		return colorArray[Math.floor(Math.random() * colorArray.length)];
+	}
 
 	useEffect(() => {
 		let canvas = canvasRef.current;
@@ -63,27 +70,28 @@ export default function Canvas() {
 
 		//draw
 		function draw() {
-			
-			let color = "rgba(192,192,192)";
-			
+
 			//draw circle
 			for (let i = 0; i < circleArray.length; i++) {
-				
+
 				let circle = circleArray[i]
-				
-				
+
+
 				context.beginPath();
 				context.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
 				// context.stroke();
-				context.fillStyle = color;
+				context.fillStyle = "rgba(192,192,192)";
 				context.fill();
 			};
-			
+
+
+
 			//draw line
 			context.beginPath();
 			for (let i = 0; i < circleArray.length; i++) {
 				let circleI = circleArray[i];
-				context.moveTo(circleI.x, circleI.y);
+				// context.moveTo(circleI.x, circleI.y);
+
 				// if (distance(mouse, circleI) < 300) {
 				// 	context.lineTo(mouse.x, mouse.y);
 				// }
@@ -94,21 +102,23 @@ export default function Canvas() {
 						// context.globalAlpha = (1 / 150 * distance(circleI, circleII).toFixed(1));
 
 						context.lineTo(circleII.x, circleII.y);
+
 						// context.globalAlpha = 0.5 - lineOpacity(circleI,circleII);
 					}
 				}
 			}
-			color = "rgba(192,192,192,0.5)";
-			
-			context.lineWidth = 2;
-			context.strokeStyle = color;
+
+
+			context.lineWidth = 3;
+			context.strokeStyle = colorArray[1];
 			context.stroke();
 		}
-	
+
+
 		//change opacity according to distance between two circles
-		function lineOpacity(circle1, circle2){
+		function lineOpacity(circle1, circle2) {
 			let d = distance(circle1, circle2);
-			let screen = Math.sqrt(Math.pow(window.innerHeight,2) + Math.pow(window.innerWidth,2))
+			let screen = Math.sqrt(Math.pow(window.innerHeight, 2) + Math.pow(window.innerWidth, 2))
 			let ratio = d / screen;
 			return ratio;
 		}
@@ -137,8 +147,10 @@ export default function Canvas() {
 				circle.x += circle.dx;
 				circle.y += circle.dy;
 
-				if (circle.x < 0 || circle.x > window.innerWidth) circle.dx = -circle.dx;
-				if (circle.y < 0 || circle.y > window.innerHeight) circle.dy = -circle.dy;
+				let boundary = 50;
+
+				if (circle.x < -boundary || circle.x > window.innerWidth + boundary) circle.dx = -circle.dx;
+				if (circle.y < -boundary || circle.y > window.innerHeight + boundary) circle.dy = -circle.dy;
 			}
 
 		};
@@ -164,7 +176,7 @@ export default function Canvas() {
 
 		//click to add circle
 		window.addEventListener("click", function (event) {
-			if(circleArray.length < 25){
+			if (circleArray.length < 25) {
 				circleArray.push({
 					radius: Math.random() * 6 + 4,
 					x: event.clientX,

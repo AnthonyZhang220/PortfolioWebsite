@@ -63,7 +63,7 @@ export default function Intro() {
                 trigger: "body",
                 start: "top -50%",
                 end: "top -50%",
-                toggleActions: "play none reverse none"
+                toggleActions: "play none reverse none",
             }
         });
     })
@@ -94,9 +94,6 @@ export default function Intro() {
                         <h2>Welcome, I'm</h2>
                         <h1>Anthony Zhang</h1>
                         <h3>Frontend <span ref={textRef}></span></h3>
-                        <div className="email">
-                            <button type='button'><h3>Start a Conversation</h3></button>
-                        </div>
                     </div>
                     <div className="bottom-spacing">
                         <a href="#portfolio">

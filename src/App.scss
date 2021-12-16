@@ -1,4 +1,7 @@
+@import "./global.scss";
+
 body {
+	background-color: $bg-color-light;
 
 	.App {
 		// height: 100vh;
@@ -39,6 +42,10 @@ body {
 .darkmode {
 	background-color: #121212;
 	color: rgba(255, 255, 255, 0.87);
+
+	nav{
+		color: rgba(255, 255, 255, 0.87);
+	}
 
 	a {
 		color: rgba(255, 255, 255, 0.87);
