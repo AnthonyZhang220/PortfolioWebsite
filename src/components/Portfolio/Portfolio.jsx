@@ -1,8 +1,9 @@
 import "./Portfolio.scss"
 import PortfolioList from "./PortfolioList/PortfolioList";
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export default function Portfolio() {
+
     const list = [
         {
             id: 'Featured',
@@ -20,6 +21,13 @@ export default function Portfolio() {
 
     const [selected, setSelected] = useState("Featured")
 
+    const portfolioRef = useRef(null);
+    
+    useEffect(()=>{
+        
+
+    })
+
     return (
         <div className='portfolio' id='portfolio'>
             <h1>Portfolio</h1>
@@ -29,19 +37,19 @@ export default function Portfolio() {
                 ))}</ul>
             <div className="container">
                 <div className="item">
-                    <img src="assets/images/tenor.png" alt="pic" />
+                    <img src="assets/images/project-bg.jpg" alt="pic" />
                     <h3>LaoMa Spicy</h3>
                 </div>
                 <div className="item">
-                    <img src="assets/images/tenor.png" alt="pic" />
+                    <img src="assets/images/project-bg.jpg" alt="pic" />
                     <h3>LaoMa Spicy</h3>
                 </div>
                 <div className="item">
-                    <img src="assets/images/tenor.png" alt="pic" />
+                    <img src="assets/images/project-bg.jpg" alt="pic" />
                     <h3>LaoMa Spicy</h3>
                 </div>
                 <div className="item">
-                    <img src="assets/images/tenor.png" alt="pic" />
+                    <img src="assets/images/project-bg.jpg" alt="pic" />
                     <h3>LaoMa Spicy</h3>
                 </div>
             </div>

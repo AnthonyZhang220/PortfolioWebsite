@@ -4,7 +4,7 @@ import { init } from 'ityped';
 import { gsap } from "gsap/all";
 import Canvas from "../Canvas/Canvas";
 import BackToTop from "../BackToTop/BackToTop";
-import { ScrollToPlugin } from 'gsap/all'
+import { ScrollToPlugin } from 'gsap/all';
 
 export default function Intro() {
 

@@ -4,12 +4,15 @@ import { useRef, useEffect } from "react";
 import { gsap } from "gsap/all";
 import { HashLink } from "react-router-hash-link";
 import { ScrollToPlugin } from 'gsap/all'
+import { ScrollTrigger } from "gsap/all";
 import "./NavBar.scss"
 import "../../global.scss"
 
 export default function NavBar() {
 
     gsap.registerPlugin(ScrollToPlugin);
+    gsap.registerPlugin(ScrollTrigger);
+    
     const navRef = useRef(null);
 
 

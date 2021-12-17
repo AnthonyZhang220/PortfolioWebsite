@@ -3,45 +3,57 @@ import "./Canvas.scss";
 
 
 export default function Canvas() {
-	const canvasRef = useRef(null);
+	const backgroundRef = useRef(null);
+	const topRef = useRef(null);
+
 	const [color, getColor] = useState("")
-	
+
 	let colorArray = ["#ACDDDE", "#CAF1DE", "#E1F8DC", "#FEF8DD", "#FFE7C7", "#F7D8BA"];
-	
+
 	function randomColor() {
 		return colorArray[Math.floor(Math.random() * colorArray.length)];
 	}
 
 	useEffect(() => {
-		let canvas = canvasRef.current;
-		let context = canvas.getContext("2d");
+		let background = backgroundRef.current;
+		let top = topRef.current;
+		let bgcontext = background.getContext("2d");
+		let topcontext = top.getContext("2d");
+		let alpha = 0.5;
 
-		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight;
+		top.style.opacity = alpha;
+		background.globalAlpha = 1;
 
-		// adjusting the scaling of the canvas
-		// const getPixelRatio = (context) => {
+		bgcontext.drawImage(top,0,0);
+		
+
+
+		background.width = window.innerWidth;
+		background.height = window.innerHeight;
+
+		// adjusting the scaling of the background
+		// const getPixelRatio = (bgcontext) => {
 		// 	let backingStore =
-		// 		context.backingStorePixelRatio ||
-		// 		context.webkitBackingStorePixelRatio ||
-		// 		context.mozBackingStorePixelRatio ||
-		// 		context.msBackingStorePixelRatio ||
-		// 		context.oBackingStorePixelRatio ||
-		// 		context.backingStorePixelRatio ||
+		// 		bgcontext.backingStorePixelRatio ||
+		// 		bgcontext.webkitBackingStorePixelRatio ||
+		// 		bgcontext.mozBackingStorePixelRatio ||
+		// 		bgcontext.msBackingStorePixelRatio ||
+		// 		bgcontext.oBackingStorePixelRatio ||
+		// 		bgcontext.backingStorePixelRatio ||
 		// 		1;
 
 		// 	return (window.devicePixelRatio || 1) / backingStore;
 		// };
-		// let ratio = getPixelRatio(context);
-		// let width = getComputedStyle(canvas).getPropertyValue("width").slice(0, -2);
-		// let height = getComputedStyle(canvas)
+		// let ratio = getPixelRatio(bgcontext);
+		// let width = getComputedStyle(background).getPropertyValue("width").slice(0, -2);
+		// let height = getComputedStyle(background)
 		// 	.getPropertyValue("height")
 		// 	.slice(0, -2);
 
-		// canvas.width = width * ratio;
-		// canvas.height = height * ratio;
-		// canvas.style.width = `${width}px`;
-		// canvas.style.height = `${height}px`;
+		// background.width = width * ratio;
+		// background.height = height * ratio;
+		// background.style.width = `${width}px`;
+		// background.style.height = `${height}px`;
 
 
 		//declar variable
@@ -77,41 +89,41 @@ export default function Canvas() {
 				let circle = circleArray[i]
 
 
-				context.beginPath();
-				context.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
-				// context.stroke();
-				context.fillStyle = "rgba(192,192,192)";
-				context.fill();
+				bgcontext.beginPath();
+				bgcontext.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
+				// bgcontext.stroke();
+				bgcontext.fillStyle = "rgb(192,192,192)";
+				bgcontext.fill();
 			};
 
 
 
 			//draw line
-			context.beginPath();
+			bgcontext.beginPath();
 			for (let i = 0; i < circleArray.length; i++) {
 				let circleI = circleArray[i];
-				// context.moveTo(circleI.x, circleI.y);
+				// bgcontext.moveTo(circleI.x, circleI.y);
 
 				// if (distance(mouse, circleI) < 300) {
-				// 	context.lineTo(mouse.x, mouse.y);
+				// 	bgcontext.lineTo(mouse.x, mouse.y);
 				// }
 
 				for (let j = 0; j < circleArray.length; j++) {
 					let circleII = circleArray[j];
 					if (distance(circleI, circleII) < 350) {
-						// context.globalAlpha = (1 / 150 * distance(circleI, circleII).toFixed(1));
+						// bgcontext.globalAlpha = (1 / 150 * distance(circleI, circleII).toFixed(1));
 
-						context.lineTo(circleII.x, circleII.y);
+						bgcontext.lineTo(circleII.x, circleII.y);
 
-						// context.globalAlpha = 0.5 - lineOpacity(circleI,circleII);
+						// bgcontext.globalAlpha = 0.5 - lineOpacity(circleI,circleII);
 					}
 				}
 			}
 
 
-			context.lineWidth = 3;
-			context.strokeStyle = colorArray[1];
-			context.stroke();
+			bgcontext.lineWidth = 2;
+			bgcontext.strokeStyle = "rgb(192,192,192,0.5)";
+			bgcontext.stroke();
 		}
 
 
@@ -155,9 +167,9 @@ export default function Canvas() {
 
 		};
 
-		//get mouse position on canvas
-		function getMousePos(canvas, event) {
-			let rect = canvas.getBoundingClientRect();
+		//get mouse position on background
+		function getMousePos(background, event) {
+			let rect = background.getBoundingClientRect();
 
 			return {
 				x: event.clientX - rect.left,
@@ -189,14 +201,14 @@ export default function Canvas() {
 
 		//resize window
 		window.addEventListener("resize", function () {
-			canvas.width = window.innerWidth;
-			canvas.height = window.innerHeight;
+			background.width = window.innerWidth;
+			background.height = window.innerHeight;
 		})
 
 		let requestId;
 
 		const animate = () => {
-			context.clearRect(0, 0, canvas.width, canvas.height);
+			bgcontext.clearRect(0, 0, background.width, background.height);
 
 			draw();
 			update();
@@ -214,5 +226,10 @@ export default function Canvas() {
 
 	});
 
-	return <canvas id="canvas" ref={canvasRef}></canvas>;
+	return (
+		<div className="canvas" id="canvas">
+			<canvas id="background" ref={backgroundRef}></canvas>
+			<canvas id="top" ref={topRef}></canvas>
+		</div>
+	);
 }

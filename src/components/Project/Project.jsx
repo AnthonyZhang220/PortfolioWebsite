@@ -16,9 +16,7 @@ export default function Project() {
         }, {
             y: "0%", opacity: 1, duration: 2,
             scrollTrigger: {
-                // scroller: window,
                 trigger: listRef.current,
-                // markers: true,
                 start: "top bottom"
             },
         });

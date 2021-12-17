@@ -27,7 +27,7 @@ export default function DarkMode() {
 		enableDarkMode();
 	}
 
-	function clickHandler () {
+	function clickHandler() {
 		darkMode = localStorage.getItem('darkMode');
 		if (darkMode !== "enabled") {
 			enableDarkMode();
@@ -44,7 +44,7 @@ export default function DarkMode() {
 	return (
 		<div className="darkmode-button">
 			<button id="dark-mode-toggle" className="dark-mode-toggle"
-				aria-label='toggle dark mode' onClick={clickHandler}>{isDark ? <i className="fas fa-moon"></i> : <i className="fas fa-sun"></i>}
+				aria-label='toggle dark mode' onClick={clickHandler}>{isDark ? <i className="fas fa-sun"></i> : <i className="fas fa-moon"></i>}
 			</button>
 		</div>
 	);
