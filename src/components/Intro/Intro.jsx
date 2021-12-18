@@ -49,8 +49,7 @@ export default function Intro() {
 
     function backtotop() {
         console.log("clicked")
-        const tween = gsap.to(window, { scrollTo: { y: 0 } });
-        tween.play();
+        gsap.to(window, { scrollTo: { y: 0 } });
     }
 
     useEffect(() => {

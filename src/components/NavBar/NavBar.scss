@@ -3,30 +3,30 @@
 .navbar {
 	background-color: transparent;
 	width: 100%;
-	height: 60px;
+	height: 100px;
 	position: fixed;
 	top: 0;
 	z-index: 3;
 	display: flex;
-	line-height: normal;
+	// line-height: normal;
 
 	.left {
-		flex: 0.3;
+		flex: 0.5;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 	}
 
 	.mid {
-		flex: 0.4;
+		flex: 0.3;
 		display: flex;
 		flex-direction: row;
-		justify-content: space-between;
+		justify-content: space-evenly;
 		align-items: center;
 		letter-spacing: 1px;
 
 		a {
-			font-size: 20px;
+			font-size: 15px;
 			color: inherit;
 			text-decoration: none;
 
@@ -56,16 +56,14 @@
 		}
 
 		.email {
-			flex:0.4;
+			flex: 0.4;
 			align-items: center;
 			justify-content: center;
-			
-			button {
-				color: inherit;
-				padding: 10px;
-				background-color: transparent;
-				border-radius: 10px;
-			}
+
+			color: inherit;
+			padding: 15px;
+			background-color: $mainColor1;
+			border-radius: 20px;
 		}
 	}
 }

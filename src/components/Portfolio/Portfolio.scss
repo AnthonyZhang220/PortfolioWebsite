@@ -10,8 +10,9 @@
 	
 	h1 {
 		justify-content: flex-start;
-		margin-top: 100px;
+		margin-top: $section-margin-top;
 		font-size: 50px;
+		color:$mainColor4;
 	}
 
 	ul {

@@ -14,7 +14,7 @@ function Home() {
     gsap.registerPlugin(ScrollTrigger);
     ScrollTrigger.defaults({ scroller: "body" });
 
-    const dataColorArray = ["#FAFAFA", "#CBE4F9", "#CDF5F6", "#EFF9DA", "#F9EBDF", "#F9D8D6"];
+    const dataColorArray = ["#FAFAFA", "#FFFADE", "#CDF5F6", "#EFF9DA", "#F9EBDF", "#F9D8D6"];
 
     // useEffect(() => {
     //     window.addEventListener("load", function () {
@@ -42,36 +42,36 @@ function Home() {
     //     });
 
     // })
-    const getMode = () => {
-        return localStorage.getItem("darkmode");
-    }
-    console.log(getMode());
+    // const getMode = () => {
+    //     return localStorage.getItem("darkmode");
+    // }
+    // console.log(getMode());
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        if (getMode() === "enabled") {
-            return null;
-        } else {
+    //     if (getMode() === "enabled") {
+    //         return null;
+    //     } else {
 
-            gsap.utils.toArray('.bg-color').forEach((elem) => {
+    //         gsap.utils.toArray('.bg-color').forEach((elem) => {
 
-                let bgColor = elem.getAttribute("data-color");
+    //             let bgColor = elem.getAttribute("data-color");
 
-                console.log(bgColor);
+    //             console.log(bgColor);
 
-                ScrollTrigger.create({
-                    trigger: elem,
-                    start: "top 50%",
-                    end: "bottom 50%",
-                    onEnter: () => gsap.to("body", { duration: 1, backgroundColor: bgColor }),
-                    onLeave: () => gsap.to("body", { duration: 1, backgroundColor: bgColor }),
-                    onLeaveBack: () => gsap.to("body", { duration: 1, backgroundColor: bgColor }),
-                    onEnterBack: () => gsap.to("body", { duration: 1, backgroundColor: bgColor }),
-                    markers: true,
-                })
-            });
-        }
-    });
+    //             ScrollTrigger.create({
+    //                 trigger: elem,
+    //                 start: "top 50%",
+    //                 end: "bottom 50%",
+    //                 onEnter: () => gsap.to("body", { duration: 1, backgroundColor: bgColor }),
+    //                 onLeave: () => gsap.to("body", { duration: 1, backgroundColor: bgColor }),
+    //                 onLeaveBack: () => gsap.to("body", { duration: 1, backgroundColor: bgColor }),
+    //                 onEnterBack: () => gsap.to("body", { duration: 1, backgroundColor: bgColor }),
+    //                 markers: true,
+    //             })
+    //         });
+    //     }
+    // });
 
 
 
@@ -80,16 +80,16 @@ function Home() {
             <section className="bg-color">
                 <Intro />
             </section>
-            <section className="bg-color" data-color={dataColorArray[1]}>
+            <section className="bg-color" data-color={dataColorArray[1]} id="section1">
                 <Portfolio />
             </section>
-            <section className="bg-color" data-color={dataColorArray[2]}>
+            <section className="bg-color" data-color={dataColorArray[2]} id="section2">
                 <Project />
             </section>
-            <section className="bg-color" data-color={dataColorArray[3]}>
+            <section className="bg-color" data-color={dataColorArray[3]} id="section3">
                 <Works />
             </section>
-            <section className="bg-color" data-color={dataColorArray[4]} >
+            <section className="bg-color" data-color={dataColorArray[4]} id="section4">
                 <Contact />
             </section>
         </main>
