@@ -1,6 +1,7 @@
 .blog {
 	display: flex;
     height: calc(100vh - 60px);
+	overflow: hidden;
 
 	.left {
 		flex: 0.25;

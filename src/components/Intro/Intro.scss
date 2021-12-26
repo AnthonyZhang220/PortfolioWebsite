@@ -9,7 +9,18 @@
 
 	#canvas {
 		position: fixed;
-		z-index:0;
+		z-index: 0;
+	}
+
+	.hi,
+	.happy {
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		color: inherit;
+		transform: translate(-50%, -100%);
+		font-size: 60px;
+		opacity: 0;
 	}
 
 	.left {
@@ -18,6 +29,7 @@
 
 	.mid {
 		flex: 0.4;
+		z-index:1;
 
 		.wrapper {
 			width: 100%;
@@ -90,8 +102,6 @@
 						}
 					}
 				}
-
-
 			}
 
 			.bottom-spacing {
@@ -189,10 +199,9 @@
 		position: fixed;
 		bottom: 55px;
 		right: 60px;
-		z-index:5;
+		z-index: 5;
 
 		font-size: 35px;
 		cursor: pointer;
-
 	}
 }

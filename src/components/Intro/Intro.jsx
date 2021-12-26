@@ -1,5 +1,5 @@
 import "./Intro.scss"
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { init } from 'ityped';
 import { gsap } from "gsap/all";
 import Canvas from "../Canvas/Canvas";
@@ -15,26 +15,84 @@ export default function Intro() {
     const arrowdownRef = useRef(null);
     const backtotopRef = useRef(null);
     const introRef = useRef(null);
+    const hiRef = useRef(null);
+    const happyRef = useRef(null);
 
     gsap.registerPlugin(ScrollToPlugin);
 
+
+    
+    //entry animation
     useEffect(() => {
-        gsap.fromTo(rightRef.current, {
-            x: '25%', opacity: 0
-        }, { delay: 1.5, x: '0%', opacity: 1, duration: 1.5 }
-        )
+        let entryPlayed = sessionStorage.getItem("hasMyAnimationPlayed")
+        let introPlayed = sessionStorage.getItem("introPlayed");
+        
+        //entry timeline
+        const entryTimeline = gsap.timeline({
+            onComplete: () => {
+                console.log(sessionStorage)
+                sessionStorage.setItem("hasMyAnimationPlayed", true)
+
+            }
+        })
+
+            //show Hi
+            .set(hiRef.current, { opacity: 0 })
+            .set(happyRef.current, { opacity: 0 })
+
+            .to(hiRef.current,
+                { opacity: 1, duration: 1 }
+            )
+
+            .to(hiRef.current,
+                { opacity: 0, duration: 1 }
+            )
+
+            .to(happyRef.current, { opacity: 1, duration: 1 })
+            .to(happyRef.current, { opacity: 0, duration: 1 })
+
+            .set(hiRef.current, { opacity: 0 })
+            .set(happyRef.current, { opacity: 0 })
+
+
+        //intro timeline
+        const introTimeline = gsap.timeline({
+            onComplete: () => {
+                sessionStorage.setItem("introPlayed", true)
+            }
+        })
+            //mid flexbox
+            .fromTo(midRef.current, {
+                y: '25%', opacity: 0
+            }, { y: "0%", opacity: 1, duration: 1.5 })
+
+            //right flexbox
+            .fromTo(rightRef.current, {
+                x: '25%', opacity: 0
+            }, { x: '0%', opacity: 1, duration: 1.5 }
+            )
+            // show canvas in s
+            .fromTo("#canvas", { opacity: 0 },
+                {
+                    opacity: 0.3, duration: 2
+                })
+
+        if (entryPlayed) {
+            entryTimeline.kill();
+            introTimeline.play();
+        } else {
+            const firstTimeTimeline = gsap.timeline();
+            entryTimeline.add(introTimeline);
+            firstTimeTimeline.play();
+        }
+
+        if (!introPlayed) {
+            introTimeline.kill()
+        }
     })
 
-    useEffect(() => {
-        gsap.fromTo(midRef.current, {
-            y: '25%', opacity: 0
-        }, { y: "0%", opacity: 1, duration: 1.5 });
-    })
 
-    useEffect(() => {
-        gsap.fromTo(arrowdownRef.current, { y: "-100%", opacity: 0 }, { delay: 2, y: "0%", opacity: 1, duration: 1 });
-    })
-
+    //arrow down disappear on scroll
     useEffect(() => {
         gsap.fromTo(arrowdownRef.current, { y: "0%", opacity: 1 }, {
             y: "50%", opacity: 0, duration: 3,
@@ -43,7 +101,6 @@ export default function Intro() {
                 start: "center top",
             }
         })
-
     })
 
 
@@ -52,6 +109,7 @@ export default function Intro() {
         gsap.to(window, { scrollTo: { y: 0 } });
     }
 
+    //back to top show when scorlling down
     useEffect(() => {
         gsap.set(backtotopRef.current, { y: 100 });
 
@@ -67,6 +125,7 @@ export default function Intro() {
         });
     })
 
+    //role animation
     useEffect(() => {
         init(textRef.current, {
             showCursor: true,
@@ -78,12 +137,13 @@ export default function Intro() {
 
 
 
-    // const [clicked, setClicked] = useState(false);
-
 
     return (
         <div className='intro' id='intro' ref={introRef}>
             <Canvas id="canvas"></Canvas>
+            <div className="hi" ref={hiRef}>Hi</div>
+            <div className="happy" ref={happyRef}>I'm happy you're here</div>
+
             <div className="left" ref={leftRef}>
             </div>
             <div className="mid" ref={midRef}>

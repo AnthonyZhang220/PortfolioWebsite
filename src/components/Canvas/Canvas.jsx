@@ -24,7 +24,7 @@ export default function Canvas() {
 		top.style.opacity = alpha;
 		background.globalAlpha = 1;
 
-		bgcontext.drawImage(top,0,0);
+		// bgcontext.drawImage(top,0,0);
 		
 
 
@@ -110,7 +110,7 @@ export default function Canvas() {
 
 				for (let j = 0; j < circleArray.length; j++) {
 					let circleII = circleArray[j];
-					if (distance(circleI, circleII) < 350) {
+					if (distance(circleI, circleII) < 250) {
 						// bgcontext.globalAlpha = (1 / 150 * distance(circleI, circleII).toFixed(1));
 
 						bgcontext.lineTo(circleII.x, circleII.y);

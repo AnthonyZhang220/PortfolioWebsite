@@ -3,6 +3,7 @@ import Portfolio from "./components/Portfolio/Portfolio";
 import Project from "./components/Project/Project";
 import Works from "./components/Works/Works";
 import Contact from "./components/Contact/Contact";
+import About from "./components/About/About"
 import { gsap } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect } from 'react';
@@ -81,15 +82,18 @@ function Home() {
                 <Intro />
             </section>
             <section className="bg-color" data-color={dataColorArray[1]} id="section1">
+                <About />
+            </section>
+            <section className="bg-color" data-color={dataColorArray[1]} id="section2">
                 <Portfolio />
             </section>
-            <section className="bg-color" data-color={dataColorArray[2]} id="section2">
+            <section className="bg-color" data-color={dataColorArray[2]} id="section3">
                 <Project />
             </section>
-            <section className="bg-color" data-color={dataColorArray[3]} id="section3">
+            <section className="bg-color" data-color={dataColorArray[3]} id="section4">
                 <Works />
             </section>
-            <section className="bg-color" data-color={dataColorArray[4]} id="section4">
+            <section className="bg-color" data-color={dataColorArray[4]} id="section5">
                 <Contact />
             </section>
         </main>

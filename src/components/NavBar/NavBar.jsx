@@ -23,8 +23,21 @@ export default function NavBar() {
 
 
     useEffect(() => {
-        //landing animation from top for navbar
-        gsap.fromTo(navRef.current, { y: '-100%', opacity: 0 }, { delay: 1, y: "0%", opacity: 1, duration: 1 });
+
+        let navbarPlayed = sessionStorage.getItem("navbarPlayed")
+        if (!navbarPlayed) {
+
+            let navTl = gsap.timeline({
+                onComplete: () => {
+                    sessionStorage.setItem("navbarPlayed", true)
+                }
+            })
+
+                //landing animation from top for navbar
+                .fromTo(navRef.current, { y: '-100%', opacity: 0 }, { delay: 4, y: "0%", opacity: 1, duration: 1 })
+
+            navTl.play();
+        }
 
 
         //scroll smooth effect on hashlink
@@ -49,9 +62,9 @@ export default function NavBar() {
                 onEnter: () => {
                     gsap.set(hashLinks[i], { scale: 1.3 });
                 },
-                onEnterBack: () =>{
+                onEnterBack: () => {
                     gsap.set(hashLinks[i], { scale: 1.3 });
-                    
+
                 }
 
                 // onLeave: () => {
@@ -87,8 +100,11 @@ export default function NavBar() {
         <nav className='navbar' ref={navRef}>
             <div className="left"></div>
             <div className="mid">
+                <div role="list" className="hashlink"><HashLink to="/#intro">HOME</HashLink></div>
+                <div role="list" className="hashlink"><HashLink to="/#about">ABOUT</HashLink></div>
                 <div role="list" className="hashlink"><HashLink to="/#portfolio">PORTFOLIO</HashLink></div>
                 <div role="list" className="hashlink"><HashLink to="/#project">PROJECT</HashLink></div>
+                <div role="list" className="hashlink"><HashLink to="/#contact">CONTACT</HashLink></div>
                 <div role="list" className="hashlink"><HashLink to="/blogs">BLOG</HashLink></div>
             </div>
             <div className="right">
