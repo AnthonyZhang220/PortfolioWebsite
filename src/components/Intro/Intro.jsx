@@ -9,9 +9,8 @@ import { ScrollToPlugin } from 'gsap/all';
 export default function Intro() {
 
     const textRef = useRef(null);
-    const leftRef = useRef(null);
     const midRef = useRef(null);
-    const rightRef = useRef(null);
+    const iconRef = useRef(null);
     const arrowdownRef = useRef(null);
     const backtotopRef = useRef(null);
     const introRef = useRef(null);
@@ -21,12 +20,12 @@ export default function Intro() {
     gsap.registerPlugin(ScrollToPlugin);
 
 
-    
+
     //entry animation
     useEffect(() => {
         let entryPlayed = sessionStorage.getItem("hasMyAnimationPlayed")
         let introPlayed = sessionStorage.getItem("introPlayed");
-        
+
         //entry timeline
         const entryTimeline = gsap.timeline({
             onComplete: () => {
@@ -66,16 +65,17 @@ export default function Intro() {
                 y: '25%', opacity: 0
             }, { y: "0%", opacity: 1, duration: 1.5 })
 
-            //right flexbox
-            .fromTo(rightRef.current, {
-                x: '25%', opacity: 0
-            }, { x: '0%', opacity: 1, duration: 1.5 }
-            )
+            //social icon
+            .fromTo(iconRef.current, {
+                y: '25%', opacity: 0
+            }, { y: '0%', opacity: 1, duration: 1.5 })
+
             // show canvas in s
             .fromTo("#canvas", { opacity: 0 },
                 {
                     opacity: 0.3, duration: 2
                 })
+
 
         if (entryPlayed) {
             entryTimeline.kill();
@@ -87,7 +87,7 @@ export default function Intro() {
         }
 
         if (!introPlayed) {
-            introTimeline.kill()
+            // introTimeline.kill()
         }
     })
 
@@ -125,6 +125,7 @@ export default function Intro() {
         });
     })
 
+
     //role animation
     useEffect(() => {
         init(textRef.current, {
@@ -144,7 +145,14 @@ export default function Intro() {
             <div className="hi" ref={hiRef}>Hi</div>
             <div className="happy" ref={happyRef}>I'm happy you're here</div>
 
-            <div className="left" ref={leftRef}>
+            <div className="left" ref={iconRef}>
+                <div className="container">
+                    <div className="touch">
+                        <a href="mailto: anthonyzhang1997@gmail.com">
+                            <i className="fas fa-fingerprint"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
             <div className="mid" ref={midRef}>
                 <div className="wrapper">
@@ -155,7 +163,7 @@ export default function Intro() {
                         <h3>Frontend <span ref={textRef}></span></h3>
                     </div>
                     <div className="bottom-spacing">
-                        <a href="#portfolio">
+                        <a href="#about">
                             <div className="arrowdown" ref={arrowdownRef}>
                                 <i className="fas fa-chevron-down"></i>
                             </div>
@@ -163,7 +171,7 @@ export default function Intro() {
                     </div>
                 </div>
             </div>
-            <div className="right" ref={rightRef}>
+            <div className="right" ref={iconRef}>
                 <div className="imgContainer">
                     <div className="linkedin">
                         <a href="https://www.linkedin.com/in/anthony-xiangyu-zhang/" target="_blank" rel="noreferrer"><i className="fab fa-linkedin"></i></a>

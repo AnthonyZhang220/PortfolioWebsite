@@ -23,13 +23,47 @@
 		opacity: 0;
 	}
 
-	.left {
-		flex: 0.3;
+	.left {                                       
+		flex: 0.2;
+		z-index: 2;
+
+		.container {
+			width: 100%;
+			height: 100%;
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: flex-end;
+
+			.touch {
+				flex-direction: row;
+				margin-bottom: 30px;
+				overflow: hidden;
+
+				a {
+					color: black;
+
+					i {
+						text-align: center;
+						width: 2em;
+						font-size: 30px;
+						transition: all 0.5s ease-out;
+						transform-origin: center center;
+						line-height: 2;
+
+						&:hover {
+							transform: scale(1.5);
+							color: $mainColor2;
+						}
+					}
+				}
+			}
+		}
 	}
 
 	.mid {
-		flex: 0.4;
-		z-index:1;
+		flex: 0.6;
+		z-index: 1;
 
 		.wrapper {
 			width: 100%;
@@ -154,16 +188,16 @@
 	}
 
 	.right {
-		flex: 0.3;
+		flex: 0.2;
 		z-index: 2;
 
 		.imgContainer {
 			width: 100%;
 			height: 100%;
 			display: flex;
-			flex-direction: column;
+			flex-direction: row;
 			justify-content: center;
-			align-items: center;
+			align-items: flex-end;
 			// font-size: 40px;
 
 			.linkedin,
@@ -172,7 +206,7 @@
 				// padding-right: 30%;
 				// vertical-align: middle;
 				flex-direction: row;
-				margin: 20px;
+				margin-bottom: 30px;
 				overflow: hidden;
 
 				a {
@@ -181,13 +215,14 @@
 					i {
 						text-align: center;
 						width: 2em;
-						font-size: 40px;
-						transition: all 1s;
+						font-size: 30px;
+						transition: all 0.5s ease-out;
 						transform-origin: center center;
 						line-height: 2;
 
 						&:hover {
 							transform: scale(1.5);
+							color: $mainColor2;
 						}
 					}
 				}
@@ -198,7 +233,7 @@
 	.backtotop {
 		position: fixed;
 		bottom: 55px;
-		right: 60px;
+		right: 30px;
 		z-index: 5;
 
 		font-size: 35px;

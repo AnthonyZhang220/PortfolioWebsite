@@ -114,9 +114,6 @@ export default function NavBar() {
                 <div className="language">
                     <Language></Language>
                 </div>
-                <div className="email">
-                    <button type='button'><h3>Start a Conversation</h3></button>
-                </div>
             </div>
         </nav>
     )
