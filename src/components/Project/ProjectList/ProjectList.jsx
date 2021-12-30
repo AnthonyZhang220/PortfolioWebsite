@@ -16,22 +16,17 @@ export default function ProjectList({ name, picture, description, tech, url, sou
     // })
 
     return (
-        <div className="div">
-            <li className="projectlist" >
-                <div className="container">
-                    <img src={picture} alt={name} />
-                    <h2>{name} </h2>
-                    <HorizontalRuleIcon className='horizontalrule'></HorizontalRuleIcon>
-                    <div className="description">
-                        {description}
+        <div className="projectlist">
+            <li>
+                <img src={picture} alt={name}>
+                </img>
+                <h2>{name} </h2>
+                <div className="buttonwrapper">
+                    <div className="left">
+                        <button><link rel="stylesheet" href={url} />Source</button>
                     </div>
-                    <div className="buttonwrapper">
-                        <div className="left">
-                            <button><link rel="stylesheet" href={url} />Source</button>
-                        </div>
-                        <div className="right">
-                            <button><link rel="stylesheet" href={GitHub} />GitHub</button>
-                        </div>
+                    <div className="right">
+                        <button><link rel="stylesheet" href={GitHub} />GitHub</button>
                     </div>
                 </div>
             </li>

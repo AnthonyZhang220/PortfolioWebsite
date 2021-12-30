@@ -1,4 +1,4 @@
-import "./Intro.scss"
+import "./Home.scss"
 import { useEffect, useRef } from "react";
 import { init } from 'ityped';
 import { gsap } from "gsap/all";
@@ -6,16 +6,18 @@ import Canvas from "../Canvas/Canvas";
 import BackToTop from "../BackToTop/BackToTop";
 import { ScrollToPlugin } from 'gsap/all';
 
-export default function Intro() {
+export default function Home() {
 
     const textRef = useRef(null);
     const midRef = useRef(null);
-    const iconRef = useRef(null);
+    const socialRef = useRef(null);
+    const touchRef = useRef(null);
     const arrowdownRef = useRef(null);
     const backtotopRef = useRef(null);
     const introRef = useRef(null);
     const hiRef = useRef(null);
     const happyRef = useRef(null);
+    const learnmoreRef = useRef(null);
 
     gsap.registerPlugin(ScrollToPlugin);
 
@@ -54,7 +56,7 @@ export default function Intro() {
             .set(happyRef.current, { opacity: 0 })
 
 
-        //intro timeline
+        //home timeline
         const introTimeline = gsap.timeline({
             onComplete: () => {
                 sessionStorage.setItem("introPlayed", true)
@@ -66,14 +68,14 @@ export default function Intro() {
             }, { y: "0%", opacity: 1, duration: 1.5 })
 
             //social icon
-            .fromTo(iconRef.current, {
+            .fromTo([socialRef.current, touchRef.current], {
                 y: '25%', opacity: 0
             }, { y: '0%', opacity: 1, duration: 1.5 })
 
             // show canvas in s
             .fromTo("#canvas", { opacity: 0 },
                 {
-                    opacity: 0.3, duration: 2
+                    opacity: 0.3, duration: 1
                 })
 
 
@@ -94,13 +96,14 @@ export default function Intro() {
 
     //arrow down disappear on scroll
     useEffect(() => {
-        gsap.fromTo(arrowdownRef.current, { y: "0%", opacity: 1 }, {
+        gsap.fromTo([arrowdownRef.current, learnmoreRef.current], { y: "0%", opacity: 1 }, {
             y: "50%", opacity: 0, duration: 3,
             scrollTrigger: {
                 trigger: introRef.current,
                 start: "center top",
             }
         })
+
     })
 
 
@@ -140,12 +143,12 @@ export default function Intro() {
 
 
     return (
-        <div className='intro' id='intro' ref={introRef}>
+        <div className='home' id='home' ref={introRef}>
             <Canvas id="canvas"></Canvas>
             <div className="hi" ref={hiRef}>Hi</div>
             <div className="happy" ref={happyRef}>I'm happy you're here</div>
 
-            <div className="left" ref={iconRef}>
+            <div className="left" ref={touchRef}>
                 <div className="container">
                     <div className="touch">
                         <a href="mailto: anthonyzhang1997@gmail.com">
@@ -158,11 +161,14 @@ export default function Intro() {
                 <div className="wrapper">
                     <div className="top-spacing"></div>
                     <div className="greetings">
-                        <h2>Welcome, I'm</h2>
+                        <h2>Hello, I'm</h2>
                         <h1>Anthony Zhang</h1>
                         <h3>Frontend <span ref={textRef}></span></h3>
                     </div>
                     <div className="bottom-spacing">
+                        {/* <div className="learnmore" ref={learnmoreRef}>
+                            Learn more
+                        </div> */}
                         <a href="#about">
                             <div className="arrowdown" ref={arrowdownRef}>
                                 <i className="fas fa-chevron-down"></i>
@@ -171,7 +177,7 @@ export default function Intro() {
                     </div>
                 </div>
             </div>
-            <div className="right" ref={iconRef}>
+            <div className="right" ref={socialRef}>
                 <div className="imgContainer">
                     <div className="linkedin">
                         <a href="https://www.linkedin.com/in/anthony-xiangyu-zhang/" target="_blank" rel="noreferrer"><i className="fab fa-linkedin"></i></a>

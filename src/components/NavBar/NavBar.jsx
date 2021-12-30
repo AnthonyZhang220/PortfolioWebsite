@@ -1,6 +1,7 @@
 import DarkMode from "../DarkMode/DarkMode";
-import Language from "../Language/Language"
-import { useRef, useEffect } from "react";
+import Language from "../Language/Language";
+import Menu from "../Menu/Menu";
+import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap/all";
 import { HashLink } from "react-router-hash-link";
 import { ScrollToPlugin } from 'gsap/all'
@@ -14,14 +15,23 @@ export default function NavBar() {
     gsap.registerPlugin(ScrollTrigger);
 
     const navRef = useRef(null);
+    const midRef = useRef(null);
+    const [toggle, setToggle] = useState(false);
 
+    /* Set the width of the side navigation to 250px and the left margin of the page content to 250px and add a black background color to body */
+    function openNav() {
+        document.getElementById("side-menu").style.width = "30px";
+        document.getElementById("App").style.marginRight = "30px";
+    }
 
-    const getMode = () => {
-
-        return localStorage.getItem("darkMode")
+    /* Set the width of the side navigation to 0 and the left margin of the page content to 0, and the background color of body to white */
+    function closeNav() {
+        document.getElementById("side-menu").style.width = "0";
+        document.getElementById("App").style.marginRight = "0";
     }
 
 
+    //navbar animation
     useEffect(() => {
 
         let navbarPlayed = sessionStorage.getItem("navbarPlayed")
@@ -40,79 +50,48 @@ export default function NavBar() {
         }
 
 
-        //scroll smooth effect on hashlink
-        const hashLinks = gsap.utils.toArray(".mid hashlink");
+    });
 
-        hashLinks.forEach((links, index) => {
-            links.addEventListener("click", () => {
-                gsap.to(window, {
-                    duration: 1,
-                    scrollTo: { y: "#section" + (index + 1), offsetY: 0 }
-                });
-            });
-        });
+    //title animation
+    useEffect(() => {
+        gsap.fromTo(midRef.current, { x: "0%", opacity: 1, }, {
+            x: "25%",
+            opacity: 0, scrollTrigger: {
+                trigger: "body",
+                start: "top -10%",
+                end: "bottom -10%",
+                toggleActions: "play none reverse none",
 
-        const sections = gsap.utils.toArray("section");
-        sections.forEach((section, i) => {
-            ScrollTrigger.create({
-                trigger: section,
-                start: "top 50%",
-                // end: "bottom 80%",
-                markers: true,
-                onEnter: () => {
-                    gsap.set(hashLinks[i], { scale: 1.3 });
-                },
-                onEnterBack: () => {
-                    gsap.set(hashLinks[i], { scale: 1.3 });
+            }
+        })
 
-                }
-
-                // onLeave: () => {
-                //     if (hashLinks[i + 1]) {
-                //         gsap.to(hashLinks[i + 1], { scale: 1.3 });
-                //         gsap.to(hashLinks[i], { scale: 1 });
-                //     }
-                // },
-                // onEnterBack: () => {
-                //     gsap.to(hashLinks[i], { scale: 1.3 });
-                //     if (hashLinks[i + 1]) {
-                //         gsap.to(hashLinks[i + 1], { scale: 1.1 });
-                //     }
-                // },
-            })
-        });
     })
-
-
-
-    //change background color when scroll
-    // gsap.to(navRef.current, {
-    //     backgroundColor: getMode() === "enabled" ? "#121212" : "white",
-    //     scrollTrigger: {
-    //         trigger: "body",
-    //         start: "60px",
-    //         end: "max",
-    //         toggleActions: "play play play play",
-    //     }
-    // });
 
     return (
         <nav className='navbar' ref={navRef}>
-            <div className="left"></div>
-            <div className="mid">
-                <div role="list" className="hashlink"><HashLink to="/#intro">HOME</HashLink></div>
-                <div role="list" className="hashlink"><HashLink to="/#about">ABOUT</HashLink></div>
-                <div role="list" className="hashlink"><HashLink to="/#portfolio">PORTFOLIO</HashLink></div>
-                <div role="list" className="hashlink"><HashLink to="/#project">PROJECT</HashLink></div>
-                <div role="list" className="hashlink"><HashLink to="/#contact">CONTACT</HashLink></div>
-                <div role="list" className="hashlink"><HashLink to="/blogs">BLOG</HashLink></div>
+            <div className="menu">
+                <Menu />
             </div>
+            <div className="left"></div>
             <div className="right">
-                <div className="darkmode-button">
-                    <DarkMode></DarkMode>
+                <div className="navlink">
+                    <div role="list" className="hashlink"><HashLink to="/#home">HOME</HashLink></div>
+                    <div role="list" className="hashlink"><HashLink to="/#about">ABOUT</HashLink></div>
+                    <div role="list" className="hashlink"><HashLink to="/#portfolio">PORTFOLIO</HashLink></div>
+                    <div role="list" className="hashlink"><HashLink to="/#project">PROJECT</HashLink></div>
+                    <div role="list" className="hashlink"><HashLink to="/#contact">CONTACT</HashLink></div>
+                    <div role="list" className="hashlink"><HashLink to="/blogs">BLOG</HashLink></div>
                 </div>
-                <div className="language">
-                    <Language></Language>
+                <div className="icon">
+                    <div className="darkmode-button">
+                        <DarkMode></DarkMode>
+                    </div>
+                    <div className="menubar" onClick={() => setToggle(!toggle)}>
+                        {toggle ? <i class="fas fa-times" onClick={() => closeNav()} /> : <i class="fas fa-bars" onClick={() => openNav()} />}
+                    </div>
+                    <div className="language">
+                        <Language></Language>
+                    </div>
                 </div>
             </div>
         </nav>

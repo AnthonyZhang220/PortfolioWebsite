@@ -1,15 +1,14 @@
 @import "../../global.scss";
 
-.intro {
+.home {
 	background-color: transparent;
 	display: flex;
-	// position: relative;
-	// z-index: 0;
+	z-index: $first-layer;
 	overflow: hidden;
 
 	#canvas {
 		position: fixed;
-		z-index: 0;
+		z-index: $background-layer;
 	}
 
 	.hi,
@@ -23,9 +22,9 @@
 		opacity: 0;
 	}
 
-	.left {                                       
+	.left {
 		flex: 0.2;
-		z-index: 2;
+		z-index: $fifth-layer;
 
 		.container {
 			width: 100%;
@@ -63,7 +62,7 @@
 
 	.mid {
 		flex: 0.6;
-		z-index: 1;
+		z-index: $first-layer;
 
 		.wrapper {
 			width: 100%;
@@ -189,7 +188,7 @@
 
 	.right {
 		flex: 0.2;
-		z-index: 2;
+		z-index: $fifth-layer;
 
 		.imgContainer {
 			width: 100%;

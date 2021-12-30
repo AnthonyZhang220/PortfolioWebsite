@@ -5,70 +5,79 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	position: relative;
-	
-	h1 {
+
+	.title {
 		align-content: flex-start;
 		margin-top: $section-margin-top;
 		margin-bottom: 20px;
-		font-size: 40px;
+		font-size: 30px;
 		overflow: hidden;
 	}
 
-	ul {
-		// margin: 10px;
-		// padding: 0;
-		list-style: none;
-		display: flex;
-		flex-wrap: wrap;
-		
-		li {
-			font-size: 14px;
-			margin-right: 40px;
-			padding: 0.7;
-			overflow: hidden;
-			
-			.container {
-				width: 350px;
-				height: 550px;
-				border-radius: 20px;
-				border: 1px solid gray;
-				margin: 10px 20px;
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				background-color: transparent;
-				
-				&:hover {
-					box-shadow: 3px 5px 9px #888888;
-				}
+	.project-container {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
 
-				img {
-					object-fit: cover;
-					width: 100%;
-					height: 40%;
-					z-index: 1;
-				}
+		.project-info {
+			flex: 0.2;
+		}
 
-				.horizontalrule {
-					font-size: 40px;
-				}
+		.project-thumbnail {
+			flex: 0.8;
 
-				h2 {
-					font-size: 20px;
-				}
+			ul {
+				// margin: 10px;
+				// padding: 0;
+				list-style: none;
+				display: inline-flex;
 
-				.description {
-					margin: 10px 30px;
-				}
-				.buttonwrapper {
+				li {
+					font-size: 14px;
+					margin-right: 40px;
+					border-radius: 30px;
+					// padding: 0.7;
+					// overflow: hidden;
+					width: 30vw;
+					height: 60vh;
+					// border: 1px solid gray;
+					margin: 10px 20px;
 					display: flex;
-					padding: 0.7;
+					flex-direction: column;
 					align-items: center;
-					justify-content: center;
+					background-color: transparent;
 
-					button {
-						margin: 20px;
+					&:hover {
+						box-shadow: 3px 5px 9px #888888;
+					}
+
+					img {
+						object-fit: cover;
+						width: 100%;
+						height: 100%;
+						z-index: 1;
+					}
+
+					.horizontalrule {
+						font-size: 40px;
+					}
+
+					h2 {
+						font-size: 20px;
+					}
+
+					.description {
+						margin: 10px 30px;
+					}
+					.buttonwrapper {
+						display: flex;
+						padding: 0.7;
+						align-items: center;
+						justify-content: center;
+
+						button {
+							margin: 20px;
+						}
 					}
 				}
 			}

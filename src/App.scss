@@ -2,16 +2,13 @@
 
 body {
 	background-color: $bg-color-light;
-	scroll-behavior: smooth;
 
 	.App {
-		// height: 100vh;
-		overflow: hidden;
-
+		
 	}
 	// scrollbar-color: $mainColor2;
 	// scroll-snap-type: y mandatory;
-	scrollbar-width: thin; //for firefox
+	// scrollbar-width: thin; //for firefox
 	// &::-webkit-scrollbar {
 	// 	display: none;
 	// }
@@ -43,7 +40,7 @@ body {
 	background-color: #121212;
 	color: rgba(255, 255, 255, 0.87);
 
-	nav{
+	nav {
 		color: rgba(255, 255, 255, 0.87);
 	}
 

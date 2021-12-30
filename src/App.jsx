@@ -1,5 +1,5 @@
 import NavBar from "./components/NavBar/NavBar";
-import Home from "./Home"
+import Main from "./Main"
 import Blog from "./components/Blog/Blog";
 
 
@@ -10,15 +10,15 @@ import "./App.scss"
 function App() {
 
 	return (
-		<BrowserRouter>
-			<div className="App">
-				<NavBar/>
+		<div className="App" id="App">
+			<BrowserRouter>
+				<NavBar />
 				<Routes>
-					<Route path="/" element={<Home />} />
+					<Route path="/" element={<Main />} />
 					<Route path="/blogs" element={<Blog />} />
 				</Routes>
-			</div >
-		</BrowserRouter>
+			</BrowserRouter>
+		</div >
 	);
 }
 

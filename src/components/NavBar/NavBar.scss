@@ -6,7 +6,7 @@
 	height: 100px;
 	position: fixed;
 	top: 0;
-	z-index: 3;
+	z-index: $second-layer;
 	display: flex;
 	// line-height: normal;
 
@@ -17,41 +17,95 @@
 		justify-content: center;
 	}
 
-	.mid {
+	.right {
 		flex: 0.5;
 		display: flex;
-		flex-direction: row;
 		justify-content: space-evenly;
 		align-items: center;
-		letter-spacing: 2px;
+		z-index: $fifth-layer;
 
-		a {
-			font-size: 15px;
-			color: inherit;
-			text-decoration: none;
+		.navlink {
+			flex: 0.7;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+			letter-spacing: 2px;
+			z-index: $third-layer;
 
-			&:hover {
-				color: $mainColor2;
+			a {
+				font-size: 15px;
+				color: inherit;
+				text-decoration: none;
+
+				&:hover {
+					color: $mainColor2;
+					text-decoration: line-through;
+				}
+			}
+		}
+
+		.icon {
+			display: flex;
+			flex: 0.3;
+			align-items: center;
+			justify-content: center;
+
+			.darkmode-button {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+
+				i {
+					text-align: center;
+					width: 2em;
+					font-size: 30px;
+					transition: all 0.5s ease-out;
+					line-height: 2;
+
+					&:hover {
+						color: $mainColor2;
+					}
+				}
+			}
+
+			.menubar {
+				align-items: center;
+				justify-content: center;
+				display: flex;
+
+				i {
+					text-align: center;
+					width: 30px;
+					font-size: 30px;
+					line-height: 2;
+
+					&:hover {
+						color: $mainColor2;
+						cursor: pointer;
+					}
+				}
+			}
+
+			.language {
+				display: flex;
+				align-items: center;
+				justify-content: center;
 			}
 		}
 	}
+}
 
+@media screen and (max-width: 1200px) {
+	.left {
+		flex: 0;
+	}
 	.right {
-		flex: 0.1;
-		display: flex;
-		justify-content: center;
-		align-items: center;
+		flex: 1;
+		// justify-content: flex-end;
 
-		.darkmode-button {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		}
-
-		.language {
-			display: flex;
-			align-items: center;
-			justify-content: center;
+		.navlink a {
+			display: none;
 		}
 	}
 }
