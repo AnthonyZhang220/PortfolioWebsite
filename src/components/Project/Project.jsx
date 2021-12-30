@@ -144,12 +144,10 @@ export default function Project() {
                 <div className="project-info">
 
                 </div>
-                <div className="project-thumbnail">
-                    <ul ref={listRef}>
-                        {projectdata.map((project, index) => (
-                            <ProjectList {...project} key={index} ref={contentRef} className="list"/>
-                        ))}
-                    </ul>
+                <div className="project-thumbnail" ref={listRef}>
+                    {projectdata.map((project, index) => (
+                        <ProjectList {...project} key={index} ref={contentRef} className="list" />
+                    ))}
                 </div>
             </div>
         </div>

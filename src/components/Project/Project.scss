@@ -11,73 +11,72 @@
 		margin-top: $section-margin-top;
 		margin-bottom: 20px;
 		font-size: 30px;
-		overflow: hidden;
+		// overflow: hidden;
 	}
 
 	.project-container {
 		display: inline-flex;
-		align-items: center;
-		justify-content: center;
+		height: 500px;
 
 		.project-info {
-			flex: 0.2;
+			flex: 0.4;
+			opacity: 0;
 		}
 
 		.project-thumbnail {
-			flex: 0.8;
+			flex: 0.6;
+			display: inline-flex;
+			// padding: 0;
+			list-style: none;
+			// border: 1px solid gray;
+			// margin: 10px 20px
+			background-color: transparent;
 
-			ul {
-				// margin: 10px;
-				// padding: 0;
-				list-style: none;
+			.project-list {
 				display: inline-flex;
 
-				li {
-					font-size: 14px;
-					margin-right: 40px;
+				img {
 					border-radius: 30px;
-					// padding: 0.7;
-					// overflow: hidden;
-					width: 30vw;
-					height: 60vh;
-					// border: 1px solid gray;
-					margin: 10px 20px;
-					display: flex;
-					flex-direction: column;
-					align-items: center;
-					background-color: transparent;
+					object-fit: cover;
+					width: 100%;
+					height: 100%;
+					z-index: $third-layer;
+					// margin: 20px;
+
+					.project-title {
+						position: absolute;
+						margin: 0 auto;
+						left: 0;
+						right: 0;
+						text-align: center;
+						z-index: $fourth-layer;
+
+						h2 {
+							font-size: 20px;
+						}
+					}
 
 					&:hover {
 						box-shadow: 3px 5px 9px #888888;
-					}
 
-					img {
-						object-fit: cover;
-						width: 100%;
-						height: 100%;
-						z-index: 1;
-					}
-
-					.horizontalrule {
-						font-size: 40px;
-					}
-
-					h2 {
-						font-size: 20px;
-					}
-
-					.description {
-						margin: 10px 30px;
-					}
-					.buttonwrapper {
-						display: flex;
-						padding: 0.7;
-						align-items: center;
-						justify-content: center;
-
-						button {
-							margin: 20px;
+						.project-info {
+							opacity: 1;
 						}
+					}
+				}
+
+				.buttonwrapper {
+					position: absolute;
+
+					margin: 0 auto;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					text-align: center;
+					z-index: $third-layer;
+
+					button {
+						margin: 20px;
 					}
 				}
 			}

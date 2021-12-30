@@ -4,7 +4,6 @@
 	background-color: transparent;
 	display: flex;
 	z-index: $first-layer;
-	overflow: hidden;
 
 	#canvas {
 		position: fixed;
@@ -23,7 +22,7 @@
 	}
 
 	.left {
-		flex: 0.2;
+		flex: 0.3;
 		z-index: $fifth-layer;
 
 		.container {
@@ -37,7 +36,6 @@
 			.touch {
 				flex-direction: row;
 				margin-bottom: 30px;
-				overflow: hidden;
 
 				a {
 					color: black;
@@ -61,7 +59,7 @@
 	}
 
 	.mid {
-		flex: 0.6;
+		flex: 0.4;
 		z-index: $first-layer;
 
 		.wrapper {
@@ -146,7 +144,7 @@
 				align-content: stretch;
 
 				a {
-					overflow: hidden;
+					// overflow: hidden;
 
 					.arrowdown {
 						font-size: 50px;
@@ -187,7 +185,7 @@
 	}
 
 	.right {
-		flex: 0.2;
+		flex: 0.3;
 		z-index: $fifth-layer;
 
 		.imgContainer {
@@ -204,9 +202,7 @@
 			.stackoverflow {
 				// padding-right: 30%;
 				// vertical-align: middle;
-				flex-direction: row;
 				margin-bottom: 30px;
-				overflow: hidden;
 
 				a {
 					color: black;
