@@ -39,6 +39,10 @@ export default function DarkMode() {
 		};
 	};
 
+	function getDarkMode() {
+
+	}
+
 
 
 	return (

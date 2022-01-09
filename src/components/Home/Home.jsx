@@ -69,8 +69,8 @@ export default function Home() {
 
             //social icon
             .fromTo([socialRef.current, touchRef.current], {
-                y: '25%', opacity: 0
-            }, { y: '0%', opacity: 1, duration: 1.5 })
+                y: '5%', opacity: 0
+            }, { y: '0%', opacity: 1, duration: 1 })
 
             // show canvas in s
             .fromTo("#canvas", { opacity: 0 },
@@ -144,7 +144,7 @@ export default function Home() {
 
     return (
         <div className='home' id='home' ref={introRef}>
-            <Canvas id="canvas"></Canvas>
+            {/* <Canvas id="canvas"></Canvas> */}
             <div className="hi" ref={hiRef}>Hi</div>
             <div className="happy" ref={happyRef}>I'm happy you're here</div>
 

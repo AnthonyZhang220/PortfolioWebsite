@@ -5,6 +5,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	width: 90%;
 
 	.title {
 		align-content: flex-start;
@@ -16,7 +17,6 @@
 
 	.project-container {
 		display: inline-flex;
-		height: 500px;
 
 		.project-info {
 			flex: 0.4;
@@ -33,7 +33,9 @@
 			background-color: transparent;
 
 			.project-list {
-				display: inline-flex;
+				// display: inline-flex;
+				height: 500px;
+				width: 400px;
 
 				img {
 					border-radius: 30px;

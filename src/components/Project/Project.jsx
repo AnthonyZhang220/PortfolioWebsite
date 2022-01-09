@@ -142,7 +142,7 @@ export default function Project() {
             </div>
             <div className="project-container">
                 <div className="project-info">
-
+                    {}
                 </div>
                 <div className="project-thumbnail" ref={listRef}>
                     {projectdata.map((project, index) => (
