@@ -7,8 +7,22 @@
 	align-items: center;
 
 	flex-direction: column;
+	
+	.title-aboutme {
+		align-items:flex-start;
+	}
 
-	.title {
+	.about-me {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		.illustration {
+			flex: 0.4;
+		}
+		.summary {
+			flex: 0.6;
+		}
 	}
 
 	.technology {
