@@ -146,7 +146,7 @@ export default function Project() {
                 </div>
                 <div className="project-thumbnail" ref={listRef}>
                     {projectdata.map((project, index) => (
-                        <ProjectList {...project} key={index} ref={contentRef} className="list" />
+                        <ProjectList {...project} key={index} className="list" />
                     ))}
                 </div>
             </div>

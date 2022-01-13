@@ -44,11 +44,11 @@ export default function About() {
                         <div className="category-name">
                             Back End
                             <div className="catogory-icon">
-                                <i class="fas fa-server"></i>
+                                <i className="fas fa-server"></i>
                             </div>
                         </div>
                         <div className="tech-icons">
-                            <i class="fab fa-node-js"></i>
+                            <i className="fab fa-node-js"></i>
                             <div className="tech-name">
                                 Node.js
                             </div>
@@ -72,7 +72,7 @@ export default function About() {
                         <div className="category-name">
                             Tools
                             <div className="catogory-icon">
-                                <i class="fas fa-tools"></i>
+                                <i className="fas fa-tools"></i>
                             </div>
                         </div>
                         <div className="tech-icons">

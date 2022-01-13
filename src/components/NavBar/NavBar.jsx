@@ -89,7 +89,7 @@ export default function NavBar() {
                         <DarkMode></DarkMode>
                     </div>
                     <div className="menubar" onClick={() => setToggle(!toggle)}>
-                        {toggle ? <i class="fas fa-times" onClick={() => closeNav()} /> : <i class="fas fa-bars" onClick={() => openNav()} />}
+                        {toggle ? <i className="fas fa-times" onClick={() => closeNav()} /> : <i className="fas fa-bars" onClick={() => openNav()} />}
                     </div>
                     <div className="language">
                         <Language></Language>

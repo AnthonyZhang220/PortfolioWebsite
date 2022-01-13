@@ -19,12 +19,12 @@
 		display: inline-flex;
 
 		.project-info {
-			flex: 0.4;
+			flex: 0.5;
 			opacity: 0;
 		}
 
 		.project-thumbnail {
-			flex: 0.6;
+			flex: 0.5;
 			display: inline-flex;
 			// padding: 0;
 			list-style: none;
@@ -44,32 +44,17 @@
 					height: 100%;
 					z-index: $third-layer;
 					// margin: 20px;
+				}
 
-					.project-title {
-						position: absolute;
-						margin: 0 auto;
-						left: 0;
-						right: 0;
-						text-align: center;
-						z-index: $fourth-layer;
+				h2 {
+					font-size: 20px;
+				}
 
-						h2 {
-							font-size: 20px;
-						}
-					}
-
-					&:hover {
-						box-shadow: 3px 5px 9px #888888;
-
-						.project-info {
-							opacity: 1;
-						}
-					}
+				&:hover {
+					box-shadow: 3px 5px 9px #888888;
 				}
 
 				.buttonwrapper {
-					position: absolute;
-
 					margin: 0 auto;
 					bottom: 0;
 					left: 0;
