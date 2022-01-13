@@ -6,16 +6,24 @@ export default function About() {
 
     return (
         <div className='about' id="about">
-            <div className="title">
-                <h1>
-                    About Me
-                </h1>
+            <div className="title-aboutme">
                 <h2>
-                    Skills
+                    About Me
                 </h2>
             </div>
-
-
+            <div className="about-me">
+                <div className="illustration">
+                    <img src="" alt="illustration avatar" />
+                </div>
+                <div className="summary">
+                    <p>
+                        About me description section.
+                    </p>
+                </div>
+            </div>
+            <div className="title-skills">
+                <h2>Skills</h2>
+            </div>
             <div className="technology">
                 <div className='categories'>
                     <div className='frontend'>
