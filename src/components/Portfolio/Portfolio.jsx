@@ -1,6 +1,6 @@
 import "./Portfolio.scss"
 import PortfolioList from "./PortfolioList/PortfolioList";
-import { useEffect, useState, useRef } from "react";
+import { useState } from "react";
 
 export default function Portfolio() {
 
@@ -21,12 +21,6 @@ export default function Portfolio() {
 
     const [selected, setSelected] = useState("Featured")
 
-    const portfolioRef = useRef(null);
-    
-    useEffect(()=>{
-        
-
-    })
 
     return (
         <div className='portfolio' id='portfolio'>

@@ -4,13 +4,11 @@ import { projectdata } from "./ProjectData.js"
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { ScrollToPlugin } from "gsap/all";
 
 export default function Project() {
 
     gsap.registerPlugin(ScrollTrigger);
     const listRef = useRef(null);
-    const contentRef = useRef(null);
 
     useEffect(() => {
         gsap.fromTo(listRef.current, {

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import "./Canvas.scss";
 
 
@@ -6,26 +6,19 @@ export default function Canvas() {
 	const backgroundRef = useRef(null);
 	const topRef = useRef(null);
 
-	const [color, getColor] = useState("")
-
-	let colorArray = ["#ACDDDE", "#CAF1DE", "#E1F8DC", "#FEF8DD", "#FFE7C7", "#F7D8BA"];
-
-	function randomColor() {
-		return colorArray[Math.floor(Math.random() * colorArray.length)];
-	}
 
 	useEffect(() => {
 		let background = backgroundRef.current;
 		let top = topRef.current;
 		let bgcontext = background.getContext("2d");
-		let topcontext = top.getContext("2d");
+		// let topcontext = top.getContext("2d");
 		let alpha = 0.5;
 
 		top.style.opacity = alpha;
 		background.globalAlpha = 1;
 
 		// bgcontext.drawImage(top,0,0);
-		
+
 
 
 		background.width = window.innerWidth;
@@ -61,7 +54,7 @@ export default function Canvas() {
 		//array that contains circles
 		let circleArray = []
 		//frames per second
-		let FPS = 60;
+		// let FPS = 60;
 		//number of circles
 		let circleInitialNum = 15;
 		let mouse = {
@@ -127,16 +120,6 @@ export default function Canvas() {
 		}
 
 
-		//change opacity according to distance between two circles
-		function lineOpacity(circle1, circle2) {
-			let d = distance(circle1, circle2);
-			let screen = Math.sqrt(Math.pow(window.innerHeight, 2) + Math.pow(window.innerWidth, 2))
-			let ratio = d / screen;
-			return ratio;
-		}
-
-
-
 		function distance(point1, point2) {
 			let xs = 0;
 			let ys = 0;
@@ -166,17 +149,6 @@ export default function Canvas() {
 			}
 
 		};
-
-		//get mouse position on background
-		function getMousePos(background, event) {
-			let rect = background.getBoundingClientRect();
-
-			return {
-				x: event.clientX - rect.left,
-				y: event.clientY - rect.top,
-			};
-
-		}
 
 
 		// mouse

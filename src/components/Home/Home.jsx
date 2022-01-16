@@ -2,7 +2,6 @@ import "./Home.scss"
 import { useEffect, useRef } from "react";
 import { init } from 'ityped';
 import { gsap } from "gsap/all";
-import Canvas from "../Canvas/Canvas";
 import BackToTop from "../BackToTop/BackToTop";
 import { ScrollToPlugin } from 'gsap/all';
 

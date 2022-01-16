@@ -1,5 +1,5 @@
 import React from 'react'
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { HashLink } from "react-router-hash-link";
 import "./Menu.scss"
 

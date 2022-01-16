@@ -1,5 +1,88 @@
 @import "../../global.scss";
 
-.contact{
-    background-color: inherit;
+.contact {
+	background-color: inherit;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+
+	
+	.contact-container {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		
+		.illustation {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex: 0.5;
+			height: 100%;
+			width: 100%;
+			
+			img {
+				object-fit:cover;
+			}
+		}
+		
+		.form-wrapper {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+			flex: 0.5;
+			
+			.contact-title {
+				display: flex;
+			}
+			form {
+				display: flex;
+				flex-direction: column;
+				font-size: 20px;
+
+				margin: top;
+				width: 100%;
+
+				label {
+					padding: 12px 12px 12px 0;
+					display: inline-block;
+					font-size: 15px;
+				}
+
+				input[type]:focus {
+					border: 1px solid #555;
+				}
+
+				input[type],
+				textarea {
+					width: 30vw;
+					padding: 10px;
+					border: 1px solid #ccc;
+					border-radius: 4px;
+					resize: vertical;
+				}
+
+				#error {
+					font-size: 15px;
+					color: #d32f2f;
+				}
+			}
+		}
+	}
+
+	footer {
+		// position: relative;
+
+		.copyright {
+			position: absolute;
+			left: 50%;
+			bottom: 0%;
+			// margin-left: -50px;
+			// margin-top: -50px;
+			transform: translateX(-50%);
+
+			font-size: 15px;
+		}
+	}
 }
