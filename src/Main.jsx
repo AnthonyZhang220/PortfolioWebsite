@@ -1,13 +1,14 @@
-import Home from "./components/Home/Home";
-import Portfolio from "./components/Portfolio/Portfolio";
-import Project from "./components/Project/Project";
-import Works from "./components/Works/Works";
-import Contact from "./components/Contact/Contact";
-import About from "./components/About/About";
-
 import { gsap } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect } from "react";
+
+import Home from "./components/Home/Home";
+import Portfolio from "./components/Portfolio/Portfolio";
+import Project from "./components/Project/Project";
+import Contact from "./components/Contact/Contact";
+import About from "./components/About/About";
+import Footer from "./components/Footer/Footer";
+
 import "./Main.scss"
 import "./global.scss"
 
@@ -26,14 +27,17 @@ function Main() {
             <section className="panel bg-color" data-color={dataColorArray[1]} id="section1">
                 <About />
             </section>
-            <section className="panel bg-color" data-color={dataColorArray[1]} id="section2">
+            <section className="panel bg-color" data-color={dataColorArray[2]} id="section2">
                 <Portfolio />
             </section>
-            <section className="panel bg-color" data-color={dataColorArray[2]} id="section3">
+            <section className="panel bg-color" data-color={dataColorArray[3]} id="section3">
                 <Project />
             </section>
-            <section className="panel bg-color" data-color={dataColorArray[3]} id="section4">
+            <section className="panel bg-color" data-color={dataColorArray[4]} id="section4">
                 <Contact />
+            </section>
+            <section className="panel bg-color" data-color={dataColorArray[5]} id="section5">
+                <Footer />
             </section>
         </main>
     );

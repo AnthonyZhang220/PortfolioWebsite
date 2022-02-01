@@ -1,8 +1,40 @@
 import React, { useState } from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import EmailIcon from '@mui/icons-material/Email';
+import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
+import MessageIcon from '@mui/icons-material/Message';
+import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
+import MenuItem from '@mui/material/MenuItem';
+import TodayIcon from '@mui/icons-material/Today';
+import Typography from '@mui/material/Typography';
+
 import "./Contact.scss"
+import { useEffect } from 'react';
+
 
 export default function Contact() {
-    let currentYear = new Date().getFullYear();
+
+
+    const [intention, setIntention] = useState('Recruitor');
+    const [name, setName] = useState('');
+
+
+    const handleChange = (e) => {
+        setIntention(e.target.value);
+    };
+
+    const handleName = (e) => {
+        e.persist();
+        setName(e.target.value);
+    }
+
+
+    // const handle = useCallback((target)=>{
+    //     setName=(e.target.value)
+    // })
 
     const [input, setInput] = useState({
         name: '',
@@ -15,57 +47,9 @@ export default function Contact() {
     const [submitted, setSubmitted] = useState(false)
     const [checked, setChecked] = useState([false, false])
 
-    const handleName = (event) => {
-        event.persist();
-        setInput((values) => ({
-            ...values, name: event.target.value,
-        }))
-    }
-    const handleEmail = (event) => {
-        event.persist();
-        setInput((values) => ({
-            ...values, email: event.target.value,
-        }))
-    }
-    const handleMessage = (event) => {
-        event.persist();
-        setInput((values) => ({
-            ...values, message: event.target.value,
-        }))
-    }
-    const handleRecruiter = (event) => {
-        event.persist();
+    useEffect(() => {
 
-        setChecked(!(checked[0]));
-        console.log(checked[0]);
-
-        setInput((values) => ({
-            ...values, recruiter: checked[0],
-        }))
-
-    }
-    const handleCollaborator = (event) => {
-        event.persist();
-        setChecked(!(checked[1]));
-        console.log(checked[1]);
-        setInput((values) => ({
-            ...values, collaborator: checked[1],
-        }));
-    }
-    const [valid, setValid] = useState(false)
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        if (input.name && input.email && input.message) {
-            setValid(true);
-        }
-        setSubmitted(true);
-
-        console.log(input);
-
-    }
-
-
+    }, [name])
 
     return (
         <div className='contact' id='contact'>
@@ -75,48 +59,98 @@ export default function Contact() {
                 </div>
                 <div className="form-wrapper">
                     <div className="contact-title">
-                        <h1>
+                        <Typography variant='h3' mt={10} mb={2}>
                             Contact Me
-                        </h1>
+                        </Typography>
                     </div>
-                    <form onSubmit={handleSubmit} id="form">
-                        <label>
-                            <input type="name" value={input.name} onChange={handleName} placeholder='Name' />
-                            <br />
-                            {submitted && !input.lastName && <span id='error'>Please enter your name.</span>}
-                        </label>
-                        <label>
-                            <input type="email" value={input.email} onChange={handleEmail} placeholder='Email' />
-                            <br />
-                            {submitted && !input.lastName && <span id='error'>Please enter your email.</span>}
-                        </label>
-                        <label>
-                            <textarea type="message" value={input.message} onChange={handleMessage} form="form" placeholder='Message' />
-                            <br />
-                            {submitted && !input.lastName && <span id='error'>Please enter a message.</span>}
-                        </label>
-                        <label>
-                            Recruiter
-                            <input type="checkbox" defaultChecked={checked[0]} onChange={handleRecruiter} />
-                        </label>
-                        <label>
-                            <span>
-                                Collaborator
-                                <input type="checkbox" defaultChecked={checked[1]} onChange={handleCollaborator} />
-
-                            </span>
-                        </label>
-                        <input type="submit" value="Submit" />
-                    </form>
+                    <Box
+                        component="form"
+                        sx={{
+                            '& .MuiTextField-root': { m: 1 },
+                        }}
+                        autoComplete="off"
+                    >
+                        <div>
+                            <TextField
+                                fullWidth
+                                required
+                                id="outlined-textarea"
+                                label="Name"
+                                type='text'
+                                placeholder="Anthony Zhang"
+                                helperText='Please enter your name'
+                                onChange={handleName}
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start"><AccountCircleIcon /></InputAdornment>,
+                                }}
+                            />
+                            <TextField
+                                fullWidth
+                                required
+                                id="outlined-textarea"
+                                type='email'
+                                label="Email"
+                                placeholder="anthonyzhang1997@gmail.com"
+                                helperText='Please enter your email'
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start"><EmailIcon /></InputAdornment>,
+                                }}
+                            />
+                            <TextField
+                                fullWidth
+                                id="outlined-textarea"
+                                label="Phone Number"
+                                type='tel'
+                                placeholder="+1234567890"
+                                helperText='Please enter your phone number'
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start"><PhoneIphoneIcon /></InputAdornment>,
+                                }}
+                            />
+                            <TextField
+                                fullWidth
+                                required
+                                select
+                                id="outlined-select-currency"
+                                label="Intention"
+                                value={intention}
+                                onChange={handleChange}
+                                helperText='You are a'
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start"><ConnectWithoutContactIcon /></InputAdornment>,
+                                }}
+                            >
+                                <MenuItem value='Collaborator' divider={true}>Collaborator</MenuItem>
+                                <MenuItem value='Recruitor'>Recruitor</MenuItem>
+                            </TextField>
+                            <TextField
+                                fullWidth
+                                id="outlined-textarea"
+                                type='date'
+                                label="Date"
+                                placeholder=""
+                                helperText='Date'
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start"><TodayIcon /></InputAdornment>,
+                                }}
+                            />
+                            <TextField
+                                fullWidth
+                                required
+                                multiline
+                                maxRows={3}
+                                id="outlined-helperText"
+                                label="Message"
+                                defaultValue={`Hi, ${name}`}
+                                helperText="Please leave a message"
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start"><MessageIcon /></InputAdornment>,
+                                }}
+                            />
+                        </div>
+                    </Box>
                 </div>
             </div>
-            <footer>
-                <div className="copyright">
-                    <span id="copyright">
-                        Copyright &copy; 2020-{currentYear} Anthony Zhang - All Rights Reserved.
-                    </span>
-                </div>
-            </footer>
         </div>
     )
 }

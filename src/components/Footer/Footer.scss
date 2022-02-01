@@ -1,0 +1,12 @@
+footer {
+	.copyright {
+		position: absolute;
+		left: 50%;
+		bottom: 0%;
+		// margin-left: -50px;
+		// margin-top: -50px;
+		transform: translateX(-50%);
+
+		font-size: 15px;
+	}
+}

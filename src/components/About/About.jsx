@@ -13,7 +13,7 @@ export default function About() {
             </div>
             <div className="about-me">
                 <div className="illustration">
-                    <img src="" alt="illustration avatar" />
+                    <img src="assets/images/frontend-developer-illustration-concept-vector.jpg" alt="illustration avatar" />
                 </div>
                 <div className="summary">
                     <p>

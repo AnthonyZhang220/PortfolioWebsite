@@ -1,11 +1,51 @@
-import "./Project.scss"
-import ProjectList from "./ProjectList/ProjectList"
+import React, { useEffect, useRef } from "react";
 import { projectdata } from "./ProjectData.js"
-import { useEffect, useRef } from "react";
 import { gsap } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { makeStyles } from "@material-ui/styles";
+
+
+import Icon from '@material-ui/core/Icon';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { IconButton } from '@material-ui/core';
+import { Stack } from '@mui/material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ShareIcon from '@mui/icons-material/Share';
+import SvgIcon from '@mui/material/SvgIcon';
+import Divider from "@material-ui/core/Divider";
+import Box from '@mui/material/Box';
+
+import "./Project.scss"
+
+const useStyles = makeStyles({
+    imageIcon: {
+        display: "flex",
+        height: "inherit",
+        width: "inherit",
+    },
+    iconRoot: {
+        textAlign: "center",
+    },
+    card: {
+        width: 400,
+        height: 650,
+        margin: "auto",
+        transition: "0.3s",
+        boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
+        "&:hover": {
+            boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)"
+        }
+    }
+});
 
 export default function Project() {
+
+    const classes = useStyles();
 
     gsap.registerPlugin(ScrollTrigger);
     const listRef = useRef(null);
@@ -22,132 +62,65 @@ export default function Project() {
         });
     });
 
-    // useEffect(() => {
-    //     console.log("hello");
-    //     ScrollTrigger.matchMedia({
-    //         "(min-width: 376px)": function () {
-    //             // console.log(listRef.current);
-    //             gsap.to(listRef.current, {
-    //                 // x: `${-100}%`,
-    //                 ease: "linear",
-    //                 scrollTrigger: {
-    //                     trigger: contentRef.current,
-    //                     start: "top top",
-    //                     scrub: 0.5,
-    //                     pin: true,
-    //                     markers: true,
-    //                 }
-    //             });
-    //         }
-    //     });
-    // }, []);
-
-    // gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-
-    // //const scrubValue = true;
-    // const scrubValue = 0.5;
-
-    // let container = document.querySelector('.project-container')
-
-    // const scrollBar = gsap.to('.scrollbar', { x: () => { return window.innerWidth - (150 + 20) }, ease: "none" })
-
-    // ScrollTrigger.create({
-    //     trigger: ".project-container",
-    //     start: "top top",
-    //     end: () => (container.scrollWidth - window.innerWidth),
-    //     pin: true,
-    //     anticipatePin: 1,
-    //     scrub: scrubValue,
-    //     animation: scrollBar,
-    //     invalidateOnRefresh: true,
-    // })
-
-
-
-    // let thumbNails = gsap.utils.toArray(".thumbnail");
-
-    // thumbNails.forEach((thumb, i) => {
-
-    //     if (thumb.classList.contains('fakePin')) {
-
-    //         function prevAll(element) {
-    //             var result = [];
-
-    //             while (element = element.previousElementSibling)
-    //                 result.push(element);
-    //             return result;
-    //         }
-
-    //         // console.log(prevAll(thumb))
-
-    //         var totalWidthToMove;
-
-    //         function getTotalWidthToMove() {
-
-    //             totalWidthToMove = 0;
-
-    //             prevAll(thumb).forEach((thumbBefore, i) => {
-
-    //                 let style = thumbBefore.currentStyle || window.getComputedStyle(thumbBefore);
-    //                 let marginRight = parseInt(style.marginRight);
-
-    //                 totalWidthToMove += thumbBefore.offsetWidth + marginRight;
-
-    //             });
-
-    //             return totalWidthToMove;
-
-    //         }
-    //         //getTotalWidthToMove();    
-    //         //console.log(totalWidthToMove)
-
-    //         gsap.to(thumb, {
-    //             x: () => { return - getTotalWidthToMove() },
-    //             ease: "none",
-    //             scrollTrigger: {
-    //                 trigger: ".wrapper",
-    //                 start: 'top top',
-    //                 scrub: scrubValue,
-    //                 invalidateOnRefresh: true,
-    //                 end: () => "+=" + getTotalWidthToMove(),
-    //             }
-    //         });
-
-    //     }
-    //     else {
-
-    //         gsap.to(thumb, {
-    //             x: () => { return - (container.scrollWidth) },
-    //             ease: "none",
-    //             scrollTrigger: {
-    //                 trigger: ".wrapper",
-    //                 start: 'top top',
-    //                 scrub: scrubValue,
-    //                 invalidateOnRefresh: true,
-    //                 end: () => "+=" + (container.scrollWidth),
-    //             }
-    //         });
-
-    //     }
-
-
-    // });
 
     return (
         <div className='project' id='project' >
             <div className='title'>
                 <h1>Project</h1>
-            </div>
-            <div className="project-container">
-                <div className="project-info">
-                    {}
-                </div>
-                <div className="project-thumbnail" ref={listRef}>
-                    {projectdata.map((project, index) => (
-                        <ProjectList {...project} key={index} className="list" />
+                <div className="project-wrapper" ref={listRef}>
+                    {projectdata?.map(({ id, title, subtitle, thumbnail, description, tech, WebsiteUrl, GitHubUrl }) => (
+                        <Card key={id} className={classes.card} sx={{ ml: 5 }}>
+                            <CardMedia
+                                component="img"
+                                alt={title}
+                                height="300"
+                                image={thumbnail}
+                            />
+                            <CardContent>
+                                <Box sx={{ mx: 2 }}>
+                                    <Typography gutterBottom variant="h5" component="div">
+                                        {title}
+                                    </Typography>
+                                    <Typography gutterBottom variant="body1" component="div">
+                                        {subtitle}
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                        {description}
+                                    </Typography>
+                                </Box>
+                                <Divider variant='middle' />
+                                <Box sx={{ m: 2 }}>
+                                    <Typography gutterBottom variant="body2">
+                                        Technology & Library used
+                                    </Typography>
+                                    <Stack direction='row' spacing={2}>
+                                        {tech?.map(techUrl => (
+                                            <Icon className={{ root: classes.iconRoot }} key={techUrl}>
+                                                <img className={classes.imageIcon} src={techUrl} alt='' />
+                                            </Icon>
+                                        ))}
+                                    </Stack>
+                                </Box>
+                                <Divider />
+                            </CardContent>
+                            <CardActions >
+                                <Box sx={{ mt: 3, ml: 1, mb: 1 }}>
+                                    <Stack direction='row' spacing={2}>
+                                        <Button variant='contained' size="medium" href={GitHubUrl} target='_blank'>GitHub</Button>
+                                        <Button variant='contained' size="medium" href={WebsiteUrl} target='_blank'>Website</Button>
+                                        {/* <IconButton aria-label="add to favorites">
+                                        <FavoriteIcon />
+                                    </IconButton>
+                                    <IconButton aria-label="share">
+                                        <ShareIcon />
+                                    </IconButton> */}
+                                    </Stack>
+                                </Box>
+                            </CardActions>
+                        </Card>
                     ))}
                 </div>
             </div>
-        </div>
+        </div >
     )
-}
+};

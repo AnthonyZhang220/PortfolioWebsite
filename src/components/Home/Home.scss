@@ -4,6 +4,7 @@
 	background-color: transparent;
 	display: flex;
 	z-index: $first-layer;
+	height: 100vh;
 
 	#canvas {
 		position: fixed;
