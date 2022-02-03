@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -10,65 +11,105 @@ import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact
 import MenuItem from '@mui/material/MenuItem';
 import TodayIcon from '@mui/icons-material/Today';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+import SendIcon from '@mui/icons-material/Send';
+import { LoadingButton } from '@mui/lab';
+import LinearProgress from '@mui/material/LinearProgress';
+import Draggable from 'react-draggable';
 
 import "./Contact.scss"
-import { useEffect } from 'react';
 
+
+function PaperComponent(props) {
+    return (
+        <Draggable
+            handle="#draggable-dialog-title"
+            cancel={'[class*="MuiDialogContent-root"]'}
+        >
+            <Paper {...props} />
+        </Draggable>
+    );
+}
 
 export default function Contact() {
 
 
-    const [intention, setIntention] = useState('Recruitor');
-    const [name, setName] = useState('');
-
-
-    const handleChange = (e) => {
-        setIntention(e.target.value);
-    };
-
-    const handleName = (e) => {
-        e.persist();
-        setName(e.target.value);
-    }
-
-
-    // const handle = useCallback((target)=>{
-    //     setName=(e.target.value)
-    // })
-
+    const [intention, setIntention] = useState('');
+    const [openDialog, setOpenDialog] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [input, setInput] = useState({
         name: '',
         email: '',
+        phone: '',
+        intention: '',
+        date: '',
         message: '',
-        recruiter: false,
-        collaborator: false,
     })
 
-    const [submitted, setSubmitted] = useState(false)
-    const [checked, setChecked] = useState([false, false])
 
-    useEffect(() => {
 
-    }, [name])
+    const handleIntention = (e) => {
+        setIntention(e.target.value);
+        const { intention, value } = e.target;
+        setInput({ ...input, [intention]: value })
+    };
+
+    const handleOnChange = (e) => {
+        const { name, email, phone, date, message, intention, value } = e.target;
+        setInput({
+            ...input,
+            [name]: value,
+            [email]: value,
+            [phone]: value,
+            [intention]: value,
+            [date]: value,
+            [message]: value,
+        })
+        console.log(input);
+    }
+
+    const handleClose = () => {
+        setOpenDialog(false);
+    }
+
+
+    const handleClickOpen = () => {
+        console.log(input);
+        setOpenDialog(true);
+    }
+    const handleSubmit = () => {
+        setLoading(true);
+
+    }
+
+
+
 
     return (
         <div className='contact' id='contact'>
+            <div className="contact-title">
+                <h2> Contact.</h2>
+                <span className='subtitle'>
+                    It's never hard to reach out to me, at any time.
+                </span>
+            </div>
             <div className="contact-container">
                 <div className="illustration">
                     <img src="/assets/images/contact_bg.png" alt="contact_background_image" />
                 </div>
                 <div className="form-wrapper">
-                    <div className="contact-title">
-                        <Typography variant='h3' mt={10} mb={2}>
-                            Contact Me
-                        </Typography>
-                    </div>
                     <Box
                         component="form"
                         sx={{
                             '& .MuiTextField-root': { m: 1 },
                         }}
-                        autoComplete="off"
                     >
                         <div>
                             <TextField
@@ -77,9 +118,11 @@ export default function Contact() {
                                 id="outlined-textarea"
                                 label="Name"
                                 type='text'
+                                name='name'
+                                autoComplete='name'
                                 placeholder="Anthony Zhang"
                                 helperText='Please enter your name'
-                                onChange={handleName}
+                                onChange={handleOnChange}
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start"><AccountCircleIcon /></InputAdornment>,
                                 }}
@@ -89,9 +132,12 @@ export default function Contact() {
                                 required
                                 id="outlined-textarea"
                                 type='email'
+                                name='email'
                                 label="Email"
+                                autoComplete='email'
                                 placeholder="anthonyzhang1997@gmail.com"
                                 helperText='Please enter your email'
+                                onChange={handleOnChange}
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start"><EmailIcon /></InputAdornment>,
                                 }}
@@ -101,8 +147,11 @@ export default function Contact() {
                                 id="outlined-textarea"
                                 label="Phone Number"
                                 type='tel'
+                                name='phone'
+                                autoComplete='phone'
                                 placeholder="+1234567890"
                                 helperText='Please enter your phone number'
+                                onChange={handleOnChange}
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start"><PhoneIphoneIcon /></InputAdornment>,
                                 }}
@@ -112,10 +161,11 @@ export default function Contact() {
                                 required
                                 select
                                 id="outlined-select-currency"
+                                name='intention'
                                 label="Intention"
-                                value={intention}
-                                onChange={handleChange}
-                                helperText='You are a'
+                                // value={intention}
+                                onChange={handleIntention}
+                                helperText='You are?'
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start"><ConnectWithoutContactIcon /></InputAdornment>,
                                 }}
@@ -128,8 +178,10 @@ export default function Contact() {
                                 id="outlined-textarea"
                                 type='date'
                                 label="Date"
+                                name='date'
                                 placeholder=""
                                 helperText='Date'
+                                onChange={handleOnChange}
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start"><TodayIcon /></InputAdornment>,
                                 }}
@@ -141,16 +193,118 @@ export default function Contact() {
                                 maxRows={3}
                                 id="outlined-helperText"
                                 label="Message"
-                                defaultValue={`Hi, ${name}`}
+                                name='message'
+                                defaultValue={`Hi,`}
                                 helperText="Please leave a message"
+                                onChange={handleOnChange}
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start"><MessageIcon /></InputAdornment>,
                                 }}
                             />
+                            <Box sx={{ mt: 1, ml: 1, mb: 1 }} onClick={handleClickOpen}>
+                                <Button variant="outlined">Submit</Button>
+                            </Box>
                         </div>
                     </Box>
                 </div>
-            </div>
-        </div>
+            </div >
+            <Dialog
+                open={openDialog}
+                onClose={handleClose}
+                PaperComponent={PaperComponent}
+                aria-labelledby="draggable-dialog-title"
+            >
+                {
+                    loading ?
+                        <Box sx={{ width: '100%' }}>
+                            <LinearProgress />
+                        </Box> : null
+                }
+
+                <DialogTitle id="dialog-title" style={{ cursor: 'move' }}>
+                    Confirmation
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        <Grid container spacing={1}>
+                            <Paper sx={{ maxWidth: 400, my: 1, mx: 'auto', p: 2 }}>
+                                <Grid container wrap="nowrap" spacing={2}>
+                                    <Grid item>
+                                        <AccountCircleIcon />
+                                    </Grid>
+                                    <Grid item xs zeroMinWidth>
+                                        <Typography noWrap>{input.name}</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Paper>
+                            <Paper sx={{ maxWidth: 400, my: 1, mx: 'auto', p: 2 }}>
+                                <Grid container wrap="nowrap" spacing={2}>
+                                    <Grid item>
+                                        <EmailIcon />
+                                    </Grid>
+                                    <Grid item xs>
+                                        <Typography noWrap>{input.email}</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Paper>
+                            <Paper sx={{ maxWidth: 400, my: 1, mx: 'auto', p: 2 }}>
+                                <Grid container wrap="nowrap" spacing={2}>
+                                    <Grid item>
+                                        <PhoneIphoneIcon />
+                                    </Grid>
+                                    <Grid item xs>
+                                        <Typography>{input.phone}</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Paper>
+                            <Paper sx={{ maxWidth: 400, my: 1, mx: 'auto', p: 2 }}>
+                                <Grid container wrap="nowrap" spacing={2}>
+                                    <Grid item>
+                                        <ConnectWithoutContactIcon />
+                                    </Grid>
+                                    <Grid item xs>
+                                        <Typography>{input.intention}</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Paper>
+                            <Paper sx={{ maxWidth: 400, my: 1, mx: 'auto', p: 2 }}>
+                                <Grid container wrap="nowrap" spacing={2}>
+                                    <Grid item>
+                                        <TodayIcon />
+                                    </Grid>
+                                    <Grid item xs>
+                                        <Typography>{input.date}</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Paper>
+                            <Paper sx={{ maxWidth: 400, my: 1, mx: 'auto', p: 2 }}>
+                                <Grid container wrap="nowrap" spacing={2}>
+                                    <Grid item>
+                                        <MessageIcon />
+                                    </Grid>
+                                    <Grid item xs>
+                                        <Typography>{input.message}</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Paper>
+                        </Grid>
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button variant='outlined' onClick={handleClose}>
+                        Cancel
+                    </Button>
+                    <LoadingButton
+                        onClick={handleSubmit}
+                        endIcon={<SendIcon />}
+                        loading={loading}
+                        loadingPosition="end"
+                        variant="contained"
+                    >
+                        Submit
+                    </LoadingButton>
+                </DialogActions>
+            </Dialog>
+        </div >
     )
 }

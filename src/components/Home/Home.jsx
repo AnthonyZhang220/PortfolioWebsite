@@ -160,9 +160,9 @@ export default function Home() {
                 <div className="wrapper">
                     <div className="top-spacing"></div>
                     <div className="greetings">
-                        <h2>Hello, I'm</h2>
-                        <h1>Anthony Zhang</h1>
-                        <h3>Frontend <span ref={textRef}></span></h3>
+                        {/* <h2>Hi, I'm</h2> */}
+                        <h2>Hi! I'm Anthony...</h2>
+                        <h3>a motivated Frontend <span ref={textRef}></span></h3>
                     </div>
                     <div className="bottom-spacing">
                         {/* <div className="learnmore" ref={learnmoreRef}>

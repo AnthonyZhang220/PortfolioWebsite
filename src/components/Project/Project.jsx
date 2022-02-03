@@ -14,11 +14,11 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { IconButton } from '@material-ui/core';
 import { Stack } from '@mui/material';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import SvgIcon from '@mui/material/SvgIcon';
 import Divider from "@material-ui/core/Divider";
 import Box from '@mui/material/Box';
+import ForwardRoundedIcon from '@mui/icons-material/ForwardRounded';
+import Chip from '@mui/material/Chip';
+
 
 import "./Project.scss"
 
@@ -32,14 +32,15 @@ const useStyles = makeStyles({
         textAlign: "center",
     },
     card: {
-        width: 400,
+        width: 450,
         height: 650,
         margin: "auto",
         transition: "0.3s",
-        boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
+        boxShadow: "2px 8px 24px rgb(0 0 0 / 8%)",
         "&:hover": {
-            boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)"
+            boxShadow: "2px 16px 48px rgba(0,0,0,0.3)"
         }
+
     }
 });
 
@@ -52,7 +53,7 @@ export default function Project() {
 
     useEffect(() => {
         gsap.fromTo(listRef.current, {
-            y: "25%", opacity: 0
+            y: "15%", opacity: 0
         }, {
             y: "0%", opacity: 1, duration: 2,
             scrollTrigger: {
@@ -66,18 +67,26 @@ export default function Project() {
     return (
         <div className='project' id='project' >
             <div className='title'>
-                <h1>Project</h1>
-                <div className="project-wrapper" ref={listRef}>
-                    {projectdata?.map(({ id, title, subtitle, thumbnail, description, tech, WebsiteUrl, GitHubUrl }) => (
-                        <Card key={id} className={classes.card} sx={{ ml: 5 }}>
+                <h2>Project.</h2>
+                <span className='subtitle'>
+                    Take a took at what I have created, in the past.
+                </span>
+            </div>
+            <div className="project-subtitle">
+                <h2></h2>
+            </div>
+            <div className="project-wrapper" ref={listRef}>
+                {projectdata?.map(({ id, title, subtitle, thumbnail, description, tech, WebsiteUrl, GitHubUrl, library, index }) => (
+                    <div key={id}>
+                        <Card className={classes.card} sx={{ ml: 5 }}>
                             <CardMedia
                                 component="img"
                                 alt={title}
-                                height="300"
+                                height="250"
                                 image={thumbnail}
                             />
                             <CardContent>
-                                <Box sx={{ mx: 2 }}>
+                                <Box sx={{ mx: 1 }}>
                                     <Typography gutterBottom variant="h5" component="div">
                                         {title}
                                     </Typography>
@@ -89,25 +98,36 @@ export default function Project() {
                                     </Typography>
                                 </Box>
                                 <Divider variant='middle' />
-                                <Box sx={{ m: 2 }}>
+                                <Box sx={{ m: 1 }}>
                                     <Typography gutterBottom variant="body2">
-                                        Technology & Library used
+                                        Technology used
                                     </Typography>
                                     <Stack direction='row' spacing={2}>
                                         {tech?.map(techUrl => (
-                                            <Icon className={{ root: classes.iconRoot }} key={techUrl}>
+                                            <Icon key={index}>
                                                 <img className={classes.imageIcon} src={techUrl} alt='' />
                                             </Icon>
                                         ))}
                                     </Stack>
                                 </Box>
-                                <Divider />
+                                <Divider variant='middle' />
+                                <Box sx={{ m: 1 }}>
+                                    <Typography gutterBottom variant="body2">
+                                        Library used
+                                    </Typography>
+                                    <Stack direction='row' spacing={1}>
+                                        {library?.map(lib => (
+                                            <Chip label={lib} key={index} />
+                                        ))}
+                                    </Stack>
+                                </Box>
+                                <Divider variant='middle' />
                             </CardContent>
                             <CardActions >
-                                <Box sx={{ mt: 3, ml: 1, mb: 1 }}>
+                                <Box sx={{ ml: 1, mb: 1 }}>
                                     <Stack direction='row' spacing={2}>
                                         <Button variant='contained' size="medium" href={GitHubUrl} target='_blank'>GitHub</Button>
-                                        <Button variant='contained' size="medium" href={WebsiteUrl} target='_blank'>Website</Button>
+                                        <Button variant='contained' size="medium" href={WebsiteUrl} target='_blank' endIcon={<ForwardRoundedIcon />}>Website</Button>
                                         {/* <IconButton aria-label="add to favorites">
                                         <FavoriteIcon />
                                     </IconButton>
@@ -118,8 +138,8 @@ export default function Project() {
                                 </Box>
                             </CardActions>
                         </Card>
-                    ))}
-                </div>
+                    </div>
+                ))}
             </div>
         </div >
     )
