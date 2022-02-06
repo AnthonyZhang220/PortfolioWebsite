@@ -1,9 +1,7 @@
 import { gsap } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useEffect } from "react";
 
 import Home from "./components/Home/Home";
-import Portfolio from "./components/Portfolio/Portfolio";
 import Project from "./components/Project/Project";
 import Contact from "./components/Contact/Contact";
 import About from "./components/About/About";
@@ -28,15 +26,12 @@ function Main() {
                 <About />
             </section>
             <section className="panel bg-color" data-color={dataColorArray[2]} id="section2">
-                <Portfolio />
-            </section>
-            <section className="panel bg-color" data-color={dataColorArray[3]} id="section3">
                 <Project />
             </section>
-            <section className="panel bg-color" data-color={dataColorArray[4]} id="section4">
+            <section className="panel bg-color" data-color={dataColorArray[3]} id="section3">
                 <Contact />
             </section>
-            <section className="panel bg-color" data-color={dataColorArray[5]} id="section5">
+            <section className="panel bg-color" data-color={dataColorArray[4]} id="section4">
                 <Footer />
             </section>
         </main>

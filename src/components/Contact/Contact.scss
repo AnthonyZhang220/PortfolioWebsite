@@ -3,19 +3,21 @@
 .contact {
 	background-color: inherit;
 	display: flex;
-	align-items: center;
-	justify-content: center;
 	flex-direction: column;
+	align-items: center;
 	height: 100vh;
 
 	.contact-title {
 		display: inline-flex;
 		align-items: center;
+		flex-wrap: wrap;
 		margin-top: $section-margin-top;
+		margin-left: $section-margin-left;
+		margin-right: $section-margin-right;
 		padding-bottom: 20px;
 		font-size: 2em;
 
-		.subtitle {
+		.contact-subtitle {
 			font-size: 1.5em;
 			color: #6e6e73;
 		}
@@ -32,8 +34,6 @@
 			align-items: center;
 			justify-content: center;
 			flex: 0.5;
-			height: 100%;
-			width: 100%;
 
 			img {
 				object-fit: cover;

@@ -79,7 +79,6 @@ export default function NavBar() {
                 <div className="navlink">
                     <div role="list" className="hashlink"><HashLink to="/#home">HOME</HashLink></div>
                     <div role="list" className="hashlink"><HashLink to="/#about">ABOUT</HashLink></div>
-                    <div role="list" className="hashlink"><HashLink to="/#portfolio">PORTFOLIO</HashLink></div>
                     <div role="list" className="hashlink"><HashLink to="/#project">PROJECT</HashLink></div>
                     <div role="list" className="hashlink"><HashLink to="/#contact">CONTACT</HashLink></div>
                     <div role="list" className="hashlink"><HashLink to="/blogs">BLOG</HashLink></div>

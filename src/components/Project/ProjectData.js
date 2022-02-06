@@ -36,23 +36,6 @@ export const projectdata = [
 		GitHubUrl: "https://github.com/AnthonyZhang220/qrcode-ordering",
 	},
 	{
-		id: "3",
-		title: "LaoMa Spicy Waitlist System",
-		subtitle: "LaoMa Spicy Customer Queue System",
-		thumbnail: "assets/images/project-bg.jpg",
-		description:
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco ",
-		tech: [
-			`${iconpath}html5.png`,
-			`${iconpath}javascript.png`,
-			`${iconpath}css3.png`,
-			`${iconpath}react.png`,
-		],
-		library: [""],
-		WebsiteUrl: "https://laoma-spicy.herokuapp.com/",
-		GitHubUrl: "https://github.com/AnthonyZhang220/qrcode-ordering",
-	},
-	{
 		id: "4",
 		title: "TripAdvisor",
 		subtitle: "Trip Advisor Clone",
@@ -66,7 +49,7 @@ export const projectdata = [
 		],
 		library: [""],
 		WebsiteUrl: "https://tripadvisorclone.netlify.app/",
-		GitHubUrl: "https://github.com/AnthonyZhang220/qrcode-ordering",
+		GitHubUrl: "https://github.com/AnthonyZhang220/travel-advisor",
 	},
 	{
 		id: "4",
@@ -101,6 +84,23 @@ export const projectdata = [
 		],
 		library: [""],
 		WebsiteUrl: "https://explore-amazon-api.herokuapp.com/",
+		GitHubUrl: "https://github.com/AnthonyZhang220/qrcode-ordering",
+	},
+	{
+		id: "3",
+		title: "LaoMa Spicy Waitlist System",
+		subtitle: "LaoMa Spicy Customer Queue System",
+		thumbnail: "assets/images/project-bg.jpg",
+		description:
+			"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco ",
+		tech: [
+			`${iconpath}html5.png`,
+			`${iconpath}javascript.png`,
+			`${iconpath}css3.png`,
+			`${iconpath}react.png`,
+		],
+		library: [""],
+		WebsiteUrl: "https://laoma-spicy.herokuapp.com/",
 		GitHubUrl: "https://github.com/AnthonyZhang220/qrcode-ordering",
 	},
 ];

@@ -9,7 +9,19 @@
 	flex-direction: column;
 
 	.title-aboutme {
-		align-items: flex-start;
+		display: inline-flex;
+		flex-wrap: wrap;
+		padding-bottom: 20px;
+		margin-top: $section-margin-top;
+		margin-left: $section-margin-left;
+		margin-right: $section-margin-right;
+		align-items: center;
+		font-size: 2em;
+
+		span {
+			font-size: 1.5em;
+			color: #6e6e73;
+		}
 	}
 
 	.about-me {
@@ -27,6 +39,22 @@
 		}
 		.summary {
 			flex: 0.6;
+		}
+	}
+
+	.title-skills {
+		display: inline-flex;
+		flex-wrap: wrap;
+		padding-bottom: 20px;
+		margin-top: $section-margin-top;
+		margin-left: $section-margin-left;
+		margin-right: $section-margin-right;
+		align-items: center;
+		font-size: 2em;
+
+		span {
+			font-size: 1.5em;
+			color: #6e6e73;
 		}
 	}
 

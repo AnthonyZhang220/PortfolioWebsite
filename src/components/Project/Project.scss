@@ -5,14 +5,14 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 100vw;
-	height: 100vh;
 
-	.title {
-		display: inline-flex;
+	.project-title {
+		display: flex;
 		align-items: center;
 		flex-wrap: wrap;
 		margin-top: $section-margin-top;
+		margin-left: $section-margin-left;
+		margin-right: $section-margin-right;
 		padding-bottom: 20px;
 		font-size: 2em;
 
@@ -26,14 +26,13 @@
 		display: flex;
 		flex-wrap: nowrap;
 		transform: translateX(30%);
-		overflow-x: auto;
-		overflow-y: hidden;
-		// transform: rotate(-90deg);
-		// transform-origin: right top;
-	}
+		margin-left: $section-margin-top;
+		padding-bottom: $section-margin-top;
+		// overflow-x: auto;
+		// overflow-y: hidden;
 
-	// .project-wrapper > div {
-	// 	transform: rotate(90deg);
-	// 	transform-origin: right top;
-	// }
+		.card {
+			height: 600px;
+		}
+	}
 }

@@ -24,7 +24,17 @@ import { LoadingButton } from '@mui/lab';
 import LinearProgress from '@mui/material/LinearProgress';
 import Draggable from 'react-draggable';
 
+import { styled } from '@mui/material/styles';
 import "./Contact.scss"
+
+
+
+const Item = styled(Paper)(({ theme }) => ({
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+}));
 
 
 function PaperComponent(props) {
@@ -40,26 +50,16 @@ function PaperComponent(props) {
 
 export default function Contact() {
 
-
-    const [intention, setIntention] = useState('');
     const [openDialog, setOpenDialog] = useState(false);
     const [loading, setLoading] = useState(false);
     const [input, setInput] = useState({
-        name: '',
-        email: '',
-        phone: '',
-        intention: '',
-        date: '',
-        message: '',
+        name: null,
+        email: null,
+        phone: null,
+        intention: null,
+        date: null,
+        message: null,
     })
-
-
-
-    const handleIntention = (e) => {
-        setIntention(e.target.value);
-        const { intention, value } = e.target;
-        setInput({ ...input, [intention]: value })
-    };
 
     const handleOnChange = (e) => {
         const { name, email, phone, date, message, intention, value } = e.target;
@@ -72,7 +72,6 @@ export default function Contact() {
             [date]: value,
             [message]: value,
         })
-        console.log(input);
     }
 
     const handleClose = () => {
@@ -95,8 +94,8 @@ export default function Contact() {
     return (
         <div className='contact' id='contact'>
             <div className="contact-title">
-                <h2> Contact.</h2>
-                <span className='subtitle'>
+                <h2>Contact.&nbsp;</h2>
+                <span className='contact-subtitle'>
                     It's never hard to reach out to me, at any time.
                 </span>
             </div>
@@ -163,15 +162,15 @@ export default function Contact() {
                                 id="outlined-select-currency"
                                 name='intention'
                                 label="Intention"
-                                // value={intention}
-                                onChange={handleIntention}
+                                onChange={handleOnChange}
                                 helperText='You are?'
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start"><ConnectWithoutContactIcon /></InputAdornment>,
                                 }}
                             >
                                 <MenuItem value='Collaborator' divider={true}>Collaborator</MenuItem>
-                                <MenuItem value='Recruitor'>Recruitor</MenuItem>
+                                <MenuItem value='Recruitor' divider={true}>Recruitor</MenuItem>
+                                <MenuItem value='Other'>Other</MenuItem>
                             </TextField>
                             <TextField
                                 fullWidth
@@ -226,14 +225,14 @@ export default function Contact() {
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        <Grid container spacing={1}>
+                        <Box sx={{ flexGrow: 5, overflow: "hidden", px: 3 }}>
                             <Paper sx={{ maxWidth: 400, my: 1, mx: 'auto', p: 2 }}>
                                 <Grid container wrap="nowrap" spacing={2}>
                                     <Grid item>
                                         <AccountCircleIcon />
                                     </Grid>
                                     <Grid item xs zeroMinWidth>
-                                        <Typography noWrap>{input.name}</Typography>
+                                        <Typography noWrap>Name: {input.name}</Typography>
                                     </Grid>
                                 </Grid>
                             </Paper>
@@ -243,7 +242,7 @@ export default function Contact() {
                                         <EmailIcon />
                                     </Grid>
                                     <Grid item xs>
-                                        <Typography noWrap>{input.email}</Typography>
+                                        <Typography noWrap>Email: {input.email}</Typography>
                                     </Grid>
                                 </Grid>
                             </Paper>
@@ -253,7 +252,7 @@ export default function Contact() {
                                         <PhoneIphoneIcon />
                                     </Grid>
                                     <Grid item xs>
-                                        <Typography>{input.phone}</Typography>
+                                        <Typography>Phone: {input.phone}</Typography>
                                     </Grid>
                                 </Grid>
                             </Paper>
@@ -263,7 +262,7 @@ export default function Contact() {
                                         <ConnectWithoutContactIcon />
                                     </Grid>
                                     <Grid item xs>
-                                        <Typography>{input.intention}</Typography>
+                                        <Typography>Intention: {input.intention}</Typography>
                                     </Grid>
                                 </Grid>
                             </Paper>
@@ -273,7 +272,7 @@ export default function Contact() {
                                         <TodayIcon />
                                     </Grid>
                                     <Grid item xs>
-                                        <Typography>{input.date}</Typography>
+                                        <Typography>Date: {input.date}</Typography>
                                     </Grid>
                                 </Grid>
                             </Paper>
@@ -283,11 +282,11 @@ export default function Contact() {
                                         <MessageIcon />
                                     </Grid>
                                     <Grid item xs>
-                                        <Typography>{input.message}</Typography>
+                                        Message: {input.message}
                                     </Grid>
                                 </Grid>
                             </Paper>
-                        </Grid>
+                        </Box>
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
