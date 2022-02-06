@@ -1,11 +1,26 @@
+import React, { useRef, useEffect, useState } from "react";
 import DarkMode from "../DarkMode/DarkMode";
-import Language from "../Language/Language";
 import Menu from "../Menu/Menu";
-import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap/all";
 import { HashLink } from "react-router-hash-link";
 import { ScrollToPlugin } from 'gsap/all'
 import { ScrollTrigger } from "gsap/all";
+
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
+import Badge from '@mui/material/Badge';
+import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded';
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
+import Box from '@mui/material/Box';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import Button from '@mui/material/Button';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+
+
 import "./NavBar.scss"
 import "../../global.scss"
 
@@ -18,20 +33,28 @@ export default function NavBar() {
     const midRef = useRef(null);
     const [toggle, setToggle] = useState(false);
 
-
-
-    /* Set the width of the side navigation to 250px and the left margin of the page content to 250px and add a black background color to body */
-    function openNav() {
-        document.getElementById("side-menu").style.width = "30px";
-        document.getElementById("App").style.marginRight = "30px";
-    }
-
-    /* Set the width of the side navigation to 0 and the left margin of the page content to 0, and the background color of body to white */
-    function closeNav() {
-        document.getElementById("side-menu").style.width = "0";
-        document.getElementById("App").style.marginRight = "0";
-    }
-
+    const menuList = [
+        {
+            id: 1,
+            item: "HOME",
+        },
+        {
+            id: 2,
+            item: "ABOUT",
+        },
+        {
+            id: 3,
+            item: "PORTFOLIO",
+        },
+        {
+            id: 4,
+            item: "PROJECT",
+        },
+        {
+            id: 5,
+            item: "CONTACT",
+        },
+    ];
 
     //navbar animation
     useEffect(() => {
@@ -67,7 +90,39 @@ export default function NavBar() {
             }
         })
 
-    })
+    });
+
+    const toggleDrawer = (open) => (event) => {
+        if (
+            event &&
+            event.type === 'keydown' &&
+            (event.key === 'Tab' || event.key === 'Shift')
+        ) {
+            return;
+        }
+
+    };
+
+
+    const mobileMenu = () => (
+        <Box
+            role="presentation"
+            onClick={toggleDrawer(false)}
+            onKeyDown={toggleDrawer(false)}
+        >
+            <List>
+                <Divider />
+                {menuList.map((id, item) => (
+                    <ListItem button key={id}>
+                        <ListItemIcon>
+
+                        </ListItemIcon>
+                        <ListItemText primary={item} />
+                    </ListItem>
+                ))}
+            </List>
+        </Box>
+    );
 
     return (
         <nav className='navbar' ref={navRef}>
@@ -85,13 +140,29 @@ export default function NavBar() {
                 </div>
                 <div className="icon">
                     <div className="darkmode-button">
-                        <DarkMode></DarkMode>
+                        <DarkMode />
                     </div>
                     <div className="menubar" onClick={() => setToggle(!toggle)}>
-                        {toggle ? <i className="fas fa-times" onClick={() => closeNav()} /> : <i className="fas fa-bars" onClick={() => openNav()} />}
+                        {/* {toggle ? <CloseIcon /> : <MenuIcon />} */}
+                        {
+                            <React.Fragment >
+                                <MenuIcon onClick={toggleDrawer(true)}></MenuIcon>
+                                <SwipeableDrawer
+                                    onClose={toggleDrawer(false)}
+                                    onOpen={toggleDrawer(true)}
+                                >
+                                    {mobileMenu}
+                                </SwipeableDrawer>
+                            </React.Fragment>
+                        }
                     </div>
-                    <div className="language">
-                        <Language></Language>
+                    <div className="like-button">
+                        <Badge badgeContent={4} color="primary">
+                            <ThumbUpRoundedIcon color="inherit" />
+                        </Badge>
+                        <Badge badgeContent={4} color="primary">
+                            <FavoriteRoundedIcon color="inherit" />
+                        </Badge>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,7 @@
 import { useState } from "react";
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+
 import "./DarkMode.scss";
 
 export default function DarkMode() {
@@ -44,7 +47,7 @@ export default function DarkMode() {
 	return (
 		<div className="darkmode-button">
 			<button id="dark-mode-toggle" className="dark-mode-toggle"
-				aria-label='toggle dark mode' onClick={clickHandler}>{isDark ? <i className="fas fa-sun"></i> : <i className="fas fa-moon"></i>}
+				aria-label='toggle dark mode' onClick={clickHandler}>{isDark ? <LightModeIcon sx={{ color: '#ffffff' }} /> : <DarkModeIcon sx={{ color: 'inherit' }} />}
 			</button>
 		</div>
 	);

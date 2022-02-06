@@ -56,16 +56,14 @@
 				align-items: center;
 				justify-content: center;
 
-				i {
-					text-align: center;
-					width: 2em;
-					font-size: 30px;
-					transition: all 0.5s ease-out;
-					line-height: 2;
+				text-align: center;
+				width: 2em;
+				font-size: 30px;
+				transition: all 0.5s ease-out;
+				line-height: 2;
 
-					&:hover {
-						color: $mainColor2;
-					}
+				&:hover {
+					color: $mainColor2;
 				}
 			}
 
@@ -74,16 +72,14 @@
 				justify-content: center;
 				display: none;
 
-				i {
-					text-align: center;
-					width: 30px;
-					font-size: 30px;
-					line-height: 2;
+				text-align: center;
+				width: 30px;
+				font-size: 30px;
+				line-height: 2;
 
-					&:hover {
-						color: $mainColor2;
-						cursor: pointer;
-					}
+				&:hover {
+					color: $mainColor2;
+					cursor: pointer;
 				}
 			}
 
@@ -119,6 +115,11 @@
 
 			.icon {
 				display: flex;
+
+				.darkmode-button {
+					display: none;
+				}
+
 				.menubar {
 					display: flex;
 				}
