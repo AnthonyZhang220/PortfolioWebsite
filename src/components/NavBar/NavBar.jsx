@@ -19,19 +19,31 @@ import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import { createStyles, makeStyles } from "@mui/styles";
 
 
 import "./NavBar.scss"
 import "../../global.scss"
+
+const useStyles = makeStyles(() => {
+    createStyles({
+        drawer: {
+            width: 'auto',
+            zIndex: 2000,
+        }
+    })
+})
 
 export default function NavBar() {
 
     gsap.registerPlugin(ScrollToPlugin);
     gsap.registerPlugin(ScrollTrigger);
 
+    const classes = useStyles();
     const navRef = useRef(null);
     const midRef = useRef(null);
-    const [toggle, setToggle] = useState(false);
+    // const [toggle, setToggle] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     const menuList = [
         {
@@ -44,14 +56,10 @@ export default function NavBar() {
         },
         {
             id: 3,
-            item: "PORTFOLIO",
-        },
-        {
-            id: 4,
             item: "PROJECT",
         },
         {
-            id: 5,
+            id: 4,
             item: "CONTACT",
         },
     ];
@@ -92,7 +100,7 @@ export default function NavBar() {
 
     });
 
-    const toggleDrawer = (open) => (event) => {
+    const toggleDrawer = () => (event) => {
         if (
             event &&
             event.type === 'keydown' &&
@@ -101,21 +109,24 @@ export default function NavBar() {
             return;
         }
 
+        setIsOpen(!isOpen);
+
+
     };
 
 
     const mobileMenu = () => (
         <Box
+            sx={{ width: 'auto', zIndex: 2000 }}
             role="presentation"
             onClick={toggleDrawer(false)}
             onKeyDown={toggleDrawer(false)}
         >
             <List>
                 <Divider />
-                {menuList.map((id, item) => (
-                    <ListItem button key={id}>
+                {menuList?.map((item) => (
+                    <ListItem button key={item}>
                         <ListItemIcon>
-
                         </ListItemIcon>
                         <ListItemText primary={item} />
                     </ListItem>
@@ -142,14 +153,19 @@ export default function NavBar() {
                     <div className="darkmode-button">
                         <DarkMode />
                     </div>
-                    <div className="menubar" onClick={() => setToggle(!toggle)}>
-                        {/* {toggle ? <CloseIcon /> : <MenuIcon />} */}
+                    <div className="menubar">
                         {
                             <React.Fragment >
-                                <MenuIcon onClick={toggleDrawer(true)}></MenuIcon>
+                                <MenuIcon onClick={toggleDrawer(true)} />
                                 <SwipeableDrawer
+                                    className={classes.drawer}
+                                    anchor='top'
+                                    open={isOpen}
                                     onClose={toggleDrawer(false)}
                                     onOpen={toggleDrawer(true)}
+                                    transitionDuration={500}
+                                    variant='temporary'
+                                    elevation={3}
                                 >
                                     {mobileMenu}
                                 </SwipeableDrawer>
