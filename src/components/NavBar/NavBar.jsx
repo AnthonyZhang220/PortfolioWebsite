@@ -35,6 +35,14 @@ const useStyles = makeStyles(() => {
         content: {
             flexGrow: 1,
             overflow: "auto",
+        },
+        list: {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        hashlink: {
+            textDecoration: 'none',
         }
     })
 })
@@ -173,19 +181,23 @@ export default function NavBar() {
                                     elevation={3}
                                 >
                                     <Box
-                                        sx={{ width: 'auto', height: 400, zIndex: 2000 }}
+                                        sx={{ width: 'auto' }}
                                         role="presentation"
                                         onClick={toggleDrawer(false)}
                                         onKeyDown={toggleDrawer(false)}
                                         className={classes.content}
                                     >
+
                                         <List>
-                                            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                                                <ListItem button key={text}>
-                                                    <ListItemIcon>
-                                                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                                                    </ListItemIcon>
-                                                    <ListItemText primary={text} />
+                                            <Box
+                                                sx={{ height: 100 }}>
+
+                                            </Box>
+                                            {['home', 'about', 'project', 'contact', 'blog'].map((text, index) => (
+                                                <ListItem button key={text} className={classes.list} >
+                                                    <HashLink className={classes.hashlink} to={`/#${text}`}>
+                                                        <ListItemText className={classes.list} primary={text.toUpperCase()} />
+                                                    </HashLink>
                                                 </ListItem>
                                             ))}
                                         </List>
