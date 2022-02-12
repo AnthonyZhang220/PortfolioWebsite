@@ -19,9 +19,10 @@ import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+
 import { createStyles, makeStyles } from "@mui/styles";
-
-
 import "./NavBar.scss"
 import "../../global.scss"
 
@@ -30,6 +31,10 @@ const useStyles = makeStyles(() => {
         drawer: {
             width: 'auto',
             zIndex: 2000,
+        },
+        content: {
+            flexGrow: 1,
+            overflow: "auto",
         }
     })
 })
@@ -117,13 +122,14 @@ export default function NavBar() {
 
     const mobileMenu = () => (
         <Box
-            sx={{ width: 'auto', zIndex: 2000 }}
+            sx={{ width: 'auto', height: 400, zIndex: 2000 }}
             role="presentation"
             onClick={toggleDrawer(false)}
             onKeyDown={toggleDrawer(false)}
+            className={classes.content}
         >
             <List>
-                <Divider />
+                {/* <Divider /> */}
                 {menuList?.map((item) => (
                     <ListItem button key={item}>
                         <ListItemIcon>
@@ -164,10 +170,27 @@ export default function NavBar() {
                                     onClose={toggleDrawer(false)}
                                     onOpen={toggleDrawer(true)}
                                     transitionDuration={500}
-                                    variant='temporary'
                                     elevation={3}
                                 >
-                                    {mobileMenu}
+                                    <Box
+                                        sx={{ width: 'auto', height: 400, zIndex: 2000 }}
+                                        role="presentation"
+                                        onClick={toggleDrawer(false)}
+                                        onKeyDown={toggleDrawer(false)}
+                                        className={classes.content}
+                                    >
+                                        <List>
+                                            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                                                <ListItem button key={text}>
+                                                    <ListItemIcon>
+                                                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                                    </ListItemIcon>
+                                                    <ListItemText primary={text} />
+                                                </ListItem>
+                                            ))}
+                                        </List>
+                                        {mobileMenu}
+                                    </Box>
                                 </SwipeableDrawer>
                             </React.Fragment>
                         }
