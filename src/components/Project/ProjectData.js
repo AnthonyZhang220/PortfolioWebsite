@@ -36,7 +36,7 @@ export const projectdata = [
 		GitHubUrl: "https://github.com/AnthonyZhang220/qrcode-ordering",
 	},
 	{
-		id: "4",
+		id: "3",
 		title: "TripAdvisor",
 		subtitle: "Trip Advisor Clone",
 		thumbnail: "assets/images/project-bg.jpg",
@@ -72,7 +72,7 @@ export const projectdata = [
 	{
 		id: "5",
 		title: "Explore Amazon API",
-		subtitle: "Amazon Product Details Data Access API",
+		subtitle: "Amazon Product Details Data API",
 		thumbnail: "assets/images/project-bg.jpg",
 		description:
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco ",
@@ -87,7 +87,7 @@ export const projectdata = [
 		GitHubUrl: "https://github.com/AnthonyZhang220/qrcode-ordering",
 	},
 	{
-		id: "3",
+		id: "6",
 		title: "LaoMa Spicy Waitlist System",
 		subtitle: "LaoMa Spicy Customer Queue System",
 		thumbnail: "assets/images/project-bg.jpg",

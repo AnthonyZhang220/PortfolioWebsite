@@ -1,9 +1,13 @@
-import "./Home.scss"
 import { useEffect, useRef } from "react";
 import { init } from 'ityped';
 import { gsap } from "gsap/all";
 import BackToTop from "../BackToTop/BackToTop";
+import FingerprintIcon from '@mui/icons-material/Fingerprint';
+import IconButton from '@mui/material/IconButton';
 import { ScrollToPlugin } from 'gsap/all';
+
+
+import "./Home.scss"
 
 export default function Home() {
 
@@ -93,19 +97,6 @@ export default function Home() {
     })
 
 
-    //arrow down disappear on scroll
-    useEffect(() => {
-        gsap.fromTo([arrowdownRef.current, learnmoreRef.current], { y: "0%", opacity: 1 }, {
-            y: "50%", opacity: 0, duration: 3,
-            scrollTrigger: {
-                trigger: introRef.current,
-                start: "center top",
-            }
-        })
-
-    })
-
-
     function backtotop() {
         console.log("clicked")
         gsap.to(window, { scrollTo: { y: 0 } });
@@ -147,14 +138,7 @@ export default function Home() {
             <div className="hi" ref={hiRef}>Hi</div>
             <div className="happy" ref={happyRef}>I'm happy you're here</div>
 
-            <div className="left" ref={touchRef}>
-                <div className="container">
-                    <div className="touch">
-                        <a href="mailto: anthonyzhang1997@gmail.com">
-                            <i className="fas fa-fingerprint"></i>
-                        </a>
-                    </div>
-                </div>
+            <div className="top" ref={touchRef}>
             </div>
             <div className="mid" ref={midRef}>
                 <div className="wrapper">
@@ -164,28 +148,38 @@ export default function Home() {
                         <h2>Hi! I'm Anthony...</h2>
                         <h3>a motivated Frontend <span ref={textRef}></span></h3>
                     </div>
-                    <div className="bottom-spacing">
-                        {/* <div className="learnmore" ref={learnmoreRef}>
-                            Learn more
-                        </div> */}
-                        <a href="#about">
-                            <div className="arrowdown" ref={arrowdownRef}>
-                                <i className="fas fa-chevron-down"></i>
-                            </div>
-                        </a>
+                    <div className="imgContainer">
+                        <div className="linkedin">
+                            <a href="https://www.linkedin.com/in/anthony-xiangyu-zhang/" target="_blank" rel="noreferrer"><i className="fab fa-linkedin"></i></a>
+                        </div>
+                        <div className="github">
+                            <a href="https://github.com/AnthonyZhang220" target="_blank" rel="noreferrer"><i className="fab fa-github"></i></a>
+                        </div>
+                        <div className="stackoverflow">
+                            <a href="https://stackoverflow.com/users/6162027/anthony220" target="_blank" rel="noreferrer"> <i className="fab fa-stack-overflow"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div className="right" ref={socialRef}>
-                <div className="imgContainer">
-                    <div className="linkedin">
-                        <a href="https://www.linkedin.com/in/anthony-xiangyu-zhang/" target="_blank" rel="noreferrer"><i className="fab fa-linkedin"></i></a>
-                    </div>
-                    <div className="github">
-                        <a href="https://github.com/AnthonyZhang220" target="_blank" rel="noreferrer"><i className="fab fa-github"></i></a>
-                    </div>
-                    <div className="stackoverflow">
-                        <a href="https://stackoverflow.com/users/6162027/anthony220" target="_blank" rel="noreferrer"> <i className="fab fa-stack-overflow"></i></a>
+            <div className="bottom" ref={socialRef}>
+                <div className="bottom-spacing">
+                    {/* <div className="learnmore" ref={learnmoreRef}>
+                            Learn more
+                        </div> */}
+                    {/* <a href="#about">
+                        <div className="arrowdown" ref={arrowdownRef}>
+                            <i className="fas fa-chevron-down"></i>
+                        </div>
+                    </a> */}
+                    <div className="container" ref={arrowdownRef}>
+                        <div className="touch">
+                            <IconButton component='a' href="./#about">
+                                <FingerprintIcon sx={{ fontSize: 35, textAlign: 'center' }} />
+                            </IconButton>
+                        </div>
+                        <div className="touch-text">
+                            Learn More
+                        </div>
                     </div>
                 </div>
             </div>

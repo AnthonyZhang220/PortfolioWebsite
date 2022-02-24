@@ -6,8 +6,8 @@ import { HashLink } from "react-router-hash-link";
 import { ScrollToPlugin } from 'gsap/all'
 import { ScrollTrigger } from "gsap/all";
 
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import Badge from '@mui/material/Badge';
 import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
@@ -21,6 +21,14 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
+import ConnectWithoutContactRoundedIcon from '@mui/icons-material/ConnectWithoutContactRounded';
+import BuildCircleRoundedIcon from '@mui/icons-material/BuildCircleRounded';
+import RssFeedRoundedIcon from '@mui/icons-material/RssFeedRounded';
 
 import { createStyles, makeStyles } from "@mui/styles";
 import "./NavBar.scss"
@@ -36,18 +44,10 @@ const useStyles = makeStyles(() => {
             flexGrow: 1,
             overflow: "auto",
         },
-        list: {
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-        },
-        hashlink: {
-            textDecoration: 'none',
-        }
     })
 })
 
-export default function NavBar() {
+export default function NavBar({ darkTheme }) {
 
     gsap.registerPlugin(ScrollToPlugin);
     gsap.registerPlugin(ScrollTrigger);
@@ -57,25 +57,8 @@ export default function NavBar() {
     const midRef = useRef(null);
     // const [toggle, setToggle] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
-
-    const menuList = [
-        {
-            id: 1,
-            item: "HOME",
-        },
-        {
-            id: 2,
-            item: "ABOUT",
-        },
-        {
-            id: 3,
-            item: "PROJECT",
-        },
-        {
-            id: 4,
-            item: "CONTACT",
-        },
-    ];
+    const [like, setLike] = useState(0);
+    const [fav, setFav] = useState(0);
 
     //navbar animation
     useEffect(() => {
@@ -127,27 +110,14 @@ export default function NavBar() {
 
     };
 
+    const likeCount = () => {
+        setLike(like + 1);
+    }
 
-    const mobileMenu = () => (
-        <Box
-            sx={{ width: 'auto', height: 400, zIndex: 2000 }}
-            role="presentation"
-            onClick={toggleDrawer(false)}
-            onKeyDown={toggleDrawer(false)}
-            className={classes.content}
-        >
-            <List>
-                {/* <Divider /> */}
-                {menuList?.map((item) => (
-                    <ListItem button key={item}>
-                        <ListItemIcon>
-                        </ListItemIcon>
-                        <ListItemText primary={item} />
-                    </ListItem>
-                ))}
-            </List>
-        </Box>
-    );
+    const favCount = () => {
+        setFav(fav + 1);
+    }
+
 
     return (
         <nav className='navbar' ref={navRef}>
@@ -164,13 +134,12 @@ export default function NavBar() {
                     <div role="list" className="hashlink"><HashLink to="/blogs">BLOG</HashLink></div>
                 </div>
                 <div className="icon">
-                    <div className="darkmode-button">
-                        <DarkMode />
-                    </div>
                     <div className="menubar">
                         {
                             <React.Fragment >
-                                <MenuIcon onClick={toggleDrawer(true)} />
+                                <IconButton>
+                                    <MenuRoundedIcon sx={{ fontSize: 30 }} onClick={toggleDrawer(true)} />
+                                </IconButton>
                                 <SwipeableDrawer
                                     className={classes.drawer}
                                     anchor='top'
@@ -178,7 +147,7 @@ export default function NavBar() {
                                     onClose={toggleDrawer(false)}
                                     onOpen={toggleDrawer(true)}
                                     transitionDuration={500}
-                                    elevation={3}
+                                    elevation={10}
                                 >
                                     <Box
                                         sx={{ width: 'auto' }}
@@ -187,36 +156,53 @@ export default function NavBar() {
                                         onKeyDown={toggleDrawer(false)}
                                         className={classes.content}
                                     >
-
-                                        <List>
-                                            <Box
-                                                sx={{ height: 100 }}>
-
-                                            </Box>
-                                            {['home', 'about', 'project', 'contact', 'blog'].map((text, index) => (
-                                                <ListItem button key={text} className={classes.list} >
-                                                    <HashLink className={classes.hashlink} to={`/#${text}`}>
-                                                        <ListItemText className={classes.list} primary={text.toUpperCase()} />
-                                                    </HashLink>
+                                        <Box
+                                            sx={{ height: 100, fontSize: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                                        >
+                                            <IconButton>
+                                                <CloseRoundedIcon sx={{ fontSize: 30 }} onClick={toggleDrawer(false)} />
+                                            </IconButton>
+                                        </Box>
+                                        <List sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
+                                            <ListItem divider sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }} component={HashLink} to='/#home'>
+                                                <IconButton>
+                                                    <HomeRoundedIcon sx={{ fontSize: 30 }} />
+                                                </IconButton>
+                                            </ListItem>
+                                            {['about', 'project', 'contact'].map((text, index) => (
+                                                <ListItem button sx={{ height: 100 }} key={text} alignItems="center" component={HashLink} to={`/#${text}`} >
+                                                    <Divider light variant="normal" />
+                                                    <ListItemText disableTypography primary={<Typography variant="h5" sx={{ letterSpacing: 5 }}>{text.toUpperCase()}</Typography>} sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }} />
                                                 </ListItem>
                                             ))}
+                                            <ListItem button sx={{ height: 100 }} className={classes.list} alignItems="center" component={HashLink} to='/blogs' >
+                                                <ListItemText disableTypography primary={<Typography variant="h5" sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', letterSpacing: 5 }}>BLOG</Typography>} />
+                                            </ListItem>
                                         </List>
-                                        {mobileMenu}
                                     </Box>
                                 </SwipeableDrawer>
                             </React.Fragment>
                         }
                     </div>
-                    <div className="like-button">
-                        <Badge badgeContent={4} color="primary">
-                            <ThumbUpRoundedIcon color="inherit" />
-                        </Badge>
-                        <Badge badgeContent={4} color="primary">
-                            <FavoriteRoundedIcon color="inherit" />
-                        </Badge>
+                    <div className="features">
+                        <Box>
+                            <Box>
+                                <DarkMode sx={{ fontSize: 30 }} />
+                            </Box>
+                            {/* <Box>
+                                <Badge badgeContent={like} color="primary">
+                                    <ThumbUpRoundedIcon onClick={likeCount} color="inherit" />
+                                </Badge>
+                            </Box>
+                            <Box>
+                                <Badge badgeContent={fav} color="primary">
+                                    <FavoriteRoundedIcon onClick={favCount} color="inherit" />
+                                </Badge>
+                            </Box> */}
+                        </Box>
                     </div>
                 </div>
-            </div>
-        </nav>
+            </div >
+        </nav >
     )
 }

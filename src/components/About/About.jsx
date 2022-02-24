@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from "gsap/all";
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Card from '@mui/material/Card';
@@ -16,6 +19,8 @@ import "./About.scss";
 
 
 export default function About() {
+    gsap.registerPlugin(ScrollTrigger);
+
     const marks = [
         {
             value: 'beginner',
@@ -36,8 +41,21 @@ export default function About() {
 
     ]
 
+    const aboutRef = useRef();
+
+    useEffect(() => {
+        gsap.fromTo(aboutRef.current,
+            { opacity: 0 }, {
+                opacity: 1, duration: 5, scrollTrigger: {
+                    trigger: aboutRef.current,
+                    start: "top bottom"
+                }
+        }
+        )
+    })
+
     return (
-        <div className='about' id="about">
+        <div className='about' id="about" ref={aboutRef}>
             <div className="title-aboutme">
                 <h2>
                     About.

@@ -5,7 +5,6 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	height: 100vh;
 
 	.contact-title {
 		display: inline-flex;
@@ -15,7 +14,7 @@
 		margin-left: $section-margin-left;
 		margin-right: $section-margin-right;
 		padding-bottom: 20px;
-		font-size: 2em;
+		font-size: 1.5em;
 
 		.contact-subtitle {
 			font-size: 1.5em;
@@ -28,6 +27,7 @@
 		align-items: center;
 		justify-content: center;
 		flex-wrap: wrap;
+		padding-bottom: 30px;
 
 		.illustation {
 			display: flex;
@@ -45,7 +45,21 @@
 			align-items: center;
 			justify-content: center;
 			flex-direction: column;
-			flex: 0.5;
+			flex: 0.7;
+		}
+
+		.curved {
+			position: absolute;
+			width: 150%;
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: cover;
+			background: bottom;
+			z-index: -1;
+			bottom: 0;
+			svg {
+				display: block;
+			}
 		}
 	}
 }

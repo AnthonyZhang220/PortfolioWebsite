@@ -1,0 +1,43 @@
+"filename", "language", "SCSS", "JavaScript", "JavaScript React", "comment", "blank", "total"
+"d:\Github Projects\portfolio-website\src\App.jsx", "JavaScript React", 0, 0, 42, 0, 13, 55
+"d:\Github Projects\portfolio-website\src\App.scss", "SCSS", 50, 0, 0, 6, 17, 73
+"d:\Github Projects\portfolio-website\src\Main.jsx", "JavaScript React", 0, 0, 34, 0, 8, 42
+"d:\Github Projects\portfolio-website\src\Main.scss", "SCSS", 25, 0, 0, 2, 8, 35
+"d:\Github Projects\portfolio-website\src\components\About\About.jsx", "JavaScript React", 0, 0, 272, 0, 16, 288
+"d:\Github Projects\portfolio-website\src\components\About\About.scss", "SCSS", 96, 0, 0, 0, 18, 114
+"d:\Github Projects\portfolio-website\src\components\About\SkillData.js", "JavaScript", 0, 0, 0, 0, 1, 1
+"d:\Github Projects\portfolio-website\src\components\BackToTop\BackToTop.jsx", "JavaScript React", 0, 0, 8, 0, 4, 12
+"d:\Github Projects\portfolio-website\src\components\BackToTop\BackToTop.scss", "SCSS", 0, 0, 0, 0, 2, 2
+"d:\Github Projects\portfolio-website\src\components\Blog\Blog.jsx", "JavaScript React", 0, 0, 23, 0, 3, 26
+"d:\Github Projects\portfolio-website\src\components\Blog\Blog.scss", "SCSS", 32, 0, 0, 0, 8, 40
+"d:\Github Projects\portfolio-website\src\components\Canvas\Canvas.jsx", "JavaScript React", 0, 0, 108, 43, 57, 208
+"d:\Github Projects\portfolio-website\src\components\Canvas\Canvas.scss", "SCSS", 2, 0, 0, 2, 0, 4
+"d:\Github Projects\portfolio-website\src\components\Contact\Contact.jsx", "JavaScript React", 0, 0, 302, 1, 23, 326
+"d:\Github Projects\portfolio-website\src\components\Contact\Contact.scss", "SCSS", 57, 0, 0, 0, 9, 66
+"d:\Github Projects\portfolio-website\src\components\DarkMode\DarkMode.jsx", "JavaScript React", 0, 0, 36, 2, 16, 54
+"d:\Github Projects\portfolio-website\src\components\DarkMode\DarkMode.scss", "SCSS", 10, 0, 0, 0, 6, 16
+"d:\Github Projects\portfolio-website\src\components\Footer\Footer.jsx", "JavaScript React", 0, 0, 177, 0, 21, 198
+"d:\Github Projects\portfolio-website\src\components\Footer\Footer.scss", "SCSS", 39, 0, 0, 0, 6, 45
+"d:\Github Projects\portfolio-website\src\components\Home\Home.jsx", "JavaScript React", 0, 0, 142, 14, 34, 190
+"d:\Github Projects\portfolio-website\src\components\Home\Home.scss", "SCSS", 229, 0, 0, 5, 38, 272
+"d:\Github Projects\portfolio-website\src\components\Language\Language.jsx", "JavaScript React", 0, 0, 7, 0, 3, 10
+"d:\Github Projects\portfolio-website\src\components\Language\Language.scss", "SCSS", 4, 0, 0, 0, 0, 4
+"d:\Github Projects\portfolio-website\src\components\Menu\Menu.jsx", "JavaScript React", 0, 0, 39, 0, 8, 47
+"d:\Github Projects\portfolio-website\src\components\Menu\Menu.scss", "SCSS", 39, 0, 0, 11, 7, 57
+"d:\Github Projects\portfolio-website\src\components\MobileMenu\MobileMenu.jsx", "JavaScript React", 0, 0, 11, 0, 3, 14
+"d:\Github Projects\portfolio-website\src\components\MobileMenu\MobileMenu.scss", "SCSS", 0, 0, 0, 0, 1, 1
+"d:\Github Projects\portfolio-website\src\components\NavBar\NavBar.jsx", "JavaScript React", 0, 0, 170, 12, 26, 208
+"d:\Github Projects\portfolio-website\src\components\NavBar\NavBar.scss", "SCSS", 94, 0, 0, 2, 18, 114
+"d:\Github Projects\portfolio-website\src\components\Portfolio\Portfolio.jsx", "JavaScript React", 0, 0, 47, 0, 6, 53
+"d:\Github Projects\portfolio-website\src\components\Portfolio\Portfolio.scss", "SCSS", 67, 0, 0, 0, 10, 77
+"d:\Github Projects\portfolio-website\src\components\Portfolio\PortfolioList\PortfolioList.jsx", "JavaScript React", 0, 0, 6, 0, 2, 8
+"d:\Github Projects\portfolio-website\src\components\Portfolio\PortfolioList\PortfolioList.scss", "SCSS", 12, 0, 0, 0, 3, 15
+"d:\Github Projects\portfolio-website\src\components\Project\Project.jsx", "JavaScript React", 0, 0, 161, 13, 17, 191
+"d:\Github Projects\portfolio-website\src\components\Project\Project.scss", "SCSS", 58, 0, 0, 2, 9, 69
+"d:\Github Projects\portfolio-website\src\components\Project\ProjectData.js", "JavaScript", 0, 105, 0, 0, 2, 107
+"d:\Github Projects\portfolio-website\src\components\Works\Works.jsx", "JavaScript React", 0, 0, 8, 0, 2, 10
+"d:\Github Projects\portfolio-website\src\components\Works\Works.scss", "SCSS", 0, 0, 0, 0, 1, 1
+"d:\Github Projects\portfolio-website\src\global.scss", "SCSS", 16, 0, 0, 0, 4, 20
+"d:\Github Projects\portfolio-website\src\index.js", "JavaScript", 0, 9, 0, 0, 2, 11
+"d:\Github Projects\portfolio-website\src\test.js", "JavaScript", 0, 76, 0, 5, 19, 100
+"Total", "-", 830, 190, 1593, 120, 451, 3184

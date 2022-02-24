@@ -1,11 +1,10 @@
 import { forwardRef } from "react";
+import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 
 
 const BackToTop = forwardRef((props, ref) => {
     return (
-        <div className="backtotop-button" ref={ref} {...props}>
-            <i className="fas fa-angle-double-up"></i>
-        </div>
+        <ArrowCircleUpIcon fontSize='large' ref={ref} {...props} />
     );
 });
 

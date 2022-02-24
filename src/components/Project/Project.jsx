@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { projectdata } from "./ProjectData.js"
 import { gsap } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger"
@@ -17,7 +17,15 @@ import Divider from "@material-ui/core/Divider";
 import Box from '@mui/material/Box';
 import ForwardRoundedIcon from '@mui/icons-material/ForwardRounded';
 import Chip from '@mui/material/Chip';
+import ArrowCircleLeftRoundedIcon from '@mui/icons-material/ArrowCircleLeftRounded';
+import ArrowCircleRightRoundedIcon from '@mui/icons-material/ArrowCircleRightRounded';
+import Badge from '@mui/material/Badge';
+import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded';
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
+import IconButton from '@mui/material/IconButton';
+import ShareIcon from '@mui/icons-material/Share';
 
+import { styled } from '@mui/material/styles';
 import "./Project.scss"
 
 const useStyles = makeStyles({
@@ -31,8 +39,8 @@ const useStyles = makeStyles({
     },
     card: {
         position: 'relative',
-        width: 500,
-        height: 650,
+        width: 320,
+        height: 'auto',
         margin: 10,
         transition: "all 0.3s cubic-bezier(0,0,0.5,1)",
         borderRadius: '18px',
@@ -40,9 +48,18 @@ const useStyles = makeStyles({
         "&:hover": {
             boxShadow: "0px 4px 24px rgb(0 0 0 / 0.2)",
         },
-        cursor: 'pointer',
-    }
+    },
 });
+
+const StyledBadge = styled(Badge)(({ theme }) => ({
+    '& .MuiBadge-badge': {
+        right: -3,
+        top: 10,
+        border: `1px solid ${theme.palette.background.paper}`,
+        padding: '0 2px',
+        fontSize: 10,
+    },
+}));
 
 
 export default function Project() {
@@ -50,13 +67,24 @@ export default function Project() {
     const classes = useStyles();
 
     gsap.registerPlugin(ScrollTrigger);
+
     const listRef = useRef(null);
+    const [like, setLike] = useState(0);
+    const [fav, setFav] = useState(0);
+
+    const likeCount = () => {
+        setLike(like + 1);
+    }
+
+    const favCount = () => {
+        setFav(fav + 1);
+    }
 
     useEffect(() => {
         gsap.fromTo(listRef.current, {
-            y: "15%", opacity: 0
+            x: "10%", opacity: 0
         }, {
-            y: "0%", opacity: 1, duration: 2,
+            x: "0%", opacity: 1, duration: 2,
             scrollTrigger: {
                 trigger: listRef.current,
                 start: "top bottom"
@@ -86,31 +114,32 @@ export default function Project() {
                     Take a took at what I have created, in the past.
                 </span>
             </div>
-            <div className="project-wrapper" ref={listRef}>
-                {projectdata?.map(({ id, title, subtitle, thumbnail, description, tech, WebsiteUrl, GitHubUrl, library, index }) => (
-                    <div key={id} className='card'>
+            <div className='project-content'>
+                <div className="project-wrapper" ref={listRef}>
+                    {projectdata?.map(({ id, title, subtitle, thumbnail, description, tech, WebsiteUrl, GitHubUrl, library, index }) => (
+                        <div key={id} className='card'>
                             <Card className={classes.card} key={id}>
                                 <CardMedia
                                     component="img"
                                     alt={title}
-                                    height="250"
+                                    height="180"
                                     image={thumbnail}
                                 />
                                 <CardContent>
                                     <Box sx={{ mx: 1 }}>
-                                        <Typography gutterBottom variant="h5" component="div">
+                                        <Typography gutterBottom variant="body1" component="div">
                                             {title}
                                         </Typography>
-                                        <Typography gutterBottom variant="body1" component="div">
+                                        <Typography gutterBottom variant="body2" component="div">
                                             {subtitle}
                                         </Typography>
-                                        <Typography variant="body2" color="text.secondary">
-                                            {description}
-                                        </Typography>
+                                        {/* <Typography variant="body2" color="text.secondary">
+                                        {description}
+                                    </Typography> */}
                                     </Box>
                                     <Divider variant='middle' />
                                     <Box sx={{ m: 1 }}>
-                                        <Typography gutterBottom variant="body2">
+                                        <Typography gutterBottom variant="body3">
                                             Technology used
                                         </Typography>
                                         <Stack direction='row' spacing={2}>
@@ -123,7 +152,7 @@ export default function Project() {
                                     </Box>
                                     <Divider variant="middle" />
                                     <Box sx={{ m: 1 }}>
-                                        <Typography gutterBottom variant="body2">
+                                        <Typography gutterBottom variant="body3">
                                             Library used
                                         </Typography>
                                         <Stack direction='row' spacing={1}>
@@ -134,23 +163,26 @@ export default function Project() {
                                     </Box>
                                     <Divider variant='middle' />
                                 </CardContent>
-                                <CardActions >
-                                    <Box sx={{ ml: 1, mb: 1 }}>
-                                        <Stack direction='row' spacing={2}>
-                                            <Button variant='contained' size="medium" href={GitHubUrl} target='_blank'>GitHub</Button>
-                                            <Button variant='contained' size="medium" href={WebsiteUrl} target='_blank' endIcon={<ForwardRoundedIcon />}>Website</Button>
-                                            {/* <IconButton aria-label="add to favorites">
-                                        <FavoriteIcon />
-                                        </IconButton>
-                                        <IconButton aria-label="share">
-                                        <ShareIcon />
-                                    </IconButton> */}
-                                        </Stack>
-                                    </Box>
+                                <CardActions disableSpacing >
+                                    <Button sx={{ backgroundColor: "#6638c0", m: 1 }} variant='contained' size="small" href={GitHubUrl} target='_blank'>GitHub</Button>
+                                    <Button sx={{ backgroundColor: "#6638c0", m: 1 }} variant='contained' size="small" href={WebsiteUrl} target='_blank' endIcon={<ForwardRoundedIcon />}>Website</Button>
+                                    <IconButton sx={{ m: 1 }} >
+                                        <ShareIcon></ShareIcon>
+                                    </IconButton>
+                                    <IconButton>
+                                        <FavoriteRoundedIcon></FavoriteRoundedIcon>
+                                    </IconButton>
                                 </CardActions>
                             </Card>
+                        </div>
+                    ))}
+                    <div className="left-button">
+                        <ArrowCircleLeftRoundedIcon />
                     </div>
-                ))}
+                    <div className="right-button">
+                        <ArrowCircleRightRoundedIcon />
+                    </div>
+                </div>
             </div>
         </div >
     )
