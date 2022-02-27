@@ -48,6 +48,7 @@ const useStyles = makeStyles({
         "&:hover": {
             boxShadow: "0px 4px 24px rgb(0 0 0 / 0.2)",
         },
+        flex: '0 0 10%',
     },
 });
 

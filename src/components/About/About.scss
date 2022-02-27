@@ -70,43 +70,8 @@
 			align-items: center;
 			flex-wrap: wrap;
 
-			.frontend,
-			.backend,
-			.frameworks,
-			.tools,
-			.database {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				justify-content: center;
-				width: 200px;
-				height: 200px;
-				position: relative;
-
-				.tech-icons {
-					font-size: 50px;
-					display: flex;
-					justify-content: center;
-					align-items: center;
-					flex-wrap: wrap;
-
-					.tech-name {
-						font-size: 20px;
-					}
-				}
-
-				.category-name {
-					display: flex;
-					flex-direction: column;
-					align-items: center;
-					justify-content: center;
-
-					font-size: 30px;
-
-					.category-icon {
-						font-size: 50px;
-					}
-				}
+			.fa-solid {
+				font-size: 50px;
 			}
 		}
 	}

@@ -13,10 +13,17 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Accordion from '@mui/material/Accordion';
 import Slider from '@mui/material/Slider';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 
 
 import "./About.scss";
 
+
+library.add(fab);
+library.add(fas);
 
 export default function About() {
     gsap.registerPlugin(ScrollTrigger);
@@ -46,10 +53,10 @@ export default function About() {
     useEffect(() => {
         gsap.fromTo(aboutRef.current,
             { opacity: 0 }, {
-                opacity: 1, duration: 5, scrollTrigger: {
-                    trigger: aboutRef.current,
-                    start: "top bottom"
-                }
+            opacity: 1, duration: 5, scrollTrigger: {
+                trigger: aboutRef.current,
+                start: "top bottom"
+            }
         }
         )
     })
@@ -83,6 +90,8 @@ export default function About() {
                     <Box
                         sx={{
                             display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
                             flexWrap: 'wrap',
                             '& > :not(style)': {
                                 m: 1,
@@ -90,55 +99,62 @@ export default function About() {
                             },
                         }}
                     >
-                        <Paper elevation={3}>
-                            <Accordion>
-                                <AccordionSummary
-                                    expandIcon={<ExpandMoreIcon />}
-                                    aria-controls="panel1a-content"
-                                    id="panel1a-header"
-                                >
-                                    <i className="fas fa-code"></i>
-                                    <Typography variant="h5" component="div">
-                                        Front End
-                                    </Typography>
-                                    <Grid container spacing={2}>
-                                        <Grid item xs={12} sm container>
-                                            <Grid item xs container direction="row" spacing={2}>
-                                                <Grid item>
-                                                    <i className="fab fa-html5"></i>
-                                                    <Typography variant="body2">
-                                                        HTML5
-                                                    </Typography>
-                                                </Grid>
-                                                <Grid item>
-                                                    <i className="fab fa-css3-alt"></i>
-                                                    <Typography variant="body2">
-                                                        CSS3
-                                                    </Typography>
-                                                </Grid>
-                                                <Grid item>
-                                                    <i className="fab fa-js-square"></i>
-                                                    <Typography variant="body2">
-                                                        Javascript
-                                                    </Typography>
-                                                </Grid>
-                                            </Grid>
+                        <Paper elevation={3} sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            flexWrap: 'wrap',
+                            '& > :not(style)': {
+                                m: 1,
+                                p: 1,
+                            },
+                        }}>
+                            <FontAwesomeIcon icon="fa-solid fa-code" fontSize={40} />
+                            <Typography variant="h5" component="div">
+                                Front End
+                            </Typography>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12} sm container>
+                                    <Grid item xs container direction="row" spacing={2}>
+                                        <Grid item>
+                                            <FontAwesomeIcon icon="fa-brands fa-html5" fontSize={30} />
+                                            <Typography variant="body2" component="div">
+                                                HTML5
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item>
+                                            <FontAwesomeIcon icon="fa-brands fa-css3-alt" fontSize={30} />
+                                            <Typography variant="body2" component="div">
+                                                CSS3
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item>
+                                            <FontAwesomeIcon icon="fa-brands fa-js-square" fontSize={30} />
+                                            <Typography variant="body2" component="div">
+                                                Javascript
+                                            </Typography>
                                         </Grid>
                                     </Grid>
-                                </AccordionSummary>
-                                <AccordionDetails>
-                                    <Slider
-                                        aria-label="Always visible"
-                                        defaultValue={80}
-                                        step={10}
-                                        marks={marks}
-                                        valueLabelDisplay="on"
-                                    />
-                                </AccordionDetails>
-                            </Accordion>
+                                </Grid>
+                            </Grid>
+                            <Slider
+                                aria-label="Always visible"
+                                defaultValue={80}
+                                step={20}
+                                valueLabelDisplay="on"
+                            />
                         </Paper>
-                        <Paper elevation={3}>
-                            <i className="fas fa-server"></i>
+                        <Paper elevation={3} sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            flexWrap: 'wrap',
+                            '& > :not(style)': {
+                                m: 1,
+                                p: 1,
+                            },
+                        }}>
+                            <FontAwesomeIcon icon="fa-solid fa-server" fontSize={40} />
                             <Typography variant="h5" component="div">
                                 Back End
                             </Typography>
@@ -146,8 +162,8 @@ export default function About() {
                                 <Grid item xs={12} sm container>
                                     <Grid item xs container direction="column" spacing={2}>
                                         <Grid item>
-                                            <i className="fab fa-node-js"></i>
-                                            <Typography variant="body2">
+                                            <FontAwesomeIcon icon="fa-brands fa-node" fontSize={30} />
+                                            <Typography variant="body2" component="div">
                                                 Node.js
                                             </Typography>
                                         </Grid>
@@ -155,8 +171,17 @@ export default function About() {
                                 </Grid>
                             </Grid>
                         </Paper>
-                        <Paper elevation={3}>
-                            <i className="fas fa-layer-group"></i>
+                        <Paper elevation={3} sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            flexWrap: 'wrap',
+                            '& > :not(style)': {
+                                m: 1,
+                                p: 1,
+                            },
+                        }}>
+                            <FontAwesomeIcon icon="fa-solid fa-layer-group" fontSize={40} />
                             <Typography variant="h5" component="div">
                                 Frameworks
                             </Typography>
@@ -164,8 +189,8 @@ export default function About() {
                                 <Grid item xs={12} sm container>
                                     <Grid item xs container direction="column" spacing={2}>
                                         <Grid item>
-                                            <i className="fab fa-react"></i>
-                                            <Typography variant="body2">
+                                            <FontAwesomeIcon icon="fa-brands fa-react" fontSize={30} />
+                                            <Typography variant="body2" component="div">
                                                 React
                                             </Typography>
                                         </Grid>
@@ -173,8 +198,17 @@ export default function About() {
                                 </Grid>
                             </Grid>
                         </Paper>
-                        <Paper elevation={3}>
-                            <i className="fas fa-tools"></i>
+                        <Paper elevation={3} sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            flexWrap: 'wrap',
+                            '& > :not(style)': {
+                                m: 1,
+                                p: 1,
+                            },
+                        }}>
+                            <FontAwesomeIcon icon="fa-solid fa-screwdriver-wrench" fontSize={40} />
                             <Typography variant="h5" component="div">
                                 Tools
                             </Typography>
@@ -182,8 +216,8 @@ export default function About() {
                                 <Grid item xs={12} sm container>
                                     <Grid item xs container direction="column" spacing={2}>
                                         <Grid item>
-                                            <i className="fab fa-git-alt"></i>
-                                            <Typography variant="body2">
+                                            <FontAwesomeIcon icon="fa-brands fa-git-alt" fontSize={30} />
+                                            <Typography variant="body2" component="div">
                                                 Git
                                             </Typography>
                                         </Grid>
@@ -191,8 +225,17 @@ export default function About() {
                                 </Grid>
                             </Grid>
                         </Paper>
-                        <Paper elevation={3}>
-                            <i className="fas fa-database"></i>
+                        <Paper elevation={3} sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            flexWrap: 'wrap',
+                            '& > :not(style)': {
+                                m: 1,
+                                p: 1,
+                            },
+                        }}>
+                            <FontAwesomeIcon icon="fa-solid fa-database" fontSize={40} />
                             <Typography variant="h5" component="div">
                                 Database
                             </Typography>
@@ -200,8 +243,8 @@ export default function About() {
                                 <Grid item xs={12} sm container>
                                     <Grid item xs container direction="column" spacing={2}>
                                         <Grid item>
-                                            <i className="fab fa-react"></i>
-                                            <Typography variant="body2">
+                                            <FontAwesomeIcon icon="fa-solid fa-database" fontSize={30} />
+                                            <Typography variant="body2" component="div">
                                                 SQL
                                             </Typography>
                                         </Grid>
@@ -209,76 +252,7 @@ export default function About() {
                                 </Grid>
                             </Grid>
                         </Paper>
-                        <Paper elevation={3}>
-
-                        </Paper>
                     </Box>
-                    <div className='frontend'>
-                        <div className="category-name">
-                            Front End
-                            <div className="catogory-icon">
-                            </div>
-                        </div>
-                        <div className="tech-icons">
-                            <div className="tech-name">
-                                HTML5
-                            </div>
-                            <div className="tech-name">
-                                CSS3
-                            </div>
-                            <div className="tech-name">
-                                Javascript
-                            </div>
-                        </div>
-                    </div>
-                    <div className="backend">
-                        <div className="category-name">
-                            Back End
-                            <div className="catogory-icon">
-                            </div>
-                        </div>
-                        <div className="tech-icons">
-                            <div className="tech-name">
-                                Node.js
-                            </div>
-                        </div>
-                    </div>
-                    <div className="frameworks">
-                        <div className="category-name">
-                            Frameworks
-                            <div className="catogory-icon">
-                            </div>
-                        </div>
-                        <div className="tech-icons">
-                            <div className="tech-name">
-                                React
-                            </div>
-                        </div>
-                    </div>
-                    <div className="tools">
-                        <div className="category-name">
-                            Tools
-                            <div className="catogory-icon">
-                            </div>
-                        </div>
-                        <div className="tech-icons">
-                            <div className="tech-name">
-                                Git
-                            </div>
-                        </div>
-                    </div>
-                    <div className="database">
-                        <div className="category-name">
-                            Database
-                            <div className="catogory-icon">
-                            </div>
-                        </div>
-                        <div className="tech-icons">
-
-                        </div>
-
-
-                    </div>
                 </div>
             </div>
             <div></div>

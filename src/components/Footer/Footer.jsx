@@ -14,6 +14,13 @@ import SendIcon from '@mui/icons-material/Send';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import Modal from '@mui/material/Modal';
+import Backdrop from '@mui/material/Backdrop';
+import Fade from '@mui/material/Fade';
+import LinearProgress from '@mui/material/LinearProgress';
+import { LoadingButton } from '@mui/lab';
+import SaveAltRoundedIcon from '@mui/icons-material/SaveAltRounded';
+import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 
 import IconButton from '@mui/material/IconButton';
 
@@ -50,6 +57,22 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 'auto',
+    bgcolor: 'background.paper',
+    // border: '2px solid #000',
+    boxShadow: 24,
+    p: 2,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+};
+
 const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />
 })
@@ -59,7 +82,12 @@ export default function Footer() {
     const classes = useStyles();
     const [input, setInput] = useState('')
     const [success, setSuccess] = useState(false);
-    const [valid, setValid] = useState(false);
+    const [valid, setValid] = useState(true);
+    const [openWeChat, setOpenWeChat] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+    const handleOpenWeChat = () => setOpenWeChat(true);
+    const handleCloseWeChat = () => setOpenWeChat(false);
 
     const handleEmailChange = (e) => {
         setInput(e.target.value);
@@ -86,7 +114,24 @@ export default function Footer() {
         if (reason === 'clickaway') {
             return;
         }
+        setValid(true);
         setSuccess(false);
+    }
+
+    const handleSave = () => {
+        setLoading(true)
+
+        setTimeout(() => {
+            const link = document.createElement('a')
+            link.href = './assets/images/wechat.png'
+            link.download = `Anthony Zhang WeChat QR Code.png`;
+            link.click();
+        }, 1000)
+
+        setTimeout(() => {
+            setLoading(false)
+
+        }, 5000)
     }
 
 
@@ -99,8 +144,8 @@ export default function Footer() {
                         <Grid container direction='row' rowSpacing={5}>
                             <Grid item sm={12} md={6} lg={4}>
                                 <Box>
-                                    <Typography variant='h5'>
-                                        Anthony Zhang
+                                    <Typography variant='h4'>
+                                        AZ
                                     </Typography>
                                 </Box>
                                 <Box>
@@ -117,24 +162,31 @@ export default function Footer() {
                                     autoComplete="off"
                                     sx={{ display: 'flex' }}>
                                     <TextField
+                                        error={!valid}
                                         hiddenLabel
                                         size='small'
                                         color='secondary'
                                         fullWidth
-                                        name='Email'
+                                        name='email'
                                         type='email'
                                         variant='filled'
-                                        helperText=''
+                                        label=''
                                         placeholder='Your Email Address'
                                         className={classes.input}
                                         onChange={handleEmailChange}
                                         value={input}
+                                        autoComplete='email'
                                     >
                                     </TextField>
                                     <Button color='white' variant='outlined' onClick={handleSubmit} endIcon={<SendIcon />} >Submit</Button>
-                                    <Snackbar open={success} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+                                    <Snackbar open={success && valid} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
                                         <Alert onClose={handleClose} severity='success' sx={{ width: '100%' }}>
                                             Your have successfully submitted your email address!
+                                        </Alert>
+                                    </Snackbar>
+                                    <Snackbar open={!success && !valid} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+                                        <Alert onClose={handleClose} severity='error' sx={{ width: '100%' }}>
+                                            Please enter a valid email address!
                                         </Alert>
                                     </Snackbar>
                                 </Box>
@@ -162,7 +214,6 @@ export default function Footer() {
                                 <Box>LinkedIn</Box>
                                 <Box>StackOverflow</Box>
                                 <Box>GitHub</Box>
-                                <Box>Contact</Box>
                             </Grid>
                         </Grid>
                     </Container>
@@ -172,7 +223,7 @@ export default function Footer() {
             <div className="bottom">
                 <div className="copyright">
                     <span className='copyright-text'>
-                        &copy; 2020-{currentYear} Anthony Zhang. All Rights Reserved.
+                        &copy; 2020-{currentYear} <span className='name'>Anthony Zhang</span>. All Rights Reserved.
                     </span>
                 </div>
                 <div className='social-icon'>
@@ -186,10 +237,50 @@ export default function Footer() {
                         <IconButton sx={{ color: '#fafafa', fontSize: 25, marginLeft: 2 }} component='a' href="https://stackoverflow.com/users/6162027/anthony220" target="_blank" rel="noreferrer">
                             <FontAwesomeIcon icon="fa-brands fa-stack-overflow" />
                         </IconButton>
-                        <IconButton sx={{ color: '#fafafa', fontSize: 25, marginLeft: 2 }} component='a' href="https://stackoverflow.com/users/6162027/anthony220" target="_blank" rel="noreferrer">
+                        <IconButton sx={{ color: '#fafafa', fontSize: 25, marginLeft: 2 }} onClick={handleOpenWeChat}>
                             <FontAwesomeIcon icon="fa-brands fa-weixin" />
                         </IconButton>
                     </Box>
+                    <Modal
+                        open={openWeChat}
+                        onClose={handleCloseWeChat}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                        closeAfterTransition
+                        BackdropComponent={Backdrop}
+                        BackdropProps={{
+                            timeout: 500,
+                        }}
+                    >
+                        <Fade in={openWeChat}>
+                            <Box sx={style}>
+                                {
+                                    loading ?
+                                        <Box sx={{ width: '100%' }}>
+                                            <LinearProgress color="primary" />
+                                        </Box> : null
+                                }
+                                <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                    Scan QR code to add me on WeChat.
+                                </Typography>
+                                <Box
+                                    component='img'
+                                    alt="WeChat QR code"
+                                    src="./assets/images/wechat.png"
+                                    sx={{ height: 300, width: 300, display: "flex", justifyContent: 'center', alignItems: 'center' }}
+                                >
+                                </Box>
+                                <LoadingButton
+                                    onClick={handleSave}
+                                    variant="contained"
+                                    endIcon={<DownloadRoundedIcon />}
+                                    loadingPosition="end"
+                                    loading={loading}
+                                >Save QR Code
+                                </LoadingButton>
+                            </Box>
+                        </Fade>
+                    </Modal>
                 </div>
             </div>
         </footer >

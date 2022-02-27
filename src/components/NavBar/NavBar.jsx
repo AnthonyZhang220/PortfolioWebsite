@@ -137,8 +137,8 @@ export default function NavBar({ darkTheme }) {
                     <div className="menubar">
                         {
                             <React.Fragment >
-                                <IconButton>
-                                    <MenuRoundedIcon sx={{ fontSize: 30 }} onClick={toggleDrawer(true)} />
+                                <IconButton onClick={toggleDrawer(true)} >
+                                    <MenuRoundedIcon sx={{ fontSize: 30 }} />
                                 </IconButton>
                                 <SwipeableDrawer
                                     className={classes.drawer}
@@ -159,8 +159,8 @@ export default function NavBar({ darkTheme }) {
                                         <Box
                                             sx={{ height: 100, fontSize: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                                         >
-                                            <IconButton>
-                                                <CloseRoundedIcon sx={{ fontSize: 30 }} onClick={toggleDrawer(false)} />
+                                            <IconButton onClick={toggleDrawer(false)}>
+                                                <CloseRoundedIcon sx={{ fontSize: 30 }} />
                                             </IconButton>
                                         </Box>
                                         <List sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
