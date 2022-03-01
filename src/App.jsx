@@ -15,13 +15,16 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 function App() {
 
 	const theme = createTheme({
-		mode: 'dark',
 		palette: {
 			primary: {
+				light: '#845fcc',
 				main: '#6638c0',
+				dark: '#472786'
 			},
 			secondary: {
+				light: '#a279e9',
 				main: '#8b58e4',
+				dark: '#613d9f',
 			},
 			white: {
 				main: '#fafafa'

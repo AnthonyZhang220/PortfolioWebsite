@@ -37,19 +37,6 @@ const useStyles = makeStyles({
     iconRoot: {
         textAlign: "center",
     },
-    card: {
-        position: 'relative',
-        width: 320,
-        height: 'auto',
-        margin: 10,
-        transition: "all 0.3s cubic-bezier(0,0,0.5,1)",
-        borderRadius: '18px',
-        boxShadow: "2px 4px 12px rgb(0 0 0 / 8%)",
-        "&:hover": {
-            boxShadow: "0px 4px 24px rgb(0 0 0 / 0.2)",
-        },
-        flex: '0 0 10%',
-    },
 });
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -115,74 +102,84 @@ export default function Project() {
                     Take a took at what I have created, in the past.
                 </span>
             </div>
-            <div className='project-content'>
-                <div className="project-wrapper" ref={listRef}>
-                    {projectdata?.map(({ id, title, subtitle, thumbnail, description, tech, WebsiteUrl, GitHubUrl, library, index }) => (
-                        <div key={id} className='card'>
-                            <Card className={classes.card} key={id}>
-                                <CardMedia
-                                    component="img"
-                                    alt={title}
-                                    height="180"
-                                    image={thumbnail}
-                                />
-                                <CardContent>
-                                    <Box sx={{ mx: 1 }}>
-                                        <Typography gutterBottom variant="body1" component="div">
-                                            {title}
-                                        </Typography>
-                                        <Typography gutterBottom variant="body2" component="div">
-                                            {subtitle}
-                                        </Typography>
-                                        {/* <Typography variant="body2" color="text.secondary">
+            <div className="project-wrapper" ref={listRef}>
+                {projectdata?.map(({ id, title, subtitle, thumbnail, description, tech, WebsiteUrl, GitHubUrl, library, index }) => (
+                    <div key={id} className='card'>
+                        <Card key={id} sx={{
+                            position: 'relative',
+                            width: 320,
+                            height: 'auto',
+                            margin: '10px',
+                            transition: "all 0.3s cubic-bezier(0,0,.5,1)",
+                            borderRadius: '16px',
+                            boxShadow: "0px 2px 12px rgb(0 0 0 / 8%)",
+                            "&:hover": {
+                                boxShadow: "0px 4px 24px rgb(0 0 0 / 0.2)",
+                            },
+                            flex: '0 0 10%',
+                        }}>
+                            <CardMedia
+                                component="img"
+                                alt={title}
+                                height="180"
+                                image={thumbnail}
+                            />
+                            <CardContent>
+                                <Box sx={{ mx: 1 }}>
+                                    <Typography gutterBottom variant="body1" component="div">
+                                        {title}
+                                    </Typography>
+                                    <Typography gutterBottom variant="body2" component="div">
+                                        {subtitle}
+                                    </Typography>
+                                    {/* <Typography variant="body2" color="text.secondary">
                                         {description}
                                     </Typography> */}
-                                    </Box>
-                                    <Divider variant='middle' />
-                                    <Box sx={{ m: 1 }}>
-                                        <Typography gutterBottom variant="body3">
-                                            Technology used
-                                        </Typography>
-                                        <Stack direction='row' spacing={2}>
-                                            {tech?.map(techUrl => (
-                                                <Icon key={index}>
-                                                    <img className={classes.imageIcon} src={techUrl} alt='' />
-                                                </Icon>
-                                            ))}
-                                        </Stack>
-                                    </Box>
-                                    <Divider variant="middle" />
-                                    <Box sx={{ m: 1 }}>
-                                        <Typography gutterBottom variant="body3">
-                                            Library used
-                                        </Typography>
-                                        <Stack direction='row' spacing={1}>
-                                            {library?.map(lib => (
-                                                <Chip label={lib} key={index} />
-                                            ))}
-                                        </Stack>
-                                    </Box>
-                                    <Divider variant='middle' />
-                                </CardContent>
-                                <CardActions disableSpacing >
-                                    <Button sx={{ backgroundColor: "#6638c0", m: 1 }} variant='contained' size="small" href={GitHubUrl} target='_blank'>GitHub</Button>
-                                    <Button sx={{ backgroundColor: "#6638c0", m: 1 }} variant='contained' size="small" href={WebsiteUrl} target='_blank' endIcon={<ForwardRoundedIcon />}>Website</Button>
-                                    <IconButton sx={{ m: 1 }} >
-                                        <ShareIcon></ShareIcon>
-                                    </IconButton>
-                                    <IconButton>
-                                        <FavoriteRoundedIcon></FavoriteRoundedIcon>
-                                    </IconButton>
-                                </CardActions>
-                            </Card>
-                        </div>
-                    ))}
-                    <div className="left-button">
-                        <ArrowCircleLeftRoundedIcon />
+                                </Box>
+                                <Divider variant='middle' />
+                                <Box sx={{ m: 1 }}>
+                                    <Typography gutterBottom variant="body3">
+                                        Technology used
+                                    </Typography>
+                                    <Stack direction='row' spacing={2}>
+                                        {tech?.map(techUrl => (
+                                            <Icon key={index}>
+                                                <img className={classes.imageIcon} src={techUrl} alt='' />
+                                            </Icon>
+                                        ))}
+                                    </Stack>
+                                </Box>
+                                <Divider variant="middle" />
+                                <Box sx={{ m: 1 }}>
+                                    <Typography gutterBottom variant="body3">
+                                        Library used
+                                    </Typography>
+                                    <Stack direction='row' spacing={1}>
+                                        {library?.map(lib => (
+                                            <Chip label={lib} key={index} />
+                                        ))}
+                                    </Stack>
+                                </Box>
+                                <Divider variant='middle' />
+                            </CardContent>
+                            <CardActions disableSpacing >
+                                <Button sx={{ m: 1 }} color="secondary" variant='contained' size="small" href={GitHubUrl} target='_blank'>GitHub</Button>
+                                <Button sx={{ m: 1 }} color="secondary" variant='contained' size="small" href={WebsiteUrl} target='_blank' endIcon={<ForwardRoundedIcon />}>Website</Button>
+                                <IconButton sx={{ m: 1 }} >
+                                    <ShareIcon></ShareIcon>
+                                </IconButton>
+                                <IconButton>
+                                    <FavoriteRoundedIcon></FavoriteRoundedIcon>
+                                </IconButton>
+                            </CardActions>
+                        </Card>
                     </div>
-                    <div className="right-button">
-                        <ArrowCircleRightRoundedIcon />
-                    </div>
+                ))}
+                <div className="left-button">
+                    <ArrowCircleLeftRoundedIcon />
+                </div>
+                <div className="right-button">
+                    <ArrowCircleRightRoundedIcon />
                 </div>
             </div>
         </div >

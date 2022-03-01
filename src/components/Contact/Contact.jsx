@@ -96,7 +96,7 @@ export default function Contact() {
         return (
             <Snackbar open={errorCode} autoHideDuration={2000} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
                 <Alert onClose={handleCloseErrorCode} severity="error" sx={{ width: '100%' }}>
-                    {error}
+                    {error}. Please try again later.
                 </Alert>
             </Snackbar>
         )
@@ -203,6 +203,9 @@ export default function Contact() {
                 </span>
             </div>
             <div className="contact-container">
+                <div className='curved'>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" height='100%'><path fill="#8b58e4" fillOpacity=".7" d="M0,128L48,106.7C96,85,192,43,288,32C384,21,480,43,576,85.3C672,128,768,192,864,202.7C960,213,1056,171,1152,160C1248,149,1344,171,1392,181.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
+                </div>
                 {/* <div className="illustration">
                     <img src="/assets/images/contact_bg.png" alt="contact_background_image" />
                 </div> */}
@@ -449,9 +452,6 @@ export default function Contact() {
                     <Box sx={{ mt: 1, ml: 1, mb: 1 }} onClick={handleClickOpen}>
                         <Button variant="outlined">Submit</Button>
                     </Box>
-                </div>
-                <div className='curved'>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" height='100%'><path fill="#8b58e4" fillOpacity=".7" d="M0,128L48,106.7C96,85,192,43,288,32C384,21,480,43,576,85.3C672,128,768,192,864,202.7C960,213,1056,171,1152,160C1248,149,1344,171,1392,181.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
                 </div>
             </div >
         </div >

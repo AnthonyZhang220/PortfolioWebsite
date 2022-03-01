@@ -22,12 +22,27 @@
 		}
 	}
 
+	
 	.contact-container {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		flex-wrap: wrap;
 		padding-bottom: 30px;
+		
+		.curved {
+			// position: absolute;
+			// width: 50%;
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: cover;
+			background: bottom;
+			z-index: -1;
+			
+			svg {
+				display: block;
+			}
+		}
 
 		.illustation {
 			display: flex;
@@ -46,20 +61,6 @@
 			justify-content: center;
 			flex-direction: column;
 			flex: 0.7;
-		}
-
-		.curved {
-			position: absolute;
-			width: 150%;
-			background-repeat: no-repeat;
-			background-position: center;
-			background-size: cover;
-			background: bottom;
-			z-index: -1;
-			bottom: 0;
-			svg {
-				display: block;
-			}
 		}
 	}
 }
