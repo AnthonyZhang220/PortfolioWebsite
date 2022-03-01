@@ -1,4 +1,5 @@
 import React, { forwardRef, useState } from 'react';
+import MusicPlayer from './MusicPlayer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
@@ -91,16 +92,12 @@ export default function Footer() {
 
     const handleEmailChange = (e) => {
         setInput(e.target.value);
-
-        const res = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
-        res.test(input) ? setValid(true) : setValid(false);
-
     }
 
     const handleSubmit = () => {
-        console.log(success)
-        console.log(valid)
 
+        const res = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
+        res.test(input) ? setValid(true) : setValid(false);
 
         if (valid) {
             setSuccess(true);
@@ -142,24 +139,45 @@ export default function Footer() {
                 <Box>
                     <Container>
                         <Grid container direction='row' rowSpacing={5}>
-                            <Grid item sm={12} md={6} lg={4}>
+                            <Grid item sm={12} md={6} lg={3}>
+                                <MusicPlayer />
+                            </Grid>
+                            <Grid item sm={12} md={6} lg={3}>
+                                <Box sx={{ marginBottom: 10 }}>
+                                    <Typography variant='h6'>
+                                        Explore
+                                    </Typography>
+                                </Box>
+                                <Box>
+                                    <Box>Home</Box>
+                                    <Box>About</Box>
+                                    <Box>Project</Box>
+                                    <Box>Contact</Box>
+                                </Box>
+                            </Grid>
+                            <Grid item sm={12} md={6} lg={3}>
+                                <Box sx={{ marginBottom: 10 }}>
+                                    <Typography variant='h6'>
+                                        Follow
+                                    </Typography>
+                                </Box>
+                                <Box>LinkedIn</Box>
+                                <Box>StackOverflow</Box>
+                                <Box>GitHub</Box>
+                            </Grid>
+                            <Grid item sm={12} md={6} lg={3}>
                                 <Box>
                                     <Typography variant='h4'>
                                         AZ
                                     </Typography>
-                                </Box>
-                                <Box>
                                     <Typography>
                                         paragraphparagraphparagraphparah
                                     </Typography>
-                                </Box>
-                                <Box>
                                     <Typography variant='h6'>
                                         Stay Connected
                                     </Typography>
                                 </Box>
                                 <Box component='form'
-                                    autoComplete="off"
                                     sx={{ display: 'flex' }}>
                                     <TextField
                                         error={!valid}
@@ -191,29 +209,6 @@ export default function Footer() {
                                     </Snackbar>
                                 </Box>
 
-                            </Grid>
-                            <Grid item sm={12} md={6} lg={4}>
-                                <Box sx={{ marginBottom: 10 }}>
-                                    <Typography variant='h6'>
-                                        Explore
-                                    </Typography>
-                                </Box>
-                                <Box>
-                                    <Box>Home</Box>
-                                    <Box>About</Box>
-                                    <Box>Project</Box>
-                                    <Box>Contact</Box>
-                                </Box>
-                            </Grid>
-                            <Grid item sm={12} md={6} lg={4}>
-                                <Box sx={{ marginBottom: 10 }}>
-                                    <Typography variant='h6'>
-                                        Follow
-                                    </Typography>
-                                </Box>
-                                <Box>LinkedIn</Box>
-                                <Box>StackOverflow</Box>
-                                <Box>GitHub</Box>
                             </Grid>
                         </Grid>
                     </Container>
