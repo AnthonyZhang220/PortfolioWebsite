@@ -13,6 +13,8 @@ import VolumeUpRounded from '@mui/icons-material/VolumeUpRounded';
 import VolumeDownRounded from '@mui/icons-material/VolumeDownRounded';
 import SkipNextRoundedIcon from '@mui/icons-material/SkipNextRounded';
 import SkipPreviousRoundedIcon from '@mui/icons-material/SkipPreviousRounded';
+import VolumeOffIcon from '@mui/icons-material/VolumeOff';
+
 
 import { musicList } from './MusicList.js';
 import { getStepLabelUtilityClass } from '@mui/material';
@@ -60,9 +62,14 @@ export default function MusicPlayer() {
     const audioRef = useRef();
 
 
-    const duration = useState(100); // seconds
+    const [volume, setVolume] = useState(0.3);
+    const [duration, setDuration] = useState(60); // seconds
     const [position, setPosition] = useState(0);
     const [paused, setPaused] = useState(true);
+    const [index, setIndex] = useState(0);
+    const [disableNext, setDisableNext] = useState(false);
+    const [disablePrevious, setDisablePrevious] = useState(false);
+
 
     function formatDuration(value) {
         const minute = Math.floor(value / 60);
@@ -72,6 +79,11 @@ export default function MusicPlayer() {
     const mainIconColor = theme.palette.mode === 'dark' ? '#fff' : '#000';
     const lightIconColor = theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)';
 
+    const handleGetDuration = () => {
+        if (audioRef.current) {
+            setDuration(audioRef.current.duration);
+        }
+    }
 
     const handlePlay = () => {
 
@@ -85,6 +97,10 @@ export default function MusicPlayer() {
 
         }
     };
+
+    const handlePosition = (value) => {
+        setPosition(value);
+    }
 
     const handleRewind = () => {
         setPosition(position - 5);
@@ -102,16 +118,32 @@ export default function MusicPlayer() {
         }
     }
     const handleSkipNext = () => {
-        // if (currentMusic >= sessionStorage.length - 1) {
-        //     currentMusic = 0;
-        // } else {
-        //     currentMusic++
-        // }
+        if (index < 4) {
+            setIndex(index + 1);
+            setDisablePrevious(false);
+        }
 
-        // setMusic(currentMusic);
-
+        if (index === 4) {
+            setDisableNext(true);
+        }
     }
+
     const handleSkipPrevious = () => {
+        if (index > 0) {
+            setIndex(index - 1);
+            setDisableNext(false);
+
+        }
+
+        if (index === 0) {
+            setDisablePrevious(true);
+        }
+    }
+
+    const handleVolume = (event, newVolume) => {
+        setVolume(newVolume);
+
+        audioRef.current.volume = newVolume;
 
     }
 
@@ -123,21 +155,21 @@ export default function MusicPlayer() {
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <CoverImage>
                         <img
-                            alt={musicList[0].cover}
-                            src={musicList[0].cover}
+                            alt={musicList[index].cover}
+                            src={musicList[index].cover}
                         />
                     </CoverImage>
                     <Box sx={{ ml: 1.5, minWidth: 0 }}>
                         <Typography variant="caption" color="text.secondary" fontWeight={500}>
-                            {musicList[0].title}
+                            {musicList[index].title}
                         </Typography>
                         <Typography noWrap>
                             <b>
-                                {musicList[0].title}
+                                {musicList[index].title}
                             </b>
                         </Typography>
                         <Typography noWrap letterSpacing={-0.25}>
-                            {musicList[0].artist}
+                            {musicList[index].artist}
                         </Typography>
                     </Box>
                 </Box>
@@ -148,7 +180,7 @@ export default function MusicPlayer() {
                     min={0}
                     step={1}
                     max={duration}
-                    onChange={(_, value) => setPosition(value)}
+                    onChange={(_, value) => handlePosition(value)}
                     sx={{
                         color: theme.palette.mode === 'dark' ? '#fff' : 'rgba(0,0,0,0.87)',
                         height: 4,
@@ -194,7 +226,7 @@ export default function MusicPlayer() {
                         mt: -1,
                     }}
                 >
-                    <IconButton aria-label="previous song" onClick={handleSkipPrevious} >
+                    <IconButton aria-label="previous song" onClick={handleSkipPrevious} disabled={disablePrevious} >
                         <SkipPreviousRoundedIcon fontSize="large" htmlColor={mainIconColor} />
                     </IconButton>
                     <IconButton aria-label="previous song" onClick={handleRewind} >
@@ -213,21 +245,32 @@ export default function MusicPlayer() {
                             <PauseRounded sx={{ fontSize: '3rem' }} htmlColor={mainIconColor} />
                         )}
                     </IconButton>
-                    <audio id='audio' ref={audioRef}>
-                        <source src={musicList[0].source} type="audio/mpeg"></source>
+                    <audio id='audio' ref={audioRef} onLoadedMetadata={handleGetDuration}>
+                        <source src={musicList[index].source} type="audio/mpeg"></source>
                     </audio>
                     <IconButton aria-label="next song" onClick={handleForward}>
                         <FastForwardRounded fontSize="large" htmlColor={mainIconColor} />
                     </IconButton>
-                    <IconButton aria-label="next song" onClick={handleSkipNext}>
+                    <IconButton aria-label="next song" onClick={handleSkipNext} disabled={disableNext}>
                         <SkipNextRoundedIcon fontSize="large" htmlColor={mainIconColor} />
                     </IconButton>
                 </Box>
                 <Stack spacing={2} direction="row" sx={{ mb: 1, px: 1 }} alignItems="center">
-                    <VolumeDownRounded htmlColor={lightIconColor} />
+                    {
+                        volume === 0 ?
+                            <VolumeOffIcon htmlColor={lightIconColor} />
+                            :
+                            <VolumeDownRounded htmlColor={lightIconColor} />
+
+                    }
                     <Slider
                         aria-label="Volume"
-                        defaultValue={30}
+                        defaultValue={0.3}
+                        min={0}
+                        max={1}
+                        step={0.05}
+                        value={volume}
+                        onChange={handleVolume}
                         sx={{
                             color: theme.palette.mode === 'dark' ? '#fff' : 'rgba(0,0,0,0.87)',
                             '& .MuiSlider-track': {
