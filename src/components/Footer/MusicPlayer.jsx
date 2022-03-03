@@ -62,7 +62,7 @@ export default function MusicPlayer() {
     const audioRef = useRef();
 
 
-    const [volume, setVolume] = useState(0.3);
+    const [volume, setVolume] = useState(0.2);
     const [duration, setDuration] = useState(60); // seconds
     const [position, setPosition] = useState(0);
     const [paused, setPaused] = useState(true);
@@ -70,11 +70,13 @@ export default function MusicPlayer() {
     const [disableNext, setDisableNext] = useState(false);
     const [disablePrevious, setDisablePrevious] = useState(false);
 
+    // const [current, setCurrent] = useState(0);
+
 
     function formatDuration(value) {
         const minute = Math.floor(value / 60);
-        const secondLeft = value - minute * 60;
-        return `${minute}:${secondLeft < 9 ? `0${secondLeft}` : secondLeft}`;
+        const secondLeft = Math.floor(value - minute * 60);
+        return `${minute}:${secondLeft <= 9 ? `0${secondLeft}` : secondLeft}`;
     }
     const mainIconColor = theme.palette.mode === 'dark' ? '#fff' : '#000';
     const lightIconColor = theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)';
@@ -85,25 +87,41 @@ export default function MusicPlayer() {
         }
     }
 
+    const timeLeft = Math.floor(duration) - Math.floor(position)
+
+    const handleTimeUpdate = () => {
+        if (audioRef.current) {
+            setPosition(audioRef.current.currentTime)
+        }
+
+
+        if (timeLeft === 0) {
+            setPaused(true);
+        }
+    }
+
     const handlePlay = () => {
 
         if (paused) {
             audioRef.current.play();
-            setPaused(!paused)
+            setPaused(false)
 
         } else {
             audioRef.current.pause();
-            setPaused(!paused)
+            setPaused(true)
 
         }
     };
 
     const handlePosition = (value) => {
         setPosition(value);
+
+        audioRef.current.currentTime = position;
     }
 
     const handleRewind = () => {
-        setPosition(position - 5);
+        setPosition(audioRef.current.currentTime - 5);
+        audioRef.current.currentTime -= 5;
 
         if (position <= 0) {
             setPosition(0);
@@ -111,7 +129,10 @@ export default function MusicPlayer() {
     }
 
     const handleForward = () => {
-        setPosition(position + 5);
+
+        setPosition(audioRef.current.currentTime + 5);
+        audioRef.current.currentTime += 5;
+
 
         if (position >= duration) {
             setPosition(duration);
@@ -245,7 +266,7 @@ export default function MusicPlayer() {
                             <PauseRounded sx={{ fontSize: '3rem' }} htmlColor={mainIconColor} />
                         )}
                     </IconButton>
-                    <audio id='audio' ref={audioRef} onLoadedMetadata={handleGetDuration}>
+                    <audio id='audio' ref={audioRef} onLoadedMetadata={handleGetDuration} onTimeUpdate={handleTimeUpdate}>
                         <source src={musicList[index].source} type="audio/mpeg"></source>
                     </audio>
                     <IconButton aria-label="next song" onClick={handleForward}>
@@ -265,7 +286,7 @@ export default function MusicPlayer() {
                     }
                     <Slider
                         aria-label="Volume"
-                        defaultValue={0.3}
+                        // defaultValue={0.2}
                         min={0}
                         max={1}
                         step={0.05}
