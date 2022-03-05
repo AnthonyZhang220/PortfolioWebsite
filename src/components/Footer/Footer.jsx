@@ -139,33 +139,33 @@ export default function Footer() {
                 <Box>
                     <Container>
                         <Grid container direction='row' rowSpacing={5}>
-                            <Grid item sm={12} md={6} lg={3}>
+                            <Grid item sm={12} md={6} lg={4}>
                                 <MusicPlayer />
                             </Grid>
-                            <Grid item sm={12} md={6} lg={3}>
+                            <Grid item sm={12} md={6} lg={4}>
                                 <Box sx={{ marginBottom: 10 }}>
                                     <Typography variant='h6'>
                                         Explore
                                     </Typography>
                                 </Box>
-                                <Box>
+                                <Box sx={{ marginBottom: 10 }}>
                                     <Box>Home</Box>
                                     <Box>About</Box>
                                     <Box>Project</Box>
                                     <Box>Contact</Box>
                                 </Box>
-                            </Grid>
-                            <Grid item sm={12} md={6} lg={3}>
                                 <Box sx={{ marginBottom: 10 }}>
                                     <Typography variant='h6'>
                                         Follow
                                     </Typography>
                                 </Box>
-                                <Box>LinkedIn</Box>
-                                <Box>StackOverflow</Box>
-                                <Box>GitHub</Box>
+                                <Box sx={{ marginBottom: 10 }}>
+                                    <Box>LinkedIn</Box>
+                                    <Box>StackOverflow</Box>
+                                    <Box>GitHub</Box>
+                                </Box>
                             </Grid>
-                            <Grid item sm={12} md={6} lg={3}>
+                            <Grid item sm={12} md={6} lg={4}>
                                 <Box>
                                     <Typography variant='h4'>
                                         AZ
@@ -208,7 +208,6 @@ export default function Footer() {
                                         </Alert>
                                     </Snackbar>
                                 </Box>
-
                             </Grid>
                         </Grid>
                     </Container>
