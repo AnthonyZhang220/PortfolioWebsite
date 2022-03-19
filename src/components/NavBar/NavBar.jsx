@@ -187,9 +187,7 @@ export default function NavBar({ darkTheme }) {
                     <div className="features">
                         <Box>
                             <Box>
-                                <IconButton x={{ fontSize: 30 }}>
-                                    <DarkMode/>
-                                </IconButton>
+                                <DarkMode sx={{ fontSize: 30 }} />
                             </Box>
                             {/* <Box>
                                 <Badge badgeContent={like} color="primary">
