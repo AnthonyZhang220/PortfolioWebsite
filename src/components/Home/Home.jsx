@@ -125,7 +125,7 @@ export default function Home() {
             showCursor: true,
             backDelay: 1500,
             backSpeed: 60,
-            strings: ['Developer', 'Engineer']
+            strings: ['Developer...', 'Engineer...']
         });
     }, [])
 
@@ -147,6 +147,9 @@ export default function Home() {
                         {/* <h2>Hi, I'm</h2> */}
                         <h2>Hi! I'm Anthony...</h2>
                         <h3>a motivated Frontend <span ref={textRef}></span></h3>
+                        <h4>
+                            based in New York City
+                        </h4>
                     </div>
                     <div className="imgContainer">
                         <div className="linkedin">
@@ -174,7 +177,7 @@ export default function Home() {
                     <div className="container" ref={arrowdownRef}>
                         <div className="touch">
                             <IconButton component='a' href="./#about">
-                                <FingerprintIcon sx={{ fontSize: 35, textAlign: 'center' }} />
+                                <FingerprintIcon sx={{ fontSize: 35, textAlign: 'center' }}/>
                             </IconButton>
                         </div>
                         <div className="touch-text">

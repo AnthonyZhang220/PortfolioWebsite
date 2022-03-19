@@ -34,6 +34,9 @@ function App() {
 			}
 
 		},
+		typography: {
+			"fontFamily": `"myvg", sans-serif`,
+		}
 	});
 
 

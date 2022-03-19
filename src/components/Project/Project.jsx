@@ -28,21 +28,12 @@ import {
     EmailIcon,
     FacebookIcon,
     FacebookMessengerIcon,
-    HatenaIcon,
-    InstapaperIcon,
     LineIcon,
     LinkedinIcon,
-    LivejournalIcon,
-    MailruIcon,
-    OKIcon,
     PinterestIcon,
-    PocketIcon,
     RedditIcon,
     TelegramIcon,
-    TumblrIcon,
     TwitterIcon,
-    ViberIcon,
-    VKIcon,
     WeiboIcon,
     WhatsappIcon,
     WorkplaceIcon
@@ -69,6 +60,11 @@ import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import IconButton from '@mui/material/IconButton';
 import ShareIcon from '@mui/icons-material/Share';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import Modal from '@mui/material/Modal';
 
 import { styled } from '@mui/material/styles';
@@ -90,9 +86,9 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: 300,
     bgcolor: 'background.paper',
-    border: '2px solid #000',
+    border: '0px solid #000',
     boxShadow: 24,
     p: 4,
 };
@@ -108,26 +104,44 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 
+
+
+
 export default function Project() {
 
     const classes = useStyles();
 
     gsap.registerPlugin(ScrollTrigger);
 
-    const listRef = useRef(null);
-    const [like, setLike] = useState(0);
-    const [fav, setFav] = useState(0);
+
+    const projectRef = useRef();
+    const listRef = useRef();
+    const [like, setLike] = useState(false);
+    const [fav, setFav] = useState({
+        id: '',
+        isFav: false,
+    });
     const [sharePage, setSharePage] = useState(false);
+    const [shareId, setShareId] = useState(null);
 
-    const likeCount = () => {
-        setLike(like + 1);
+    const handleLike = () => {
+        setLike(true);
     }
 
-    const favCount = () => {
-        setFav(fav + 1);
+    const handleFav = (id) => {
+        console.log(fav)
+
+        if (!fav.isFav && fav.id.includes(id)) {
+            const updateFav = { id: id, isFav: true }
+            setFav(...fav, ...updateFav);
+        } else if (!fav.isFav) {
+            setFav([...fav, { id, isFav: false }]);
+        }
+        setFav(!fav.isFav);
     }
 
-    const handleShareOpen = () => {
+    const handleShareOpen = (id) => {
+        setShareId(id);
         setSharePage(true);
     }
 
@@ -136,13 +150,14 @@ export default function Project() {
     }
 
 
+
     useEffect(() => {
         gsap.fromTo(listRef.current, {
             x: "10%", opacity: 0
         }, {
             x: "0%", opacity: 1, duration: 2,
             scrollTrigger: {
-                trigger: listRef.current,
+                trigger: projectRef.current,
                 start: "top bottom"
             },
         });
@@ -163,141 +178,158 @@ export default function Project() {
 
 
     return (
-        <div className='project' id='project' >
+        <div className='project' id='project' ref={projectRef}>
             <div className='project-title'>
                 <h2>Project.&nbsp;</h2>
                 <span className='subtitle'>
                     Take a took at what I have created, in the past.
                 </span>
             </div>
-            <div className="project-wrapper" ref={listRef}>
+            <div className="project-wrapper" >
                 {projectdata?.map(({ id, title, subtitle, thumbnail, description, tech, WebsiteUrl, GitHubUrl, library, index }) => (
-                    <div key={id} className='card'>
-                        <Card key={id} sx={{
-                            position: 'relative',
-                            width: 320,
-                            height: 'auto',
-                            margin: '10px',
-                            transition: "all 0.3s cubic-bezier(0,0,.5,1)",
-                            borderRadius: '16px',
-                            boxShadow: "0px 2px 12px rgb(0 0 0 / 8%)",
-                            "&:hover": {
-                                boxShadow: "0px 4px 24px rgb(0 0 0 / 0.2)",
-                            },
-                            flex: '0 0 10%',
-                        }}>
-                            <CardMedia
-                                component="img"
-                                alt={title}
-                                height="180"
-                                image={thumbnail}
-                            />
-                            <CardContent>
-                                <Box sx={{ mx: 1 }}>
-                                    <Typography gutterBottom variant="body1" component="div">
-                                        {title}
-                                    </Typography>
-                                    <Typography gutterBottom variant="body2" component="div">
-                                        {subtitle}
-                                    </Typography>
-                                    {/* <Typography variant="body2" color="text.secondary">
+                    <>
+                        <div key={id} className='card'>
+                            <Card
+                                key={id}
+                                ref={listRef}
+                                sx={{
+                                    position: 'relative',
+                                    width: 320,
+                                    height: 'auto',
+                                    margin: '10px',
+                                    transition: "all 0.3s cubic-bezier(0,0,.5,1)",
+                                    borderRadius: '16px',
+                                    boxShadow: "0px 2px 12px rgb(0 0 0 / 8%)",
+                                    "&:hover": {
+                                        boxShadow: "0px 4px 24px rgb(0 0 0 / 0.2)",
+                                    },
+                                    flex: '0 0 10%',
+                                }}>
+                                <CardMedia
+                                    component="img"
+                                    alt={title}
+                                    height="180"
+                                    image={thumbnail}
+                                />
+                                <CardContent>
+                                    <Box sx={{ mx: 1 }}>
+                                        <Typography gutterBottom variant="body1" component="div">
+                                            {title}
+                                        </Typography>
+                                        <Typography gutterBottom variant="body2" component="div">
+                                            {subtitle}
+                                        </Typography>
+                                        {/* <Typography variant="body2" color="text.secondary">
                                         {description}
                                     </Typography> */}
-                                </Box>
-                                <Divider variant='middle' />
-                                <Box sx={{ m: 1 }}>
-                                    <Typography gutterBottom variant="body3">
-                                        Technology used
-                                    </Typography>
-                                    <Stack direction='row' spacing={2}>
-                                        {tech?.map(techUrl => (
-                                            <Icon key={index}>
-                                                <img className={classes.imageIcon} src={techUrl} alt='' />
-                                            </Icon>
-                                        ))}
-                                    </Stack>
-                                </Box>
-                                <Divider variant="middle" />
-                                <Box sx={{ m: 1 }}>
-                                    <Typography gutterBottom variant="body3">
-                                        Library used
-                                    </Typography>
-                                    <Stack direction='row' spacing={1}>
-                                        {library?.map(lib => (
-                                            <Chip label={lib} key={index} />
-                                        ))}
-                                    </Stack>
-                                </Box>
-                                <Divider variant='middle' />
-                            </CardContent>
-                            <CardActions disableSpacing >
-                                <Button sx={{ m: 1 }} color="secondary" variant='contained' size="small" href={GitHubUrl} target='_blank'>GitHub</Button>
-                                <Button sx={{ m: 1 }} color="secondary" variant='contained' size="small" href={WebsiteUrl} target='_blank' endIcon={<ForwardRoundedIcon />}>Website</Button>
-                                <IconButton sx={{ m: 1 }} onClick={handleShareOpen} >
-                                    <ShareIcon></ShareIcon>
-                                </IconButton>
-                                <IconButton>
-                                    <FavoriteRoundedIcon></FavoriteRoundedIcon>
-                                </IconButton>
-                            </CardActions>
-                        </Card>
-                        <Modal
-                            open={sharePage}
-                            onClose={handleShareClose}
-                            aria-labelledby="modal-modal-title"
-                            aria-describedby="modal-modal-description"
-                        >
-                            <Box sx={style}>
-                                <Typography id="modal-modal-title" variant="h6" component="h2">
-                                    Share
-                                </Typography>
-                                <Box sx={{ display: 'flex', flexWrap: 'wrap', padding: 1 }}>
-                                    <EmailShareButton>
-                                        <EmailIcon round size={50} />
-                                    </EmailShareButton>
-                                    <FacebookShareButton>
-                                        <FacebookIcon round size={50} />
-                                    </FacebookShareButton>
-                                    <FacebookMessengerIcon round size={50} />
+                                    </Box>
+                                    <Divider variant='middle' />
+                                    <Box sx={{ m: 1 }}>
+                                        <Typography gutterBottom variant="body3">
+                                            Technology used
+                                        </Typography>
+                                        <Stack direction='row' spacing={2}>
+                                            {tech?.map(techUrl => (
+                                                <Icon key={index}>
+                                                    <img className={classes.imageIcon} src={techUrl} alt='' />
+                                                </Icon>
+                                            ))}
+                                        </Stack>
+                                    </Box>
+                                    <Divider variant="middle" />
+                                    <Box sx={{ m: 1 }}>
+                                        <Typography gutterBottom variant="body3">
+                                            Library used
+                                        </Typography>
+                                        <Stack direction='row' spacing={1}>
+                                            {library?.map(lib => (
+                                                <Chip label={lib} key={index} />
+                                            ))}
+                                        </Stack>
+                                    </Box>
+                                    <Divider variant='middle' />
+                                </CardContent>
+                                <CardActions disableSpacing >
+                                    <Button sx={{ m: 1 }} color="secondary" variant='contained' size="small" href={GitHubUrl} target='_blank'>GitHub</Button>
+                                    <Button sx={{ m: 1 }} color="secondary" variant='contained' size="small" href={WebsiteUrl} target='_blank' endIcon={<ForwardRoundedIcon />}>Website</Button>
+                                    <IconButton sx={{ m: 1 }} onClick={() => handleShareOpen(id)} >
+                                        <ShareIcon></ShareIcon>
+                                    </IconButton>
+                                    {
+                                        fav.isFav ?
+                                            <IconButton sx={{ color: '#fe0000' }} onClick={() => handleFav(id)}>
+                                                <FavoriteRoundedIcon></FavoriteRoundedIcon>
+                                            </IconButton>
+                                            :
+                                            <IconButton onClick={() => handleFav(id)}>
+                                                <FavoriteRoundedIcon></FavoriteRoundedIcon>
+                                            </IconButton>
+                                    }
+                                </CardActions>
+                            </Card>
+                        </div>
+                        {
+                            shareId === id ?
+                                <Modal
+                                    key={shareId}
+                                    open={sharePage}
+                                    onClose={handleShareClose}
+                                    aria-labelledby="alert-dialog-title"
+                                    aria-describedby="alert-dialog-description"
+                                >
+                                    <Box sx={style}>
+                                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                                            Share
+                                        </Typography>
+                                        <Box sx={{ display: 'flex', flexWrap: 'wrap', padding: 2 }}>
+                                            <EmailShareButton url={WebsiteUrl}>
+                                                <EmailIcon round size={50} />
+                                            </EmailShareButton>
+                                            <FacebookShareButton url={WebsiteUrl} quote={title}>
+                                                <FacebookIcon round size={50} />
+                                            </FacebookShareButton>
 
-                                    <LineShareButton>
-                                        <LineIcon round size={50} />
-                                    </LineShareButton>
+                                            <FacebookMessengerIcon round size={50} />
+                                            <LineShareButton url={WebsiteUrl}>
+                                                <LineIcon round size={50} />
+                                            </LineShareButton>
 
-                                    <LinkedinShareButton url={WebsiteUrl}>
-                                        <LinkedinIcon round size={50} />
-                                    </LinkedinShareButton>
+                                            <LinkedinShareButton url={WebsiteUrl} title={title} summary={description}>
+                                                <LinkedinIcon round size={50} />
+                                            </LinkedinShareButton>
 
 
-                                    <PinterestShareButton>
-                                        <PinterestIcon round size={50} />
-                                    </PinterestShareButton>
+                                            <PinterestShareButton url={WebsiteUrl} media={thumbnail}>
+                                                <PinterestIcon round size={50} />
+                                            </PinterestShareButton>
 
-                                    <WeiboIcon round size={50} />
+                                            <WeiboIcon round size={50} />
 
-                                    <RedditShareButton>
-                                        <RedditIcon round size={50} />
-                                    </RedditShareButton>
-                                    <TelegramShareButton>
+                                            <RedditShareButton url={WebsiteUrl} title={title}>
+                                                <RedditIcon round size={50} />
+                                            </RedditShareButton>
 
-                                        <TelegramIcon round size={50} />
-                                    </TelegramShareButton>
+                                            <TelegramShareButton url={WebsiteUrl} title={title}>
+                                                <TelegramIcon round size={50} />
+                                            </TelegramShareButton>
 
-                                    <TwitterShareButton>
-                                        <TwitterIcon round size={50} />
-                                    </TwitterShareButton>
+                                            <TwitterShareButton url={WebsiteUrl} title={title}>
+                                                <TwitterIcon round size={50} />
+                                            </TwitterShareButton>
 
-                                    <WhatsappShareButton>
-                                        <WhatsappIcon round size={50} />
-                                    </WhatsappShareButton>
+                                            <WhatsappShareButton url={WebsiteUrl} title={title}>
+                                                <WhatsappIcon round size={50} />
+                                            </WhatsappShareButton>
 
-                                    <WorkplaceShareButton>
-                                        <WorkplaceIcon round size={50} />
-                                    </WorkplaceShareButton>
-                                </Box>
-                            </Box>
-                        </Modal>
-                    </div>
+                                            <WorkplaceShareButton url={WebsiteUrl} quote={description}>
+                                                <WorkplaceIcon round size={50} />
+                                            </WorkplaceShareButton>
+                                        </Box>
+                                        <Button onClick={handleShareClose}>Close</Button>
+                                    </Box>
+                                </Modal> : null
+                        }
+                    </>
                 ))}
                 <div className="left-button">
                     <ArrowCircleLeftRoundedIcon />

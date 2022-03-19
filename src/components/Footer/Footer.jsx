@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import MusicPlayer from './MusicPlayer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -22,8 +22,11 @@ import LinearProgress from '@mui/material/LinearProgress';
 import { LoadingButton } from '@mui/lab';
 import SaveAltRoundedIcon from '@mui/icons-material/SaveAltRounded';
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
-
+import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded';
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
+import ShareRoundedIcon from '@mui/icons-material/ShareRounded';
 import IconButton from '@mui/material/IconButton';
+import Badge from '@mui/material/Badge';
 
 import { styled } from '@mui/material/styles';
 import { HashLink } from "react-router-hash-link";
@@ -86,6 +89,31 @@ export default function Footer() {
     const [valid, setValid] = useState(true);
     const [openWeChat, setOpenWeChat] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [like, setLike] = useState(null);
+    const [fav, setFav] = useState(null);
+    const [isMobile, setIsMobile] = useState(false);
+
+    const handleShare = () => {
+        if (navigator.userAgentData.mobile) {
+            setIsMobile(true);
+        }
+
+        if (isMobile) {
+            navigator.share(
+                {
+                    title: "",
+                    text: `Check out on`,
+                    url: document.location.href,
+                }).then(() => {
+                    console.log('Success!');
+                }).catch(error => {
+                    console.error('Something went wrong:', error)
+                })
+        } else {
+            return null
+        }
+
+    }
 
     const handleOpenWeChat = () => setOpenWeChat(true);
     const handleCloseWeChat = () => setOpenWeChat(false);
@@ -115,6 +143,13 @@ export default function Footer() {
         setSuccess(false);
     }
 
+    const handleLike = () => {
+        setLike(like + 1);
+    }
+    const handleFav = () => {
+        setFav(fav + 1);
+    }
+
     const handleSave = () => {
         setLoading(true)
 
@@ -138,47 +173,47 @@ export default function Footer() {
             <div className="top">
                 <Box>
                     <Container>
-                        <Grid container direction='row' rowSpacing={5}>
-                            <Grid item sm={12} md={6} lg={4}>
+                        <Grid container direction='row'>
+                            <Grid item xs={12} sm={12} md={4} lg={4}>
                                 <MusicPlayer />
                             </Grid>
-                            <Grid item sm={12} md={6} lg={4}>
-                                <Box sx={{ marginBottom: 10 }}>
-                                    <Typography variant='h6'>
-                                        Explore
-                                    </Typography>
-                                </Box>
-                                <Box sx={{ marginBottom: 10 }}>
-                                    <Box>Home</Box>
-                                    <Box>About</Box>
-                                    <Box>Project</Box>
-                                    <Box>Contact</Box>
-                                </Box>
-                                <Box sx={{ marginBottom: 10 }}>
-                                    <Typography variant='h6'>
-                                        Follow
-                                    </Typography>
-                                </Box>
-                                <Box sx={{ marginBottom: 10 }}>
-                                    <Box>LinkedIn</Box>
-                                    <Box>StackOverflow</Box>
-                                    <Box>GitHub</Box>
-                                </Box>
+                            <Grid item xs={12} sm={12} md={4} lg={4}>
+                                <Grid container direction='row'>
+                                    <Grid item xs={6} sm={6}>
+                                        <Box sx={{ mb: 2, mt: 2 }}>
+                                            <Typography variant='h6'>
+                                                Explore
+                                            </Typography>
+                                        </Box>
+                                        <Box sx={{ mb: 2 }}>
+                                            <Box>Home</Box>
+                                            <Box>About</Box>
+                                            <Box>Project</Box>
+                                            <Box>Contact</Box>
+                                        </Box>
+                                    </Grid>
+                                    <Grid item xs={6} sm={6}>
+                                        <Box sx={{ mb: 2, mt: 2 }}>
+                                            <Typography variant='h6'>
+                                                Follow
+                                            </Typography>
+                                        </Box>
+                                        <Box sx={{ mb: 2 }}>
+                                            <Box>LinkedIn</Box>
+                                            <Box>StackOverflow</Box>
+                                            <Box>GitHub</Box>
+                                        </Box>
+                                    </Grid>
+                                </Grid>
                             </Grid>
-                            <Grid item sm={12} md={6} lg={4}>
-                                <Box>
-                                    <Typography variant='h4'>
-                                        AZ
-                                    </Typography>
-                                    <Typography>
-                                        paragraphparagraphparagraphparah
-                                    </Typography>
-                                    <Typography variant='h6'>
+                            <Grid item xs={12} sm={12} md={4} lg={4}>
+                                <Box sx={{ mb: 2 }}>
+                                    <Typography variant='h5'>
                                         Stay Connected
                                     </Typography>
                                 </Box>
                                 <Box component='form'
-                                    sx={{ display: 'flex' }}>
+                                    sx={{ display: 'flex', ml: 2, mr: 2 }}>
                                     <TextField
                                         error={!valid}
                                         hiddenLabel
@@ -208,6 +243,30 @@ export default function Footer() {
                                         </Alert>
                                     </Snackbar>
                                 </Box>
+                                <Box sx={{ mt: 2 }}>
+                                    <Typography variant='h7'>
+                                        If you like this website, please leave a like!
+                                    </Typography>
+                                </Box>
+                                <Typography variant='h7'>
+                                    If you love it, please leave a heart!
+                                </Typography>
+                                <Box sx={{ mt: 2 }}>
+                                    <IconButton sx={{ color: '#fafafa', fontSize: 30 }} onClick={handleLike}>
+                                        <Badge badgeContent={like} color="primary">
+                                            <ThumbUpRoundedIcon />
+                                        </Badge>
+                                    </IconButton>
+                                    <IconButton sx={{ color: '#fafafa', fontSize: 30 }} onClick={handleFav}>
+                                        <Badge badgeContent={fav} color="primary">
+                                            <FavoriteRoundedIcon />
+                                        </Badge>
+                                    </IconButton>
+                                    <IconButton sx={{ color: '#fafafa', fontSize: 30 }} onClick={handleShare}>
+                                        <ShareRoundedIcon>
+                                        </ShareRoundedIcon>
+                                    </IconButton>
+                                </Box>
                             </Grid>
                         </Grid>
                     </Container>
@@ -216,22 +275,24 @@ export default function Footer() {
             <Divider flexItem variant='middle' classes={{ root: classes.divider }} />
             <div className="bottom">
                 <div className="copyright">
-                    <span className='copyright-text'>
-                        &copy; 2020-{currentYear} <span className='name'>Anthony Zhang</span>. All Rights Reserved.
-                    </span>
+                    <Box sx={{ ml: 2 }}>
+                        <span className='copyright-text'>
+                            &copy; 2020-{currentYear} <span className='name'>Anthony Zhang</span>. All Rights Reserved.
+                        </span>
+                    </Box>
                 </div>
                 <div className='social-icon'>
                     <Box>
-                        <IconButton sx={{ color: '#fafafa', fontSize: 25, marginLeft: 2 }} component='a' href="https://www.linkedin.com/in/anthony-xiangyu-zhang/" target="_blank" rel="noreferrer">
+                        <IconButton sx={{ color: '#fafafa', fontSize: 25 }} component='a' href="https://www.linkedin.com/in/anthony-xiangyu-zhang/" target="_blank" rel="noreferrer">
                             <FontAwesomeIcon icon="fa-brands fa-linkedin-in" />
                         </IconButton>
-                        <IconButton sx={{ color: '#fafafa', fontSize: 25, marginLeft: 2 }} component='a' href="https://github.com/AnthonyZhang220" target="_blank" rel="noreferrer">
+                        <IconButton sx={{ color: '#fafafa', fontSize: 25, ml: 2 }} component='a' href="https://github.com/AnthonyZhang220" target="_blank" rel="noreferrer">
                             <FontAwesomeIcon icon="fa-brands fa-github" />
                         </IconButton>
-                        <IconButton sx={{ color: '#fafafa', fontSize: 25, marginLeft: 2 }} component='a' href="https://stackoverflow.com/users/6162027/anthony220" target="_blank" rel="noreferrer">
+                        <IconButton sx={{ color: '#fafafa', fontSize: 25, ml: 2 }} component='a' href="https://stackoverflow.com/users/6162027/anthony220" target="_blank" rel="noreferrer">
                             <FontAwesomeIcon icon="fa-brands fa-stack-overflow" />
                         </IconButton>
-                        <IconButton sx={{ color: '#fafafa', fontSize: 25, marginLeft: 2 }} onClick={handleOpenWeChat}>
+                        <IconButton sx={{ color: '#fafafa', fontSize: 25, ml: 2, mr: 2 }} onClick={handleOpenWeChat}>
                             <FontAwesomeIcon icon="fa-brands fa-weixin" />
                         </IconButton>
                     </Box>

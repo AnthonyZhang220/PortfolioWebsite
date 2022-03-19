@@ -8,69 +8,76 @@
 
 	flex-direction: column;
 
-	.title-aboutme {
-		display: inline-flex;
-		flex-wrap: wrap;
-		padding-bottom: 20px;
-		margin-top: $section-margin-top;
-		margin-left: $section-margin-left;
-		margin-right: $section-margin-right;
-		align-items: center;
-		font-size: 1.5em;
-
-		span {
-			font-size: 1.5em;
-			color: #6e6e73;
-		}
-	}
-
-	.about-me {
+	.about-section {
 		display: flex;
-		justify-content: center;
+		flex-direction: column;
 		align-items: center;
 
-		.illustration {
-			flex: 0.4;
+		.about-title {
+			display: inline-flex;
+			align-items: center;
+			flex-wrap: wrap;
+			margin-top: $section-margin-top;
+			margin-left: $section-margin-left;
+			margin-right: $section-margin-right;
+			padding-bottom: 20px;
+			font-size: 1.5em;
 
-			img {
-				width: 400px;
-				height: 300px;
+			.about-subtitle {
+				font-size: 1.5em;
+				color: #6e6e73;
 			}
 		}
-		.summary {
-			flex: 0.6;
-		}
-	}
 
-	.title-skills {
-		display: inline-flex;
-		flex-wrap: wrap;
-		padding-bottom: 20px;
-		margin-top: $section-margin-top;
-		margin-left: $section-margin-left;
-		margin-right: $section-margin-right;
-		align-items: center;
-		font-size: 1.5em;
-
-		span {
-			font-size: 1.5em;
-			color: #6e6e73;
-		}
-	}
-
-	.technology {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-
-		.categories {
+		.about-me {
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			flex-wrap: wrap;
 
-			.fa-solid {
-				font-size: 50px;
+			.summary {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-wrap: wrap;
+			}
+		}
+	}
+
+	.skill-section {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		.title-skills {
+			display: flex;
+			flex-wrap: wrap;
+			padding-bottom: 20px;
+			margin-top: $section-margin-top;
+			margin-left: $section-margin-left;
+			margin-right: $section-margin-right;
+			align-items: center;
+			font-size: 1.5em;
+
+			span {
+				font-size: 1.5em;
+				color: #6e6e73;
+			}
+		}
+
+		.technology {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			.categories {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-wrap: wrap;
+
+				.fa-solid {
+					font-size: 50px;
+				}
 			}
 		}
 	}

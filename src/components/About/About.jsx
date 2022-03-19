@@ -1,6 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from "gsap/all";
-import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { aboutText } from './aboutText';
+import SwipeableViews from 'react-swipeable-views';
+import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -19,9 +22,12 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import Divider from '@mui/material/Divider';
 import Chip from '@mui/material/Chip';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 
 import { ThemeProvider, styled } from '@mui/material/styles';
 import Tooltip from '@mui/material/Tooltip';
+import { useTheme } from '@mui/material/styles';
 
 
 
@@ -85,7 +91,8 @@ const IOSSlider = styled(Slider)(({ theme }) => ({
     },
 }));
 
-export default function About(theme) {
+
+export default function About() {
     gsap.registerPlugin(ScrollTrigger);
 
     const marks = [
@@ -112,328 +119,370 @@ export default function About(theme) {
 
     ]
 
-    const aboutRef = useRef();
+    const theme = useTheme();
+    const [value, setValue] = useState(aboutText[0].item);
 
-    useEffect(() => {
-        gsap.fromTo(aboutRef.current,
-            { opacity: 0 }, {
-            opacity: 1, duration: 5, scrollTrigger: {
-                trigger: aboutRef.current,
-                start: "top bottom"
-            }
-        }
-        )
-    })
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+        console.log(newValue)
+    };
+
+    const skillRef = useRef();
+
+    // useEffect(() => {
+    //     gsap.fromTo(skillRef.current,
+    //         { opacity: 0 }, {
+    //         opacity: 1, duration: 5, scrollTrigger: {
+    //             trigger: skillRef.current,
+    //             start: "top bottom"
+    //         }
+    //     }
+    //     )
+    // })
 
     return (
-        <div className='about' id="about" ref={aboutRef}>
-            <div className="title-aboutme">
-                <h2>
-                    About.
-                </h2>
-                <span>
-
-                </span>
-            </div>
-            <div className="about-me">
-                <div className="illustration">
-                    <img src="assets/images/frontend-developer-illustration-concept-vector.jpg" alt="illustration avatar" />
+        <div className='about' id="about">
+            <div className="about-section">
+                <div className="about-title">
+                    <h2>
+                        About.&nbsp;
+                    </h2>
+                    <span className='about-subtitle'>
+                            Get to know me, in a blink of an eye.
+                    </span>
                 </div>
-                <div className="summary">
-                    <p>
-                        About me description section.
-                    </p>
-                </div>
-            </div>
-            <div className="title-skills">
-                <h2>Skills.&nbsp;</h2>
-                <span>Technologies are always evolving, so am I.</span>
-            </div>
-            <div className="technology">
-                <div className='categories'>
-                    <Box
-                        sx={{
+                <div className="about-me">
+                    <div className="summary">
+                        <Box sx={{
+                            bgcolor: '',
                             display: 'flex',
+                            flexDirection:'column',
                             justifyContent: 'center',
                             alignItems: 'center',
-                            flexWrap: 'wrap',
-                            width: '90%',
-                            '& > :not(style)': {
-                                m: 4,
-                                p: 2,
-                            },
-                        }}
-                    >
-                        <ThemeProvider theme={theme}>
-                            <Paper elevation={1} sx={{
+                            flexWrap: 'nowrap',
+                            width: '85%',
+                        }}>
+                            <Box sx={{ display: 'flex', minWidth: '150px' }}>
+                                <Tabs
+                                    value={value}
+                                    onChange={handleChange}
+                                    indicatorColor="secondary"
+                                    textColor="inherit"
+                                    sx={{ borderBottom: 1, borderColor: 'divider', overflow: 'visiable' }}
+                                >
+                                    {
+                                        aboutText?.map(({ item }) => (
+                                            <Tab label={item} key={item} value={item} />
+                                        ))
+                                    }
+                                </Tabs>
+                            </Box>
+                            <Box sx={{
                                 display: 'flex',
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                borderRadius: '18px',
-                                flexWrap: 'wrap',
-                                minWidth: '320px',
-                                background: 'linear-gradient(to bottom right, rgba(219,234,255,.8) 20%, rgba(243,223,222,.5) 80%), linear-gradient(to bottom left, rgba(247,250,255,.5) 100%, rgba(219,207,243,0.8) 20%)',
                                 '& > :not(style)': {
-                                    m: 1,
-                                    p: 1,
+                                    m: 2,
                                 },
-                            }}>
-                                <FontAwesomeIcon icon="fa-solid fa-code" fontSize={40} />
-                                <Typography variant="h5" component="div">
-                                    Front End
+                            }} value={value}>
+                                <Typography align='center' variant='h6' gutterBottom>
+                                    {aboutText.find(({ item }) => item === value).text}
                                 </Typography>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12} sm container>
-                                        <Grid item xs container direction="column" spacing={2}>
-                                            <Grid item xs direction="row" spacing={2}>
-                                                <Typography variant="body2" component="div">
-                                                    HTML5
-                                                </Typography>
-                                                <IOSSlider
-                                                    aria-label="ios slider"
-                                                    defaultValue={75}
-                                                    valueLabelDisplay="on"
-                                                    step={25}
-                                                    marks={marks}
-                                                    valueLabelFormat={() => {
-                                                        return (
-                                                            <div style={{ textAlign: "center", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                                                <FontAwesomeIcon icon="fa-brands fa-html5" fontSize={30} />
-                                                            </div>
-                                                        )
-                                                    }}
-                                                />
-                                            </Grid>
-                                            <Grid item>
-                                                {/* <FontAwesomeIcon icon="fa-brands fa-css3-alt" fontSize={30} /> */}
-                                                <Typography variant="body2" component="div">
-                                                    CSS3
-                                                </Typography>
-                                                <IOSSlider
-                                                    aria-label="ios slider"
-                                                    marks={marks}
-                                                    step={25}
-                                                    defaultValue={75}
-                                                    valueLabelDisplay="on"
-                                                    valueLabelFormat={() => {
-                                                        return (
-                                                            <div style={{ textAlign: "center", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                                                <FontAwesomeIcon icon="fa-brands fa-css3-alt" fontSize={30} />
-                                                            </div>
-                                                        )
-                                                    }}
-                                                />
-                                            </Grid>
-                                            {/* <Divider variant='middle' textAlign='center'>
-                                                <Chip label="CSS3"></Chip>
-                                            </Divider> */}
-                                            <Grid item>
-                                                <Typography variant="body2" component="div">
-                                                    Javascript
-                                                </Typography>
-                                                <IOSSlider
-                                                    aria-label="ios slider"
-                                                    defaultValue={50}
-                                                    step={25}
-                                                    valueLabelDisplay="on"
-                                                    marks={marks}
-                                                    valueLabelFormat={() => {
-                                                        return (
-                                                            <div style={{ textAlign: "center" }}>
-                                                                <FontAwesomeIcon icon="fa-brands fa-js-square" fontSize={30} />
-                                                            </div>
-                                                        )
-                                                    }}
-                                                />
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </Paper>
-                            <Paper elevation={2} sx={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                flexWrap: 'wrap',
-                                borderRadius: '18px',
-                                minWidth: '320px',
-                                background: 'linear-gradient(to bottom right, rgba(219,234,255,.8) 20%, rgba(243,223,222,.5) 80%), linear-gradient(to bottom left, rgba(247,250,255,.5) 100%, rgba(219,207,243,0.8) 20%)',
-                                '&::before': {
-                                    // content: '""',
-                                    display: 'block',
-                                    height: '100%',
-                                    background: 'linear-gradient(to bottom right, rgb(247,250,255), rgb(219,207,243))',
-                                    mask: 'linear-gradient(to top left,#ffffff, #ffffff)',
-                                },
-                                '& > :not(style)': {
-                                    m: 1,
-                                    p: 1,
-                                },
-                            }}>
-                                <FontAwesomeIcon icon="fa-solid fa-server" fontSize={40} />
-                                <Typography variant="h5" component="div">
-                                    Back End
-                                </Typography>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12} sm container>
-                                        <Grid item xs container direction="column" spacing={2}>
-                                            <Grid item>
-                                                <Typography variant="body2" component="div">
-                                                    Node.js
-                                                </Typography>
-                                                <IOSSlider
-                                                    aria-label="ios slider"
-                                                    defaultValue={50}
-                                                    step={25}
-                                                    marks={marks}
-                                                    valueLabelDisplay="on"
-                                                    valueLabelFormat={() => {
-                                                        return (
-                                                            <div style={{ textAlign: "center" }}>
-                                                                <FontAwesomeIcon icon="fa-brands fa-node" fontSize={30} />
-                                                            </div>
-                                                        )
-                                                    }}
-                                                />
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </Paper>
-                            <Paper elevation={1} sx={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                flexWrap: 'wrap',
-                                minWidth: '320px',
-                                borderRadius: '18px',
-                                background: 'linear-gradient(to bottom right, rgba(219,234,255,.8) 20%, rgba(243,223,222,.5) 80%), linear-gradient(to bottom left, rgba(247,250,255,.5) 100%, rgba(219,207,243,0.8) 20%)',
-                                '& > :not(style)': {
-                                    m: 1,
-                                    p: 1,
-                                },
-                            }}>
-                                <FontAwesomeIcon icon="fa-solid fa-layer-group" fontSize={40} />
-                                <Typography variant="h5" component="div">
-                                    Frameworks
-                                </Typography>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12} sm container>
-                                        <Grid item xs container direction="column" spacing={2}>
-                                            <Grid item>
-                                                <Typography variant="body2" component="div">
-                                                    React
-                                                </Typography>
-                                                <IOSSlider
-                                                    aria-label="ios slider"
-                                                    marks={marks}
-                                                    step={25}
-                                                    defaultValue={50}
-                                                    valueLabelDisplay="on"
-                                                    valueLabelFormat={() => {
-                                                        return (
-                                                            <div style={{ textAlign: "center" }}>
-                                                                <FontAwesomeIcon icon="fa-brands fa-react" fontSize={30} />
-                                                            </div>
-                                                        )
-                                                    }}
-                                                />
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </Paper>
-                            <Paper elevation={1} sx={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                flexWrap: 'wrap',
-                                minWidth: '320px',
-                                borderRadius: '18px',
-                                background: 'linear-gradient(to bottom right, rgba(219,234,255,.8) 20%, rgba(243,223,222,.5) 80%), linear-gradient(to bottom left, rgba(247,250,255,.5) 100%, rgba(219,207,243,0.8) 20%)',
-                                '& > :not(style)': {
-                                    m: 1,
-                                    p: 1,
-                                },
-                            }}>
-                                <FontAwesomeIcon icon="fa-solid fa-screwdriver-wrench" fontSize={40} />
-                                <Typography variant="h5" component="div">
-                                    Tools
-                                </Typography>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12} sm container>
-                                        <Grid item xs container direction="column" spacing={2}>
-                                            <Grid item>
-                                                <Typography variant="body2" component="div">
-                                                    Git
-                                                </Typography>
-                                                <IOSSlider
-                                                    aria-label="ios slider"
-                                                    defaultValue={25}
-                                                    step={25}
-                                                    valueLabelDisplay="on"
-                                                    marks={marks}
-                                                    valueLabelFormat={() => {
-                                                        return (
-                                                            <div style={{ textAlign: "center" }}>
-                                                                <FontAwesomeIcon icon="fa-brands fa-git-alt" fontSize={30} />
-                                                            </div>
-                                                        )
-                                                    }}
-                                                />
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </Paper>
-                            <Paper elevation={1} sx={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                flexWrap: 'wrap',
-                                minWidth: '320px',
-                                borderRadius: '18px',
-                                background: 'linear-gradient(to bottom right, rgba(219,234,255,.8) 20%, rgba(243,223,222,.5) 80%), linear-gradient(to bottom left, rgba(247,250,255,.5) 100%, rgba(219,207,243,0.8) 20%)',
-                                '& > :not(style)': {
-                                    m: 1,
-                                    p: 1,
-                                },
-                            }}>
-                                <FontAwesomeIcon icon="fa-solid fa-database" fontSize={40} />
-                                <Typography variant="h5" component="div">
-                                    Database
-                                </Typography>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12} sm container>
-                                        <Grid item xs container direction="column" spacing={2}>
-                                            <Grid item>
-                                                <Typography variant="body2" component="div">
-                                                    SQL
-                                                </Typography>
-                                                <IOSSlider
-                                                    aria-label="ios slider"
-                                                    defaultValue={25}
-                                                    marks={marks}
-                                                    step={25}
-                                                    valueLabelDisplay="on"
-                                                    valueLabelFormat={() => {
-                                                        return (
-                                                            <div style={{ textAlign: "center" }}>
-                                                                <FontAwesomeIcon icon="fa-solid fa-database" fontSize={30} />
-                                                            </div>
-                                                        )
-                                                    }}
-                                                />
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </Paper>
-                        </ThemeProvider>
-                    </Box>
+                            </Box>
+                        </Box>
+                    </div>
                 </div>
             </div>
-            <div></div>
+            <div className="skill-section" ref={skillRef}>
+                <div className="title-skills">
+                    <h2>Skills.&nbsp;</h2>
+                    <span>Technologies are always evolving, so am I.</span>
+                </div>
+                <div className="technology">
+                    <div className='categories'>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                flexWrap: 'wrap',
+                                width: '90%',
+                                '& > :not(style)': {
+                                    m: 4,
+                                    p: 2,
+                                },
+                            }}
+                        >
+                            <ThemeProvider theme={theme}>
+                                <Paper elevation={1} sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    borderRadius: '18px',
+                                    flexWrap: 'wrap',
+                                    minWidth: '320px',
+                                    background: 'linear-gradient(to bottom right, rgba(219,234,255,.8) 20%, rgba(243,223,222,.5) 80%), linear-gradient(to bottom left, rgba(247,250,255,.5) 100%, rgba(219,207,243,0.8) 20%)',
+                                    '& > :not(style)': {
+                                        m: 1,
+                                        p: 1,
+                                    },
+                                }}>
+                                    <FontAwesomeIcon icon="fa-solid fa-code" fontSize={40} />
+                                    <Typography variant="h5" component="div">
+                                        Front End
+                                    </Typography>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={12} sm container>
+                                            <Grid item xs container direction="column" spacing={2}>
+                                                <Grid item xs container direction="row" spacing={2}>
+                                                    <Typography variant="body2" component="div">
+                                                        HTML5
+                                                    </Typography>
+                                                    <IOSSlider
+                                                        aria-label="ios slider"
+                                                        defaultValue={75}
+                                                        valueLabelDisplay="on"
+                                                        step={25}
+                                                        marks={marks}
+                                                        valueLabelFormat={() => {
+                                                            return (
+                                                                <div style={{ textAlign: "center", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                                                    <FontAwesomeIcon icon="fa-brands fa-html5" fontSize={30} />
+                                                                </div>
+                                                            )
+                                                        }}
+                                                    />
+                                                </Grid>
+                                                <Grid item>
+                                                    {/* <FontAwesomeIcon icon="fa-brands fa-css3-alt" fontSize={30} /> */}
+                                                    <Typography variant="body2" component="div">
+                                                        CSS3
+                                                    </Typography>
+                                                    <IOSSlider
+                                                        aria-label="ios slider"
+                                                        marks={marks}
+                                                        step={25}
+                                                        defaultValue={75}
+                                                        valueLabelDisplay="on"
+                                                        valueLabelFormat={() => {
+                                                            return (
+                                                                <div style={{ textAlign: "center", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                                                    <FontAwesomeIcon icon="fa-brands fa-css3-alt" fontSize={30} />
+                                                                </div>
+                                                            )
+                                                        }}
+                                                    />
+                                                </Grid>
+                                                {/* <Divider variant='middle' textAlign='center'>
+                                                <Chip label="CSS3"></Chip>
+                                            </Divider> */}
+                                                <Grid item>
+                                                    <Typography variant="body2" component="div">
+                                                        Javascript
+                                                    </Typography>
+                                                    <IOSSlider
+                                                        aria-label="ios slider"
+                                                        defaultValue={50}
+                                                        step={25}
+                                                        valueLabelDisplay="on"
+                                                        marks={marks}
+                                                        valueLabelFormat={() => {
+                                                            return (
+                                                                <div style={{ textAlign: "center" }}>
+                                                                    <FontAwesomeIcon icon="fa-brands fa-js-square" fontSize={30} />
+                                                                </div>
+                                                            )
+                                                        }}
+                                                    />
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Paper>
+                                <Paper elevation={2} sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    flexWrap: 'wrap',
+                                    borderRadius: '18px',
+                                    minWidth: '320px',
+                                    background: 'linear-gradient(to bottom right, rgba(219,234,255,.8) 20%, rgba(243,223,222,.5) 80%), linear-gradient(to bottom left, rgba(247,250,255,.5) 100%, rgba(219,207,243,0.8) 20%)',
+                                    '&::before': {
+                                        // content: '""',
+                                        display: 'block',
+                                        height: '100%',
+                                        background: 'linear-gradient(to bottom right, rgb(247,250,255), rgb(219,207,243))',
+                                        mask: 'linear-gradient(to top left,#ffffff, #ffffff)',
+                                    },
+                                    '& > :not(style)': {
+                                        m: 1,
+                                        p: 1,
+                                    },
+                                }}>
+                                    <FontAwesomeIcon icon="fa-solid fa-server" fontSize={40} />
+                                    <Typography variant="h5" component="div">
+                                        Back End
+                                    </Typography>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={12} sm container>
+                                            <Grid item xs container direction="column" spacing={2}>
+                                                <Grid item>
+                                                    <Typography variant="body2" component="div">
+                                                        Node.js
+                                                    </Typography>
+                                                    <IOSSlider
+                                                        aria-label="ios slider"
+                                                        defaultValue={50}
+                                                        step={25}
+                                                        marks={marks}
+                                                        valueLabelDisplay="on"
+                                                        valueLabelFormat={() => {
+                                                            return (
+                                                                <div style={{ textAlign: "center" }}>
+                                                                    <FontAwesomeIcon icon="fa-brands fa-node" fontSize={30} />
+                                                                </div>
+                                                            )
+                                                        }}
+                                                    />
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Paper>
+                                <Paper elevation={1} sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    flexWrap: 'wrap',
+                                    minWidth: '320px',
+                                    borderRadius: '18px',
+                                    background: 'linear-gradient(to bottom right, rgba(219,234,255,.8) 20%, rgba(243,223,222,.5) 80%), linear-gradient(to bottom left, rgba(247,250,255,.5) 100%, rgba(219,207,243,0.8) 20%)',
+                                    '& > :not(style)': {
+                                        m: 1,
+                                        p: 1,
+                                    },
+                                }}>
+                                    <FontAwesomeIcon icon="fa-solid fa-layer-group" fontSize={40} />
+                                    <Typography variant="h5" component="div">
+                                        Frameworks
+                                    </Typography>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={12} sm container>
+                                            <Grid item xs container direction="column" spacing={2}>
+                                                <Grid item>
+                                                    <Typography variant="body2" component="div">
+                                                        React
+                                                    </Typography>
+                                                    <IOSSlider
+                                                        aria-label="ios slider"
+                                                        marks={marks}
+                                                        step={25}
+                                                        defaultValue={50}
+                                                        valueLabelDisplay="on"
+                                                        valueLabelFormat={() => {
+                                                            return (
+                                                                <div style={{ textAlign: "center" }}>
+                                                                    <FontAwesomeIcon icon="fa-brands fa-react" fontSize={30} />
+                                                                </div>
+                                                            )
+                                                        }}
+                                                    />
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Paper>
+                                <Paper elevation={1} sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    flexWrap: 'wrap',
+                                    minWidth: '320px',
+                                    borderRadius: '18px',
+                                    background: 'linear-gradient(to bottom right, rgba(219,234,255,.8) 20%, rgba(243,223,222,.5) 80%), linear-gradient(to bottom left, rgba(247,250,255,.5) 100%, rgba(219,207,243,0.8) 20%)',
+                                    '& > :not(style)': {
+                                        m: 1,
+                                        p: 1,
+                                    },
+                                }}>
+                                    <FontAwesomeIcon icon="fa-solid fa-screwdriver-wrench" fontSize={40} />
+                                    <Typography variant="h5" component="div">
+                                        Tools
+                                    </Typography>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={12} sm container>
+                                            <Grid item xs container direction="column" spacing={2}>
+                                                <Grid item>
+                                                    <Typography variant="body2" component="div">
+                                                        Git
+                                                    </Typography>
+                                                    <IOSSlider
+                                                        aria-label="ios slider"
+                                                        defaultValue={25}
+                                                        step={25}
+                                                        valueLabelDisplay="on"
+                                                        marks={marks}
+                                                        valueLabelFormat={() => {
+                                                            return (
+                                                                <div style={{ textAlign: "center" }}>
+                                                                    <FontAwesomeIcon icon="fa-brands fa-git-alt" fontSize={30} />
+                                                                </div>
+                                                            )
+                                                        }}
+                                                    />
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Paper>
+                                <Paper elevation={1} sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    flexWrap: 'wrap',
+                                    minWidth: '320px',
+                                    borderRadius: '18px',
+                                    background: 'linear-gradient(to bottom right, rgba(219,234,255,.8) 20%, rgba(243,223,222,.5) 80%), linear-gradient(to bottom left, rgba(247,250,255,.5) 100%, rgba(219,207,243,0.8) 20%)',
+                                    '& > :not(style)': {
+                                        m: 1,
+                                        p: 1,
+                                    },
+                                }}>
+                                    <FontAwesomeIcon icon="fa-solid fa-database" fontSize={40} />
+                                    <Typography variant="h5" component="div">
+                                        Database
+                                    </Typography>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={12} sm container>
+                                            <Grid item xs container direction="column" spacing={2}>
+                                                <Grid item>
+                                                    <Typography variant="body2" component="div">
+                                                        SQL
+                                                    </Typography>
+                                                    <IOSSlider
+                                                        aria-label="ios slider"
+                                                        defaultValue={25}
+                                                        marks={marks}
+                                                        step={25}
+                                                        valueLabelDisplay="on"
+                                                        valueLabelFormat={() => {
+                                                            return (
+                                                                <div style={{ textAlign: "center" }}>
+                                                                    <FontAwesomeIcon icon="fa-solid fa-database" fontSize={30} />
+                                                                </div>
+                                                            )
+                                                        }}
+                                                    />
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Paper>
+                            </ThemeProvider>
+                        </Box>
+                    </div>
+                </div>
+            </div>
         </div >
     )
 }

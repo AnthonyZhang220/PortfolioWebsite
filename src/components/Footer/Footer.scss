@@ -7,15 +7,16 @@ footer {
 	color: #fafafa;
 
 	.top {
-		padding: 100px;
+		padding-top: 100px;
+		padding-bottom: 100px;
 	}
 
-	@media screen and (max-width: 1200px) {
-		.top {
-			padding-left: 50px;
-			padding-right: 50px;
-		}
-	}
+	// @media screen and (max-width: 1200px) {
+	// 	.top {
+	// 		padding-left: 50px;
+	// 		padding-right: 50px;
+	// 	}
+	// }
 
 	.bottom {
 		display: flex;

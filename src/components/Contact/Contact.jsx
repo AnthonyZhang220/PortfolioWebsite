@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import emailjs from '@emailjs/browser';
 import { init } from '@emailjs/browser';
@@ -27,6 +27,9 @@ import Grid from '@mui/material/Grid';
 import SendIcon from '@mui/icons-material/Send';
 import { LoadingButton } from '@mui/lab';
 import LinearProgress from '@mui/material/LinearProgress';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
 
 
 import { styled } from '@mui/material/styles';
@@ -69,6 +72,8 @@ function PaperComponent(props) {
 
 export default function Contact() {
 
+    const steps = ['Confirm your info', 'Verify you are a human', 'Submit contact form'];
+    const [activeStep, setActiveStep] = useState(1);
     const [expired, setExpired] = useState(false);
     const [error, setError] = useState(false);
     const [isVerified, setIsVerified] = useState(false);
@@ -125,7 +130,10 @@ export default function Contact() {
 
     const handleShowExpired = () => {
         setLoading(true);
-        setExpired(true)
+        setExpired(true);
+
+        setActiveStep(1);
+
     }
     const handleCloseExpired = () => {
         setExpired(false);
@@ -144,6 +152,9 @@ export default function Contact() {
 
     const handleDialogClose = () => {
         setOpenDialog(false);
+        setActiveStep(1);
+        setIsVerified(false);
+        setSuccess(false);
     }
 
 
@@ -153,6 +164,7 @@ export default function Contact() {
 
     const handleVerify = () => {
         setIsVerified(true)
+        setActiveStep(activeStep + 1);
     }
     const handleSubmit = () => {
         // setLoading(true);
@@ -185,6 +197,7 @@ export default function Contact() {
             emailjs.sendForm(process.env.REACT_APP_SERVICE_ID, process.env.REACT_APP_TEMPLATE_ID, formRef.current).then((response) => {
                 setLoading(false);
                 setSuccess(true);
+                setActiveStep(activeStep + 1);
 
                 console.log('Success!', response)
             }, (error) => {
@@ -193,6 +206,12 @@ export default function Contact() {
             });
         }
     }
+
+    useEffect(()=>{
+        localStorage.getItem('darkMode');
+        console.log(localStorage.getItem('darkMode'))
+        
+    })
 
     return (
         <div className='contact' id='contact'>
@@ -323,16 +342,20 @@ export default function Contact() {
                         onClose={handleDialogClose}
                         PaperComponent={PaperComponent}
                     >
-                        {
-                            loading ?
-                                <Box sx={{ width: '100%' }}>
-                                    <LinearProgress />
-                                </Box> : null
-                        }
+                        <Box sx={{ p: 2 }}>
+                            <Stepper activeStep={activeStep} alternativeLabel>
+                                {steps.map((label, index) => {
+                                    const stepProps = {};
+                                    const labelProps = {};
 
-                        <DialogTitle id="dialog-title">
-                            Confirmation
-                        </DialogTitle>
+                                    return (
+                                        <Step key={label} {...stepProps}>
+                                            <StepLabel {...labelProps}>{label}</StepLabel>
+                                        </Step>
+                                    );
+                                })}
+                            </Stepper>
+                        </Box>
                         <DialogContent>
                             <DialogContentText>
                                 <Box sx={{ flexGrow: 5, overflow: "hidden", px: 2 }}>
@@ -399,19 +422,17 @@ export default function Contact() {
                                 </Box>
                             </DialogContentText>
                         </DialogContent>
-                        <DialogActions>
-                            <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                                <Box>
-                                    <ReCAPTCHA
-                                        ref={recaptchaRef}
-                                        sitekey={process.env.REACT_APP_SITE_KEY}
-                                        onChange={handleVerify}
-                                        size="normal"
-                                        onExpired={handleShowExpired}
-                                    >
-                                    </ReCAPTCHA>
-                                </Box>
-                                <Box sx={{ display: 'flex', width: 'auto', justifyContent: 'center', alignItems: 'center', mt: 2 }}>
+                        <DialogActions sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: 'auto' }} >
+                            <Box>
+                                <ReCAPTCHA
+                                    ref={recaptchaRef}
+                                    sitekey={process.env.REACT_APP_SITE_KEY}
+                                    onChange={handleVerify}
+                                    size="normal"
+                                    onExpired={handleShowExpired}
+                                >
+                                </ReCAPTCHA>
+                                <Box sx={{ display: 'flex', width: 'auto', justifyContent: 'center', alignItems: 'center', mt: 2, mb: 2 }}>
                                     <Button variant='outlined' onClick={handleDialogClose}>
                                         Cancel
                                     </Button>

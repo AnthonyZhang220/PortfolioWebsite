@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -47,7 +47,7 @@ const CoverImage = styled('div')({
 });
 
 const TinyText = styled(Typography)({
-    fontSize: '0.75rem',
+    fontSize: '.75rem',
     opacity: 0.38,
     fontWeight: 500,
     letterSpacing: 0.2,
@@ -55,7 +55,7 @@ const TinyText = styled(Typography)({
 
 export default function MusicPlayer() {
 
-    const randomizer = Math.floor(Math.random() * 6)
+    const randomizer = Math.floor(Math.random() * musicList.length)
 
     const theme = useTheme();
 
@@ -63,12 +63,10 @@ export default function MusicPlayer() {
 
 
     const [volume, setVolume] = useState(0.2);
-    const [duration, setDuration] = useState(60); // seconds
+    const [duration, setDuration] = useState(0); // seconds
     const [position, setPosition] = useState(0);
     const [paused, setPaused] = useState(true);
-    const [index, setIndex] = useState(0);
-    const [disableNext, setDisableNext] = useState(false);
-    const [disablePrevious, setDisablePrevious] = useState(false);
+    const [index, setIndex] = useState(randomizer);
 
     // const [current, setCurrent] = useState(0);
 
@@ -81,7 +79,9 @@ export default function MusicPlayer() {
     const mainIconColor = theme.palette.mode === 'dark' ? '#fff' : '#000';
     const lightIconColor = theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)';
 
-    const handleGetDuration = () => {
+    const handleGetAudioData = () => {
+        audioRef.current.volume = localStorage.getItem('volume');
+
         if (audioRef.current) {
             setDuration(audioRef.current.duration);
         }
@@ -97,6 +97,7 @@ export default function MusicPlayer() {
 
         if (timeLeft === 0) {
             setPaused(true);
+            setIndex(index + 1);
         }
     }
 
@@ -139,39 +140,55 @@ export default function MusicPlayer() {
         }
     }
     const handleSkipNext = () => {
-        if (index < 4) {
+        if (index < musicList.length - 1) {
+            audioRef.current.src = musicList[index + 1].source;
+            audioRef.current.load();
             setIndex(index + 1);
-            setDisablePrevious(false);
         }
 
-        if (index === 4) {
-            setDisableNext(true);
+        if (index === musicList.length - 1) {
+            audioRef.current.src = musicList[0].source;
+            audioRef.current.load();
+            setIndex(0);
         }
+
+        audioRef.current.play();
+        setPaused(false);
     }
 
     const handleSkipPrevious = () => {
         if (index > 0) {
+            audioRef.current.src = musicList[index - 1].source;
+            audioRef.current.load();
             setIndex(index - 1);
-            setDisableNext(false);
-
         }
 
         if (index === 0) {
-            setDisablePrevious(true);
+            audioRef.current.src = musicList[musicList.length].source;
+            audioRef.current.load();
+            setIndex(musicList.length);
         }
+
+        audioRef.current.play();
+        setPaused(false);
     }
 
     const handleVolume = (event, newVolume) => {
         setVolume(newVolume);
+        localStorage.setItem('volume', newVolume);
 
         audioRef.current.volume = newVolume;
 
     }
 
+    useEffect(() => {
+        localStorage.setItem('volume', 0.2);
+    }, [])
+
 
 
     return (
-        <Box sx={{ width: '100%', overflow: 'hidden' }}>
+        <Box sx={{ minWidth: '300px', width: '100%', overflow: 'hidden' }}>
             <Widget>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <CoverImage>
@@ -181,8 +198,8 @@ export default function MusicPlayer() {
                         />
                     </CoverImage>
                     <Box sx={{ ml: 1.5, minWidth: 0 }}>
-                        <Typography variant="caption" color="text.secondary" fontWeight={500}>
-                            {musicList[index].title}
+                        <Typography variant="caption" color="text.primary" fontWeight={700}>
+                            {musicList[index].artist}
                         </Typography>
                         <Typography noWrap>
                             <b>
@@ -190,7 +207,7 @@ export default function MusicPlayer() {
                             </b>
                         </Typography>
                         <Typography noWrap letterSpacing={-0.25}>
-                            {musicList[index].artist}
+                            {musicList[index].performer}
                         </Typography>
                     </Box>
                 </Box>
@@ -247,7 +264,7 @@ export default function MusicPlayer() {
                         mt: -1,
                     }}
                 >
-                    <IconButton aria-label="previous song" onClick={handleSkipPrevious} disabled={disablePrevious} >
+                    <IconButton aria-label="previous song" onClick={handleSkipPrevious} >
                         <SkipPreviousRoundedIcon fontSize="large" htmlColor={mainIconColor} />
                     </IconButton>
                     <IconButton aria-label="previous song" onClick={handleRewind} >
@@ -259,20 +276,20 @@ export default function MusicPlayer() {
                     >
                         {paused ? (
                             <PlayArrowRounded
-                                sx={{ fontSize: '3rem' }}
+                                sx={{ fontSize: '3.5rem' }}
                                 htmlColor={mainIconColor}
                             />
                         ) : (
-                            <PauseRounded sx={{ fontSize: '3rem' }} htmlColor={mainIconColor} />
+                            <PauseRounded sx={{ fontSize: '3.5rem' }} htmlColor={mainIconColor} />
                         )}
                     </IconButton>
-                    <audio id='audio' ref={audioRef} onLoadedMetadata={handleGetDuration} onTimeUpdate={handleTimeUpdate}>
+                    <audio id='audio' ref={audioRef} onLoadedMetadata={handleGetAudioData} onTimeUpdate={handleTimeUpdate} onEnded={handleSkipNext}>
                         <source src={musicList[index].source} type="audio/mpeg"></source>
                     </audio>
                     <IconButton aria-label="next song" onClick={handleForward}>
                         <FastForwardRounded fontSize="large" htmlColor={mainIconColor} />
                     </IconButton>
-                    <IconButton aria-label="next song" onClick={handleSkipNext} disabled={disableNext}>
+                    <IconButton aria-label="next song" onClick={handleSkipNext} >
                         <SkipNextRoundedIcon fontSize="large" htmlColor={mainIconColor} />
                     </IconButton>
                 </Box>
