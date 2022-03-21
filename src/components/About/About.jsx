@@ -345,6 +345,44 @@ export default function About() {
                                                         }}
                                                     />
                                                 </Grid>
+                                                <Grid item>
+                                                    <Typography variant="body2" component="div">
+                                                        Express
+                                                    </Typography>
+                                                    <IOSSlider
+                                                        aria-label="ios slider"
+                                                        defaultValue={50}
+                                                        step={25}
+                                                        marks={marks}
+                                                        valueLabelDisplay="on"
+                                                        valueLabelFormat={() => {
+                                                            return (
+                                                                <div style={{ textAlign: "center" }}>
+                                                                    <FontAwesomeIcon icon="fa-brands fa-node" fontSize={30} />
+                                                                </div>
+                                                            )
+                                                        }}
+                                                    />
+                                                </Grid>
+                                                <Grid item>
+                                                    <Typography variant="body2" component="div">
+                                                        Next.js
+                                                    </Typography>
+                                                    <IOSSlider
+                                                        aria-label="ios slider"
+                                                        defaultValue={50}
+                                                        step={25}
+                                                        marks={marks}
+                                                        valueLabelDisplay="on"
+                                                        valueLabelFormat={() => {
+                                                            return (
+                                                                <div style={{ textAlign: "center" }}>
+                                                                    <FontAwesomeIcon icon="fa-brands fa-node" fontSize={30} />
+                                                                </div>
+                                                            )
+                                                        }}
+                                                    />
+                                                </Grid>
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -364,7 +402,7 @@ export default function About() {
                                 }}>
                                     <FontAwesomeIcon icon="fa-solid fa-layer-group" fontSize={40} />
                                     <Typography variant="h5" component="div">
-                                        Frameworks
+                                        Frameworks & Libraries
                                     </Typography>
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} sm container>
@@ -372,6 +410,25 @@ export default function About() {
                                                 <Grid item>
                                                     <Typography variant="body2" component="div">
                                                         React
+                                                    </Typography>
+                                                    <IOSSlider
+                                                        aria-label="ios slider"
+                                                        marks={marks}
+                                                        step={25}
+                                                        defaultValue={50}
+                                                        valueLabelDisplay="on"
+                                                        valueLabelFormat={() => {
+                                                            return (
+                                                                <div style={{ textAlign: "center" }}>
+                                                                    <FontAwesomeIcon icon="fa-brands fa-react" fontSize={30} />
+                                                                </div>
+                                                            )
+                                                        }}
+                                                    />
+                                                </Grid>
+                                                <Grid item>
+                                                    <Typography variant="body2" component="div">
+                                                        Material UI
                                                     </Typography>
                                                     <IOSSlider
                                                         aria-label="ios slider"
@@ -418,7 +475,7 @@ export default function About() {
                                                     </Typography>
                                                     <IOSSlider
                                                         aria-label="ios slider"
-                                                        defaultValue={25}
+                                                        defaultValue={50}
                                                         step={25}
                                                         valueLabelDisplay="on"
                                                         marks={marks}
@@ -426,6 +483,25 @@ export default function About() {
                                                             return (
                                                                 <div style={{ textAlign: "center" }}>
                                                                     <FontAwesomeIcon icon="fa-brands fa-git-alt" fontSize={30} />
+                                                                </div>
+                                                            )
+                                                        }}
+                                                    />
+                                                </Grid>
+                                                <Grid item>
+                                                    <Typography variant="body2" component="div">
+                                                        NPM
+                                                    </Typography>
+                                                    <IOSSlider
+                                                        aria-label="ios slider"
+                                                        defaultValue={50}
+                                                        step={25}
+                                                        valueLabelDisplay="on"
+                                                        marks={marks}
+                                                        valueLabelFormat={() => {
+                                                            return (
+                                                                <div style={{ textAlign: "center" }}>
+                                                                    <FontAwesomeIcon icon="fa-brands fa-npm" fontSize={30} />
                                                                 </div>
                                                             )
                                                         }}
@@ -450,7 +526,7 @@ export default function About() {
                                 }}>
                                     <FontAwesomeIcon icon="fa-solid fa-database" fontSize={40} />
                                     <Typography variant="h5" component="div">
-                                        Database
+                                        Library
                                     </Typography>
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} sm container>

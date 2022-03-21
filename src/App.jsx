@@ -2,7 +2,7 @@ import NavBar from "./components/NavBar/NavBar";
 import Main from "./Main"
 import Blog from "./components/Blog/Blog";
 
-import React, { useContext } from 'react';
+import React, { useContext, useState, useMemo } from 'react';
 
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -12,7 +12,11 @@ import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 
+
+
 function App() {
+
+	const [mode, setMode] = useState(null);
 
 	const theme = createTheme({
 		palette: {
@@ -31,7 +35,8 @@ function App() {
 			},
 			black: {
 				main: '#212121'
-			}
+			},
+			mode: mode ? 'dark' : 'light'
 
 		},
 		typography: {
@@ -41,12 +46,15 @@ function App() {
 
 
 
+
+
+
 	return (
 		<div className="App" id="App">
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
 				<BrowserRouter>
-					<NavBar />
+					<NavBar mode={mode} setMode={setMode} />
 					<Routes>
 						<Route path="/" element={<Main />} />
 						<Route path="/blogs" element={<Blog />} />

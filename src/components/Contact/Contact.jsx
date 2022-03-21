@@ -209,7 +209,6 @@ export default function Contact() {
 
     useEffect(()=>{
         localStorage.getItem('darkMode');
-        console.log(localStorage.getItem('darkMode'))
         
     })
 

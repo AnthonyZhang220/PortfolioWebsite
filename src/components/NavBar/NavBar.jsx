@@ -47,7 +47,7 @@ const useStyles = makeStyles(() => {
     })
 })
 
-export default function NavBar({ darkTheme }) {
+export default function NavBar({ mode, setMode }) {
 
     gsap.registerPlugin(ScrollToPlugin);
     gsap.registerPlugin(ScrollTrigger);
@@ -183,23 +183,6 @@ export default function NavBar({ darkTheme }) {
                                 </SwipeableDrawer>
                             </React.Fragment>
                         }
-                    </div>
-                    <div className="features">
-                        <Box>
-                            <Box>
-                                <DarkMode sx={{ fontSize: 30 }} />
-                            </Box>
-                            {/* <Box>
-                                <Badge badgeContent={like} color="primary">
-                                    <ThumbUpRoundedIcon onClick={likeCount} color="inherit" />
-                                </Badge>
-                            </Box>
-                            <Box>
-                                <Badge badgeContent={fav} color="primary">
-                                    <FavoriteRoundedIcon onClick={favCount} color="inherit" />
-                                </Badge>
-                            </Box> */}
-                        </Box>
                     </div>
                 </div>
             </div >
