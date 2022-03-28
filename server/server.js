@@ -1,6 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
+const mongodb = require('mongodb');
+
 
 const app = express();
 
@@ -10,6 +12,8 @@ app.use(bodyParser.json());
 app.get("/", (req, res) => {
 	res.sendFile(__dirname + "/index/html");
 });
+
+app.post
 
 app.post("/submit", (req, res) => {
 	if (

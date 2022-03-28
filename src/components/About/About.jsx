@@ -231,7 +231,6 @@ export default function About() {
                                         alignItems: 'center',
                                         borderRadius: '18px',
                                         flexWrap: 'wrap',
-                                        minWidth: '320px',
                                         background: 'linear-gradient(to bottom right, rgba(219,234,255,.8) 20%, rgba(243,223,222,.5) 80%), linear-gradient(to bottom left, rgba(247,250,255,.5) 100%, rgba(219,207,243,0.8) 20%)',
                                         '& > :not(style)': {
                                             m: 1,
@@ -321,7 +320,6 @@ export default function About() {
                                         alignItems: 'center',
                                         flexWrap: 'wrap',
                                         borderRadius: '18px',
-                                        minWidth: '320px',
                                         background: 'linear-gradient(to bottom right, rgba(219,234,255,.8) 20%, rgba(243,223,222,.5) 80%), linear-gradient(to bottom left, rgba(247,250,255,.5) 100%, rgba(219,207,243,0.8) 20%)',
                                         '& > :not(style)': {
                                             m: 1,
@@ -406,7 +404,6 @@ export default function About() {
                                         justifyContent: 'center',
                                         alignItems: 'center',
                                         flexWrap: 'wrap',
-                                        minWidth: '320px',
                                         borderRadius: '18px',
                                         background: 'linear-gradient(to bottom right, rgba(219,234,255,.8) 20%, rgba(243,223,222,.5) 80%), linear-gradient(to bottom left, rgba(247,250,255,.5) 100%, rgba(219,207,243,0.8) 20%)',
                                         '& > :not(style)': {
@@ -473,7 +470,6 @@ export default function About() {
                                         justifyContent: 'center',
                                         alignItems: 'center',
                                         flexWrap: 'wrap',
-                                        minWidth: '320px',
                                         borderRadius: '18px',
                                         background: 'linear-gradient(to bottom right, rgba(219,234,255,.8) 20%, rgba(243,223,222,.5) 80%), linear-gradient(to bottom left, rgba(247,250,255,.5) 100%, rgba(219,207,243,0.8) 20%)',
                                         '& > :not(style)': {
@@ -559,7 +555,6 @@ export default function About() {
                                         justifyContent: 'center',
                                         alignItems: 'center',
                                         flexWrap: 'wrap',
-                                        minWidth: '320px',
                                         borderRadius: '18px',
                                         background: 'linear-gradient(to bottom right, rgba(219,234,255,.8) 20%, rgba(243,223,222,.5) 80%), linear-gradient(to bottom left, rgba(247,250,255,.5) 100%, rgba(219,207,243,0.8) 20%)',
                                         '& > :not(style)': {

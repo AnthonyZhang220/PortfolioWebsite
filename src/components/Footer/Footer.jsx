@@ -182,13 +182,12 @@ export default function Footer() {
                                     </Typography>
                                 </Box>
                                 <Box component='form'
-                                    sx={{ display: 'flex', ml: 2, mr: 2 }}>
+                                    sx={{ display: 'flex',justifyContent:'center' }}>
                                     <TextField
                                         error={!valid}
                                         hiddenLabel
                                         size='small'
                                         color='secondary'
-                                        fullWidth
                                         name='email'
                                         type='email'
                                         variant='filled'
@@ -240,28 +239,61 @@ export default function Footer() {
                             <Grid item xs={12} sm={12} md={4} lg={4}>
                                 <Grid container direction='row'>
                                     <Grid item xs={6} sm={6}>
-                                        <Box sx={{ mb: 2, mt: 2 }}>
-                                            <Typography variant='h6'>
+                                        <Box sx={{ mb: 1, mt: 2 }}>
+                                            <Typography variant='h5' sx={{ color: '#9e9e9e' }}>
                                                 Explore
                                             </Typography>
                                         </Box>
-                                        <Box sx={{ mb: 2 }}>
-                                            <Box>Home</Box>
-                                            <Box>About</Box>
-                                            <Box>Project</Box>
-                                            <Box>Contact</Box>
+                                        <Box sx={{ mb: 4 }}>
+                                            <Typography variant='body1' sx={{ color: '#fafafa' }}>
+                                                <HashLink to='/#home'>
+                                                    Home
+                                                </HashLink>
+                                            </Typography>
+                                            <Typography variant='body1'>
+                                                <HashLink to='/#about'>
+                                                    About
+                                                </HashLink>
+                                            </Typography>
+                                            <Typography variant='body1'>
+                                                <HashLink to='/#project'>
+                                                    Project
+                                                </HashLink>
+                                            </Typography>
+                                            <Typography variant='body1'>
+                                                <HashLink to='/#contact'>
+                                                    Contact
+                                                </HashLink>
+                                            </Typography>
                                         </Box>
                                     </Grid>
                                     <Grid item xs={6} sm={6}>
-                                        <Box sx={{ mb: 2, mt: 2 }}>
-                                            <Typography variant='h6'>
+                                        <Box sx={{ mb: 1, mt: 2 }}>
+                                            <Typography variant='h5' sx={{ color: '#9e9e9e' }}>
                                                 Follow
                                             </Typography>
                                         </Box>
-                                        <Box sx={{ mb: 2 }}>
-                                            <Box>LinkedIn</Box>
-                                            <Box>StackOverflow</Box>
-                                            <Box>GitHub</Box>
+                                        <Box sx={{ mb: 4 }}>
+                                            <Typography variant="body1">
+                                                <a href="https://www.linkedin.com/in/anthony-xiangyu-zhang/" target="_blank" rel="noreferrer">
+                                                    LinkedIn
+                                                </a>
+                                            </Typography>
+                                            <Typography variant="body1">
+                                                <a href="https://stackoverflow.com/users/6162027/anthony220" target="_blank" rel="noreferrer">
+                                                    StackOverflow
+                                                </a>
+                                            </Typography>
+                                            <Typography variant="body1">
+                                                <a href="https://github.com/AnthonyZhang220" target="_blank" rel="noreferrer">
+                                                    GitHub
+                                                </a>
+                                            </Typography>
+                                            <Typography variant="body1">
+                                                <a href="https://medium.com/@anthonyzhang220" target="_blank" rel="noreferrer">
+                                                    Medium
+                                                </a>
+                                            </Typography>
                                         </Box>
                                     </Grid>
                                 </Grid>
