@@ -1,11 +1,13 @@
 @import "./global.scss";
+html{
+	scroll-behavior: smooth;
+}
+
 
 body {
 	background-color: $bg-color-light;
-	scroll-behavior: smooth;
 
 	.App {
-		scroll-behavior: smooth;
 		
 	}
 	// scrollbar-color: $mainColor2;

@@ -55,6 +55,7 @@ const TinyText = styled(Typography)({
 
 export default function MusicPlayer() {
 
+
     const randomizer = Math.floor(Math.random() * musicList.length)
 
     const theme = useTheme();
@@ -140,35 +141,33 @@ export default function MusicPlayer() {
         }
     }
     const handleSkipNext = () => {
+
+        console.log(musicList.filter(Boolean))
+        audioRef.current.pause();
+
         if (index < musicList.length - 1) {
-            audioRef.current.src = musicList[index + 1].source;
-            audioRef.current.load();
             setIndex(index + 1);
         }
 
         if (index === musicList.length - 1) {
-            audioRef.current.src = musicList[0].source;
-            audioRef.current.load();
             setIndex(0);
         }
 
+        audioRef.current.load();
         audioRef.current.play();
         setPaused(false);
     }
 
     const handleSkipPrevious = () => {
         if (index > 0) {
-            audioRef.current.src = musicList[index - 1].source;
-            audioRef.current.load();
             setIndex(index - 1);
         }
 
         if (index === 0) {
-            audioRef.current.src = musicList[musicList.length].source;
-            audioRef.current.load();
-            setIndex(musicList.length);
+            setIndex(musicList.length - 1);
         }
 
+        audioRef.current.load();
         audioRef.current.play();
         setPaused(false);
     }
@@ -187,24 +186,27 @@ export default function MusicPlayer() {
 
 
 
+
     return (
         <Box sx={{ minWidth: '300px', width: '100%', overflow: 'hidden' }}>
             <Widget>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <CoverImage>
                         <img
-                            alt={musicList[index].cover}
-                            src={musicList[index].cover}
+                            alt={`${musicList[index].cover}`}
+                            src={`${musicList[index].cover}`}
                         />
                     </CoverImage>
                     <Box sx={{ ml: 1.5, minWidth: 0 }}>
                         <Typography variant="caption" color="text.primary" fontWeight={700}>
                             {musicList[index].artist}
                         </Typography>
-                        <Typography noWrap>
-                            <b>
-                                {musicList[index].title}
-                            </b>
+                        <Typography wrap='true'>
+                            <>
+                                <b>
+                                    {musicList[index].title}
+                                </b>
+                            </>
                         </Typography>
                         <Typography noWrap letterSpacing={-0.25}>
                             {musicList[index].performer}
@@ -283,7 +285,7 @@ export default function MusicPlayer() {
                             <PauseRounded sx={{ fontSize: '3.5rem' }} htmlColor={mainIconColor} />
                         )}
                     </IconButton>
-                    <audio id='audio' ref={audioRef} onLoadedMetadata={handleGetAudioData} onTimeUpdate={handleTimeUpdate} onEnded={handleSkipNext}>
+                    <audio id='audio' preload='auto' ref={audioRef} onLoadedMetadata={handleGetAudioData} onTimeUpdate={handleTimeUpdate} onEnded={handleSkipNext}>
                         <source src={musicList[index].source} type="audio/mpeg"></source>
                     </audio>
                     <IconButton aria-label="next song" onClick={handleForward}>

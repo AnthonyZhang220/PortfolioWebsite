@@ -9,7 +9,7 @@
 
 	#canvas {
 		position: fixed;
-		z-index: $background-layer;
+		z-index: -1;
 	}
 
 	.hi,
@@ -94,7 +94,7 @@
 				h2 {
 					font-size: 60px;
 				}
-				
+
 				h3 {
 					font-size: 40px;
 
@@ -155,7 +155,9 @@
 
 				.linkedin,
 				.github,
-				.stackoverflow {
+				.stackoverflow,
+				.hackerrank,
+				.medium {
 					// padding-right: 30%;
 					// vertical-align: middle;
 					// margin-bottom: 30px;

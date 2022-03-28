@@ -5,6 +5,7 @@ import BackToTop from "../BackToTop/BackToTop";
 import FingerprintIcon from '@mui/icons-material/Fingerprint';
 import IconButton from '@mui/material/IconButton';
 import { ScrollToPlugin } from 'gsap/all';
+import Canvas from "../Canvas/Canvas";
 
 
 import "./Home.scss"
@@ -134,7 +135,7 @@ export default function Home() {
 
     return (
         <div className='home' id='home' ref={introRef}>
-            {/* <Canvas id="canvas"></Canvas> */}
+            <Canvas id="canvas"></Canvas>
             <div className="hi" ref={hiRef}>Hi</div>
             <div className="happy" ref={happyRef}>I'm happy you're here</div>
 
@@ -161,6 +162,12 @@ export default function Home() {
                         <div className="stackoverflow">
                             <a href="https://stackoverflow.com/users/6162027/anthony220" target="_blank" rel="noreferrer"> <i className="fab fa-stack-overflow"></i></a>
                         </div>
+                        <div className="hackerrank">
+                            <a href="https://www.hackerrank.com/anthonyzhang1997" target="_blank" rel="noreferrer"> <i className="fab fa-hackerrank"></i></a>
+                        </div>
+                        <div className="medium">
+                            <a href="https://medium.com/@anthonyzhang220" target="_blank" rel="noreferrer"> <i className="fab fa-medium"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -177,7 +184,7 @@ export default function Home() {
                     <div className="container" ref={arrowdownRef}>
                         <div className="touch">
                             <IconButton component='a' href="./#about">
-                                <FingerprintIcon sx={{ fontSize: 35, textAlign: 'center' }}/>
+                                <FingerprintIcon sx={{ fontSize: 35, textAlign: 'center' }} />
                             </IconButton>
                         </div>
                         <div className="touch-text">

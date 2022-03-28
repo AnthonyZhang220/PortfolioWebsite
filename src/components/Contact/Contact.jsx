@@ -207,9 +207,9 @@ export default function Contact() {
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         localStorage.getItem('darkMode');
-        
+
     })
 
     return (
@@ -228,114 +228,132 @@ export default function Contact() {
                     <img src="/assets/images/contact_bg.png" alt="contact_background_image" />
                 </div> */}
                 <div className="form-wrapper">
-                    <Box
-                        component="form"
+                    <Paper elevation={1}
                         sx={{
-                            '& .MuiTextField-root': { m: 1 },
-                        }}
-                        ref={formRef}
-                    >
-                        {/* <div className="g-recaptcha" data-sitekey={process.env.REACT_APP_SITE_KEY}></div> */}
-                        <TextField
-                            size='small'
-                            fullWidth
-                            required
-                            id="outlined-textarea"
-                            label="Name"
-                            type='text'
-                            name='name'
-                            autoComplete='name'
-                            placeholder="Anthony Zhang"
-                            helperText='Please enter your name'
-                            onChange={handleOnChange}
-                            InputProps={{
-                                startAdornment: <InputAdornment position="start"><AccountCircleIcon /></InputAdornment>,
+                            width: 400,
+                            borderRadius: '16px',
+                            boxShadow: '0 3px 6px 0 rgb(23 25 51 / 8%), 0 16px 32px 0 rgb(23 25 51 / 10%);',
+                            '& > :not(style)': {
+                                m: 1,
+                                p: 4,
+                            },
+                        }}>
+                        <Box
+                            component="form"
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                '& .MuiTextField-root': { m: 1 },
                             }}
-                        />
-                        <TextField
-                            size='small'
-                            fullWidth
-                            required
-                            id="outlined-textarea"
-                            type='email'
-                            name='email'
-                            label="Email"
-                            autoComplete='email'
-                            placeholder="anthonyzhang1997@gmail.com"
-                            helperText='Please enter your email'
-                            onChange={handleOnChange}
-                            InputProps={{
-                                startAdornment: <InputAdornment position="start"><EmailIcon /></InputAdornment>,
-                            }}
-                        />
-                        <TextField
-                            size='small'
-                            fullWidth
-                            id="outlined-textarea"
-                            label="Phone Number"
-                            type='tel'
-                            name='phone'
-                            autoComplete='tel'
-                            placeholder="+1234567890"
-                            helperText='Please enter your phone number'
-                            onChange={handleOnChange}
-                            InputProps={{
-                                startAdornment: <InputAdornment position="start"><PhoneIphoneIcon /></InputAdornment>,
-                            }}
-                        />
-                        <TextField
-                            size='small'
-                            fullWidth
-                            required
-                            select
-                            id="outlined-select-currency"
-                            name='intention'
-                            label="Intention"
-                            value={input.intention}
-                            onChange={handleOnChange}
-                            helperText='You are?'
-                            InputProps={{
-                                startAdornment: <InputAdornment position="start"><ConnectWithoutContactIcon /></InputAdornment>,
-                            }}
-                            SelectProps={{
-                                renderValue: (value) => value,
-                            }}
+                            ref={formRef}
                         >
-                            <MenuItem value='Collaborator' divider={true}>Collaborator</MenuItem>
-                            <MenuItem value='Recruitor' divider={true}>Recruitor</MenuItem>
-                            <MenuItem value='Other'>Other</MenuItem>
-                        </TextField>
-                        <TextField
-                            size='small'
-                            fullWidth
-                            id="outlined-textarea"
-                            type='date'
-                            label="Date"
-                            name='date'
-                            placeholder=""
-                            helperText='Date'
-                            onChange={handleOnChange}
-                            InputProps={{
-                                startAdornment: <InputAdornment position="start"><TodayIcon /></InputAdornment>,
-                            }}
-                        />
-                        <TextField
-                            size='small'
-                            fullWidth
-                            required
-                            multiline
-                            maxRows={3}
-                            id="outlined-helperText"
-                            label="Message"
-                            name='message'
-                            defaultValue={`Hi,`}
-                            helperText="Please leave a message"
-                            onChange={handleOnChange}
-                            InputProps={{
-                                startAdornment: <InputAdornment position="start"><MessageIcon /></InputAdornment>,
-                            }}
-                        />
-                    </Box>
+                            {/* <div className="g-recaptcha" data-sitekey={process.env.REACT_APP_SITE_KEY}></div> */}
+                            <TextField
+                                size='small'
+                                fullWidth
+                                required
+                                id="outlined-textarea"
+                                label="Name"
+                                type='text'
+                                name='name'
+                                autoComplete='name'
+                                placeholder="Anthony Zhang"
+                                helperText='Please enter your name'
+                                onChange={handleOnChange}
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start"><AccountCircleIcon /></InputAdornment>,
+                                }}
+                            />
+                            <TextField
+                                size='small'
+                                fullWidth
+                                required
+                                id="outlined-textarea"
+                                type='email'
+                                name='email'
+                                label="Email"
+                                autoComplete='email'
+                                placeholder="anthonyzhang1997@gmail.com"
+                                helperText='Please enter your email'
+                                onChange={handleOnChange}
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start"><EmailIcon /></InputAdornment>,
+                                }}
+                            />
+                            <TextField
+                                size='small'
+                                fullWidth
+                                id="outlined-textarea"
+                                label="Phone Number"
+                                type='tel'
+                                name='phone'
+                                autoComplete='tel'
+                                placeholder="+1234567890"
+                                helperText='Please enter your phone number'
+                                onChange={handleOnChange}
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start"><PhoneIphoneIcon /></InputAdornment>,
+                                }}
+                            />
+                            <TextField
+                                size='small'
+                                fullWidth
+                                required
+                                select
+                                id="outlined-select-currency"
+                                name='intention'
+                                label="Intention"
+                                value={input.intention}
+                                onChange={handleOnChange}
+                                helperText='You are?'
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start"><ConnectWithoutContactIcon /></InputAdornment>,
+                                }}
+                                SelectProps={{
+                                    renderValue: (value) => value,
+                                }}
+                            >
+                                <MenuItem value='Collaborator' divider={true}>Collaborator</MenuItem>
+                                <MenuItem value='Recruitor' divider={true}>Recruitor</MenuItem>
+                                <MenuItem value='Other'>Other</MenuItem>
+                            </TextField>
+                            <TextField
+                                size='small'
+                                fullWidth
+                                id="outlined-textarea"
+                                type='date'
+                                label="Date"
+                                name='date'
+                                placeholder=""
+                                helperText='Date'
+                                onChange={handleOnChange}
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start"><TodayIcon /></InputAdornment>,
+                                }}
+                            />
+                            <TextField
+                                size='small'
+                                fullWidth
+                                required
+                                multiline
+                                maxRows={3}
+                                id="outlined-helperText"
+                                label="Message"
+                                name='message'
+                                defaultValue={`Hi,`}
+                                helperText="Please leave a message"
+                                onChange={handleOnChange}
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start"><MessageIcon /></InputAdornment>,
+                                }}
+                            />
+                            <Box>
+                                <Button onClick={handleClickOpen} variant="outlined">Submit</Button>
+                            </Box>
+                        </Box>
+                    </Paper>
                     <Dialog
                         open={openDialog}
                         onClose={handleDialogClose}
@@ -424,6 +442,7 @@ export default function Contact() {
                         <DialogActions sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: 'auto' }} >
                             <Box>
                                 <ReCAPTCHA
+
                                     ref={recaptchaRef}
                                     sitekey={process.env.REACT_APP_SITE_KEY}
                                     onChange={handleVerify}
@@ -469,9 +488,6 @@ export default function Contact() {
                             </Box>
                         </DialogActions>
                     </Dialog>
-                    <Box sx={{ mt: 1, ml: 1, mb: 1 }} onClick={handleClickOpen}>
-                        <Button variant="outlined">Submit</Button>
-                    </Box>
                 </div>
             </div >
         </div >

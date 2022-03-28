@@ -5,7 +5,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	
+
 	.project-title {
 		display: flex;
 		align-items: center;
@@ -15,51 +15,89 @@
 		margin-right: $section-margin-right;
 		padding-bottom: 20px;
 		font-size: 1.5em;
-		
+
 		.subtitle {
 			font-size: 1.5em;
 			color: #6e6e73;
 		}
 	}
-	
-	.project-wrapper {
-		display: flex;
-		// transform: translateX(30%);
-		padding-left: 10%;
-		padding-bottom: $section-margin-top;
-		overflow-x: scroll;
-		width: 100%;
-		// overflow-y: hidden;
-		height: 520px;
 
-		// .card {
-		// 	flex: 0 0 10%;
-		// }
+	.project-wrapper {
+		// display: flex;
+		// transform: translateX(30%);
+		// padding-left: 10%;
+		// overflow-y: hidden;
+		// height: 520px;
+		position: relative;
+		width: 100%;
+
+		.card-scroller-crop {
+			overflow: hidden;
+			height: "auto";
+			// padding-left: 50px;
+
+			.card-scroller-content {
+				height: "auto";
+				// width: 100%;
+				overflow-x: scroll;
+				scroll-behavior: smooth;
+				overscroll-behavior-x: contain;
+
+				.card-scroller-plater {
+					// width: 100%;
+					vertical-align: top;
+					display: inline-flex;
+
+					.card {
+						padding-top: 20px;
+						padding-bottom: 20px;
+						padding-left: calc(max(22px, env(safe-area-inset-left)));
+						transform: translateX(calc(max(1024px, 100vw) / 2 - 490px));
+					}
+				}
+			}
+		}
+
+		.scroller-button {
+			margin: 0;
+			list-style: none;
+
+			.left-button {
+				z-index: 2;
+				position: absolute;
+				top: 45%;
+				left: 10px;
+				transform: translate(-50%, 0), scale(0.8);
+				transition: transform 0.5s ease-in,
+					opacity 0.7s cubic-bezier(0.15, 0, 0.2, 1) 0.1s;
+			}
+
+			.right-button {
+				z-index: 2;
+				position: absolute;
+				top: 45%;
+				right: 10px;
+				transform: translate(-50%, 0), scale(0.8);
+				transition: transform 0.5s ease-in,
+					opacity 0.7s cubic-bezier(0.15, 0, 0.2, 1) 0.1s;
+			}
+		}
 	}
-	.project-wrapper::-webkit-scrollbar {
+
+	.card-scroller-content::-webkit-scrollbar {
 		width: 0;
 	}
 
-	.left-button svg {
-		position: absolute;
-		top: 50%;
-		left: 10%;
-		transform: translate(-50%, 0);
-		opacity: 1;
+	.card-scroller-content:hover {
+		.right-button,
+		.left-button {
+			opacity: 1;
+		}
 	}
+}
 
-	.project-wrapper:hover + .left-button {
-		opacity: 1;
-	}
-	.project-wrapper:hover + svg {
-		opacity: 1;
-	}
-
-	.right-button {
-		position: absolute;
-		top: 50%;
-		right: 0;
-		transform: translate(-50%, 0);
-		opacity: 1;
+@media screen and (max-width: 833px) {
+	.scroller-button {
+		display: none;
 	}
 }

@@ -6,21 +6,12 @@ import { makeStyles } from "@material-ui/styles";
 import {
     EmailShareButton,
     FacebookShareButton,
-    HatenaShareButton,
-    InstapaperShareButton,
     LineShareButton,
     LinkedinShareButton,
-    LivejournalShareButton,
-    MailruShareButton,
-    OKShareButton,
     PinterestShareButton,
-    PocketShareButton,
     RedditShareButton,
     TelegramShareButton,
-    TumblrShareButton,
     TwitterShareButton,
-    ViberShareButton,
-    VKShareButton,
     WhatsappShareButton,
     WorkplaceShareButton
 } from "react-share";
@@ -38,6 +29,10 @@ import {
     WhatsappIcon,
     WorkplaceIcon
 } from "react-share";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fab } from '@fortawesome/free-brands-svg-icons';
 
 
 
@@ -123,6 +118,7 @@ export default function Project() {
     });
     const [sharePage, setSharePage] = useState(false);
     const [shareId, setShareId] = useState(null);
+    const scrollerRef = useRef();
 
     const handleLike = () => {
         setLike(true);
@@ -147,6 +143,14 @@ export default function Project() {
 
     const handleShareClose = () => {
         setSharePage(false);
+    }
+
+    const handleLeft = () => {
+        scrollerRef.current.scrollBy(-340, 0);
+    }
+
+    const handleRight = () => {
+        scrollerRef.current.scrollBy(340, 0);
     }
 
 
@@ -186,156 +190,207 @@ export default function Project() {
                 </span>
             </div>
             <div className="project-wrapper" >
-                {projectdata?.map(({ id, title, subtitle, thumbnail, description, tech, WebsiteUrl, GitHubUrl, library, index }) => (
-                    <>
-                        <div key={id} className='card'>
-                            <Card
-                                key={id}
-                                ref={listRef}
-                                sx={{
-                                    position: 'relative',
-                                    width: 320,
-                                    height: 'auto',
-                                    margin: '10px',
-                                    transition: "all 0.3s cubic-bezier(0,0,.5,1)",
-                                    borderRadius: '16px',
-                                    boxShadow: "0px 2px 12px rgb(0 0 0 / 8%)",
-                                    "&:hover": {
-                                        boxShadow: "0px 4px 24px rgb(0 0 0 / 0.2)",
-                                    },
-                                    flex: '0 0 10%',
-                                }}>
-                                <CardMedia
-                                    component="img"
-                                    alt={title}
-                                    height="180"
-                                    image={thumbnail}
-                                />
-                                <CardContent>
-                                    <Box sx={{ mx: 1 }}>
-                                        <Typography gutterBottom variant="body1" component="div">
-                                            {title}
-                                        </Typography>
-                                        <Typography gutterBottom variant="body2" component="div">
-                                            {subtitle}
-                                        </Typography>
-                                        {/* <Typography variant="body2" color="text.secondary">
+                <div className='card-scroller-crop'>
+                    <div className="card-scroller-content" ref={scrollerRef}>
+                        <div className="card-scroller-plater">
+                            {projectdata?.map(({ id, title, subtitle, thumbnail, description, tech, WebsiteUrl, GitHubUrl, library, index }) => (
+                                <>
+                                    <div key={id} className='card'>
+                                        <Card
+                                            key={id}
+                                            ref={listRef}
+                                            sx={{
+                                                position: 'relative',
+                                                width: 'auto',
+                                                height: 'auto',
+                                                marginRight: '20px',
+                                                transition: "all 0.3s cubic-bezier(0,0,.5,1)",
+                                                borderRadius: '16px',
+                                                boxShadow: "0px 2px 12px rgb(0 0 0 / 8%)",
+                                                "&:hover": {
+                                                    boxShadow: "0px 4px 24px rgb(0 0 0 / 0.2)",
+                                                },
+                                                // flex: '0 0 10%',
+                                            }}>
+                                            <CardMedia
+                                                component="img"
+                                                alt={title}
+                                                height="180"
+                                                image={thumbnail}
+                                            />
+                                            <CardContent>
+                                                <Box sx={{ mx: 1 }}>
+                                                    <Typography gutterBottom variant="body1" component="div">
+                                                        {title}
+                                                    </Typography>
+                                                    <Typography gutterBottom variant="body2" component="div">
+                                                        {subtitle}
+                                                    </Typography>
+                                                    {/* <Typography variant="body2" color="text.secondary">
                                         {description}
                                     </Typography> */}
-                                    </Box>
-                                    <Divider variant='middle' />
-                                    <Box sx={{ m: 1 }}>
-                                        <Typography gutterBottom variant="body3">
-                                            Technology used
-                                        </Typography>
-                                        <Stack direction='row' spacing={2}>
-                                            {tech?.map(techUrl => (
-                                                <Icon key={index}>
-                                                    <img className={classes.imageIcon} src={techUrl} alt='' />
-                                                </Icon>
-                                            ))}
-                                        </Stack>
-                                    </Box>
-                                    <Divider variant="middle" />
-                                    <Box sx={{ m: 1 }}>
-                                        <Typography gutterBottom variant="body3">
-                                            Library used
-                                        </Typography>
-                                        <Stack direction='row' spacing={1}>
-                                            {library?.map(lib => (
-                                                <Chip label={lib} key={index} />
-                                            ))}
-                                        </Stack>
-                                    </Box>
-                                    <Divider variant='middle' />
-                                </CardContent>
-                                <CardActions disableSpacing >
-                                    <Button sx={{ m: 1 }} color="secondary" variant='contained' size="small" href={GitHubUrl} target='_blank'>GitHub</Button>
-                                    <Button sx={{ m: 1 }} color="secondary" variant='contained' size="small" href={WebsiteUrl} target='_blank' endIcon={<ForwardRoundedIcon />}>Website</Button>
-                                    <IconButton sx={{ m: 1 }} onClick={() => handleShareOpen(id)} >
-                                        <ShareIcon></ShareIcon>
-                                    </IconButton>
+                                                </Box>
+                                                <Divider variant='middle' />
+                                                <Box sx={{ m: 1 }}>
+                                                    <Typography gutterBottom variant="body3">
+                                                        Technology used
+                                                    </Typography>
+                                                    <Stack direction='row' spacing={2}>
+                                                        {tech?.map(techUrl => (
+                                                            <Icon key={index}>
+                                                                <img className={classes.imageIcon} src={techUrl} alt='' />
+                                                            </Icon>
+                                                        ))}
+                                                    </Stack>
+                                                </Box>
+                                                <Divider variant="middle" />
+                                                <Box sx={{ m: 1 }}>
+                                                    <Typography gutterBottom variant="body3">
+                                                        Library used
+                                                    </Typography>
+                                                    <Stack direction='row' spacing={1}>
+                                                        {library?.map(lib => (
+                                                            <Chip label={lib} key={index} />
+                                                        ))}
+                                                    </Stack>
+                                                </Box>
+                                                <Divider variant='middle' />
+                                            </CardContent>
+                                            <CardActions disableSpacing >
+                                                <Button sx={{ m: 1 }} color="secondary" variant='contained' size="small" href={GitHubUrl} target='_blank'>GitHub</Button>
+                                                <Button sx={{ m: 1 }} color="secondary" variant='contained' size="small" href={WebsiteUrl} target='_blank' endIcon={<ForwardRoundedIcon />}>Website</Button>
+                                                <IconButton sx={{ m: 1 }} onClick={() => handleShareOpen(id)} >
+                                                    <ShareIcon></ShareIcon>
+                                                </IconButton>
+                                                {
+                                                    fav.isFav ?
+                                                        <IconButton sx={{ color: '#fe0000' }} onClick={() => handleFav(id)}>
+                                                            <FavoriteRoundedIcon></FavoriteRoundedIcon>
+                                                        </IconButton>
+                                                        :
+                                                        <IconButton onClick={() => handleFav(id)}>
+                                                            <FavoriteRoundedIcon></FavoriteRoundedIcon>
+                                                        </IconButton>
+                                                }
+                                            </CardActions>
+                                        </Card>
+                                    </div>
                                     {
-                                        fav.isFav ?
-                                            <IconButton sx={{ color: '#fe0000' }} onClick={() => handleFav(id)}>
-                                                <FavoriteRoundedIcon></FavoriteRoundedIcon>
-                                            </IconButton>
-                                            :
-                                            <IconButton onClick={() => handleFav(id)}>
-                                                <FavoriteRoundedIcon></FavoriteRoundedIcon>
-                                            </IconButton>
+                                        shareId === id ?
+                                            <Modal
+                                                key={shareId}
+                                                open={sharePage}
+                                                onClose={handleShareClose}
+                                                aria-labelledby="alert-dialog-title"
+                                                aria-describedby="alert-dialog-description"
+                                            >
+                                                <Box sx={style}>
+                                                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                                                        Share
+                                                    </Typography>
+                                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', padding: 2 }}>
+                                                        <EmailShareButton url={WebsiteUrl}>
+                                                            <EmailIcon round size={50} />
+                                                        </EmailShareButton>
+                                                        <FacebookShareButton url={WebsiteUrl} quote={title}>
+                                                            <FacebookIcon round size={50} />
+                                                        </FacebookShareButton>
+
+                                                        <FacebookMessengerIcon round size={50} />
+                                                        <LineShareButton url={WebsiteUrl}>
+                                                            <LineIcon round size={50} />
+                                                        </LineShareButton>
+
+                                                        <LinkedinShareButton url={WebsiteUrl} title={title} summary={description}>
+                                                            <LinkedinIcon round size={50} />
+                                                        </LinkedinShareButton>
+
+
+                                                        <PinterestShareButton url={WebsiteUrl} media={thumbnail}>
+                                                            <PinterestIcon round size={50} />
+                                                        </PinterestShareButton>
+
+                                                        <WeiboIcon round size={50} />
+
+                                                        <RedditShareButton url={WebsiteUrl} title={title}>
+                                                            <RedditIcon round size={50} />
+                                                        </RedditShareButton>
+
+                                                        <TelegramShareButton url={WebsiteUrl} title={title}>
+                                                            <TelegramIcon round size={50} />
+                                                        </TelegramShareButton>
+
+                                                        <TwitterShareButton url={WebsiteUrl} title={title}>
+                                                            <TwitterIcon round size={50} />
+                                                        </TwitterShareButton>
+
+                                                        <WhatsappShareButton url={WebsiteUrl} title={title}>
+                                                            <WhatsappIcon round size={50} />
+                                                        </WhatsappShareButton>
+
+                                                        <WorkplaceShareButton url={WebsiteUrl} quote={description}>
+                                                            <WorkplaceIcon round size={50} />
+                                                        </WorkplaceShareButton>
+                                                    </Box>
+                                                    <Button onClick={handleShareClose}>Close</Button>
+                                                </Box>
+                                            </Modal> : null
                                     }
-                                </CardActions>
-                            </Card>
-                        </div>
-                        {
-                            shareId === id ?
-                                <Modal
-                                    key={shareId}
-                                    open={sharePage}
-                                    onClose={handleShareClose}
-                                    aria-labelledby="alert-dialog-title"
-                                    aria-describedby="alert-dialog-description"
-                                >
-                                    <Box sx={style}>
-                                        <Typography id="modal-modal-title" variant="h6" component="h2">
-                                            Share
-                                        </Typography>
-                                        <Box sx={{ display: 'flex', flexWrap: 'wrap', padding: 2 }}>
-                                            <EmailShareButton url={WebsiteUrl}>
-                                                <EmailIcon round size={50} />
-                                            </EmailShareButton>
-                                            <FacebookShareButton url={WebsiteUrl} quote={title}>
-                                                <FacebookIcon round size={50} />
-                                            </FacebookShareButton>
-
-                                            <FacebookMessengerIcon round size={50} />
-                                            <LineShareButton url={WebsiteUrl}>
-                                                <LineIcon round size={50} />
-                                            </LineShareButton>
-
-                                            <LinkedinShareButton url={WebsiteUrl} title={title} summary={description}>
-                                                <LinkedinIcon round size={50} />
-                                            </LinkedinShareButton>
-
-
-                                            <PinterestShareButton url={WebsiteUrl} media={thumbnail}>
-                                                <PinterestIcon round size={50} />
-                                            </PinterestShareButton>
-
-                                            <WeiboIcon round size={50} />
-
-                                            <RedditShareButton url={WebsiteUrl} title={title}>
-                                                <RedditIcon round size={50} />
-                                            </RedditShareButton>
-
-                                            <TelegramShareButton url={WebsiteUrl} title={title}>
-                                                <TelegramIcon round size={50} />
-                                            </TelegramShareButton>
-
-                                            <TwitterShareButton url={WebsiteUrl} title={title}>
-                                                <TwitterIcon round size={50} />
-                                            </TwitterShareButton>
-
-                                            <WhatsappShareButton url={WebsiteUrl} title={title}>
-                                                <WhatsappIcon round size={50} />
-                                            </WhatsappShareButton>
-
-                                            <WorkplaceShareButton url={WebsiteUrl} quote={description}>
-                                                <WorkplaceIcon round size={50} />
-                                            </WorkplaceShareButton>
+                                </>
+                            ))}
+                            <div className="card">
+                                <Card
+                                    sx={{
+                                        position: 'relative',
+                                        width: 'auto',
+                                        height: 'auto',
+                                        marginRight: '20px',
+                                        transition: "all 0.3s cubic-bezier(0,0,.5,1)",
+                                        borderRadius: '16px',
+                                        boxShadow: "0px 2px 12px rgb(0 0 0 / 8%)",
+                                        "&:hover": {
+                                            boxShadow: "0px 4px 24px rgb(0 0 0 / 0.2)",
+                                        },
+                                        // flex: '0 0 10%',
+                                    }}>
+                                    <CardContent>
+                                        <Box sx={{ mx: 1 }}>
+                                            <Typography gutterBottom variant="body1" component="div">
+                                                More to come
+                                            </Typography>
                                         </Box>
-                                        <Button onClick={handleShareClose}>Close</Button>
-                                    </Box>
-                                </Modal> : null
-                        }
-                    </>
-                ))}
-                <div className="left-button">
-                    <ArrowCircleLeftRoundedIcon />
+                                        <Divider variant='middle' />
+                                        <Box sx={{ m: 1 }}>
+                                            <Typography gutterBottom variant="body3">
+                                                Technology used
+                                            </Typography>
+                                        </Box>
+                                        <Divider variant="middle" />
+                                        <Box sx={{ m: 1 }}>
+                                            <Typography gutterBottom variant="body3">
+                                                Library used
+                                            </Typography>
+                                        </Box>
+                                        <Divider variant='middle' />
+                                    </CardContent>
+                                </Card>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className="right-button">
-                    <ArrowCircleRightRoundedIcon />
+                <div className='scroller-button'>
+                    <div className="left-button">
+                        <IconButton sx={{ fontSize: 40 }} onClick={handleLeft}>
+                            {/* <ArrowCircleLeftRoundedIcon sx={{ fontSize: 50 }} /> */}
+                            <FontAwesomeIcon icon="fas fa-chevron-circle-left" />
+                        </IconButton>
+                    </div>
+                    <div className="right-button">
+                        <IconButton sx={{ fontSize: 40 }} onClick={handleRight}>
+                            {/* <ArrowCircleRightRoundedIcon sx={{ fontSize: 50 }} /> */}
+                            <FontAwesomeIcon icon="fas fa-chevron-circle-right" />
+                        </IconButton>
+                    </div>
                 </div>
             </div>
         </div >

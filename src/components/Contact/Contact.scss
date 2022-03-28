@@ -5,9 +5,10 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	position: relative;
 
 	.contact-title {
-		display: inline-flex;
+		display: flex;
 		align-items: center;
 		flex-wrap: wrap;
 		margin-top: $section-margin-top;
@@ -22,14 +23,17 @@
 		}
 	}
 
-	
 	.contact-container {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		flex-wrap: wrap;
+		padding-top: 30px;
 		padding-bottom: 30px;
-		
+		margin-top: 20px;
+		width: 100%;
+		background-image: url("./map.png");
+
 		.curved {
 			// position: absolute;
 			// width: 50%;
@@ -38,7 +42,7 @@
 			background-size: cover;
 			background: bottom;
 			z-index: -1;
-			
+
 			svg {
 				display: block;
 			}

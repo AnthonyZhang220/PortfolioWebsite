@@ -18,6 +18,7 @@
     "@mui/lab": "^5.0.0-alpha.67",
     "@mui/material": "^5.2.2",
     "@mui/styles": "^5.4.1",
+    "@svgr/webpack": "^6.2.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -33,7 +34,7 @@
     "react-google-recaptcha": "^2.1.0",
     "react-router-dom": "^6.0.2",
     "react-router-hash-link": "^2.4.3",
-    "react-scripts": "4.0.3",
+    "react-scripts": "5.0.0",
     "react-share": "^4.4.0",
     "react-swipeable-views": "^0.14.0",
     "request": "^2.88.2",
@@ -64,5 +65,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "resolutions": {
+    "react-error-overlay": "6.0.9"
   }
 }
