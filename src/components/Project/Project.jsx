@@ -135,6 +135,14 @@ const Puller = styled(Box)(({ theme }) => ({
     left: 'calc(50% - 15px)',
 }));
 
+function DrawerComponent(props) {
+
+    return (
+        <Box {...props} />
+    );
+
+}
+
 
 
 export default function Project(props) {
@@ -153,6 +161,7 @@ export default function Project(props) {
 
     const [projectDetailId, setProjectDetailId] = useState(null);
     const [projectDetailPage, setProjectDetailPage] = useState(false);
+    const [projectData, setProjectData] = useState({})
 
     const scrollerRef = useRef();
 
@@ -190,17 +199,12 @@ export default function Project(props) {
 
     const [open, setOpen] = useState(false);
 
-    const handleDrawerOpen = (event) => (id) => {
-        if (
-            event &&
-            event.type === 'keydown' &&
-            (event.key === 'Tab' || event.key === 'Shift')
-        ) {
-            return;
-        }
+    const handleDrawerOpen = ({ id, title, subtitle, thumbnail, description, tech, WebsiteUrl, GitHubUrl, library, index }) => () => {
+
         // setProjectDetailId(id);
         // setProjectDetailPage(true);
         setOpen(!open);
+        setProjectData({ id, title, subtitle, thumbnail, description, tech, WebsiteUrl, GitHubUrl, library, index });
     };
     const handleDrawerClose = (newOpen) => (id) => {
         setProjectDetailId(null);
@@ -271,10 +275,10 @@ export default function Project(props) {
                                             <CardActions disableSpacing >
                                                 <Button sx={{ m: 1 }} color="secondary" variant='outlined' size="medium" href={GitHubUrl} target='_blank'>GitHub</Button>
                                                 <Button sx={{ m: 1 }} color="secondary" variant='outlined' size="medium" href={WebsiteUrl} target='_blank' endIcon={<ForwardRoundedIcon />}>Website</Button>
-                                                <IconButton sx={{ m: 1 }} onClick={() => handleShareOpen(id)} >
+                                                <IconButton sx={{ m: 1 }} onClick={() => handleShareOpen()} >
                                                     <ShareIcon></ShareIcon>
                                                 </IconButton>
-                                                <IconButton onClick={handleDrawerOpen(true, id)}>
+                                                <IconButton onClick={handleDrawerOpen({ id, title, subtitle, thumbnail, description, tech, WebsiteUrl, GitHubUrl, library, index })}>
                                                     <FavoriteRoundedIcon></FavoriteRoundedIcon>
                                                 </IconButton>
                                             </CardActions>
@@ -342,83 +346,6 @@ export default function Project(props) {
                                                 </Box>
                                             </Modal> : null
                                     }
-                                    <Root>
-                                        <CssBaseline />
-                                        <Global
-                                            styles={{
-                                                '.MuiDrawer-root > .MuiPaper-root': {
-                                                    height: `calc(90% - ${drawerBleeding}px)`,
-                                                    overflow: 'visible',
-                                                },
-                                            }}
-                                        />
-                                        <SwipeableDrawer
-                                            className={classes.drawer}
-                                            anchor="bottom"
-                                            open={open}
-                                            onClose={handleDrawerOpen(false)}
-                                            onOpen={handleDrawerOpen(true)}
-                                            // swipeAreaWidth={drawerBleeding}
-                                            transitionDuration={500}
-                                            elevation={10}
-                                        >
-                                            <StyledBox
-                                                sx={{
-                                                    px: 2,
-                                                    pb: 2,
-                                                    height: '100%',
-                                                    overflow: 'auto',
-                                                    position: 'absolute',
-                                                    top: -drawerBleeding,
-                                                    borderTopLeftRadius: 18,
-                                                    borderTopRightRadius: 18,
-                                                    visibility: 'visible',
-                                                    right: 0,
-                                                    left: 0,
-                                                }}
-                                            >
-                                                <Puller />
-                                                <CardContent>
-                                                    <Box sx={{ mx: 1 }}>
-                                                        <Typography gutterBottom variant="body1" component="div">
-                                                            {title}
-                                                        </Typography>
-                                                        <Typography gutterBottom variant="body2" component="div">
-                                                            {subtitle}
-                                                        </Typography>
-                                                        <Typography variant="body2" color="text.secondary">
-                                                            {description}
-                                                        </Typography>
-                                                    </Box>
-                                                    <Divider variant='middle' />
-                                                    <Box sx={{ m: 1 }}>
-                                                        <Typography gutterBottom variant="body3">
-                                                            Technology used
-                                                        </Typography>
-                                                        <Stack direction='row' spacing={2}>
-                                                            {tech?.map(techUrl => (
-                                                                <Icon key={index} fontSize='large'>
-                                                                    <img className={classes.imageIcon} src={techUrl} alt='' />
-                                                                </Icon>
-                                                            ))}
-                                                        </Stack>
-                                                    </Box>
-                                                    <Divider variant="middle" />
-                                                    <Box sx={{ m: 1 }}>
-                                                        <Typography gutterBottom variant="body3">
-                                                            Library used
-                                                        </Typography>
-                                                        <Stack direction='row' spacing={1}>
-                                                            {library?.map(lib => (
-                                                                <Chip label={lib} key={index} />
-                                                            ))}
-                                                        </Stack>
-                                                    </Box>
-                                                    <Divider variant='middle' />
-                                                </CardContent>
-                                            </StyledBox>
-                                        </SwipeableDrawer>
-                                    </Root>
                                 </>
                             ))}
                             {/* more to come card */}
@@ -459,6 +386,85 @@ export default function Project(props) {
                                     </CardContent>
                                 </Card>
                             </div>
+                            <Root>
+                                <CssBaseline />
+                                <Global
+                                    styles={{
+                                        '.MuiDrawer-root > .MuiPaper-root': {
+                                            height: `calc(90% - ${drawerBleeding}px)`,
+                                            overflow: 'visible',
+                                        },
+                                    }}
+                                />
+                                <SwipeableDrawer
+                                    className={classes.drawer}
+                                    anchor="bottom"
+                                    open={open}
+                                    onClose={handleDrawerOpen(false)}
+                                    onOpen={handleDrawerOpen(true)}
+                                    // swipeAreaWidth={drawerBleeding}
+                                    transitionDuration={500}
+                                    elevation={10}
+                                    DrawerComponent={DrawerComponent}
+                                    projectData={projectData}
+                                >
+                                    <StyledBox
+                                        sx={{
+                                            px: 2,
+                                            pb: 2,
+                                            height: '100%',
+                                            overflow: 'auto',
+                                            position: 'absolute',
+                                            top: -drawerBleeding,
+                                            borderTopLeftRadius: 18,
+                                            borderTopRightRadius: 18,
+                                            visibility: 'visible',
+                                            right: 0,
+                                            left: 0,
+                                        }}
+                                    >
+                                        <Puller />
+                                        <CardContent>
+                                            <Box sx={{ mx: 1 }}>
+                                                <Typography gutterBottom variant="body1" component="div">
+                                                    {projectData.title}
+                                                </Typography>
+                                                <Typography gutterBottom variant="body2" component="div">
+                                                    {projectData.subtitle}
+                                                </Typography>
+                                                <Typography variant="body2" color="text.secondary">
+                                                    {projectData.description}
+                                                </Typography>
+                                            </Box>
+                                            <Divider variant='middle' />
+                                            <Box sx={{ m: 1 }}>
+                                                <Typography gutterBottom variant="body3">
+                                                    Technology used
+                                                </Typography>
+                                                <Stack direction='row' spacing={2}>
+                                                    {projectData.tech?.map(techUrl => (
+                                                        <Icon key={projectData.index} fontSize='large'>
+                                                            <img className={classes.imageIcon} src={techUrl} alt='' />
+                                                        </Icon>
+                                                    ))}
+                                                </Stack>
+                                            </Box>
+                                            <Divider variant="middle" />
+                                            <Box sx={{ m: 1 }}>
+                                                <Typography gutterBottom variant="body3">
+                                                    Library used
+                                                </Typography>
+                                                <Stack direction='row' spacing={1}>
+                                                    {projectData.library?.map(lib => (
+                                                        <Chip label={lib} key={projectData.index} />
+                                                    ))}
+                                                </Stack>
+                                            </Box>
+                                            <Divider variant='middle' />
+                                        </CardContent>
+                                    </StyledBox>
+                                </SwipeableDrawer>
+                            </Root>
                         </div>
                     </div>
                 </div>
