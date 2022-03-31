@@ -33,6 +33,7 @@ import StepLabel from '@mui/material/StepLabel';
 
 
 import { styled } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import "./Contact.scss"
 
 init(process.env.REACT_APP_USER_ID);
@@ -50,6 +51,12 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+        whiteSpace: "pre-wrap",
+        wordBreak: "break-all"
+    }
+}));
 
 const style = {
     position: 'absolute',
@@ -71,6 +78,8 @@ function PaperComponent(props) {
 
 
 export default function Contact() {
+
+    const classes = useStyles();
 
     const steps = ['Confirm your info', 'Verify you are a human', 'Submit contact form'];
     const [activeStep, setActiveStep] = useState(1);
@@ -221,9 +230,9 @@ export default function Contact() {
                 </span>
             </div>
             <div className="contact-container">
-                <div className='curved'>
+                {/* <div className='curved'>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" height='100%'><path fill="#8b58e4" fillOpacity=".7" d="M0,128L48,106.7C96,85,192,43,288,32C384,21,480,43,576,85.3C672,128,768,192,864,202.7C960,213,1056,171,1152,160C1248,149,1344,171,1392,181.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
-                </div>
+                </div> */}
                 {/* <div className="illustration">
                     <img src="/assets/images/contact_bg.png" alt="contact_background_image" />
                 </div> */}
@@ -304,7 +313,7 @@ export default function Contact() {
                                 select
                                 id="outlined-select-currency"
                                 name='intention'
-                                label="Intention"
+                                label="Intent"
                                 value={input.intention}
                                 onChange={handleOnChange}
                                 helperText='You are?'
@@ -317,7 +326,7 @@ export default function Contact() {
                             >
                                 <MenuItem value='Collaborator' divider={true}>Collaborator</MenuItem>
                                 <MenuItem value='Recruitor' divider={true}>Recruitor</MenuItem>
-                                <MenuItem value='Other'>Other</MenuItem>
+                                <MenuItem value='Other'>Other(Please specify in message)</MenuItem>
                             </TextField>
                             <TextField
                                 size='small'
@@ -338,7 +347,7 @@ export default function Contact() {
                                 fullWidth
                                 required
                                 multiline
-                                maxRows={3}
+                                maxRows={5}
                                 id="outlined-helperText"
                                 label="Message"
                                 name='message'
@@ -359,7 +368,7 @@ export default function Contact() {
                         onClose={handleDialogClose}
                         PaperComponent={PaperComponent}
                     >
-                        <Box sx={{ p: 2 }}>
+                        <Box sx={{ pt: 4, pl: 4, pr: 4 }}>
                             <Stepper activeStep={activeStep} alternativeLabel>
                                 {steps.map((label, index) => {
                                     const stepProps = {};
@@ -412,7 +421,7 @@ export default function Contact() {
                                                 <ConnectWithoutContactIcon />
                                             </Grid>
                                             <Grid item xs>
-                                                <Typography noWrap>Intention: {input.intention}</Typography>
+                                                <Typography noWrap>Intent: {input.intention}</Typography>
                                             </Grid>
                                         </Grid>
                                     </Paper>
@@ -432,7 +441,8 @@ export default function Contact() {
                                                 <MessageIcon />
                                             </Grid>
                                             <Grid item xs >
-                                                <Typography noWrap>Message: {input.message}</Typography>
+                                                <Typography>Message:</Typography>
+                                                <Typography classes={{ root: classes.root }}>{input.message}</Typography>
                                             </Grid>
                                         </Grid>
                                     </Paper>

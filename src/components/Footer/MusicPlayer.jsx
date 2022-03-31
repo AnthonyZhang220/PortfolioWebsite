@@ -56,7 +56,7 @@ const TinyText = styled(Typography)({
 export default function MusicPlayer() {
 
 
-    const randomizer = Math.floor(Math.random() * musicList.length)
+    const randomizer = Math.floor(Math.random() * (musicList.length - 1) + 1)
 
     const theme = useTheme();
 
@@ -67,7 +67,8 @@ export default function MusicPlayer() {
     const [duration, setDuration] = useState(0); // seconds
     const [position, setPosition] = useState(0);
     const [paused, setPaused] = useState(true);
-    const [index, setIndex] = useState(randomizer);
+    const [songId, setSongId] = useState(randomizer);
+
 
     // const [current, setCurrent] = useState(0);
 
@@ -97,8 +98,7 @@ export default function MusicPlayer() {
 
 
         if (timeLeft === 0) {
-            setPaused(true);
-            setIndex(index + 1);
+            handleSkipNext();
         }
     }
 
@@ -140,36 +140,36 @@ export default function MusicPlayer() {
             setPosition(duration);
         }
     }
+
     const handleSkipNext = () => {
 
-        console.log(musicList.filter(Boolean))
-        audioRef.current.pause();
-
-        if (index < musicList.length - 1) {
-            setIndex(index + 1);
+        if (songId < musicList.length) {
+            setSongId(songId + 1);
         }
 
-        if (index === musicList.length - 1) {
-            setIndex(0);
+        if (songId === musicList.length) {
+            setSongId(1);
         }
 
         audioRef.current.load();
-        audioRef.current.play();
-        setPaused(false);
+
+        setTimeout(() => {
+            audioRef.current.play();
+        }, 1000)
     }
 
     const handleSkipPrevious = () => {
-        if (index > 0) {
-            setIndex(index - 1);
+        if (songId > 1) {
+            setSongId(songId - 1);
         }
 
-        if (index === 0) {
-            setIndex(musicList.length - 1);
+        if (songId === 1) {
+            setSongId(musicList.length);
         }
 
         audioRef.current.load();
         audioRef.current.play();
-        setPaused(false);
+
     }
 
     const handleVolume = (event, newVolume) => {
@@ -182,6 +182,7 @@ export default function MusicPlayer() {
 
     useEffect(() => {
         localStorage.setItem('volume', 0.2);
+
     }, [])
 
 
@@ -193,23 +194,23 @@ export default function MusicPlayer() {
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <CoverImage>
                         <img
-                            alt={`${musicList[index].cover}`}
-                            src={`${musicList[index].cover}`}
+                            alt={musicList.find(x => x.id === songId).cover}
+                            src={musicList.find(x => x.id === songId).cover}
                         />
                     </CoverImage>
                     <Box sx={{ ml: 1.5, minWidth: 0 }}>
                         <Typography variant="caption" color="text.primary" fontWeight={700}>
-                            {musicList[index].artist}
+                            {musicList.find(x => x.id === songId).artist}
                         </Typography>
                         <Typography wrap='true'>
                             <>
                                 <b>
-                                    {musicList[index].title}
+                                    {musicList.find(x => x.id === songId).title}
                                 </b>
                             </>
                         </Typography>
                         <Typography noWrap letterSpacing={-0.25}>
-                            {musicList[index].performer}
+                            {musicList.find(x => x.id === songId).performer}
                         </Typography>
                     </Box>
                 </Box>
@@ -285,8 +286,8 @@ export default function MusicPlayer() {
                             <PauseRounded sx={{ fontSize: '3.5rem' }} htmlColor={mainIconColor} />
                         )}
                     </IconButton>
-                    <audio id='audio' preload='auto' ref={audioRef} onLoadedMetadata={handleGetAudioData} onTimeUpdate={handleTimeUpdate} onEnded={handleSkipNext}>
-                        <source src={musicList[index].source} type="audio/mpeg"></source>
+                    <audio id='audio' preload='auto' ref={audioRef} onLoadedMetadata={handleGetAudioData} onTimeUpdate={handleTimeUpdate}>
+                        <source src={musicList.find(x => x.id === songId).source} type="audio/mpeg"></source>
                     </audio>
                     <IconButton aria-label="next song" onClick={handleForward}>
                         <FastForwardRounded fontSize="large" htmlColor={mainIconColor} />
@@ -305,10 +306,9 @@ export default function MusicPlayer() {
                     }
                     <Slider
                         aria-label="Volume"
-                        // defaultValue={0.2}
                         min={0}
                         max={1}
-                        step={0.05}
+                        step={0.01}
                         value={volume}
                         onChange={handleVolume}
                         sx={{

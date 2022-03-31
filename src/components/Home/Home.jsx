@@ -138,7 +138,6 @@ export default function Home() {
             <Canvas id="canvas"></Canvas>
             <div className="hi" ref={hiRef}>Hi</div>
             <div className="happy" ref={happyRef}>I'm happy you're here</div>
-
             <div className="top" ref={touchRef}>
             </div>
             <div className="mid" ref={midRef}>

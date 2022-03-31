@@ -2,7 +2,7 @@ const iconpath = "assets/tech-icons/";
 
 export const projectdata = [
 	{
-		id: "1",
+		id: 1,
 		title: "LaoMa Spicy",
 		subtitle: "LaoSpicy",
 		thumbnail: "assets/images/project-bg.jpg",
@@ -19,7 +19,7 @@ export const projectdata = [
 		GitHubUrl: "https://github.com/AnthonyZhang220/qrcode-ordering",
 	},
 	{
-		id: "2",
+		id: 2,
 		title: "Gaggle",
 		subtitle: "Google Search Clone",
 		thumbnail: "assets/images/project-bg.jpg",
@@ -36,7 +36,7 @@ export const projectdata = [
 		GitHubUrl: "https://github.com/AnthonyZhang220/qrcode-ordering",
 	},
 	{
-		id: "3",
+		id: 3,
 		title: "TripAdvisor",
 		subtitle: "Trip Advisor Clone",
 		thumbnail: "assets/images/project-bg.jpg",
@@ -52,7 +52,7 @@ export const projectdata = [
 		GitHubUrl: "https://github.com/AnthonyZhang220/travel-advisor",
 	},
 	{
-		id: "4",
+		id: 4,
 		title: "Portfolio Website",
 		subtitle: "Personal Portfolio Website",
 		thumbnail: "assets/images/project-bg.jpg",
@@ -70,7 +70,7 @@ export const projectdata = [
 		GitHubUrl: "https://github.com/AnthonyZhang220/qrcode-ordering",
 	},
 	{
-		id: "5",
+		id: 5,
 		title: "Explore Amazon API",
 		subtitle: "Amazon Product Details Data API",
 		thumbnail: "assets/images/project-bg.jpg",
@@ -87,7 +87,7 @@ export const projectdata = [
 		GitHubUrl: "https://github.com/AnthonyZhang220/qrcode-ordering",
 	},
 	{
-		id: "6",
+		id: 6,
 		title: "LaoMa Spicy Waitlist System",
 		subtitle: "LaoMa Spicy Customer Queue System",
 		thumbnail: "assets/images/project-bg.jpg",

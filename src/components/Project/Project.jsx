@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { projectdata } from "./ProjectData.js"
 import { gsap } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { makeStyles } from "@material-ui/styles";
 import {
     EmailShareButton,
     FacebookShareButton,
@@ -48,10 +47,7 @@ import Divider from "@material-ui/core/Divider";
 import Box from '@mui/material/Box';
 import ForwardRoundedIcon from '@mui/icons-material/ForwardRounded';
 import Chip from '@mui/material/Chip';
-import ArrowCircleLeftRoundedIcon from '@mui/icons-material/ArrowCircleLeftRounded';
-import ArrowCircleRightRoundedIcon from '@mui/icons-material/ArrowCircleRightRounded';
 import Badge from '@mui/material/Badge';
-import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import IconButton from '@mui/material/IconButton';
 import ShareIcon from '@mui/icons-material/Share';
@@ -62,18 +58,36 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Modal from '@mui/material/Modal';
 
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import Drawer from '@mui/material/Drawer';
+import Skeleton from '@mui/material/Skeleton';
+import { Global } from "@emotion/react";
+import CssBaseline from "@mui/material/CssBaseline";
+import PropTypes from 'prop-types';
+
+import { createStyles, makeStyles } from "@material-ui/styles";
 import { styled } from '@mui/material/styles';
 import "./Project.scss"
 
-const useStyles = makeStyles({
-    imageIcon: {
-        display: "flex",
-        height: "inherit",
-        width: "inherit",
-    },
-    iconRoot: {
-        textAlign: "center",
-    },
+const useStyles = makeStyles(() => {
+    createStyles({
+        imageIcon: {
+            display: "flex",
+            height: "inherit",
+            width: "inherit",
+        },
+        iconRoot: {
+            textAlign: "center",
+        },
+        drawer: {
+            width: 'auto',
+            zIndex: 2000,
+        },
+        content: {
+            flexGrow: 1,
+            overflow: "auto",
+        },
+    })
 });
 
 const style = {
@@ -99,42 +113,48 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 
+const Root = styled("div")(({ theme }) => ({
+    height: "100%",
+    backgroundColor:
+        theme.palette.mode === "light"
+            ? '#F5F5F5'
+            : theme.palette.background.default
+}));
+
+const StyledBox = styled(Box)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'light' ? '#fff' : '#424242',
+}));
+
+const Puller = styled(Box)(({ theme }) => ({
+    width: 30,
+    height: 6,
+    backgroundColor: theme.palette.mode === 'light' ? '#E0E0E0' : '#212121',
+    borderRadius: 18,
+    position: 'absolute',
+    top: 8,
+    left: 'calc(50% - 15px)',
+}));
 
 
 
-export default function Project() {
+export default function Project(props) {
 
     const classes = useStyles();
 
     gsap.registerPlugin(ScrollTrigger);
 
+    const drawerBleeding = 56;
+
 
     const projectRef = useRef();
     const listRef = useRef();
-    const [like, setLike] = useState(false);
-    const [fav, setFav] = useState({
-        id: '',
-        isFav: false,
-    });
     const [sharePage, setSharePage] = useState(false);
     const [shareId, setShareId] = useState(null);
+
+    const [projectDetailId, setProjectDetailId] = useState(null);
+    const [projectDetailPage, setProjectDetailPage] = useState(false);
+
     const scrollerRef = useRef();
-
-    const handleLike = () => {
-        setLike(true);
-    }
-
-    const handleFav = (id) => {
-        console.log(fav)
-
-        if (!fav.isFav && fav.id.includes(id)) {
-            const updateFav = { id: id, isFav: true }
-            setFav(...fav, ...updateFav);
-        } else if (!fav.isFav) {
-            setFav([...fav, { id, isFav: false }]);
-        }
-        setFav(!fav.isFav);
-    }
 
     const handleShareOpen = (id) => {
         setShareId(id);
@@ -167,6 +187,31 @@ export default function Project() {
         });
     });
 
+
+    const [open, setOpen] = useState(false);
+
+    const handleDrawerOpen = (event) => (id) => {
+        if (
+            event &&
+            event.type === 'keydown' &&
+            (event.key === 'Tab' || event.key === 'Shift')
+        ) {
+            return;
+        }
+        // setProjectDetailId(id);
+        // setProjectDetailPage(true);
+        setOpen(!open);
+    };
+    const handleDrawerClose = (newOpen) => (id) => {
+        setProjectDetailId(null);
+        setProjectDetailPage(false);
+        setOpen(newOpen);
+    };
+
+
+
+
+
     // useEffect(() => {
     //     gsap.to(listRef.current, {
     //         x: () => -(listRef.current - document.documentElement.clientWidth) + 'px',
@@ -196,85 +241,46 @@ export default function Project() {
                             {projectdata?.map(({ id, title, subtitle, thumbnail, description, tech, WebsiteUrl, GitHubUrl, library, index }) => (
                                 <>
                                     <div key={id} className='card'>
+                                        {/* <img className="tape" src="assets/images/tape.png" height='100px' width='100px'>
+                                        </img> */}
                                         <Card
                                             key={id}
                                             ref={listRef}
                                             sx={{
                                                 position: 'relative',
+                                                // backgroundColor: 'transparent',
                                                 width: 'auto',
                                                 height: 'auto',
                                                 marginRight: '20px',
                                                 transition: "all 0.3s cubic-bezier(0,0,.5,1)",
-                                                borderRadius: '16px',
+                                                borderRadius: '20px',
                                                 boxShadow: "0px 2px 12px rgb(0 0 0 / 8%)",
                                                 "&:hover": {
                                                     boxShadow: "0px 4px 24px rgb(0 0 0 / 0.2)",
                                                 },
                                                 // flex: '0 0 10%',
-                                            }}>
+                                            }}
+                                        >
                                             <CardMedia
                                                 component="img"
                                                 alt={title}
-                                                height="180"
+                                                height="450"
                                                 image={thumbnail}
+                                                sx={{ borderRadius: '20px', boxShadow: "0px 4px 24px rgb(0 0 0 / 0.6)" }}
                                             />
-                                            <CardContent>
-                                                <Box sx={{ mx: 1 }}>
-                                                    <Typography gutterBottom variant="body1" component="div">
-                                                        {title}
-                                                    </Typography>
-                                                    <Typography gutterBottom variant="body2" component="div">
-                                                        {subtitle}
-                                                    </Typography>
-                                                    {/* <Typography variant="body2" color="text.secondary">
-                                        {description}
-                                    </Typography> */}
-                                                </Box>
-                                                <Divider variant='middle' />
-                                                <Box sx={{ m: 1 }}>
-                                                    <Typography gutterBottom variant="body3">
-                                                        Technology used
-                                                    </Typography>
-                                                    <Stack direction='row' spacing={2}>
-                                                        {tech?.map(techUrl => (
-                                                            <Icon key={index}>
-                                                                <img className={classes.imageIcon} src={techUrl} alt='' />
-                                                            </Icon>
-                                                        ))}
-                                                    </Stack>
-                                                </Box>
-                                                <Divider variant="middle" />
-                                                <Box sx={{ m: 1 }}>
-                                                    <Typography gutterBottom variant="body3">
-                                                        Library used
-                                                    </Typography>
-                                                    <Stack direction='row' spacing={1}>
-                                                        {library?.map(lib => (
-                                                            <Chip label={lib} key={index} />
-                                                        ))}
-                                                    </Stack>
-                                                </Box>
-                                                <Divider variant='middle' />
-                                            </CardContent>
                                             <CardActions disableSpacing >
-                                                <Button sx={{ m: 1 }} color="secondary" variant='contained' size="small" href={GitHubUrl} target='_blank'>GitHub</Button>
-                                                <Button sx={{ m: 1 }} color="secondary" variant='contained' size="small" href={WebsiteUrl} target='_blank' endIcon={<ForwardRoundedIcon />}>Website</Button>
+                                                <Button sx={{ m: 1 }} color="secondary" variant='outlined' size="medium" href={GitHubUrl} target='_blank'>GitHub</Button>
+                                                <Button sx={{ m: 1 }} color="secondary" variant='outlined' size="medium" href={WebsiteUrl} target='_blank' endIcon={<ForwardRoundedIcon />}>Website</Button>
                                                 <IconButton sx={{ m: 1 }} onClick={() => handleShareOpen(id)} >
                                                     <ShareIcon></ShareIcon>
                                                 </IconButton>
-                                                {
-                                                    fav.isFav ?
-                                                        <IconButton sx={{ color: '#fe0000' }} onClick={() => handleFav(id)}>
-                                                            <FavoriteRoundedIcon></FavoriteRoundedIcon>
-                                                        </IconButton>
-                                                        :
-                                                        <IconButton onClick={() => handleFav(id)}>
-                                                            <FavoriteRoundedIcon></FavoriteRoundedIcon>
-                                                        </IconButton>
-                                                }
+                                                <IconButton onClick={handleDrawerOpen(true, id)}>
+                                                    <FavoriteRoundedIcon></FavoriteRoundedIcon>
+                                                </IconButton>
                                             </CardActions>
                                         </Card>
                                     </div>
+                                    {/* share page */}
                                     {
                                         shareId === id ?
                                             <Modal
@@ -336,8 +342,86 @@ export default function Project() {
                                                 </Box>
                                             </Modal> : null
                                     }
+                                    <Root>
+                                        <CssBaseline />
+                                        <Global
+                                            styles={{
+                                                '.MuiDrawer-root > .MuiPaper-root': {
+                                                    height: `calc(90% - ${drawerBleeding}px)`,
+                                                    overflow: 'visible',
+                                                },
+                                            }}
+                                        />
+                                        <SwipeableDrawer
+                                            className={classes.drawer}
+                                            anchor="bottom"
+                                            open={open}
+                                            onClose={handleDrawerOpen(false)}
+                                            onOpen={handleDrawerOpen(true)}
+                                            // swipeAreaWidth={drawerBleeding}
+                                            transitionDuration={500}
+                                            elevation={10}
+                                        >
+                                            <StyledBox
+                                                sx={{
+                                                    px: 2,
+                                                    pb: 2,
+                                                    height: '100%',
+                                                    overflow: 'auto',
+                                                    position: 'absolute',
+                                                    top: -drawerBleeding,
+                                                    borderTopLeftRadius: 18,
+                                                    borderTopRightRadius: 18,
+                                                    visibility: 'visible',
+                                                    right: 0,
+                                                    left: 0,
+                                                }}
+                                            >
+                                                <Puller />
+                                                <CardContent>
+                                                    <Box sx={{ mx: 1 }}>
+                                                        <Typography gutterBottom variant="body1" component="div">
+                                                            {title}
+                                                        </Typography>
+                                                        <Typography gutterBottom variant="body2" component="div">
+                                                            {subtitle}
+                                                        </Typography>
+                                                        <Typography variant="body2" color="text.secondary">
+                                                            {description}
+                                                        </Typography>
+                                                    </Box>
+                                                    <Divider variant='middle' />
+                                                    <Box sx={{ m: 1 }}>
+                                                        <Typography gutterBottom variant="body3">
+                                                            Technology used
+                                                        </Typography>
+                                                        <Stack direction='row' spacing={2}>
+                                                            {tech?.map(techUrl => (
+                                                                <Icon key={index} fontSize='large'>
+                                                                    <img className={classes.imageIcon} src={techUrl} alt='' />
+                                                                </Icon>
+                                                            ))}
+                                                        </Stack>
+                                                    </Box>
+                                                    <Divider variant="middle" />
+                                                    <Box sx={{ m: 1 }}>
+                                                        <Typography gutterBottom variant="body3">
+                                                            Library used
+                                                        </Typography>
+                                                        <Stack direction='row' spacing={1}>
+                                                            {library?.map(lib => (
+                                                                <Chip label={lib} key={index} />
+                                                            ))}
+                                                        </Stack>
+                                                    </Box>
+                                                    <Divider variant='middle' />
+                                                </CardContent>
+                                            </StyledBox>
+                                        </SwipeableDrawer>
+                                    </Root>
                                 </>
                             ))}
+                            {/* more to come card */}
                             <div className="card">
                                 <Card
                                     sx={{
@@ -379,18 +463,18 @@ export default function Project() {
                     </div>
                 </div>
                 <div className='scroller-button'>
-                    <div className="left-button">
+                    <Box className="button left-button">
                         <IconButton sx={{ fontSize: 40 }} onClick={handleLeft}>
                             {/* <ArrowCircleLeftRoundedIcon sx={{ fontSize: 50 }} /> */}
                             <FontAwesomeIcon icon="fas fa-chevron-circle-left" />
                         </IconButton>
-                    </div>
-                    <div className="right-button">
+                    </Box>
+                    <Box className="button right-button">
                         <IconButton sx={{ fontSize: 40 }} onClick={handleRight}>
                             {/* <ArrowCircleRightRoundedIcon sx={{ fontSize: 50 }} /> */}
                             <FontAwesomeIcon icon="fas fa-chevron-circle-right" />
                         </IconButton>
-                    </div>
+                    </Box>
                 </div>
             </div>
         </div >

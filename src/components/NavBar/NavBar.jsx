@@ -57,8 +57,6 @@ export default function NavBar({ mode, setMode }) {
     const midRef = useRef(null);
     // const [toggle, setToggle] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
-    const [like, setLike] = useState(0);
-    const [fav, setFav] = useState(0);
 
     //navbar animation
     useEffect(() => {
@@ -106,17 +104,7 @@ export default function NavBar({ mode, setMode }) {
         }
 
         setIsOpen(!isOpen);
-
-
     };
-
-    const likeCount = () => {
-        setLike(like + 1);
-    }
-
-    const favCount = () => {
-        setFav(fav + 1);
-    }
 
 
     return (

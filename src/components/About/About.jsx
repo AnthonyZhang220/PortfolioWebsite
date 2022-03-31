@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from 'gsap/all';
 import { aboutText } from './aboutText';
 import SwipeableViews from 'react-swipeable-views';
 import PropTypes from 'prop-types';
@@ -32,6 +33,7 @@ import { useTheme } from '@mui/material/styles';
 
 
 import "./About.scss";
+import { Update } from '@material-ui/icons';
 
 
 library.add(fab);
@@ -57,6 +59,9 @@ const IOSSlider = styled(Slider)(({ theme }) => ({
                 boxShadow: iOSBoxShadow,
             },
         },
+        '&:not(.MuiSlider-active)': {
+            transition: 'left 1s ease-in',
+        }
     },
     '& .MuiSlider-valueLabel': {
         fontSize: 12,
@@ -74,6 +79,7 @@ const IOSSlider = styled(Slider)(({ theme }) => ({
     },
     '& .MuiSlider-track': {
         border: 'none',
+        transition: 'width 1s ease-in',
     },
     '& .MuiSlider-rail': {
         opacity: 0.5,
@@ -98,6 +104,7 @@ const IOSSlider = styled(Slider)(({ theme }) => ({
 
 export default function About() {
     gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollToPlugin);
 
     const marks = [
         {
@@ -105,27 +112,169 @@ export default function About() {
             label: '',
         },
         {
-            value: 25,
+            value: 40,
             label: '6 months',
         },
         {
-            value: 50,
+            value: 65,
             label: '1 year',
         },
         {
-            value: 75,
+            value: 90,
             label: '2 years',
         },
-        {
-            value: 100,
-            label: '3 years',
-        }
+    ]
 
+    const frontendData = [
+        {
+            name: 'html',
+            value: 90
+        },
+        {
+            name: 'css',
+            value: 90
+        },
+        {
+            name: 'javascript',
+            value: 90
+        }
+    ]
+
+    const backendData = [
+        {
+            name: 'node',
+            value: 65
+        },
+        {
+            name: 'next',
+            value: 40
+        },
+    ]
+
+    const frameworkData = [
+        {
+            name: 'react',
+            value: 90
+        },
+        {
+            name: 'express',
+            value: 40
+        },
+    ]
+
+    const libraryData = [
+        {
+            name: 'axios',
+            value: 40
+        },
+        {
+            name: 'mui',
+            value: 65
+        },
+        {
+            name: 'scss',
+            value: 65
+        },
+    ]
+
+    const toolData = [
+        {
+            name: 'git',
+            value: 90
+        },
+        {
+            name: 'npm',
+            value: 90
+        },
+        {
+            name: 'webpack',
+            value: 40
+        },
     ]
 
     const theme = useTheme();
     const [value, setValue] = useState(aboutText[0].item);
+    const [frontend, setFrontend] = useState(
+        [
+            {
+                name: 'html',
+                value: 0
+            },
+            {
+                name: 'css',
+                value: 0
+            },
+            {
+                name: 'javascript',
+                value: 0
+            },
+        ]
+    );
 
+    const [backend, setBackend] = useState(
+        [
+            {
+                name: 'node',
+                value: 0
+            },
+            {
+                name: 'next',
+                value: 0
+            },
+        ]
+    )
+
+    const [framework, setFramework] = useState(
+        [
+            {
+                name: 'react',
+                value: 0
+            },
+            {
+                name: 'express',
+                value: 0
+            },
+        ]
+    )
+
+    const [library, setLibrary] = useState(
+        [
+            {
+                name: 'axios',
+                value: 0
+            },
+            {
+                name: 'mui',
+                value: 0
+            },
+            {
+                name: 'scss',
+                value: 0
+            },
+        ]
+    )
+    const [tool, setTool] = useState(
+        [
+            {
+                name: 'git',
+                value: 0
+            },
+            {
+                name: 'npm',
+                value: 0
+            },
+            {
+                name: 'webpack',
+                value: 0
+            },
+        ]
+    )
+
+    const frontendRef = useRef();
+    const backendRef = useRef();
+    const frameworkRef = useRef();
+    const libraryRef = useRef();
+    const toolRef = useRef();
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -135,16 +284,61 @@ export default function About() {
 
     const skillRef = useRef();
 
-    // useEffect(() => {
-    //     gsap.fromTo(skillRef.current,
-    //         { opacity: 0 }, {
-    //         opacity: 1, duration: 5, scrollTrigger: {
-    //             trigger: skillRef.current,
-    //             start: "top bottom"
-    //         }
-    //     }
-    //     )
-    // })
+
+    const frontendAnimation = () => {
+        setFrontend(frontendData);
+    }
+    const backendAnimation = () => {
+        setBackend(backendData);
+    }
+    const frameworkAnimation = () => {
+        setFramework(frameworkData);
+    }
+    const libraryAnimation = () => {
+        setLibrary(libraryData);
+    }
+    const toolAnimation = () => {
+        setTool(toolData);
+    }
+
+    useEffect(() => {
+        gsap.to(frontendRef.current, {
+            onStart: () => frontendAnimation(),
+            scrollTrigger: {
+                trigger: frontendRef.current,
+                start: 'bottom 80%',
+            }
+        })
+        gsap.to(backendRef.current, {
+            onStart: () => backendAnimation(),
+            scrollTrigger: {
+                trigger: backendRef.current,
+                start: 'bottom 80%',
+            }
+        })
+        gsap.to(frameworkRef.current, {
+            onStart: () => frameworkAnimation(),
+            scrollTrigger: {
+                trigger: frameworkRef.current,
+                start: 'bottom 80%',
+            }
+        })
+        gsap.to(libraryRef.current, {
+            onStart: () => libraryAnimation(),
+            scrollTrigger: {
+                trigger: libraryRef.current,
+                start: 'bottom 80%',
+            }
+        })
+        gsap.to(toolRef.current, {
+            onStart: () => toolAnimation(),
+            scrollTrigger: {
+                trigger: toolRef.current,
+                start: 'bottom 80%',
+            }
+        })
+
+    }, []);
 
     return (
         <div className='about' id="about">
@@ -223,7 +417,8 @@ export default function About() {
                         >
                             <ThemeProvider theme={theme}>
                                 {/* front end */}
-                                <Paper elevation={1}
+                                <Paper
+                                    elevation={1}
                                     className='skill-paper'
                                     sx={{
                                         display: 'flex',
@@ -237,24 +432,21 @@ export default function About() {
                                             p: 1,
                                         },
                                     }}>
-                                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-                                        <FontAwesomeIcon icon="fa-solid fa-code" fontSize={40} />
-                                        <Typography variant="h5" component="div">
-                                            Front End
-                                        </Typography>
-                                    </Box>
+                                    <FontAwesomeIcon icon="fa-solid fa-code" fontSize={40} />
+                                    <Typography variant="h5" component="div" ref={frontendRef}>
+                                        Front End
+                                    </Typography>
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} sm container>
                                             <Grid item xs container direction="column" spacing={2}>
                                                 <Grid item>
-                                                    <Typography variant="h6" component="div">
+                                                    <Typography variant="body1" component="div">
                                                         HTML5
                                                     </Typography>
                                                     <IOSSlider
                                                         aria-label="ios slider"
-                                                        defaultValue={75}
+                                                        value={frontend?.find(x => x.name === 'html').value}
                                                         valueLabelDisplay="on"
-                                                        step={25}
                                                         marks={marks}
                                                         valueLabelFormat={() => {
                                                             return (
@@ -267,14 +459,13 @@ export default function About() {
                                                 </Grid>
                                                 <Grid item>
                                                     {/* <FontAwesomeIcon icon="fa-brands fa-css3-alt" fontSize={30} /> */}
-                                                    <Typography variant="h6" component="div">
+                                                    <Typography variant="body1" component="div">
                                                         CSS3
                                                     </Typography>
                                                     <IOSSlider
                                                         aria-label="ios slider"
                                                         marks={marks}
-                                                        step={25}
-                                                        defaultValue={75}
+                                                        value={frontend?.find(x => x.name === 'css').value}
                                                         valueLabelDisplay="on"
                                                         valueLabelFormat={() => {
                                                             return (
@@ -289,13 +480,12 @@ export default function About() {
                                                 <Chip label="CSS3"></Chip>
                                             </Divider> */}
                                                 <Grid item>
-                                                    <Typography variant="h6" component="div">
+                                                    <Typography variant="body1" component="div">
                                                         Javascript
                                                     </Typography>
                                                     <IOSSlider
                                                         aria-label="ios slider"
-                                                        defaultValue={75}
-                                                        step={25}
+                                                        value={frontend?.find(x => x.name === 'javascript').value}
                                                         valueLabelDisplay="on"
                                                         marks={marks}
                                                         valueLabelFormat={() => {
@@ -326,23 +516,20 @@ export default function About() {
                                             p: 1,
                                         },
                                     }}>
-                                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-                                        <FontAwesomeIcon icon="fa-solid fa-server" fontSize={40} />
-                                        <Typography variant="h5" component="div">
-                                            Back End
-                                        </Typography>
-                                    </Box>
+                                    <FontAwesomeIcon icon="fa-solid fa-server" fontSize={40} />
+                                    <Typography variant="h5" component="div" ref={backendRef}>
+                                        Back End
+                                    </Typography>
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} sm container>
                                             <Grid item xs container direction="column" spacing={2}>
                                                 <Grid item>
-                                                    <Typography variant="h6" component="div">
+                                                    <Typography variant="body1" component="div">
                                                         Node JS
                                                     </Typography>
                                                     <IOSSlider
                                                         aria-label="ios slider"
-                                                        defaultValue={50}
-                                                        step={25}
+                                                        value={backend?.find(x => x.name === 'node').value}
                                                         marks={marks}
                                                         valueLabelDisplay="on"
                                                         valueLabelFormat={() => {
@@ -355,32 +542,12 @@ export default function About() {
                                                     />
                                                 </Grid>
                                                 <Grid item>
-                                                    <Typography variant="h6" component="div">
-                                                        Express
-                                                    </Typography>
-                                                    <IOSSlider
-                                                        aria-label="ios slider"
-                                                        defaultValue={50}
-                                                        step={25}
-                                                        marks={marks}
-                                                        valueLabelDisplay="on"
-                                                        valueLabelFormat={() => {
-                                                            return (
-                                                                <div style={{ textAlign: "center", transform: 'translateY(10px)' }}>
-                                                                    <img src="assets/icon/node.svg" height='50px' width='50px' alt="" />
-                                                                </div>
-                                                            )
-                                                        }}
-                                                    />
-                                                </Grid>
-                                                <Grid item>
-                                                    <Typography variant="h6" component="div">
+                                                    <Typography variant="body1" component="div">
                                                         Next.js
                                                     </Typography>
                                                     <IOSSlider
                                                         aria-label="ios slider"
-                                                        defaultValue={50}
-                                                        step={25}
+                                                        value={backend?.find(x => x.name === 'next').value}
                                                         marks={marks}
                                                         valueLabelDisplay="on"
                                                         valueLabelFormat={() => {
@@ -398,7 +565,7 @@ export default function About() {
                                 </Paper>
                                 {/* framework */}
                                 <Paper elevation={1}
-                                    className='skill-paper'
+                                    className='backend-paper'
                                     sx={{
                                         display: 'flex',
                                         justifyContent: 'center',
@@ -411,24 +578,21 @@ export default function About() {
                                             p: 1,
                                         },
                                     }}>
-                                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-                                        <FontAwesomeIcon icon="fa-solid fa-layer-group" fontSize={40} />
-                                        <Typography variant="h5" component="div">
-                                            Framework
-                                        </Typography>
-                                    </Box>
+                                    <FontAwesomeIcon icon="fa-solid fa-layer-group" fontSize={40} />
+                                    <Typography variant="h5" component="div" ref={frameworkRef}>
+                                        Framework
+                                    </Typography>
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} sm container>
                                             <Grid item xs container direction="column" spacing={2}>
                                                 <Grid item>
-                                                    <Typography variant="h6" component="div">
+                                                    <Typography variant="body1" component="div">
                                                         React
                                                     </Typography>
                                                     <IOSSlider
                                                         aria-label="ios slider"
                                                         marks={marks}
-                                                        step={25}
-                                                        defaultValue={50}
+                                                        value={framework?.find(x => x.name === 'react').value}
                                                         valueLabelDisplay="on"
                                                         valueLabelFormat={() => {
                                                             return (
@@ -440,19 +604,18 @@ export default function About() {
                                                     />
                                                 </Grid>
                                                 <Grid item>
-                                                    <Typography variant="h6" component="div">
-                                                        Express JS
+                                                    <Typography variant="body1" component="div">
+                                                        Express
                                                     </Typography>
                                                     <IOSSlider
                                                         aria-label="ios slider"
                                                         marks={marks}
-                                                        step={25}
-                                                        defaultValue={50}
+                                                        value={framework?.find(x => x.name === 'express').value}
                                                         valueLabelDisplay="on"
                                                         valueLabelFormat={() => {
                                                             return (
                                                                 <div style={{ textAlign: "center", transform: 'translateY(10px)' }}>
-                                                                    <img src="assets/icon/node.svg" height='50px' width='50px' alt="" />
+                                                                    <img src="assets/icon/expressjs.svg" height='40px' width='80px' alt="" />
                                                                 </div>
                                                             )
                                                         }}
@@ -477,23 +640,20 @@ export default function About() {
                                             p: 1,
                                         },
                                     }}>
-                                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-                                        <FontAwesomeIcon icon="fas fa-box-open" fontSize={40} />
-                                        <Typography variant="h5" component="div">
-                                            Library
-                                        </Typography>
-                                    </Box>
+                                    <FontAwesomeIcon icon="fas fa-box-open" fontSize={40} />
+                                    <Typography variant="h5" component="div" ref={libraryRef}>
+                                        Library
+                                    </Typography>
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} sm container>
                                             <Grid item xs container direction="column" spacing={2}>
                                                 <Grid item>
-                                                    <Typography variant="h6" component="div">
+                                                    <Typography variant="body1" component="div">
                                                         Axios
                                                     </Typography>
                                                     <IOSSlider
                                                         aria-label="ios slider"
-                                                        defaultValue={50}
-                                                        step={25}
+                                                        value={library?.find(x => x.name === 'axios').value}
                                                         valueLabelDisplay="on"
                                                         marks={marks}
                                                         valueLabelFormat={() => {
@@ -506,32 +666,30 @@ export default function About() {
                                                     />
                                                 </Grid>
                                                 <Grid item>
-                                                    <Typography variant="h6" component="div">
+                                                    <Typography variant="body1" component="div">
                                                         Material UI
                                                     </Typography>
                                                     <IOSSlider
                                                         aria-label="ios slider"
-                                                        defaultValue={50}
-                                                        step={25}
+                                                        value={library?.find(x => x.name === 'mui').value}
                                                         valueLabelDisplay="on"
                                                         marks={marks}
                                                         valueLabelFormat={() => {
                                                             return (
                                                                 <div style={{ textAlign: "center", transform: 'translateY(10px)' }}>
-                                                                    <FontAwesomeIcon icon="fa-brands fa-npm" fontSize={30} />
+                                                                    <img src="assets/icon/mui.svg" height='40px' width='40px' alt="" />
                                                                 </div>
                                                             )
                                                         }}
                                                     />
                                                 </Grid>
                                                 <Grid item>
-                                                    <Typography variant="h6" component="div">
+                                                    <Typography variant="body1" component="div">
                                                         SCSS
                                                     </Typography>
                                                     <IOSSlider
                                                         aria-label="ios slider"
-                                                        defaultValue={50}
-                                                        step={25}
+                                                        value={library?.find(x => x.name === 'scss').value}
                                                         valueLabelDisplay="on"
                                                         marks={marks}
                                                         valueLabelFormat={() => {
@@ -562,23 +720,20 @@ export default function About() {
                                             p: 1,
                                         },
                                     }}>
-                                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-                                        <FontAwesomeIcon icon="fa-solid fa-screwdriver-wrench" fontSize={40} />
-                                        <Typography variant="h5" component="div">
-                                            Tool
-                                        </Typography>
-                                    </Box>
+                                    <FontAwesomeIcon icon="fa-solid fa-screwdriver-wrench" fontSize={40} />
+                                    <Typography variant="h5" component="div" ref={toolRef}>
+                                        Tool
+                                    </Typography>
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} sm container>
                                             <Grid item xs container direction="column" spacing={2}>
                                                 <Grid item>
-                                                    <Typography variant="h6" component="div">
+                                                    <Typography variant="body1" component="div">
                                                         Git
                                                     </Typography>
                                                     <IOSSlider
                                                         aria-label="ios slider"
-                                                        defaultValue={50}
-                                                        step={25}
+                                                        value={tool?.find(x => x.name === 'git').value}
                                                         valueLabelDisplay="on"
                                                         marks={marks}
                                                         valueLabelFormat={() => {
@@ -591,13 +746,12 @@ export default function About() {
                                                     />
                                                 </Grid>
                                                 <Grid item>
-                                                    <Typography variant="h6" component="div">
+                                                    <Typography variant="body1" component="div">
                                                         NPM
                                                     </Typography>
                                                     <IOSSlider
                                                         aria-label="ios slider"
-                                                        defaultValue={50}
-                                                        step={25}
+                                                        value={tool?.find(x => x.name === 'npm').value}
                                                         valueLabelDisplay="on"
                                                         marks={marks}
                                                         valueLabelFormat={() => {
@@ -610,19 +764,18 @@ export default function About() {
                                                     />
                                                 </Grid>
                                                 <Grid item>
-                                                    <Typography variant="h6" component="div">
-                                                        Babel
+                                                    <Typography variant="body1" component="div">
+                                                        Webpack
                                                     </Typography>
                                                     <IOSSlider
                                                         aria-label="ios slider"
-                                                        defaultValue={50}
-                                                        step={25}
+                                                        value={tool?.find(x => x.name === 'webpack').value}
                                                         valueLabelDisplay="on"
                                                         marks={marks}
                                                         valueLabelFormat={() => {
                                                             return (
                                                                 <div style={{ textAlign: "center", transform: 'translateY(10px)' }}>
-                                                                    <img src="assets/icon/babel.svg" height='50px' width='50px' alt="" />
+                                                                    <img src="assets/icon/webpack.svg" height='50px' width='50px' alt="" />
                                                                 </div>
                                                             )
                                                         }}

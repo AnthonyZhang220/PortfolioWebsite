@@ -1,4 +1,5 @@
 import React, { forwardRef, useEffect, useState } from 'react';
+import { useParams, useNavigate } from "react-router";
 import MusicPlayer from './MusicPlayer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -89,9 +90,11 @@ export default function Footer() {
     const [valid, setValid] = useState(true);
     const [openWeChat, setOpenWeChat] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [like, setLike] = useState(null);
-    const [fav, setFav] = useState(null);
+    const [like, setLike] = useState(1);
+    const [fav, setFav] = useState(1);
     const [isMobile, setIsMobile] = useState(false);
+
+    const params = useParams();
 
     const handleShare = () => {
 
@@ -144,11 +147,21 @@ export default function Footer() {
         setSuccess(false);
     }
 
-    const handleLike = () => {
+    const handleLike = async () => {
         setLike(like + 1);
+
+        await fetch(`http://localhost:5000/update/like`, {
+            method: 'POST',
+            body: like,
+        })
     }
-    const handleFav = () => {
+    const handleFav = async () => {
         setFav(fav + 1);
+
+        await fetch(`http://localhost:5000/update/fav`, {
+            method: 'POST',
+            body: fav,
+        })
     }
 
     const handleSave = () => {
@@ -164,8 +177,30 @@ export default function Footer() {
         setTimeout(() => {
             setLoading(false)
 
-        }, 5000)
+        }, 3000)
     }
+
+    useEffect(() => {
+        async function getCount() {
+            const response = await fetch("http://localhost:5000/count/");
+
+            if (!response.ok) {
+                const message = `An error occurred:${response.statusText}`
+                console.log(message)
+                return;
+            }
+            const count = await response.json();
+            console.log(count[0].like);
+
+
+            setLike(count[0].like);
+            setFav(count[0].fav);
+        }
+
+        getCount();
+
+        return;
+    }, [fav, like])
 
 
 
@@ -182,7 +217,7 @@ export default function Footer() {
                                     </Typography>
                                 </Box>
                                 <Box component='form'
-                                    sx={{ display: 'flex',justifyContent:'center' }}>
+                                    sx={{ display: 'flex', justifyContent: 'center' }}>
                                     <TextField
                                         error={!valid}
                                         hiddenLabel
