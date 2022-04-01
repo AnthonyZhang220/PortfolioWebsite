@@ -210,13 +210,13 @@ export default function Project(props) {
 
 
         if (open) {
-            document.getElementById('App').style.transform = 'scale(1)'
-            document.getElementById('App').style.transition = '0.5s'
+            document.getElementById('main').style.transform = 'scale(1)';
+            document.getElementById('main').style.transition = '0.5s';
         } else {
-            document.getElementById('App').style.transform = 'scale(0.9)';
-            document.getElementById('App').style.transition = '0.5s'
-
+            document.getElementById('main').style.transform = 'scale(0.9)';
+            document.getElementById('main').style.transition = '0.5s';
         }
+        
 
     };
 
