@@ -1,13 +1,17 @@
 @import "./global.scss";
+
 html{
 	scroll-behavior: smooth;
+	-webkit-font-smoothing:antialiased;
 }
 
 
 body {
-	background-color: $bg-color-light;
-
+	background-color: #121212;
+	overflow-x: hidden;
+	
 	.App {
+		background-color: $bg-color-light;
 		
 	}
 	// scrollbar-color: $mainColor2;

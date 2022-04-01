@@ -135,13 +135,18 @@ const Puller = styled(Box)(({ theme }) => ({
     left: 'calc(50% - 15px)',
 }));
 
-function DrawerComponent(props) {
-
-    return (
-        <Box {...props} />
-    );
-
-}
+const CloseButton = styled(Button)(({ theme }) => ({
+    color: '#212121',
+    backgroundColor: 'rgba(255, 255, 255, 0.98)',
+    filter: 'drop-shadow(rgba(0, 0, 0, 0.12) 0px 1px 3px)',
+    height: '2.5rem',
+    padding: '0px 2.5rem',
+    borderRadius: '1.25rem',
+    letterSpacing: '1px',
+    '&:hover': {
+        color: 'rgba(0, 0, 0, 0.65)',
+    },
+}));
 
 
 
@@ -151,7 +156,7 @@ export default function Project(props) {
 
     gsap.registerPlugin(ScrollTrigger);
 
-    const drawerBleeding = 56;
+    const drawerBleeding = 20;
 
 
     const projectRef = useRef();
@@ -159,8 +164,6 @@ export default function Project(props) {
     const [sharePage, setSharePage] = useState(false);
     const [shareId, setShareId] = useState(null);
 
-    const [projectDetailId, setProjectDetailId] = useState(null);
-    const [projectDetailPage, setProjectDetailPage] = useState(false);
     const [projectData, setProjectData] = useState({})
 
     const scrollerRef = useRef();
@@ -201,33 +204,21 @@ export default function Project(props) {
 
     const handleDrawerOpen = ({ id, title, subtitle, thumbnail, description, tech, WebsiteUrl, GitHubUrl, library, index }) => () => {
 
-        // setProjectDetailId(id);
-        // setProjectDetailPage(true);
         setOpen(!open);
         setProjectData({ id, title, subtitle, thumbnail, description, tech, WebsiteUrl, GitHubUrl, library, index });
+
+
+
+        if (open) {
+            document.getElementById('App').style.transform = 'scale(1)'
+            document.getElementById('App').style.transition = '0.5s'
+        } else {
+            document.getElementById('App').style.transform = 'scale(0.9)';
+            document.getElementById('App').style.transition = '0.5s'
+
+        }
+
     };
-    const handleDrawerClose = (newOpen) => (id) => {
-        setProjectDetailId(null);
-        setProjectDetailPage(false);
-        setOpen(newOpen);
-    };
-
-
-
-
-
-    // useEffect(() => {
-    //     gsap.to(listRef.current, {
-    //         x: () => -(listRef.current - document.documentElement.clientWidth) + 'px',
-    //         ease: 'none',
-    //         scrollTrigger: {
-    //             trigger: 'contact',
-    //             invalidateOnRefresh: true,
-    //             scrub: 1,
-    //             // end: () => "+=" + listRef.current.offsetWidth
-    //         }
-    //     })
-    // });
 
 
     return (
@@ -253,8 +244,8 @@ export default function Project(props) {
                                             sx={{
                                                 position: 'relative',
                                                 // backgroundColor: 'transparent',
-                                                width: 'auto',
-                                                height: 'auto',
+                                                width: '350px',
+                                                height: '450px',
                                                 marginRight: '20px',
                                                 transition: "all 0.3s cubic-bezier(0,0,.5,1)",
                                                 borderRadius: '20px',
@@ -268,20 +259,20 @@ export default function Project(props) {
                                             <CardMedia
                                                 component="img"
                                                 alt={title}
-                                                height="450"
+                                                height="450px"
+                                                width="350px"
                                                 image={thumbnail}
-                                                sx={{ borderRadius: '20px', boxShadow: "0px 4px 24px rgb(0 0 0 / 0.6)" }}
+                                                sx={{
+                                                    borderRadius: '20px',
+                                                    boxShadow: "0px 4px 24px rgb(0 0 0 / 0.6)",
+                                                    "&:hover": {
+                                                        transform: 'scale(1.05)',
+                                                        transition: 'transform 0.5s ease-out 0s',
+                                                        cursor: 'pointer'
+                                                    },
+                                                }}
+                                                onClick={handleDrawerOpen({ id, title, subtitle, thumbnail, description, tech, WebsiteUrl, GitHubUrl, library, index })}
                                             />
-                                            <CardActions disableSpacing >
-                                                <Button sx={{ m: 1 }} color="secondary" variant='outlined' size="medium" href={GitHubUrl} target='_blank'>GitHub</Button>
-                                                <Button sx={{ m: 1 }} color="secondary" variant='outlined' size="medium" href={WebsiteUrl} target='_blank' endIcon={<ForwardRoundedIcon />}>Website</Button>
-                                                <IconButton sx={{ m: 1 }} onClick={() => handleShareOpen()} >
-                                                    <ShareIcon></ShareIcon>
-                                                </IconButton>
-                                                <IconButton onClick={handleDrawerOpen({ id, title, subtitle, thumbnail, description, tech, WebsiteUrl, GitHubUrl, library, index })}>
-                                                    <FavoriteRoundedIcon></FavoriteRoundedIcon>
-                                                </IconButton>
-                                            </CardActions>
                                         </Card>
                                     </div>
                                     {/* share page */}
@@ -305,7 +296,6 @@ export default function Project(props) {
                                                         <FacebookShareButton url={WebsiteUrl} quote={title}>
                                                             <FacebookIcon round size={50} />
                                                         </FacebookShareButton>
-
                                                         <FacebookMessengerIcon round size={50} />
                                                         <LineShareButton url={WebsiteUrl}>
                                                             <LineIcon round size={50} />
@@ -402,11 +392,14 @@ export default function Project(props) {
                                     open={open}
                                     onClose={handleDrawerOpen(false)}
                                     onOpen={handleDrawerOpen(true)}
-                                    // swipeAreaWidth={drawerBleeding}
-                                    transitionDuration={500}
+                                    swipeAreaWidth={drawerBleeding}
                                     elevation={10}
-                                    DrawerComponent={DrawerComponent}
                                     projectData={projectData}
+                                    transitionDuration={{ enter: 1000, exit: 500 }}
+                                    disableSwipeToOpen={false}
+                                    BackdropProps={{
+
+                                    }}
                                 >
                                     <StyledBox
                                         sx={{
@@ -426,14 +419,16 @@ export default function Project(props) {
                                         <Puller />
                                         <CardContent>
                                             <Box sx={{ mx: 1 }}>
-                                                <Typography gutterBottom variant="body1" component="div">
-                                                    {projectData.title}
+                                                <Typography gutterBottom variant="h4" component="div">
+                                                    {
+                                                        projectData.title ? projectData.title : <Skeleton animation='wave' variant="rectangular" height={50} />
+                                                    }
                                                 </Typography>
-                                                <Typography gutterBottom variant="body2" component="div">
-                                                    {projectData.subtitle}
+                                                <Typography gutterBottom variant="h5" component="div">
+                                                    {projectData.subtitle ? projectData.subtitle : <Skeleton animation='wave' variant="rectangular" height={40} />}
                                                 </Typography>
-                                                <Typography variant="body2" color="text.secondary">
-                                                    {projectData.description}
+                                                <Typography variant="body1" color="text.secondary">
+                                                    {projectData.description ? projectData.description : <Skeleton animation='wave' variant="rectangular" height={150} />}
                                                 </Typography>
                                             </Box>
                                             <Divider variant='middle' />
@@ -442,11 +437,13 @@ export default function Project(props) {
                                                     Technology used
                                                 </Typography>
                                                 <Stack direction='row' spacing={2}>
-                                                    {projectData.tech?.map(techUrl => (
-                                                        <Icon key={projectData.index} fontSize='large'>
-                                                            <img className={classes.imageIcon} src={techUrl} alt='' />
-                                                        </Icon>
-                                                    ))}
+                                                    {
+                                                        projectData.tech ? projectData.tech.map(techUrl => (
+                                                            <Icon key={projectData.index} fontSize='48px'>
+                                                                <img className={classes.imageIcon} src={techUrl} alt='' />
+                                                            </Icon>
+                                                        )) : <Skeleton animation='wave' variant="circle" />
+                                                    }
                                                 </Stack>
                                             </Box>
                                             <Divider variant="middle" />
@@ -455,13 +452,25 @@ export default function Project(props) {
                                                     Library used
                                                 </Typography>
                                                 <Stack direction='row' spacing={1}>
-                                                    {projectData.library?.map(lib => (
+                                                    {projectData.library ? projectData.library.map(lib => (
                                                         <Chip label={lib} key={projectData.index} />
-                                                    ))}
+                                                    )) : <Skeleton animation='wave' variant="circle" />
+                                                    }
                                                 </Stack>
                                             </Box>
                                             <Divider variant='middle' />
                                         </CardContent>
+                                        <CardActions disableSpacing >
+                                            <Button sx={{ m: 1 }} color="secondary" variant='outlined' size="medium" href={projectData.GitHubUrl} target='_blank'>GitHub</Button>
+                                            <Button sx={{ m: 1 }} color="secondary" variant='outlined' size="medium" href={projectData.WebsiteUrl} target='_blank' endIcon={<ForwardRoundedIcon />}>Website</Button>
+                                            <IconButton sx={{ m: 1 }} onClick={() => handleShareOpen(projectData.id)} >
+                                                <ShareIcon></ShareIcon>
+                                            </IconButton>
+                                            <IconButton>
+                                                <FavoriteRoundedIcon></FavoriteRoundedIcon>
+                                            </IconButton>
+                                        </CardActions>
+                                        <CloseButton sx={{ position: 'absolute', bottom: '10px', transform: 'translate(-50%,0)', left: '50%' }} size='large' onClick={handleDrawerOpen(false)}>Close</CloseButton>
                                     </StyledBox>
                                 </SwipeableDrawer>
                             </Root>
