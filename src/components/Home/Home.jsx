@@ -23,7 +23,7 @@ export default function Home() {
     const introRef = useRef(null);
     const hiRef = useRef(null);
     const happyRef = useRef(null);
-    const sphereRef = useRef();
+    const sphereRef = useRef(null);
 
     const learnmoreRef = useRef(null);
     gsap.registerPlugin(ScrollToPlugin);
@@ -111,118 +111,124 @@ export default function Home() {
     }, [])
 
     //particles sphere animation
-    // useEffect(() => {
-    //     const scene = new THREE.Scene();
-    //     document.addEventListener("mousemove", onMouseMove, false);
-    //     const camera = new THREE.PerspectiveCamera(
-    //         75,
-    //         window.innerWidth / window.innerHeight,
-    //         0.1,
-    //         100
-    //     );
-    //     let mouseX;
-    //     let mouseY;
+    useEffect(() => {
+        const scene = new THREE.Scene();
+        document.addEventListener("mousemove", onMouseMove, false);
+        const camera = new THREE.PerspectiveCamera(
+            75,
+            window.innerWidth / window.innerHeight,
+            0.1,
+            1000
+        );
+        let mouseX;
+        let mouseY;
 
-    //     const renderer = new THREE.WebGLRenderer();
-    //     renderer.setClearColor(0xffffff, 0);
-    //     renderer.setSize(window.innerWidth, window.innerHeight);
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setClearColor(0xffffff, 1);
+        renderer.setSize(window.innerWidth, window.innerHeight);
 
-    //     sphereRef.current.appendChild(renderer.domElement);
+        sphereRef.current.appendChild(renderer.domElement);
+        // document.body.appendChild(renderer.domElement);
 
-    //     window.addEventListener("resize", function () {
-    //         camera.aspect = window.innerWidth / window.innerHeight;
-    //         camera.updateProjectionMatrix();
-    //         renderer.setSize(window.innerWidth, window.innerHeight);
-    //     });
+        window.addEventListener("resize", function () {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
 
-    //     const distance = Math.min(200, window.innerWidth / 4);
-    //     const geometry = new THREE.BufferGeometry();
+        const distance = Math.min(200, window.innerWidth / 4);
+        const geometry = new THREE.BufferGeometry();
 
-    //     for (let i = 0; i < 1600; i++) {
-    //         var vertex = new THREE.Vector3();
+        for (let i = 0; i < 1600; i++) {
+            var vertex = new THREE.Vector3();
 
-    //         // var theta = THREE.Math.randFloatSpread(360);
-    //         var theta = Math.acos(THREE.Math.randFloatSpread(2));
-    //         var phi = THREE.Math.randFloatSpread(360);
+            // var theta = THREE.Math.randFloatSpread(360);
+            var theta = Math.acos(THREE.Math.randFloatSpread(2));
+            var phi = THREE.Math.randFloatSpread(360);
 
-    //         vertex.x = distance * Math.sin(theta) * Math.cos(phi);
-    //         vertex.y = distance * Math.sin(theta) * Math.sin(phi);
-    //         vertex.z = distance * Math.cos(theta);
+            vertex.x = distance * Math.sin(theta) * Math.cos(phi);
+            vertex.y = distance * Math.sin(theta) * Math.sin(phi);
+            vertex.z = distance * Math.cos(theta);
 
-    //         geometry.setFromPoints(vertex);
-    //         geometry.computeVertexNormals();
-    //     }
+            geometry.setFromPoints(vertex);
+            geometry.computeVertexNormals();
+        }
 
-    //     //setting particles color
-    //     var particles = new THREE.Points(
-    //         geometry,
-    //         new THREE.PointsMaterial({ color: 0xff44ff, size: 2 })
-    //     );
-    //     particles.boundingSphere = 50;
+        //setting particles color and size
+        var particles = new THREE.Points(
+            geometry,
+            new THREE.PointsMaterial({ color: 0x000000, size: 5 })
+        );
+        particles.boundingSphere = 50;
 
-    //     //adding particles to group for sphere
-    //     var renderingParent = new THREE.Group();
-    //     renderingParent.add(particles);
+        //adding particles to group for sphere
+        var renderingParent = new THREE.Group();
+        renderingParent.add(particles);
 
-    //     var resizeContainer = new THREE.Group();
-    //     resizeContainer.add(renderingParent);
-    //     scene.add(resizeContainer);
+        var resizeContainer = new THREE.Group();
+        resizeContainer.add(renderingParent);
+        scene.add(resizeContainer);
 
-    //     camera.position.z = 400;
 
-    //     var animate = function () {
-    //         requestAnimationFrame(animate);
-    //         renderer.render(scene, camera);
-    //     };
+        camera.position.z = 200;
+        scene.add(camera);
 
-    //     var myTween;
 
-    //     function onMouseMove(event) {
-    //         if (myTween) myTween.kill();
+        var animate = function () {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        };
 
-    //         mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-    //         mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-    //         myTween = gsap.to(particles.rotation, {
-    //             duration: 0.1,
-    //             x: mouseY * -1,
-    //             y: mouseX,
-    //         });
-    //         //particles.rotation.x = mouseY*-1;
-    //         //particles.rotation.y = mouseX;
-    //     }
+        var myTween;
 
-    //     animate();
+        function onMouseMove(event) {
+            if (myTween) myTween.kill();
 
-    //     // Scaling animation
-    //     var animProps = { scale: 1, xRot: 0, yRot: 0 };
+            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+            myTween = gsap.to(particles.rotation, {
+                duration: 0.1,
+                x: mouseY * -1,
+                y: mouseX,
+            });
+            //particles.rotation.x = mouseY*-1;
+            //particles.rotation.y = mouseX;
+        }
 
-    //     gsap.to(animProps, {
-    //         duration: 10,
-    //         scale: 1.3,
-    //         repeat: -1,
-    //         yoyo: true,
-    //         ease: "sine",
-    //         onUpdate: function () {
-    //             renderingParent.scale.set(
-    //                 animProps.scale,
-    //                 animProps.scale,
-    //                 animProps.scale
-    //             );
-    //         },
-    //     });
+        animate();
 
-    //     gsap.to(animProps, {
-    //         duration: 120,
-    //         xRot: Math.PI * 2,
-    //         yRot: Math.PI * 4,
-    //         repeat: -1,
-    //         yoyo: true,
-    //         ease: "none",
-    //         onUpdate: function () {
-    //             renderingParent.rotation.set(animProps.xRot, animProps.yRot, 0);
-    //         },
-    //     });
-    // })
+        return () => sphereRef.current.removeChild(renderer.domElement);
+
+        // Scaling animation
+        // var animProps = { scale: 1, xRot: 0, yRot: 0 };
+
+        // gsap.to(animProps, {
+        //     duration: 10,
+        //     scale: 1.3,
+        //     repeat: -1,
+        //     yoyo: true,
+        //     ease: "sine",
+        //     onUpdate: function () {
+        //         renderingParent.scale.set(
+        //             animProps.scale,
+        //             animProps.scale,
+        //             animProps.scale
+        //         );
+        //     },
+        // });
+
+        // gsap.to(animProps, {
+        //     duration: 120,
+        //     xRot: Math.PI * 2,
+        //     yRot: Math.PI * 4,
+        //     repeat: -1,
+        //     yoyo: true,
+        //     ease: "none",
+        //     onUpdate: function () {
+        //         renderingParent.rotation.set(animProps.xRot, animProps.yRot, 0);
+        //     },
+        // });
+    })
 
 
 
@@ -235,8 +241,8 @@ export default function Home() {
             </div>
             <div className="mid" ref={midRef}>
                 <div className="wrapper">
+                    <div className="sphere" id='sphere' ref={sphereRef}></div>
                     <div className="top-spacing"></div>
-                    {/* <div className="sphere" id='sphere' ref={sphereRef}></div> */}
                     <div className="greetings">
                         {/* <h2>Hi, I'm</h2> */}
                         <h2>Hi! I'm Anthony...</h2>
