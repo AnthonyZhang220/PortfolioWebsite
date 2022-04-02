@@ -53,7 +53,6 @@
 						padding-bottom: 20px;
 						padding-left: calc(max(22px, env(safe-area-inset-left)));
 						transform: translateX(calc(max(1024px, 100vw) / 2 - 490px));
-
 					}
 				}
 			}
@@ -94,16 +93,16 @@
 			}
 		}
 	}
-	
+
 	.card-scroller-content::-webkit-scrollbar {
 		width: 0;
 	}
-	
+
 	.card-scroller-crop:hover + .scroller-button .button {
 		transform: scale(1);
 		opacity: 1;
 	}
-	
+
 	.scroller-button .button:hover {
 		transform: scale(1);
 		opacity: 1;

@@ -47,7 +47,7 @@ export const projectdata = [
 			`${iconpath}react.png`,
 			`${iconpath}material-ui.png`,
 		],
-		library: [""],
+		library: ["Tailwind"],
 		WebsiteUrl: "https://tripadvisorclone.netlify.app/",
 		GitHubUrl: "https://github.com/AnthonyZhang220/travel-advisor",
 	},
@@ -85,6 +85,7 @@ export const projectdata = [
 		library: ["Express.js"],
 		WebsiteUrl: "https://rapidapi.com/anthonyzhang1997-oQBo4LhQyTx/api/explore-amazon",
 		GitHubUrl: "https://github.com/AnthonyZhang220/Find_GPU_API",
+		role:''
 	},
 	{
 		id: 6,

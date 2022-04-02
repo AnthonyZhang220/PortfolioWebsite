@@ -44,6 +44,7 @@
     "react-swipeable-views": "^0.14.0",
     "request": "^2.88.2",
     "sass": "^1.44.0",
+    "three": "^0.139.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {

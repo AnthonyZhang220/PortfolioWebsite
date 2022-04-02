@@ -384,7 +384,7 @@ export default function About() {
                                     m: 2,
                                 },
                             }}>
-                                <Typography align='center' variant='h6' gutterBottom>
+                                <Typography align='center' variant='h5' gutterBottom sx={{ lineHeight: '2' }}>
                                     {aboutText.find(({ item }) => item === value).text}
                                 </Typography>
                             </Box>

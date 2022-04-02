@@ -186,12 +186,9 @@ export default function Footer() {
 
             if (!response.ok) {
                 const message = `An error occurred:${response.statusText}`
-                console.log(message)
                 return;
             }
             const count = await response.json();
-            console.log(count[0].like);
-
 
             setLike(count[0].like);
             setFav(count[0].fav);
