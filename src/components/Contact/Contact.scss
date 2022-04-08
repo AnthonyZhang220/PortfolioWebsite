@@ -68,3 +68,14 @@
 		}
 	}
 }
+
+@media screen and (max-width: 843px) {
+	.contact {
+		.contact-title {
+			font-size: 1.25em;
+			.contact-subtitle {
+				font-size: 1.25em;
+			}
+		}
+	}
+}

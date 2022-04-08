@@ -10,13 +10,13 @@
 	.hi,
 	.happy {
 		position: fixed;
-		top: 50%;
 		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -70%);
 		color: inherit;
-		transform: translate(-50%, -100%);
-		font-size: 60px;
+		font-size: 50px;
 		opacity: 0;
-		z-index: -10;
+		z-index: -1;
 	}
 
 	.top {
@@ -57,7 +57,7 @@
 	}
 
 	.mid {
-		flex: 0.4;
+		flex: 0.5;
 		z-index: $second-layer;
 
 		.wrapper {
@@ -74,8 +74,8 @@
 				position: absolute;
 				margin: 0;
 				padding: 0;
-				z-index: 0;
-				
+				z-index: -1;
+
 				canvas {
 					width: 100%;
 					height: 100%;
@@ -87,7 +87,7 @@
 			}
 
 			.greetings {
-				flex: 0.5;
+				flex: 0.7;
 				display: flex;
 				flex-direction: column;
 				align-items: center;
@@ -272,6 +272,40 @@
 					}
 				}
 			}
+		}
+	}
+}
+
+@media screen and (max-width: 763px) {
+	.sphere {
+		display: none;
+	}
+}
+@media screen and (max-width: 834px) {
+	.home {
+		.mid {
+			.wrapper {
+				.greetings {
+					h2 {
+						font-size: 50px;
+					}
+
+					h3 {
+						font-size: 35px;
+					}
+					h4 {
+						font-size: 25px;
+					}
+				}
+			}
+		}
+	}
+}
+@media screen and (max-width: 400px) {
+	.home {
+		.hi,
+		.happy {
+			font-size: 30px;
 		}
 	}
 }

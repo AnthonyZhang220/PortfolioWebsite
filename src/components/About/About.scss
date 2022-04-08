@@ -87,18 +87,33 @@
 				.skill-paper {
 					width: 350px;
 				}
-
 			}
 		}
 	}
 }
-@media screen and (max-width: 833px) {
+@media screen and (max-width: 834px) {
 	.about {
+		.about-section {
+			.about-title {
+				font-size: 1.25em;
+				.about-subtitle {
+					font-size: 1.25em;
+				}
+			}
+		}
 		.skill-section {
-			.technology {
-				.categories {
-					.skill-paper {
-						width: 320px;
+			.title-skills {
+				font-size: 1.25em;
+
+				span {
+					font-size: 1.25em;
+				}
+
+				.technology {
+					.categories {
+						.skill-paper {
+							width: 320px;
+						}
 					}
 				}
 			}

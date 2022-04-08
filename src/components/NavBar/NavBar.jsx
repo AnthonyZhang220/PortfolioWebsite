@@ -39,7 +39,8 @@ export default function NavBar({ mode, setMode }) {
     gsap.registerPlugin(ScrollToPlugin);
     gsap.registerPlugin(ScrollTrigger);
 
-    const navRef = useRef(null);
+    const leftNavRef = useRef(null);
+    const rightNavRef = useRef(null);
     const midRef = useRef(null);
     // const [toggle, setToggle] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
@@ -56,7 +57,7 @@ export default function NavBar({ mode, setMode }) {
                 }
             })
                 //landing animation from top for navbar
-                .fromTo(navRef.current, { y: '-100%', opacity: 0 }, { delay: 4, y: "0%", opacity: 1, duration: 1 })
+                .fromTo([leftNavRef.current, rightNavRef.current], { y: '-100%', opacity: 0 }, { delay: 4, y: "0%", opacity: 1, duration: 1 })
 
             navTl.play();
         }
@@ -92,100 +93,95 @@ export default function NavBar({ mode, setMode }) {
         setIsOpen(!isOpen);
 
         if (!isOpen) {
-            document.getElementById('main').style.transition = "all 1s ease-in-out";
+            document.getElementById('main').style.transition = "opacity 0.5s";
             document.getElementById('main').style.opacity = 0;
-            // document.getElementById('menu-drawer').style.opacity = 1;
-            // document.getElementById('menu-drawer').style.transition = "all 3s ease-in-out";
+            document.getElementById('menu-drawer').style.opacity = 1;
+            document.getElementById('menu-drawer').style.transition = "opacity 1s";
         }
 
         if (isOpen) {
-            document.getElementById('main').style.transition = "all 1s ease-in-out";
+            document.getElementById('main').style.transition = "opacity 0.5s";
             document.getElementById('main').style.opacity = 1;
-            // document.getElementById('menu-drawer').style.opacity = 0;
-            // document.getElementById('menu-drawer').style.transition = "all 3s ease-in-out";
+            document.getElementById('menu-drawer').style.opacity = 0;
+            document.getElementById('menu-drawer').style.transition = "opacity 1s";
         }
     };
 
 
     return (
-        <nav className='navbar' ref={navRef}>
-            <div className="left">
+        <nav className='navbar' >
+            <div className="left" ref={leftNavRef}>
                 <div className='logo'>
-                    <a href="."><img src="/assets/az_logo.png" alt="logo" width='80px' height='80px' /></a>
+                    <HashLink to='.'>
+                        <img src="/assets/az_logo.png" alt="logo" width='80px' height='80px' />
+                    </HashLink>
                 </div>
                 <div className="left-spacing"></div>
             </div>
-            <div className="right">
+            <div className="right" ref={rightNavRef}>
                 <div className="right-spacing">
                 </div>
                 <div className="icon">
                     <div className="menubar">
+
                         {
-                            <React.Fragment >
-                                {
-                                    isOpen ?
-                                        <IconButton onClick={toggleDrawer(false)} color='black'>
-                                            <CloseRoundedIcon sx={{ fontSize: 50 }} />
-                                        </IconButton>
-                                        :
-                                        <IconButton onClick={toggleDrawer(true)} color='black' >
-                                            <MenuIcon sx={{ fontSize: 50 }} />
-                                        </IconButton>
-                                }
-                                <SwipeableDrawer
-                                    className='menu-drawer'
-                                    id="menu-drawer"
-                                    anchor='top'
-                                    open={isOpen}
-                                    onClose={toggleDrawer(false)}
-                                    onOpen={toggleDrawer(true)}
-                                    transitionDuration={0}
-                                    variant='persistent'
-                                    sx={{
-                                        '&.MuiDrawer-root > .MuiPaper-root': {
-                                            backgroundColor: 'transparent',
-                                            ml: '100px',
-                                            mr: '100px',
-                                            height: '100vh',
-                                            width: 'auto',
-                                        },
-                                    }}
-                                >
-                                    <Box
-                                        className="menu-drawer-box"
-                                        id="menu-drawer-box"
-                                        role="presentation"
-                                        onClick={toggleDrawer(false)}
-                                        onKeyDown={toggleDrawer(false)}
-                                    // className={classes.content}
-                                    >
-                                        <Box
-                                            sx={{ height: 100, fontSize: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                                        >
-                                        </Box>
-                                        <List sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
-                                            <ListItem divider sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }} component={HashLink} to='/#home'>
-                                                <IconButton>
-                                                    <HomeRoundedIcon sx={{ fontSize: 50 }} />
-                                                </IconButton>
-                                            </ListItem>
-                                            {['about', 'project', 'contact'].map((text, index) => (
-                                                <ListItem button sx={{ height: 100 }} key={text} alignItems="center" component={HashLink} to={`/#${text}`} >
-                                                    <Divider light variant="normal" />
-                                                    <ListItemText disableTypography primary={<Typography variant="h5" sx={{ letterSpacing: 5 }}>{text.toUpperCase()}</Typography>} sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }} />
-                                                </ListItem>
-                                            ))}
-                                            <ListItem button sx={{ height: 100 }} alignItems="center" component={HashLink} to='/blogs' >
-                                                <ListItemText disableTypography primary={<Typography variant="h5" sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', letterSpacing: 5 }}>BLOG</Typography>} />
-                                            </ListItem>
-                                        </List>
-                                    </Box>
-                                </SwipeableDrawer>
-                            </React.Fragment>
+                            isOpen ?
+                                <IconButton onClick={toggleDrawer(false)} color='black'>
+                                    <CloseRoundedIcon sx={{ fontSize: 50 }} />
+                                </IconButton>
+                                :
+                                <IconButton onClick={toggleDrawer(true)} color='black' >
+                                    <MenuIcon sx={{ fontSize: 50 }} />
+                                </IconButton>
                         }
                     </div>
                 </div>
             </div >
+            <SwipeableDrawer
+                className='menu-drawer'
+                id="menu-drawer"
+                anchor='top'
+                open={isOpen}
+                onClose={toggleDrawer(false)}
+                onOpen={toggleDrawer(true)}
+                transitionDuration={0}
+                variant='persistent'
+                sx={{
+                    '&.MuiDrawer-root > .MuiPaper-root': {
+                        backgroundColor: 'transparent',
+                        mt: '100px',
+                        mb: '100px',
+                        height: '100vh',
+                        width: 'auto',
+                    },
+                }}
+            >
+                <Box
+                    className="menu-drawer-box"
+                    id="menu-drawer-box"
+                    role="presentation"
+                    onClick={toggleDrawer(false)}
+                    onKeyDown={toggleDrawer(false)}
+                // className={classes.content}
+                >
+                    <List sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
+                        <ListItem divider sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }} component={HashLink} to='/#home'>
+                            <IconButton color="black">
+                                <HomeRoundedIcon sx={{ fontSize: 50 }} />
+                            </IconButton>
+                        </ListItem>
+                        {['project', 'about', 'skill', 'contact'].map((text, index) => (
+                            <ListItem button sx={{ height: 100 }} key={text} alignItems="center" component={HashLink} to={`/#${text}`} >
+                                <Divider light variant="normal" />
+                                <ListItemText disableTypography primary={<Typography variant="h5" sx={{ letterSpacing: 5 }}>{text.toUpperCase()}</Typography>} sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }} />
+                            </ListItem>
+                        ))}
+                        <ListItem button sx={{ height: 100 }} alignItems="center" component={HashLink} to='/blogs' >
+                            <ListItemText disableTypography primary={<Typography variant="h5" sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', letterSpacing: 5 }}>BLOG</Typography>} />
+                        </ListItem>
+                    </List>
+                </Box>
+            </SwipeableDrawer>
         </nav >
     )
 }

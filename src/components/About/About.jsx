@@ -394,7 +394,7 @@ export default function About() {
                     </div>
                 </div>
             </div>
-            <div className="skill-section" ref={skillRef}>
+            <div className="skill-section" ref={skillRef} id='skill'>
                 <div className="title-skills">
                     <h2>Skills.&nbsp;</h2>
                     <span>Technologies are always evolving, so am I.</span>

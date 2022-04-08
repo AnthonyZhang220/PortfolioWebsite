@@ -63,6 +63,7 @@ export default function Home() {
             .set(happyRef.current, { opacity: 0 })
 
 
+
         //home timeline
         const introTimeline = gsap.timeline({
             onComplete: () => {
@@ -161,7 +162,7 @@ export default function Home() {
         geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3))
 
         //setting material color and size
-        const material = new THREE.PointsMaterial({ color: 0xC0C0C0, size: 3});
+        const material = new THREE.PointsMaterial({ color: 0xC0C0C0, size: 3 });
         // var mesh = new THREE.Mesh(geometry, material);
 
 

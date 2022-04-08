@@ -54,10 +54,13 @@
 				align-items: center;
 				justify-content: center;
 				display: flex;
-				padding-top: 20px;
-				padding-bottom: 20px;
-				padding-right: 10px;
+				padding: 20px;
 			}
 		}
 	}
+
+	#menu-drawer {
+		opacity: 0;
+	}
 }
+

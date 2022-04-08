@@ -465,6 +465,16 @@ export default function Project(props) {
                                                             <ShareIcon></ShareIcon>
                                                         </IconButton>
                                                     </CardActions>
+                                                    <CardContent>
+                                                        <Box sx={{ m: 1 }}>
+                                                            <Typography gutterBottom variant="h5" color="text.secondary">
+                                                                OVERVIEW
+                                                            </Typography>
+                                                            <Typography gutterBottom variant="body1" color="text.secondary">
+                                                                {projectData.description ? projectData.description : <Skeleton animation='wave' variant="rectangular" height={150} />}
+                                                            </Typography>
+                                                        </Box>
+                                                    </CardContent>
                                                 </Grid>
                                                 {/* drawer top right */}
                                                 <Grid xs={12} md={6} item>
@@ -519,7 +529,7 @@ export default function Project(props) {
                                                         <Typography gutterBottom variant="body1" color="text.secondary">
                                                             {projectData.description ? projectData.description : <Skeleton animation='wave' variant="rectangular" height={150} />}
                                                         </Typography>
-                                                        <Box sx={{ m: 4 }}>
+                                                        <Box sx={{ p: 2 }}>
                                                             {projectData ?
                                                                 <CardMedia
                                                                     component="img"

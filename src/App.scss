@@ -11,9 +11,8 @@ body {
 
 	.App {
 		background-color: $bg-color-light;
-
 	}
-	
+
 	#canvas {
 		position: fixed;
 		z-index: 0;
@@ -89,3 +88,12 @@ body {
 		color: rgba(255, 255, 255, 0.87);
 	}
 }
+
+// @media screen and (max-width: 400px) {
+// 	h2 {
+// 		font-size: 1em;
+// 	}
+// 	span {
+// 		font-size: 1em;
+// 	}
+// }

@@ -18,19 +18,19 @@ function Main() {
 
     return (
         <main className="main" id="main">
-            <section className="panel bg-color">
+            <section className="panel bg-color" id='section1'>
                 <Home />
-            </section>
-            <section className="panel bg-color" id="section1">
-                <About />
             </section>
             <section className="panel bg-color" id="section2">
                 <Project />
             </section>
             <section className="panel bg-color" id="section3">
-                <Contact />
+                <About />
             </section>
             <section className="panel bg-color" id="section4">
+                <Contact />
+            </section>
+            <section className="panel bg-color" id="section5">
                 <Footer />
             </section>
         </main>
