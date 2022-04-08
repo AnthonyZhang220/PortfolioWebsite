@@ -61,7 +61,6 @@ import Modal from '@mui/material/Modal';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Drawer from '@mui/material/Drawer';
 import Skeleton from '@mui/material/Skeleton';
-import { Global } from "@emotion/react";
 import CssBaseline from "@mui/material/CssBaseline";
 import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
@@ -384,14 +383,6 @@ export default function Project(props) {
                             {/* swipeabledrawer */}
                             <Root>
                                 <CssBaseline />
-                                <Global
-                                    styles={{
-                                        '.MuiDrawer-root > .MuiPaper-root': {
-                                            height: `calc(90% - ${drawerBleeding}px)`,
-                                            overflow: 'visible',
-                                        },
-                                    }}
-                                />
                                 <SwipeableDrawer
                                     className={classes.drawer}
                                     anchor="bottom"
@@ -403,6 +394,12 @@ export default function Project(props) {
                                     projectData={projectData}
                                     transitionDuration={{ enter: 1000, exit: 500 }}
                                     disableSwipeToOpen={false}
+                                    sx={{
+                                        '&.MuiDrawer-root > .MuiPaper-root': {
+                                            height: `calc(90% - ${drawerBleeding}px)`,
+                                            overflow: 'visible',
+                                        },
+                                    }}
                                 >
                                     <StyledBox
                                         sx={{
@@ -416,7 +413,7 @@ export default function Project(props) {
                                         }}
                                     >
                                         <Puller />
-                                        <Typography sx={{ p: 2  }}></Typography>
+                                        <Typography sx={{ p: 2 }}></Typography>
                                     </StyledBox>
                                     <StyledBox
                                         sx={{
