@@ -4,7 +4,6 @@ import "./Canvas.scss";
 
 export default function Canvas() {
 	const backgroundRef = useRef(null);
-	const topRef = useRef(null);
 
 
 	useEffect(() => {
@@ -48,6 +47,7 @@ export default function Canvas() {
 
 				let circle = circleArray[i]
 
+				bgcontext.globalAlpha = 1;
 				bgcontext.beginPath();
 				bgcontext.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
 				// bgcontext.stroke();
@@ -57,6 +57,7 @@ export default function Canvas() {
 
 
 				if (i < circleInitialNum) {
+					bgcontext.globalAlpha = 1;
 					bgcontext.beginPath();
 					bgcontext.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
 					// bgcontext.stroke();
@@ -72,22 +73,25 @@ export default function Canvas() {
 			for (let i = 0; i < circleArray.length; i++) {
 				let circleI = circleArray[i];
 
-				if (distance(mouse, circleI) < 300) {
+				if (distance(mouse, circleI) < 400) {
 					bgcontext.lineTo(mouse.x, mouse.y);
 				}
 
 				for (let j = 0; j < circleArray.length; j++) {
 					let circleII = circleArray[j];
 
-					const ratio = distance(circleI, circleII) / 250 * 0.01;
+					const ratio = distance(circleI, circleII) / 400;
 
-					if (distance(circleI, circleII) < 250) {
+					if (distance(circleI, circleII) < 400) {
 						// bgcontext.globalAlpha = (1 / 150 * distance(circleI, circleII).toFixed(1));
 
 						// console.log(ratio)
+
+						bgcontext.globalAlpha = 1 - ratio;
+						bgcontext.strokeStyle = `rgb(192,192,192)`;
+						bgcontext.lineWidth = 1.5;
 						bgcontext.beginPath();
-						bgcontext.lineWidth = 2;
-						bgcontext.strokeStyle = `rgba(192,192,192,${ratio}})`;
+						// bgcontext.globalAlpha = ratio;
 						bgcontext.moveTo(circleI.x, circleI.y);
 						bgcontext.lineTo(circleII.x, circleII.y);
 						bgcontext.stroke();
@@ -120,7 +124,7 @@ export default function Canvas() {
 				circle.x += circle.dx;
 				circle.y += circle.dy;
 
-				let boundary = 50;
+				let	 boundary = 50;
 
 				if (circle.x < -boundary || circle.x > window.innerWidth + boundary) circle.dx = -circle.dx;
 				if (circle.y < -boundary || circle.y > window.innerHeight + boundary) circle.dy = -circle.dy;
@@ -136,6 +140,40 @@ export default function Canvas() {
 		})
 
 
+		//line animation with added circle
+		function lineAnimation(circleArray) {
+			//draw line
+			for (let i = 0; i < circleArray.length; i++) {
+				let circleI = circleArray[i];
+
+				if (distance(mouse, circleI) < 400) {
+					bgcontext.globalCompositeOperation = 'lighten';
+				}
+
+				for (let j = 0; j < circleArray.length; j++) {
+					let circleII = circleArray[j];
+					const ratio = distance(circleI, circleII) / 400;
+
+
+					if (distance(circleI, circleII) < 400) {
+						// bgcontext.globalAlpha = (1 / 150 * distance(circleI, circleII).toFixed(1));
+
+						// console.log(ratio)
+
+
+						bgcontext.globalAlpha = 1 - ratio;
+						bgcontext.strokeStyle = `rgb(102,56,192)`;
+						bgcontext.lineWidth = 4 - ratio * 1.5;
+						bgcontext.beginPath();
+						// bgcontext.globalAlpha = ratio;
+						bgcontext.moveTo(circleI.x, circleI.y);
+						bgcontext.lineTo(circleII.x, circleII.y);
+						bgcontext.stroke();
+					}
+				}
+			}
+		}
+
 		//click to add circle
 		window.addEventListener("click", function (event) {
 
@@ -148,6 +186,7 @@ export default function Canvas() {
 					dy: Math.random() - 0.5,
 				})
 			}
+			window.requestAnimationFrame(lineAnimation(circleArray))
 		})
 
 		//resize window
