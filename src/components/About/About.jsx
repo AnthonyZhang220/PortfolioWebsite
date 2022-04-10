@@ -29,11 +29,8 @@ import Tab from '@mui/material/Tab';
 import { ThemeProvider, styled } from '@mui/material/styles';
 import Tooltip from '@mui/material/Tooltip';
 import { useTheme } from '@mui/material/styles';
-
-
-
+import useMediaQuery from '@mui/material/useMediaQuery';
 import "./About.scss";
-import { Update } from '@material-ui/icons';
 
 
 library.add(fab);
@@ -105,6 +102,8 @@ const IOSSlider = styled(Slider)(({ theme }) => ({
 export default function About() {
     gsap.registerPlugin(ScrollTrigger);
     gsap.registerPlugin(ScrollToPlugin);
+
+    const matches = useMediaQuery('(max-width:600px)');
 
     const marks = [
         {

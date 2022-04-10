@@ -2,7 +2,7 @@ import "./Blog.scss";
 
 export default function Blog() {
     return (
-        <div className="blog">
+        <div className="blog" id="blog">
             <div className="left">
             </div>
             <div className="mid">

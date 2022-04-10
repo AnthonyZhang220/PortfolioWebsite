@@ -65,6 +65,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
 
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { createStyles, makeStyles } from "@material-ui/styles";
 import { styled } from '@mui/material/styles';
 import "./Project.scss"
@@ -155,6 +156,7 @@ const CloseButton = styled(Button)(({ theme }) => ({
 export default function Project(props) {
 
     const classes = useStyles();
+    const matches = useMediaQuery('(max-width:600px)');
 
     gsap.registerPlugin(ScrollTrigger);
 
@@ -247,8 +249,8 @@ export default function Project(props) {
                                             sx={{
                                                 position: 'relative',
                                                 // backgroundColor: 'transparent',
-                                                width: '350px',
-                                                height: '450px',
+                                                width: matches ? '275px' : '350px',
+                                                height: matches ? '400px' : '450px',
                                                 marginRight: '20px',
                                                 transition: "all 0.3s cubic-bezier(0,0,.5,1)",
                                                 borderRadius: '20px',
@@ -262,10 +264,10 @@ export default function Project(props) {
                                             <CardMedia
                                                 component="img"
                                                 alt={title}
-                                                height="450px"
-                                                width="350px"
                                                 image={thumbnail}
                                                 sx={{
+                                                    width: matches ? '275px' : '350px',
+                                                    height: matches ? '400px' : '450px',
                                                     borderRadius: '20px',
                                                     boxShadow: "0px 4px 24px rgb(0 0 0 / 0.6)",
                                                     "&:hover": {

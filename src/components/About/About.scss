@@ -108,12 +108,26 @@
 				span {
 					font-size: 1.25em;
 				}
+			}
 
-				.technology {
-					.categories {
-						.skill-paper {
-							width: 320px;
-						}
+			.technology {
+				.categories {
+					.skill-paper {
+						width: 320px;
+					}
+				}
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.about {
+		.skill-section {
+			.technology {
+				.categories {
+					.skill-paper {
+						width: 300px;
 					}
 				}
 			}

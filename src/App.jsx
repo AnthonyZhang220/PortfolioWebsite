@@ -85,7 +85,7 @@ function App() {
 				<CssBaseline />
 				<BrowserRouter>
 					<NavBar mode={mode} setMode={setMode} />
-					{/* <Canvas id="canvas"></Canvas> */}
+					<Canvas id="canvas"></Canvas>
 					<BackToTop className="backtotop" id='backtotop' ref={backtotopRef} onClick={backtotop}></BackToTop>
 					<Routes>
 						<Route path="/" element={<Main />} />

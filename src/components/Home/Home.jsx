@@ -112,134 +112,132 @@ export default function Home() {
     }, [])
 
     //particles sphere animation
-    useEffect(() => {
-        const scene = new THREE.Scene();
-        document.addEventListener("mousemove", onMouseMove, false);
-        const camera = new THREE.PerspectiveCamera(
-            75,
-            window.innerWidth / window.innerHeight,
-            0.1,
-            1000
-        );
-        let mouseX;
-        let mouseY;
+    // useEffect(() => {
+    //     const scene = new THREE.Scene();
+    //     document.addEventListener("mousemove", onMouseMove, false);
+    //     const camera = new THREE.PerspectiveCamera(
+    //         75,
+    //         window.innerWidth / window.innerHeight,
+    //         0.1,
+    //         1000
+    //     );
+    //     let mouseX;
+    //     let mouseY;
 
-        const renderer = new THREE.WebGLRenderer({ alpha: true });
-        renderer.setClearColor(0xffffff, 0);
-        renderer.setSize(window.innerWidth, window.innerHeight);
+    //     const renderer = new THREE.WebGLRenderer({ alpha: true });
+    //     renderer.setClearColor(0xffffff, 0);
+    //     renderer.setSize(window.innerWidth, window.innerHeight);
 
-        sphereRef.current.appendChild(renderer.domElement);
-        // document.body.appendChild(renderer.domElement);
+    //     sphereRef.current.appendChild(renderer.domElement);
+    //     // document.body.appendChild(renderer.domElement);
 
-        window.addEventListener("resize", function () {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
+    //     window.addEventListener("resize", function () {
+    //         camera.aspect = window.innerWidth / window.innerHeight;
+    //         camera.updateProjectionMatrix();
+    //         renderer.setSize(window.innerWidth, window.innerHeight);
+    //     });
 
-        const distance = Math.min(200, window.innerWidth / 4);
-        let vertices = [];
-        let theta, phi;
-        let x, y, z;
+    //     const dot = new THREE.TextureLoader().load('sphere-dot.png');
+    //     const distance = Math.min(200, window.innerWidth / 4);
+    //     let vertices = [];
+    //     let theta, phi;
+    //     let x, y, z;
 
-        // const vertex = new THREE.Vector3();
+    //     // const vertex = new THREE.Vector3();
 
-        for (let i = 0; i < 1600; i++) {
-            theta = Math.acos(THREE.Math.randFloatSpread(2));
-            phi = THREE.Math.randFloatSpread(360);
+    //     for (let i = 0; i < 1600; i++) {
+    //         theta = Math.acos(THREE.Math.randFloatSpread(2));
+    //         phi = THREE.Math.randFloatSpread(360);
 
-            // const theta = THREE.Math.randFloatSpread(360);
-            x = distance * Math.sin(theta) * Math.cos(phi);
-            y = distance * Math.sin(theta) * Math.sin(phi);
-            z = distance * Math.cos(theta);
+    //         // const theta = THREE.Math.randFloatSpread(360);
+    //         x = distance * Math.sin(theta) * Math.cos(phi);
+    //         y = distance * Math.sin(theta) * Math.sin(phi);
+    //         z = distance * Math.cos(theta);
 
-            vertices.push(x, y, z);
-        }
+    //         vertices.push(x, y, z);
+    //     }
 
-        console.log(vertices)
+    //     console.log(dot)
 
-        const geometry = new THREE.BufferGeometry();
-        geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3))
+    //     const geometry = new THREE.BufferGeometry();
+    //     geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3))
 
-        //setting material color and size
-        const material = new THREE.PointsMaterial({ color: 0xC0C0C0, size: 3 });
-        // var mesh = new THREE.Mesh(geometry, material);
+    //     //setting material color and size
+    //     const material = new THREE.PointsMaterial({ sizeAttenuation: true, size: 3, map: dot });
+    //     material.color.setHSL(0, 0, 0.75);
+    //     // var mesh = new THREE.Mesh(geometry, material);
 
+    //     const particles = new THREE.Points(geometry, material);
 
+    //     console.log(particles)
+    //     // particles.boundingSphere = 50;
 
-        const particles = new THREE.Points(geometry, material);
+    //     //adding particles to group for sphere
+    //     const renderingParent = new THREE.Group();
+    //     renderingParent.add(particles);
 
-        console.log(particles)
-        // particles.boundingSphere = 50;
+    //     const resizeContainer = new THREE.Group();
+    //     resizeContainer.add(renderingParent);
+    //     scene.add(resizeContainer);
 
-        //adding particles to group for sphere
-        const renderingParent = new THREE.Group();
-        renderingParent.add(particles);
-
-        const resizeContainer = new THREE.Group();
-        resizeContainer.add(renderingParent);
-        scene.add(resizeContainer);
-
-
-
-        camera.position.z = 500;
-        scene.add(camera);
+    //     camera.position.z = 500;
+    //     scene.add(camera);
 
 
 
-        const animate = function () {
-            requestAnimationFrame(animate);
-            renderer.render(scene, camera);
-        };
+    //     const animate = function () {
+    //         requestAnimationFrame(animate);
+    //         renderer.render(scene, camera);
+    //     };
 
-        var myTween;
+    //     var myTween;
 
-        function onMouseMove(event) {
-            if (myTween) myTween.kill();
+    //     function onMouseMove(event) {
+    //         if (myTween) myTween.kill();
 
-            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-            mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-            myTween = gsap.to(particles.rotation, {
-                duration: 0.1,
-                x: mouseY * -1,
-                y: mouseX,
-            });
-            //particles.rotation.x = mouseY*-1;
-            //particles.rotation.y = mouseX;
-        }
+    //         mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+    //         mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+    //         myTween = gsap.to(particles.rotation, {
+    //             duration: 0.1,
+    //             x: mouseY * -1,
+    //             y: mouseX,
+    //         });
+    //         //particles.rotation.x = mouseY*-1;
+    //         //particles.rotation.y = mouseX;
+    //     }
 
-        animate();
+    //     animate();
 
-        // Scaling animation
-        const animProps = { scale: 1, xRot: 0, yRot: 0 };
+    //     // Scaling animation
+    //     const animProps = { scale: 1, xRot: 0, yRot: 0 };
 
-        gsap.to(animProps, {
-            duration: 10,
-            scale: 1.3,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine",
-            onUpdate: function () {
-                renderingParent.scale.set(
-                    animProps.scale,
-                    animProps.scale,
-                    animProps.scale
-                );
-            },
-        });
+    //     gsap.to(animProps, {
+    //         duration: 10,
+    //         scale: 1.3,
+    //         repeat: -1,
+    //         yoyo: true,
+    //         ease: "sine",
+    //         onUpdate: function () {
+    //             renderingParent.scale.set(
+    //                 animProps.scale,
+    //                 animProps.scale,
+    //                 animProps.scale
+    //             );
+    //         },
+    //     });
 
-        gsap.to(animProps, {
-            duration: 120,
-            xRot: Math.PI * 2,
-            yRot: Math.PI * 4,
-            repeat: -1,
-            yoyo: true,
-            ease: "none",
-            onUpdate: function () {
-                renderingParent.rotation.set(animProps.xRot, animProps.yRot, 0);
-            },
-        });
-    })
+    //     gsap.to(animProps, {
+    //         duration: 120,
+    //         xRot: Math.PI * 2,
+    //         yRot: Math.PI * 4,
+    //         repeat: -1,
+    //         yoyo: true,
+    //         ease: "none",
+    //         onUpdate: function () {
+    //             renderingParent.rotation.set(animProps.xRot, animProps.yRot, 0);
+    //         },
+    //     });
+    // })
 
 
 

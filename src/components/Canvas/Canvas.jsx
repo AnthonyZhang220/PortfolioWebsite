@@ -9,54 +9,22 @@ export default function Canvas() {
 
 	useEffect(() => {
 		let background = backgroundRef.current;
-		let top = topRef.current;
 		let bgcontext = background.getContext("2d");
-		// let topcontext = top.getContext("2d");
-		let alpha = 0.5;
+		// let alpha = 0.5;
 
-		top.style.opacity = alpha;
-		background.globalAlpha = 1;
-
-		// bgcontext.drawImage(top,0,0);
-
-
+		// top.style.opacity = alpha;
 
 		background.width = window.innerWidth;
 		background.height = window.innerHeight;
 
-		// adjusting the scaling of the background
-		// const getPixelRatio = (bgcontext) => {
-		// 	let backingStore =
-		// 		bgcontext.backingStorePixelRatio ||
-		// 		bgcontext.webkitBackingStorePixelRatio ||
-		// 		bgcontext.mozBackingStorePixelRatio ||
-		// 		bgcontext.msBackingStorePixelRatio ||
-		// 		bgcontext.oBackingStorePixelRatio ||
-		// 		bgcontext.backingStorePixelRatio ||
-		// 		1;
-
-		// 	return (window.devicePixelRatio || 1) / backingStore;
-		// };
-		// let ratio = getPixelRatio(bgcontext);
-		// let width = getComputedStyle(background).getPropertyValue("width").slice(0, -2);
-		// let height = getComputedStyle(background)
-		// 	.getPropertyValue("height")
-		// 	.slice(0, -2);
-
-		// background.width = width * ratio;
-		// background.height = height * ratio;
-		// background.style.width = `${width}px`;
-		// background.style.height = `${height}px`;
-
-
 		//declar variable
-
 		//array that contains circles
 		let circleArray = []
 		//frames per second
 		// let FPS = 60;
 		//number of circles
 		let circleInitialNum = 15;
+		let circleMaxAllowed = 25;
 		let mouse = {
 			x: undefined,
 			y: undefined,
@@ -75,48 +43,58 @@ export default function Canvas() {
 
 		//draw
 		function draw() {
-
 			//draw circle
 			for (let i = 0; i < circleArray.length; i++) {
 
 				let circle = circleArray[i]
 
-
 				bgcontext.beginPath();
 				bgcontext.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
 				// bgcontext.stroke();
-				bgcontext.fillStyle = "rgb(192,192,192)";
+				bgcontext.fillStyle = "rgb(40,22,75)";
 				bgcontext.fill();
+
+
+
+				if (i < circleInitialNum) {
+					bgcontext.beginPath();
+					bgcontext.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
+					// bgcontext.stroke();
+					bgcontext.fillStyle = "rgb(192,192,192)";
+					bgcontext.fill();
+				}
+
 			};
 
 
 
 			//draw line
-			bgcontext.beginPath();
 			for (let i = 0; i < circleArray.length; i++) {
 				let circleI = circleArray[i];
-				// bgcontext.moveTo(circleI.x, circleI.y);
 
-				// if (distance(mouse, circleI) < 300) {
-				// 	bgcontext.lineTo(mouse.x, mouse.y);
-				// }
+				if (distance(mouse, circleI) < 300) {
+					bgcontext.lineTo(mouse.x, mouse.y);
+				}
 
 				for (let j = 0; j < circleArray.length; j++) {
 					let circleII = circleArray[j];
+
+					const ratio = distance(circleI, circleII) / 250 * 0.01;
+
 					if (distance(circleI, circleII) < 250) {
 						// bgcontext.globalAlpha = (1 / 150 * distance(circleI, circleII).toFixed(1));
 
+						// console.log(ratio)
+						bgcontext.beginPath();
+						bgcontext.lineWidth = 2;
+						bgcontext.strokeStyle = `rgba(192,192,192,${ratio}})`;
+						bgcontext.moveTo(circleI.x, circleI.y);
 						bgcontext.lineTo(circleII.x, circleII.y);
-
-						// bgcontext.globalAlpha = 0.5 - lineOpacity(circleI,circleII);
+						bgcontext.stroke();
 					}
 				}
 			}
 
-
-			bgcontext.lineWidth = 2;
-			bgcontext.strokeStyle = "rgb(192,192,192,0.5)";
-			bgcontext.stroke();
 		}
 
 
@@ -160,7 +138,8 @@ export default function Canvas() {
 
 		//click to add circle
 		window.addEventListener("click", function (event) {
-			if (circleArray.length < 25) {
+
+			if (circleArray.length < circleMaxAllowed) {
 				circleArray.push({
 					radius: Math.random() * 6 + 4,
 					x: event.clientX,
@@ -201,7 +180,6 @@ export default function Canvas() {
 	return (
 		<div className="canvas" id="canvas">
 			<canvas id="background" ref={backgroundRef}></canvas>
-			<canvas id="top" ref={topRef}></canvas>
 		</div>
 	);
 }
