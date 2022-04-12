@@ -32,7 +32,7 @@
 		padding-bottom: 30px;
 		margin-top: 20px;
 		width: 100%;
-		background-image: url("./map.png");
+		// background-image: url("./map.png");
 
 		.curved {
 			// position: absolute;
@@ -48,15 +48,9 @@
 			}
 		}
 
-		.illustation {
+		.form-background {
 			display: flex;
-			align-items: center;
-			justify-content: center;
-			flex: 0.5;
-
-			img {
-				object-fit: cover;
-			}
+			flex: 0.3;
 		}
 
 		.form-wrapper {

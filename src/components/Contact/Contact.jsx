@@ -247,10 +247,21 @@ export default function Contact() {
                 {/* <div className="illustration">
                     <img src="/assets/images/contact_bg.png" alt="contact_background_image" />
                 </div> */}
+                <div className='form-background'>
+                    <Paper elevation={4}
+                        square={true}
+                        sx={{
+                            backgroundColor: '#6638c0',
+                            width: mobile ? 300 : 400,
+                            height: mobile ? 300 : 400,
+                        }}>
+                    </Paper>
+                </div>
                 <div className="form-wrapper">
                     <Paper elevation={1}
+                        square={true}
                         sx={{
-                            width: mobile ? 300 : 400,
+                            width: mobile ? 300 : 540,
                             // borderRadius: '16px',
                             boxShadow: '0 3px 6px 0 rgb(23 25 51 / 8%), 0 16px 32px 0 rgb(23 25 51 / 10%);',
                             '& > :not(style)': {
@@ -262,7 +273,7 @@ export default function Contact() {
                         <Box
                             component="form"
                             sx={{
-                                display: 'flex',
+                                // display: 'flex',
                                 flexDirection: 'column',
                                 justifyContent: 'center',
                                 alignItems: 'center',
@@ -272,7 +283,7 @@ export default function Contact() {
                         >
                             {/* <div className="g-recaptcha" data-sitekey={process.env.REACT_APP_SITE_KEY}></div> */}
                             <TextField
-                                fullWidth
+                                // fullWidth
                                 required
                                 id="standard-basic"
                                 label="Name"
@@ -292,7 +303,7 @@ export default function Contact() {
                                 }}
                             />
                             <TextField
-                                fullWidth
+                                // fullWidth
                                 required
                                 id="outlined-textarea"
                                 type='email'
@@ -312,7 +323,7 @@ export default function Contact() {
                                 }}
                             />
                             <TextField
-                                fullWidth
+                                // fullWidth
                                 id="outlined-textarea"
                                 label="Phone Number"
                                 type='tel'
@@ -330,22 +341,8 @@ export default function Contact() {
                                     sx: { fontSize: '20px' }
                                 }}
                             />
-                            <FormControl>
-                                <FormLabel id="demo-controlled-radio-buttons-group" required>Intent</FormLabel>
-                                <RadioGroup
-                                    row
-                                    aria-labelledby="demo-controlled-radio-buttons-group"
-                                    name="controlled-radio-buttons-group"
-                                    value={input.intention}
-                                    onChange={e => setInput({ ...input, intention: e.target.value })}
-                                >
-                                    <FormControlLabel value="Collaborator" control={<Radio size='small' />} label="Collaborator" />
-                                    <FormControlLabel value="Recruitor" control={<Radio size='small' />} label="Recruitor" />
-                                    <FormControlLabel value="Other" control={<Radio size='small' />} label="Other(Please specify in message)" />
-                                </RadioGroup>
-                            </FormControl>
                             <TextField
-                                fullWidth
+                                // fullWidth
                                 id="outlined-textarea"
                                 type='date'
                                 label="Date"
@@ -362,6 +359,20 @@ export default function Contact() {
                                     sx: { fontSize: '20px' }
                                 }}
                             />
+                            <FormControl sx={{ p: 1 }}>
+                                <FormLabel id="demo-controlled-radio-buttons-group" required>Intent</FormLabel>
+                                <RadioGroup
+                                    row
+                                    aria-labelledby="demo-controlled-radio-buttons-group"
+                                    name="controlled-radio-buttons-group"
+                                    value={input.intention}
+                                    onChange={e => setInput({ ...input, intention: e.target.value })}
+                                >
+                                    <FormControlLabel value="Collaborator" control={<Radio size='small' />} label="Collaborator" />
+                                    <FormControlLabel value="Recruitor" control={<Radio size='small' />} label="Recruitor" />
+                                    <FormControlLabel value="Other" control={<Radio size='small' />} label="Other(Please specify in message)" />
+                                </RadioGroup>
+                            </FormControl>
                             <TextField
                                 fullWidth
                                 multiline
@@ -503,7 +514,7 @@ export default function Contact() {
                                                     variant="contained"
                                                     loading={loading}
                                                 >
-                                                    Submit
+                                                    Send
                                                 </LoadingButton>
                                                 <Snackbar open={error} autoHideDuration={2000} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
                                                     <Alert onClose={handleCloseError} severity="error" sx={{ width: '100%' }}>

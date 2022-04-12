@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -383,9 +384,13 @@ export default function About() {
                                     m: 2,
                                 },
                             }}>
-                                <Typography align='center' variant='h5' gutterBottom sx={{ lineHeight: '2' }}>
-                                    {aboutText.find(({ item }) => item === value).text}
-                                </Typography>
+                                <Card>
+                                    <CardContent>
+                                        <Typography align='center' variant='h5' gutterBottom sx={{ lineHeight: '2' }}>
+                                            {aboutText.find(({ item }) => item === value).text}
+                                        </Typography>
+                                    </CardContent>
+                                </Card>
                             </Box>
                         </Box>
                     </div>
