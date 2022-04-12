@@ -206,10 +206,10 @@ export default function Project(props) {
 
     const [open, setOpen] = useState(false);
 
-    const handleDrawerOpen = ({ id, title, subtitle, thumbnail, description, tech, WebsiteUrl, GitHubUrl, library, index }) => () => {
+    const handleDrawerOpen = ({ id, title, subtitle, thumbnail, overview, roles, tech, WebsiteUrl, GitHubUrl, library, index, process, results }) => () => {
 
         setOpen(!open);
-        setProjectData({ id, title, subtitle, thumbnail, description, tech, WebsiteUrl, GitHubUrl, library, index });
+        setProjectData({ id, title, subtitle, thumbnail, overview, roles, tech, WebsiteUrl, GitHubUrl, library, index, process, results });
 
 
 
@@ -237,7 +237,7 @@ export default function Project(props) {
                 <div className='card-scroller-crop'>
                     <div className="card-scroller-content" ref={scrollerRef}>
                         <div className="card-scroller-plater">
-                            {projectdata?.map(({ id, title, subtitle, thumbnail, description, tech, WebsiteUrl, GitHubUrl, library, index }) => (
+                            {projectdata?.map(({ id, title, subtitle, thumbnail, roles, overview, tech, WebsiteUrl, GitHubUrl, library, index, process, results, features }) => (
                                 <>
                                     {/* project card */}
                                     <div key={id} className='card'>
@@ -276,7 +276,7 @@ export default function Project(props) {
                                                         cursor: 'pointer'
                                                     },
                                                 }}
-                                                onClick={handleDrawerOpen({ id, title, subtitle, thumbnail, description, tech, WebsiteUrl, GitHubUrl, library, index })}
+                                                onClick={handleDrawerOpen({ id, title, subtitle, thumbnail, overview, roles, tech, WebsiteUrl, GitHubUrl, library, index, process, results, features })}
                                             />
                                         </Card>
                                     </div>
@@ -288,7 +288,7 @@ export default function Project(props) {
                                                 open={sharePage}
                                                 onClose={handleShareClose}
                                                 aria-labelledby="alert-dialog-title"
-                                                aria-describedby="alert-dialog-description"
+                                                aria-describedby="alert-dialog-overview"
                                             >
                                                 <Box sx={style}>
                                                     <Typography id="modal-modal-title" variant="h6" component="h2">
@@ -306,7 +306,7 @@ export default function Project(props) {
                                                             <LineIcon round size={50} />
                                                         </LineShareButton>
 
-                                                        <LinkedinShareButton url={WebsiteUrl} title={title} summary={description}>
+                                                        <LinkedinShareButton url={WebsiteUrl} title={title} summary={overview}>
                                                             <LinkedinIcon round size={50} />
                                                         </LinkedinShareButton>
 
@@ -333,7 +333,7 @@ export default function Project(props) {
                                                             <WhatsappIcon round size={50} />
                                                         </WhatsappShareButton>
 
-                                                        <WorkplaceShareButton url={WebsiteUrl} quote={description}>
+                                                        <WorkplaceShareButton url={WebsiteUrl} quote={overview}>
                                                             <WorkplaceIcon round size={50} />
                                                         </WorkplaceShareButton>
                                                     </Box>
@@ -460,20 +460,23 @@ export default function Project(props) {
                                                         </Box>
                                                         <Divider />
                                                     </CardContent>
-                                                    <CardActions disableSpacing >
-                                                        <Button sx={{ m: 1 }} color="secondary" variant='contained' size="medium" href={projectData.GitHubUrl} target='_blank'>GitHub</Button>
-                                                        <Button sx={{ m: 1 }} color="secondary" variant='contained' size="medium" href={projectData.WebsiteUrl} target='_blank' endIcon={<ForwardRoundedIcon />}>Website</Button>
-                                                        <IconButton sx={{ m: 1 }} onClick={() => handleShareOpen(projectData.id)} >
-                                                            <ShareIcon></ShareIcon>
-                                                        </IconButton>
+                                                    <CardActions>
+                                                        <Box sx={{ mx: 1 }}>
+                                                            <Button sx={{ m: 1 }} color="secondary" variant='contained' size="medium" href={projectData.GitHubUrl} target='_blank'>GitHub</Button>
+                                                            <Button sx={{ m: 1 }} color="secondary" variant='contained' size="medium" href={projectData.WebsiteUrl} target='_blank' endIcon={<ForwardRoundedIcon />}>Website</Button>
+                                                            <IconButton sx={{ m: 1 }} onClick={() => handleShareOpen(projectData.id)} >
+                                                                <ShareIcon></ShareIcon>
+                                                            </IconButton>
+                                                            <Divider />
+                                                        </Box>
                                                     </CardActions>
                                                     <CardContent>
-                                                        <Box sx={{ m: 1 }}>
+                                                        <Box sx={{ mx: 1 }}>
                                                             <Typography gutterBottom variant="h5" color="text.secondary">
                                                                 OVERVIEW
                                                             </Typography>
                                                             <Typography gutterBottom variant="body1" color="text.secondary">
-                                                                {projectData.description ? projectData.description : <Skeleton animation='wave' variant="rectangular" height={150} />}
+                                                                {projectData.overview ? projectData.overview : <Skeleton animation='wave' variant="rectangular" height={150} />}
                                                             </Typography>
                                                         </Box>
                                                     </CardContent>
@@ -485,9 +488,9 @@ export default function Project(props) {
                                                             <Typography gutterBottom variant="h6" color="text.secondary">
                                                                 ROLES
                                                             </Typography>
-                                                            <Stack direction='row' spacing={1}>
-                                                                {projectData.library ? projectData.library.map(lib => (
-                                                                    <Chip label={lib} key={projectData.index} />
+                                                            <Stack sx={{ flexWrap: 'wrap' }} alignItems='center' justifyContent='flex-start' direction='row' spacing={1}>
+                                                                {projectData.roles ? projectData.roles.map(role => (
+                                                                    <Chip style={{ fontSize: "18px" }} sx={{ m: 1 }} label={role} key={projectData.index} />
                                                                 )) : <Skeleton animation='wave' variant="circle" />
                                                                 }
                                                             </Stack>
@@ -497,10 +500,10 @@ export default function Project(props) {
                                                             <Typography gutterBottom variant="h6" color="text.secondary">
                                                                 TECHNOLOGY STACK
                                                             </Typography>
-                                                            <Stack direction='row' spacing={2}>
+                                                            <Stack sx={{ flexWrap: 'wrap' }} alignItems='center' justifyContent='flex-start' direction='row' spacing={1}>
                                                                 {
                                                                     projectData.tech ? projectData.tech.map(techUrl => (
-                                                                        <img className={classes.imageIcon} src={techUrl} alt={techUrl} />
+                                                                        <img className={classes.imageIcon} src={techUrl} alt={techUrl} height='48px' width='48px' />
                                                                     )) : <Skeleton animation='wave' variant="circle" />
                                                                 }
                                                             </Stack>
@@ -510,9 +513,9 @@ export default function Project(props) {
                                                             <Typography gutterBottom variant="h6" color="text.secondary">
                                                                 LIBRARY STACK
                                                             </Typography>
-                                                            <Stack direction='row' spacing={1}>
+                                                            <Stack sx={{ flexWrap: 'wrap' }} alignItems='center' justifyContent='flex-start' direction='row' spacing={1}>
                                                                 {projectData.library ? projectData.library.map(lib => (
-                                                                    <Chip label={lib} key={projectData.index} />
+                                                                    <Chip style={{ fontSize: "18px" }} label={lib} sx={{ m: 1 }} key={projectData.index} variant="outlined" />
                                                                 )) : <Skeleton animation='wave' variant="circle" />
                                                                 }
                                                             </Stack>
@@ -520,16 +523,16 @@ export default function Project(props) {
                                                     </CardContent>
                                                 </Grid>
                                             </Grid>
-                                            <Divider />
                                             {/* drawer bottom side */}
                                             <Box>
                                                 <CardContent>
+                                                    <Divider />
                                                     <Box sx={{ m: 1 }}>
                                                         <Typography gutterBottom variant="h5" color="text.secondary">
-                                                            OVERVIEW
+                                                            Features
                                                         </Typography>
                                                         <Typography gutterBottom variant="body1" color="text.secondary">
-                                                            {projectData.description ? projectData.description : <Skeleton animation='wave' variant="rectangular" height={150} />}
+                                                            {projectData.features ? projectData.features : <Skeleton animation='wave' variant="rectangular" height={150} />}
                                                         </Typography>
                                                         <Box sx={{ p: 2 }}>
                                                             {projectData ?
@@ -549,10 +552,10 @@ export default function Project(props) {
                                                     <CardContent>
                                                         <Box sx={{ m: 1 }}>
                                                             <Typography gutterBottom variant="h5" color="text.secondary">
-                                                                OVERVIEW
+                                                                PROCESS
                                                             </Typography>
                                                             <Typography gutterBottom variant="body1" color="text.secondary">
-                                                                {projectData.description ? projectData.description : <Skeleton animation='wave' variant="rectangular" height={150} />}
+                                                                {projectData.process ? projectData.process : <Skeleton animation='wave' variant="rectangular" height={150} />}
                                                             </Typography>
                                                         </Box>
                                                     </CardContent>
@@ -560,10 +563,10 @@ export default function Project(props) {
                                                     <CardContent>
                                                         <Box sx={{ m: 1 }}>
                                                             <Typography gutterBottom variant="h5" color="text.secondary">
-                                                                PROCESS
+                                                                RESULTS
                                                             </Typography>
                                                             <Typography gutterBottom variant="body1" color="text.secondary">
-                                                                {projectData.description ? projectData.description : <Skeleton animation='wave' variant="rectangular" height={150} />}
+                                                                {projectData.results ? projectData.results : <Skeleton animation='wave' variant="rectangular" height={150} />}
                                                             </Typography>
                                                         </Box>
                                                     </CardContent>

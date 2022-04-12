@@ -31,10 +31,17 @@ import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+
 
 import { styled } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 import "./Contact.scss"
+import { useMediaQuery } from '@mui/material';
 
 init(process.env.REACT_APP_USER_ID);
 
@@ -80,6 +87,7 @@ function PaperComponent(props) {
 export default function Contact() {
 
     const classes = useStyles();
+    const mobile = useMediaQuery('(max-width: 600px)');
 
     const steps = ['Confirm your info', 'Verify you are a human', 'Submit contact form'];
     const [activeStep, setActiveStep] = useState(1);
@@ -93,9 +101,9 @@ export default function Contact() {
         name: null,
         email: null,
         phone: null,
-        intention: 'Recruitor',
+        intention: "",
         date: null,
-        message: null,
+        message: "Hi, ",
     })
 
     const formRef = useRef();
@@ -123,6 +131,7 @@ export default function Contact() {
 
     const handleOnChange = (e) => {
 
+
         const { name, email, phone, date, message, intention, value } = e.target;
 
         setInput({
@@ -134,6 +143,8 @@ export default function Contact() {
             [date]: value,
             [message]: value,
         })
+        console.log(input.date)
+        console.log(typeof input.date)
     }
 
 
@@ -239,12 +250,13 @@ export default function Contact() {
                 <div className="form-wrapper">
                     <Paper elevation={1}
                         sx={{
-                            width: 400,
-                            borderRadius: '16px',
+                            width: mobile ? 300 : 400,
+                            // borderRadius: '16px',
                             boxShadow: '0 3px 6px 0 rgb(23 25 51 / 8%), 0 16px 32px 0 rgb(23 25 51 / 10%);',
                             '& > :not(style)': {
-                                m: 1,
-                                p: 4,
+                                m: 2,
+                                pl: 2,
+                                pr: 2,
                             },
                         }}>
                         <Box
@@ -260,23 +272,26 @@ export default function Contact() {
                         >
                             {/* <div className="g-recaptcha" data-sitekey={process.env.REACT_APP_SITE_KEY}></div> */}
                             <TextField
-                                size='small'
                                 fullWidth
                                 required
-                                id="outlined-textarea"
+                                id="standard-basic"
                                 label="Name"
                                 type='text'
                                 name='name'
                                 autoComplete='name'
                                 placeholder="Anthony Zhang"
-                                helperText='Please enter your name'
-                                onChange={handleOnChange}
+                                value={input.name}
+                                onChange={e => handleOnChange(e)}
+                                variant="standard"
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start"><AccountCircleIcon /></InputAdornment>,
+                                    sx: { p: 1 }
+                                }}
+                                InputLabelProps={{
+                                    sx: { fontSize: '20px' }
                                 }}
                             />
                             <TextField
-                                size='small'
                                 fullWidth
                                 required
                                 id="outlined-textarea"
@@ -284,15 +299,19 @@ export default function Contact() {
                                 name='email'
                                 label="Email"
                                 autoComplete='email'
-                                placeholder="anthonyzhang1997@gmail.com"
-                                helperText='Please enter your email'
-                                onChange={handleOnChange}
+                                placeholder="example@gmail.com"
+                                variant="standard"
+                                value={input.email}
+                                onChange={e => handleOnChange(e)}
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start"><EmailIcon /></InputAdornment>,
+                                    sx: { p: 1 }
+                                }}
+                                InputLabelProps={{
+                                    sx: { fontSize: '20px' }
                                 }}
                             />
                             <TextField
-                                size='small'
                                 fullWidth
                                 id="outlined-textarea"
                                 label="Phone Number"
@@ -300,65 +319,69 @@ export default function Contact() {
                                 name='phone'
                                 autoComplete='tel'
                                 placeholder="+1234567890"
-                                helperText='Please enter your phone number'
-                                onChange={handleOnChange}
+                                variant="standard"
+                                value={input.phone}
+                                onChange={e => handleOnChange(e)}
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start"><PhoneIphoneIcon /></InputAdornment>,
+                                    sx: { p: 1 }
+                                }}
+                                InputLabelProps={{
+                                    sx: { fontSize: '20px' }
                                 }}
                             />
+                            <FormControl>
+                                <FormLabel id="demo-controlled-radio-buttons-group" required>Intent</FormLabel>
+                                <RadioGroup
+                                    row
+                                    aria-labelledby="demo-controlled-radio-buttons-group"
+                                    name="controlled-radio-buttons-group"
+                                    value={input.intention}
+                                    onChange={e => setInput({ ...input, intention: e.target.value })}
+                                >
+                                    <FormControlLabel value="Collaborator" control={<Radio size='small' />} label="Collaborator" />
+                                    <FormControlLabel value="Recruitor" control={<Radio size='small' />} label="Recruitor" />
+                                    <FormControlLabel value="Other" control={<Radio size='small' />} label="Other(Please specify in message)" />
+                                </RadioGroup>
+                            </FormControl>
                             <TextField
-                                size='small'
-                                fullWidth
-                                required
-                                select
-                                id="outlined-select-currency"
-                                name='intention'
-                                label="Intent"
-                                value={input.intention}
-                                onChange={handleOnChange}
-                                helperText='You are?'
-                                InputProps={{
-                                    startAdornment: <InputAdornment position="start"><ConnectWithoutContactIcon /></InputAdornment>,
-                                }}
-                                SelectProps={{
-                                    renderValue: (value) => value,
-                                }}
-                            >
-                                <MenuItem value='Collaborator' divider={true}>Collaborator</MenuItem>
-                                <MenuItem value='Recruitor' divider={true}>Recruitor</MenuItem>
-                                <MenuItem value='Other'>Other(Please specify in message)</MenuItem>
-                            </TextField>
-                            <TextField
-                                size='small'
                                 fullWidth
                                 id="outlined-textarea"
                                 type='date'
                                 label="Date"
                                 name='date'
                                 placeholder=""
-                                helperText='Date'
-                                onChange={handleOnChange}
+                                value={input.date}
+                                onChange={e => handleOnChange(e)}
+                                variant="standard"
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start"><TodayIcon /></InputAdornment>,
+                                    sx: { p: 1 }
+                                }}
+                                InputLabelProps={{
+                                    sx: { fontSize: '20px' }
                                 }}
                             />
                             <TextField
-                                size='small'
                                 fullWidth
-                                required
                                 multiline
+                                required={input.intention === "Other" ? true : false}
                                 maxRows={5}
                                 id="outlined-helperText"
                                 label="Message"
                                 name='message'
-                                defaultValue={`Hi,`}
-                                helperText="Please leave a message"
-                                onChange={handleOnChange}
+                                variant="standard"
+                                value={input.message}
+                                onChange={e => handleOnChange(e)}
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start"><MessageIcon /></InputAdornment>,
+                                    sx: { p: 1 }
+                                }}
+                                InputLabelProps={{
+                                    sx: { fontSize: '20px' }
                                 }}
                             />
-                            <Box>
+                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 1 }}>
                                 <Button onClick={handleClickOpen} variant="outlined">Submit</Button>
                             </Box>
                         </Box>
@@ -384,7 +407,7 @@ export default function Contact() {
                         </Box>
                         <DialogContent>
                             <DialogContentText>
-                                <Box sx={{ flexGrow: 5, overflow: "hidden", px: 2 }}>
+                                <Box sx={{ flexGrow: 1, overflow: "hidden", px: 1 }}>
                                     <Paper sx={{ maxWidth: 400, my: 1, mx: 'auto', p: 1 }}>
                                         <Grid container wrap="nowrap" spacing={2}>
                                             <Grid item>
@@ -400,7 +423,7 @@ export default function Contact() {
                                             <Grid item>
                                                 <EmailIcon />
                                             </Grid>
-                                            <Grid item xs>
+                                            <Grid item xs zeroMinWidth>
                                                 <Typography noWrap>Email: {input.email}</Typography>
                                             </Grid>
                                         </Grid>
@@ -410,7 +433,7 @@ export default function Contact() {
                                             <Grid item>
                                                 <PhoneIphoneIcon />
                                             </Grid>
-                                            <Grid item xs>
+                                            <Grid item xs zeroMinWidth>
                                                 <Typography noWrap>Phone: {input.phone}</Typography>
                                             </Grid>
                                         </Grid>
@@ -420,7 +443,7 @@ export default function Contact() {
                                             <Grid item>
                                                 <ConnectWithoutContactIcon />
                                             </Grid>
-                                            <Grid item xs>
+                                            <Grid item xs zeroMinWidth>
                                                 <Typography noWrap>Intent: {input.intention}</Typography>
                                             </Grid>
                                         </Grid>

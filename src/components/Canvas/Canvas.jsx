@@ -23,7 +23,7 @@ export default function Canvas() {
 		// let FPS = 60;
 		//number of circles
 		let circleInitialNum = 15;
-		let circleMaxAllowed = 25;
+		let circleMaxAllowed = 30;
 		let mouse = {
 			x: undefined,
 			y: undefined,
@@ -47,23 +47,23 @@ export default function Canvas() {
 
 				let circle = circleArray[i]
 
+				if (i > circleInitialNum) {
+					// bgcontext.globalAlpha = 1;
+					// bgcontext.beginPath();
+					// bgcontext.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
+					// bgcontext.stroke();
+					// bgcontext.fillStyle = "rgb(40,22,75)";
+					// bgcontext.fill();
+				}
+
+
+
 				bgcontext.globalAlpha = 1;
 				bgcontext.beginPath();
 				bgcontext.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
-				// bgcontext.stroke();
-				bgcontext.fillStyle = "rgb(40,22,75)";
+				bgcontext.stroke();
+				bgcontext.fillStyle = "rgb(192,192,192)";
 				bgcontext.fill();
-
-
-
-				if (i < circleInitialNum) {
-					bgcontext.globalAlpha = 1;
-					bgcontext.beginPath();
-					bgcontext.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
-					// bgcontext.stroke();
-					bgcontext.fillStyle = "rgb(192,192,192)";
-					bgcontext.fill();
-				}
 
 			};
 
@@ -89,7 +89,7 @@ export default function Canvas() {
 
 						bgcontext.globalAlpha = 1 - ratio;
 						bgcontext.strokeStyle = `rgb(192,192,192)`;
-						bgcontext.lineWidth = 1.5;
+						bgcontext.lineWidth = 2;
 						bgcontext.beginPath();
 						// bgcontext.globalAlpha = ratio;
 						bgcontext.moveTo(circleI.x, circleI.y);
@@ -124,7 +124,7 @@ export default function Canvas() {
 				circle.x += circle.dx;
 				circle.y += circle.dy;
 
-				let	 boundary = 50;
+				let boundary = 50;
 
 				if (circle.x < -boundary || circle.x > window.innerWidth + boundary) circle.dx = -circle.dx;
 				if (circle.y < -boundary || circle.y > window.innerHeight + boundary) circle.dy = -circle.dy;
@@ -186,7 +186,6 @@ export default function Canvas() {
 					dy: Math.random() - 0.5,
 				})
 			}
-			window.requestAnimationFrame(lineAnimation(circleArray))
 		})
 
 		//resize window
