@@ -1,60 +1,35 @@
 @import "../../global.scss";
 
-.navbar {
+.top-nav {
 	background-color: transparent;
 	width: 100%;
-	height: 100px;
+	height: 150px;
 	position: fixed;
 	top: 0;
-	display: flex;
 	z-index: 1000;
-	// line-height: normal;
+	line-height: normal;
 
-	.left {
-		flex: 0.5;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		z-index: $fifth-layer;
+	.top-left {
+		position: fixed;
+		left: 0;
+		top: 0;
+		padding: 40px;
 
 		.logo {
-			flex: 0.1;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			padding: 20px;
 			img {
 				vertical-align: middle;
 			}
 		}
-
-		.left-spacing {
-			flex: 0.9;
-		}
 	}
 
-	.right {
-		flex: 0.5;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		z-index: $fifth-layer;
-
-		.right-spacing {
-			flex: 0.9;
-		}
+	.top-right {
+		position: fixed;
+		right: 0;
+		top: 0;
+		padding: 47px;
 
 		.icon {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			flex: 0.1;
-
 			.menubar {
-				align-items: center;
-				justify-content: center;
-				display: flex;
-				padding: 20px;
 			}
 		}
 	}
@@ -64,3 +39,56 @@
 	}
 }
 
+.bottom-nav {
+	background-color: transparent;
+	width: 100%;
+	height: 150px;
+	position: absolute;
+	display: flex;
+	bottom: 0;
+	// z-index: 0;
+
+	.bottom-left {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex: 0.5;
+
+		.scroll-mouse {
+			text-align: center;
+		}
+	}
+
+	.bottom-right {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex: 0.5;
+
+		.bottom-right-wrapper {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			.resume {
+				padding: 40px 40px 40px 20px;
+				color: black;
+				text-align: center;
+
+				&:hover {
+					transform: scale(1.1);
+					transition: all 0.5s ease-in-out;
+					transform-origin: center center;
+				}
+			}
+			.resume:hover + .show-resume {
+				transition: all 0.5s ease-in-out;
+				opacity: 1;
+			}
+			.show-resume {
+				font-size: 20px;
+				opacity: 0;
+			}
+		}
+	}
+}

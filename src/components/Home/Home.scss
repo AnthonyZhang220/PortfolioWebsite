@@ -22,38 +22,6 @@
 	.top {
 		flex: 0.3;
 		z-index: $fifth-layer;
-		display: flex;
-		justify-content: flex-end;
-		align-items: center;
-		flex-direction: column;
-
-		.container {
-			justify-content: center;
-			align-items: flex-end;
-
-			.touch {
-				text-align: center;
-
-				a {
-					transition: all 0.5s ease-in-out;
-					transform-origin: center center;
-					color: black;
-					text-align: center;
-
-					&:hover {
-						transform: scale(1.1);
-						color: $mainColor2;
-					}
-				}
-			}
-			.touch:hover + .touch-text {
-				transition: all 0.5s ease-in-out;
-				opacity: 1;
-			}
-			.touch-text {
-				opacity: 0;
-			}
-		}
 	}
 
 	.mid {
@@ -205,73 +173,6 @@
 			align-items: center;
 			align-content: stretch;
 			padding-bottom: 50px;
-
-			.container {
-				justify-content: center;
-				align-items: flex-end;
-
-				.touch {
-					text-align: center;
-
-					a {
-						transition: all 0.5s ease-in-out;
-						transform-origin: center center;
-						color: black;
-						text-align: center;
-
-						&:hover {
-							transform: scale(1.1);
-							color: $mainColor2;
-						}
-					}
-				}
-				.touch:hover + .touch-text {
-					transition: all 0.5s ease-in-out;
-					opacity: 1;
-				}
-				.touch-text {
-					font-size: 20px;
-					opacity: 0;
-				}
-			}
-
-			a {
-				// overflow: hidden;
-
-				.arrowdown {
-					font-size: 50px;
-					align-self: auto;
-					flex: 0 1 50px;
-					color: black;
-
-					i {
-						text-decoration: none;
-						animation: arrowBlink 2s infinite;
-						animation: slide 3s linear infinite;
-					}
-
-					@keyframes arrowBlink {
-						50% {
-							opacity: 1;
-						}
-						100% {
-							opacity: 0;
-						}
-						50% {
-							opacity: 1;
-						}
-					}
-					@keyframes slide {
-						0% {
-							opacity: 0;
-							transform: translateY(-15px);
-						}
-						100% {
-							opacity: 1;
-						}
-					}
-				}
-			}
 		}
 	}
 }

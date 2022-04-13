@@ -34,7 +34,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 
 
-
+import Paper from '@mui/material/Paper';
 import Icon from '@material-ui/core/Icon';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -57,6 +57,10 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Modal from '@mui/material/Modal';
+
+import ScienceOutlinedIcon from '@mui/icons-material/ScienceOutlined';
+import EventAvailableOutlinedIcon from '@mui/icons-material/EventAvailableOutlined';
+import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Drawer from '@mui/material/Drawer';
@@ -227,6 +231,50 @@ export default function Project(props) {
 
     return (
         <div className='project' id='project' ref={projectRef}>
+            <div className='banner'>
+                <Card elevation={0} sx={{
+                    borderRadius: '30px',
+                    boxShadow: "0 1.5rem 2rem -2rem hsl(200 50% 20% / 40%)",
+                    // boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
+                }}>
+                    <CardContent>
+                        <Box sx={{
+                            display: 'flex', justifyContent: "center",
+                            alignItems: "center",
+                        }}>
+                            <EventAvailableOutlinedIcon sx={{ color: "#fa5502", fontSize: 40 }} />
+                            <Grid container item xs={4} direction='column' textAlign='center' px={6} m={1} wrap>
+                                <Typography variant='h4'  >
+                                    2+ Years
+                                </Typography>
+                                <Typography variant='h6' noWrap >
+                                    Frontend Development
+                                </Typography>
+                            </Grid>
+                            <Divider orientation="vertical" flexItem light variant='middle' />
+                            <ScienceOutlinedIcon sx={{ color: "#e39905", fontSize: 40 }} />
+                            <Grid container item xs={4} direction='column' textAlign='center' px={6} m={1} wrap='nowrap'>
+                                <Typography variant='h4' >
+                                    5+ Projects
+                                </Typography>
+                                <Typography variant='h6' noWrap >
+                                    Hands-on Experience
+                                </Typography>
+                            </Grid>
+                            <Divider orientation="vertical" flexItem light variant='middle' />
+                            <SchoolOutlinedIcon sx={{ color: "#118a39", fontSize: 40 }} />
+                            <Grid container item xs={4} direction='column' textAlign='center' px={6} m={1}>
+                                <Typography variant='h4' noWrap>
+                                    4 Certifications
+                                </Typography>
+                                <Typography variant='h6' noWrap >
+                                    Coursera, MOOC
+                                </Typography>
+                            </Grid>
+                        </Box>
+                    </CardContent>
+                </Card>
+            </div>
             <div className='project-title'>
                 <h2>Project.&nbsp;</h2>
                 <span className='subtitle'>

@@ -280,26 +280,6 @@ export default function Home() {
                 </div>
             </div>
             <div className="bottom" ref={socialRef}>
-                <div className="bottom-spacing">
-                    {/* <div className="learnmore" ref={learnmoreRef}>
-                            Learn more
-                        </div> */}
-                    {/* <a href="#about">
-                        <div className="arrowdown" ref={arrowdownRef}>
-                            <i className="fas fa-chevron-down"></i>
-                        </div>
-                    </a> */}
-                    <div className="container" ref={arrowdownRef}>
-                        <div className="touch">
-                            <IconButton component='a' href="./#about">
-                                <FingerprintIcon sx={{ fontSize: 35, textAlign: 'center' }} />
-                            </IconButton>
-                        </div>
-                        <div className="touch-text">
-                            Learn More
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 

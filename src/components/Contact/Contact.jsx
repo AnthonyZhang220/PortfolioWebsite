@@ -58,13 +58,6 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        whiteSpace: "pre-wrap",
-        wordBreak: "break-all"
-    }
-}));
-
 const style = {
     position: 'absolute',
     top: '50%',
@@ -86,7 +79,6 @@ function PaperComponent(props) {
 
 export default function Contact() {
 
-    const classes = useStyles();
     const mobile = useMediaQuery('(max-width: 600px)');
 
     const steps = ['Confirm your info', 'Verify you are a human', 'Submit contact form'];
@@ -251,14 +243,17 @@ export default function Contact() {
                     <Paper elevation={4}
                         square={true}
                         sx={{
-                            backgroundColor: '#6638c0',
-                            width: mobile ? 300 : 400,
-                            height: mobile ? 300 : 400,
+                            backgroundColor: '#af78ff',
+                            width: mobile ? 300 : 540,
+                            height: mobile ? 600 : 440,
+                            transform: 'translateY(-20px) translateX(-20px)',
+                            float: "left",
+                            ml: "-100%",
                         }}>
                     </Paper>
                 </div>
                 <div className="form-wrapper">
-                    <Paper elevation={1}
+                    <Paper elevation={8}
                         square={true}
                         sx={{
                             width: mobile ? 300 : 540,
@@ -269,6 +264,8 @@ export default function Contact() {
                                 pl: 2,
                                 pr: 2,
                             },
+                            float: 'left',
+                            mr: '-100%',
                         }}>
                         <Box
                             component="form"
@@ -377,7 +374,7 @@ export default function Contact() {
                                 fullWidth
                                 multiline
                                 required={input.intention === "Other" ? true : false}
-                                maxRows={5}
+                                maxRows={4}
                                 id="outlined-helperText"
                                 label="Message"
                                 name='message'
@@ -416,72 +413,63 @@ export default function Contact() {
                                 })}
                             </Stepper>
                         </Box>
-                        <DialogContent>
-                            <DialogContentText>
-                                <Box sx={{ flexGrow: 1, overflow: "hidden", px: 1 }}>
-                                    <Paper sx={{ maxWidth: 400, my: 1, mx: 'auto', p: 1 }}>
-                                        <Grid container wrap="nowrap" spacing={2}>
-                                            <Grid item>
-                                                <AccountCircleIcon />
-                                            </Grid>
-                                            <Grid item xs zeroMinWidth>
-                                                <Typography noWrap>Name: {input.name}</Typography>
-                                            </Grid>
-                                        </Grid>
-                                    </Paper>
-                                    <Paper sx={{ maxWidth: 400, my: 1, mx: 'auto', p: 1 }}>
-                                        <Grid container wrap="nowrap" spacing={2}>
-                                            <Grid item>
-                                                <EmailIcon />
-                                            </Grid>
-                                            <Grid item xs zeroMinWidth>
-                                                <Typography noWrap>Email: {input.email}</Typography>
-                                            </Grid>
-                                        </Grid>
-                                    </Paper>
-                                    <Paper sx={{ maxWidth: 400, my: 1, mx: 'auto', p: 1 }}>
-                                        <Grid container wrap="nowrap" spacing={2}>
-                                            <Grid item>
-                                                <PhoneIphoneIcon />
-                                            </Grid>
-                                            <Grid item xs zeroMinWidth>
-                                                <Typography noWrap>Phone: {input.phone}</Typography>
-                                            </Grid>
-                                        </Grid>
-                                    </Paper>
-                                    <Paper sx={{ maxWidth: 400, my: 1, mx: 'auto', p: 1 }}>
-                                        <Grid container wrap="nowrap" spacing={2}>
-                                            <Grid item>
-                                                <ConnectWithoutContactIcon />
-                                            </Grid>
-                                            <Grid item xs zeroMinWidth>
-                                                <Typography noWrap>Intent: {input.intention}</Typography>
-                                            </Grid>
-                                        </Grid>
-                                    </Paper>
-                                    <Paper sx={{ maxWidth: 400, my: 1, mx: 'auto', p: 1 }}>
-                                        <Grid container wrap="nowrap" spacing={2}>
-                                            <Grid item>
-                                                <TodayIcon />
-                                            </Grid>
-                                            <Grid item xs>
-                                                <Typography noWrap>Date: {input.date}</Typography>
-                                            </Grid>
-                                        </Grid>
-                                    </Paper>
-                                    <Paper sx={{ maxWidth: 400, my: 1, mx: 'auto', p: 1 }}>
-                                        <Grid container wrap="nowrap" spacing={2}>
-                                            <Grid item>
-                                                <MessageIcon />
-                                            </Grid>
-                                            <Grid item xs >
-                                                <Typography>Message:</Typography>
-                                                <Typography classes={{ root: classes.root }}>{input.message}</Typography>
-                                            </Grid>
-                                        </Grid>
-                                    </Paper>
-                                </Box>
-                            </DialogContentText>
+                        <DialogContent dividers={true}>
+                            <Grid container spacing={2} direction="row"
+                                justifyContent="center"
+                                alignItems="center">
+                                <Grid container item spacing={2} xs={12}>
+                                    <Grid item>
+                                        <AccountCircleIcon />
+                                    </Grid>
+                                    <Grid item xs zeroMinWidth>
+                                        <Typography noWrap>Name: {input.name}</Typography>
+                                    </Grid>
+                                </Grid>
+                                <Grid container item spacing={2} xs={12}>
+                                    <Grid item>
+                                        <EmailIcon />
+                                    </Grid>
+                                    <Grid item xs zeroMinWidth>
+                                        <Typography noWrap>Email: {input.email}</Typography>
+                                    </Grid>
+                                </Grid>
+                                <Grid container item spacing={2} xs={12}>
+                                    <Grid item>
+                                        <PhoneIphoneIcon />
+                                    </Grid>
+                                    <Grid item xs zeroMinWidth>
+                                        <Typography noWrap>Phone: {input.phone}</Typography>
+                                    </Grid>
+                                </Grid>
+                                <Grid container item spacing={2} xs={12}>
+                                    <Grid item>
+                                        <ConnectWithoutContactIcon />
+                                    </Grid>
+                                    <Grid item xs zeroMinWidth>
+                                        <Typography noWrap>Intent: {input.intention}</Typography>
+                                    </Grid>
+                                </Grid>
+                                <Grid container item spacing={2} xs={12}>
+                                    <Grid item>
+                                        <TodayIcon />
+                                    </Grid>
+                                    <Grid item xs zeroMinWidth>
+                                        <Typography noWrap>Date: {input.date}</Typography>
+                                    </Grid>
+                                </Grid>
+                                <Grid container item spacing={2} xs={12}>
+                                    <Grid item>
+                                        <MessageIcon />
+                                    </Grid>
+                                    <Grid item xs sx={{
+                                        whiteSpace: "pre-wrap",
+                                        wordBreak: "break-all",
+                                    }}>
+                                        <Typography>Message:</Typography>
+                                        <Typography>{input.message}</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
                         </DialogContent>
                         <DialogActions sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: 'auto' }} >
                             <Box>

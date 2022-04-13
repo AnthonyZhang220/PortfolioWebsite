@@ -436,11 +436,24 @@ export default function About() {
                                             p: 1,
                                         },
                                     }}>
-                                    <FontAwesomeIcon icon="fa-solid fa-code" fontSize={40} />
-                                    <Typography variant="h5" component="div" ref={frontendRef}>
-                                        Front End
-                                    </Typography>
-                                    <Grid container spacing={2}>
+                                    <Paper sx={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        borderRadius: '18px',
+                                        flexWrap: 'wrap',
+                                        '& > :not(style)': {
+                                            m: 1,
+                                            p: 1,
+                                        },
+                                        transform: 'translateY(-40px)'
+                                    }}>
+                                        <FontAwesomeIcon icon="fa-solid fa-code" fontSize={40} />
+                                        <Typography variant="h5" component="div" ref={frontendRef}>
+                                            Front End
+                                        </Typography>
+                                    </Paper>
+                                    <Grid container spacing={2} sx={{ transform: 'translateY(-40px)' }}>
                                         <Grid item xs={12} sm container>
                                             <Grid item xs container direction="column" spacing={2}>
                                                 <Grid item>

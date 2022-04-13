@@ -5,9 +5,15 @@ footer {
 	flex-direction: column;
 	position: relative;
 	text-align: center;
+	justify-content: center;
 	background-color: #212121;
 	color: #fafafa;
 	margin-top: 40px;
+	border-radius: 4em 4em 0 0;
+	// margin-bottom: 1em;
+	margin-left: 1em;
+	margin-right: 1em;
+	box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
 
 	.top {
 		padding-top: 100px;
@@ -16,7 +22,7 @@ footer {
 			text-decoration: none;
 			color: #fafafa;
 		}
-		a:hover{
+		a:hover {
 			text-decoration: underline;
 		}
 	}
