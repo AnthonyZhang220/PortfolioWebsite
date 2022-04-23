@@ -1,20 +1,22 @@
 @import "../../global.scss";
 
+.banner {
+	flex-direction: column;
+	align-items: center;
+	display: flex;
+}
+
 .project {
+	padding-top: 100px;
 	background-color: transparent;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 
-	.banner {
-		display: flex;
-	}
-
 	.project-title {
 		display: flex;
 		align-items: center;
 		flex-wrap: wrap;
-		margin-top: $section-margin-top;
 		margin-left: $section-margin-left;
 		margin-right: $section-margin-right;
 		padding-bottom: 20px;

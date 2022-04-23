@@ -1,11 +1,11 @@
 export const musicList = [
 	{
 		id: 1,
-		title: "Ballade No.1 In G Minor, Op.23",
-		source: "assets/audios/Ballade.mp3",
-		cover: "assets/cover/pianist.jpg",
-		artist: "Frédéric Chopin",
-		performer: "Janusz Olejniczak",
+		title: "3 Old Viennese Dances Liebesleid",
+		source: "assets/audios/liebesleid.mp3",
+		cover: "assets/cover/liebesleid.jpg",
+		artist: "Fritz Kreisler(arr. Sergei Rachmaninoff) ",
+		performer: "Charles Rosen",
 	},
 	{
 		id: 2,

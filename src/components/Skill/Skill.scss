@@ -1,0 +1,84 @@
+@import "../../global.scss";
+
+.skill {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	background-color: inherit;
+	padding-top: 100px;
+	padding-bottom: 100px;
+    
+	.skill-section {
+        max-width: 1200px;
+		margin: 0 auto;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		position: relative;
+
+		.title-skills {
+			display: flex;
+			flex-wrap: wrap;
+			padding-bottom: 20px;
+			margin-left: $section-margin-left;
+			margin-right: $section-margin-right;
+			align-items: center;
+
+			span {
+				color: #6e6e73;
+			}
+		}
+
+		.technology {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			.categories {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-wrap: wrap;
+
+				.skill-paper {
+					width: 350px;
+				}
+			}
+		}
+	}
+}
+@media screen and (max-width: 834px) {
+	.skill {
+		.skill-section {
+			.title-skills {
+				font-size: 1.25em;
+
+				span {
+					font-size: 1.25em;
+				}
+			}
+
+			.technology {
+				.categories {
+					.skill-paper {
+						width: 320px;
+					}
+				}
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.skill {
+		.skill-section {
+			.technology {
+				.categories {
+					.skill-paper {
+						width: 300px;
+					}
+				}
+			}
+		}
+	}
+}

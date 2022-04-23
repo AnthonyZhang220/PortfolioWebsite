@@ -48,14 +48,8 @@ import Box from '@mui/material/Box';
 import ForwardRoundedIcon from '@mui/icons-material/ForwardRounded';
 import Chip from '@mui/material/Chip';
 import Badge from '@mui/material/Badge';
-import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import IconButton from '@mui/material/IconButton';
 import ShareIcon from '@mui/icons-material/Share';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import Modal from '@mui/material/Modal';
 
 import ScienceOutlinedIcon from '@mui/icons-material/ScienceOutlined';
@@ -63,10 +57,8 @@ import EventAvailableOutlinedIcon from '@mui/icons-material/EventAvailableOutlin
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import Drawer from '@mui/material/Drawer';
 import Skeleton from '@mui/material/Skeleton';
 import CssBaseline from "@mui/material/CssBaseline";
-import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
 
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -105,6 +97,7 @@ const style = {
     border: '0px solid #000',
     boxShadow: 24,
     p: 4,
+    m: 4,
 };
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -167,17 +160,15 @@ export default function Project(props) {
     const drawerBleeding = 20;
 
 
-    const projectRef = useRef();
-    const listRef = useRef();
-    const [sharePage, setSharePage] = useState(false);
-    const [shareId, setShareId] = useState(null);
-
-    const [projectData, setProjectData] = useState({})
-
+    const projectContainerRef = useRef();
+    const projectTitleRef = useRef();
     const scrollerRef = useRef();
 
-    const handleShareOpen = (id) => {
-        setShareId(id);
+    const [sharePage, setSharePage] = useState(false);
+    const [projectData, setProjectData] = useState({})
+
+
+    const handleShareOpen = () => {
         setSharePage(true);
     }
 
@@ -194,18 +185,51 @@ export default function Project(props) {
     }
 
 
-
+    // project
     useEffect(() => {
-        gsap.fromTo(listRef.current, {
-            x: "10%", opacity: 0
+        const animation = gsap.fromTo(scrollerRef.current, {
+            x: "30%", opacity: 0
         }, {
-            x: "0%", opacity: 1, duration: 2,
+            x: "0%", opacity: 1, duration: 1,
             scrollTrigger: {
-                trigger: projectRef.current,
+                trigger: projectContainerRef.current,
                 start: "top bottom"
             },
         });
-    });
+
+        return () => animation.scrollTrigger.kill();
+    }, []);
+
+    useEffect(() => {
+        const entryAnimation = gsap.fromTo(projectTitleRef.current, { y: 50, opacity: 0 }, {
+            y: 0, opacity: 1, duration: 1,
+            scrollTrigger: {
+                trigger: projectContainerRef.current,
+                start: 'top bottom',
+                // scrub: true,
+            }
+        });
+
+        return () => {
+            entryAnimation.scrollTrigger.kill();
+        }
+    }, [])
+
+    useEffect(() => {
+        if (scrollerRef.current) {
+            const onWheel = e => {
+                if (e.deltaY === 0) return;
+                e.preventDefault();
+                scrollerRef.current.scrollTo({
+                    left: scrollerRef.current.scrollLeft + e.deltaY,
+                    behavior: "smooth"
+                });
+            };
+            scrollerRef.current.addEventListener("wheel", onWheel);
+            return () => scrollerRef.current.removeEventListener("wheel", onWheel);
+        }
+    }, []);
+
 
 
     const [open, setOpen] = useState(false);
@@ -230,421 +254,453 @@ export default function Project(props) {
 
 
     return (
-        <div className='project' id='project' ref={projectRef}>
+        <React.Fragment>
             <div className='banner'>
-                <Card elevation={0} sx={{
-                    borderRadius: '30px',
-                    boxShadow: "0 1.5rem 2rem -2rem hsl(200 50% 20% / 40%)",
-                    // boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
-                }}>
-                    <CardContent>
-                        <Box sx={{
-                            display: 'flex', justifyContent: "center",
-                            alignItems: "center",
-                        }}>
-                            <EventAvailableOutlinedIcon sx={{ color: "#fa5502", fontSize: 40 }} />
-                            <Grid container item xs={4} direction='column' textAlign='center' px={6} m={1} wrap>
-                                <Typography variant='h4'  >
-                                    2+ Years
-                                </Typography>
-                                <Typography variant='h6' noWrap >
-                                    Frontend Development
-                                </Typography>
-                            </Grid>
-                            <Divider orientation="vertical" flexItem light variant='middle' />
-                            <ScienceOutlinedIcon sx={{ color: "#e39905", fontSize: 40 }} />
-                            <Grid container item xs={4} direction='column' textAlign='center' px={6} m={1} wrap='nowrap'>
-                                <Typography variant='h4' >
-                                    5+ Projects
-                                </Typography>
-                                <Typography variant='h6' noWrap >
-                                    Hands-on Experience
-                                </Typography>
-                            </Grid>
-                            <Divider orientation="vertical" flexItem light variant='middle' />
-                            <SchoolOutlinedIcon sx={{ color: "#118a39", fontSize: 40 }} />
-                            <Grid container item xs={4} direction='column' textAlign='center' px={6} m={1}>
-                                <Typography variant='h4' noWrap>
-                                    4 Certifications
-                                </Typography>
-                                <Typography variant='h6' noWrap >
-                                    Coursera, MOOC
-                                </Typography>
-                            </Grid>
-                        </Box>
-                    </CardContent>
-                </Card>
+                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: "30px", flexWrap: 'wrap' }}>
+                    <Card elevation={0} sx={{
+                        p: 1,
+                        m: 2,
+                        borderRadius: '30px',
+                        boxShadow: "0 1.5rem 2rem -2rem hsl(200 50% 20% / 40%)",
+                        // boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
+                    }}>
+                        <CardContent>
+                            <Box sx={{
+                                display: 'flex', justifyContent: "center",
+                                alignItems: "center",
+                            }}>
+                                <EventAvailableOutlinedIcon sx={{ color: "#fa5502", fontSize: 40 }} />
+                                <Grid container item xs={12} direction='column' textAlign='center' px={3} wrap='nowrap'>
+                                    <Typography variant="h4"  >
+                                        2+ Years
+                                    </Typography>
+                                    <Typography variant="h6" noWrap >
+                                        Frontend Development
+                                    </Typography>
+                                </Grid>
+                            </Box>
+                        </CardContent>
+                    </Card>
+                    <Card elevation={0} sx={{
+                        p: 1,
+                        m: 2,
+                        borderRadius: '30px',
+                        boxShadow: "0 1.5rem 2rem -2rem hsl(200 50% 20% / 40%)",
+                        // boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
+                    }}>
+                        <CardContent>
+                            <Box sx={{
+                                display: 'flex', justifyContent: "center",
+                                alignItems: "center",
+                            }}>
+                                <ScienceOutlinedIcon sx={{ color: "#e39905", fontSize: 40 }} />
+                                <Grid container item xs={12} direction='column' textAlign='center' px={3} wrap='nowrap'>
+                                    <Typography variant='h4' >
+                                        5+ Projects
+                                    </Typography>
+                                    <Typography variant='h6' noWrap >
+                                        Hands-on Experience
+                                    </Typography>
+                                </Grid>
+                            </Box>
+                        </CardContent>
+                    </Card>
+                    <Card elevation={0} sx={{
+                        p: 1,
+                        m: 2,
+                        borderRadius: '30px',
+                        boxShadow: "0 1.5rem 2rem -2rem hsl(200 50% 20% / 40%)",
+                        // boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
+                    }}>
+                        <CardContent>
+                            <Box sx={{
+                                display: 'flex', justifyContent: "center",
+                                alignItems: "center",
+                            }}>
+                                <SchoolOutlinedIcon sx={{ color: "#118a39", fontSize: 40 }} />
+                                <Grid container item xs={12} direction='column' textAlign='center' px={2} wrap='nowrap'>
+                                    <Typography variant='h4' noWrap>
+                                        4 Certificates
+                                    </Typography>
+                                    <Typography variant='h6' noWrap >
+                                        Coursera, MOOC
+                                    </Typography>
+                                </Grid>
+                            </Box>
+
+                        </CardContent>
+                    </Card>
+                </Box>
             </div>
-            <div className='project-title'>
-                <h2>Project.&nbsp;</h2>
-                <span className='subtitle'>
-                    Take a took at what I have built, in the past.
-                </span>
-            </div>
-            <div className="project-wrapper" >
-                <div className='card-scroller-crop'>
-                    <div className="card-scroller-content" ref={scrollerRef}>
-                        <div className="card-scroller-plater">
-                            {projectdata?.map(({ id, title, subtitle, thumbnail, roles, overview, tech, WebsiteUrl, GitHubUrl, library, index, process, results, features }) => (
-                                <>
-                                    {/* project card */}
-                                    <div key={id} className='card'>
-                                        {/* <img className="tape" src="assets/images/tape.png" height='100px' width='100px'>
+            <div className='project' id='project'>
+                <div className='project-title' ref={projectTitleRef}>
+                    <Typography variant="h3">
+                        Project.&nbsp;
+                    </Typography>
+                    <Typography variant="h3" color="#6e6e73">
+                        Take a took at what I have built, in the past.
+                    </Typography>
+                </div>
+                <div className="project-wrapper" ref={projectContainerRef} >
+                    <div className='card-scroller-crop'>
+                        <div className="card-scroller-content" ref={scrollerRef}>
+                            <div className="card-scroller-plater">
+                                {projectdata?.map(({ id, title, subtitle, thumbnail, roles, overview, tech, WebsiteUrl, GitHubUrl, library, process, results, features }, index) => (
+                                    <React.Fragment>
+                                        {/* project card */}
+                                        <div key={id} className='card'>
+                                            {/* <img className="tape" src="assets/images/tape.png" height='100px' width='100px'>
                                         </img> */}
-                                        <Card
-                                            key={id}
-                                            ref={listRef}
-                                            sx={{
-                                                position: 'relative',
-                                                // backgroundColor: 'transparent',
-                                                width: matches ? '275px' : '350px',
-                                                height: matches ? '400px' : '450px',
-                                                marginRight: '20px',
-                                                transition: "all 0.3s cubic-bezier(0,0,.5,1)",
-                                                borderRadius: '20px',
-                                                boxShadow: "0px 2px 12px rgb(0 0 0 / 8%)",
-                                                "&:hover": {
-                                                    boxShadow: "0px 4px 24px rgb(0 0 0 / 0.2)",
-                                                },
-                                                // flex: '0 0 10%',
-                                            }}
-                                        >
-                                            <CardMedia
-                                                component="img"
-                                                alt={title}
-                                                image={thumbnail}
+                                            <Card
                                                 sx={{
+                                                    position: 'relative',
+                                                    // backgroundColor: 'transparent',
                                                     width: matches ? '275px' : '350px',
                                                     height: matches ? '400px' : '450px',
+                                                    marginRight: '20px',
+                                                    transition: "all 0.3s cubic-bezier(0,0,.5,1)",
                                                     borderRadius: '20px',
-                                                    boxShadow: "0px 4px 24px rgb(0 0 0 / 0.6)",
+                                                    boxShadow: "0px 2px 12px rgb(0 0 0 / 8%)",
                                                     "&:hover": {
-                                                        transform: 'scale(1.05)',
-                                                        transition: 'transform 0.5s ease-out 0s',
-                                                        cursor: 'pointer'
+                                                        boxShadow: "0px 4px 24px rgb(0 0 0 / 0.2)",
                                                     },
+                                                    // flex: '0 0 10%',
                                                 }}
-                                                onClick={handleDrawerOpen({ id, title, subtitle, thumbnail, overview, roles, tech, WebsiteUrl, GitHubUrl, library, index, process, results, features })}
-                                            />
-                                        </Card>
-                                    </div>
-                                    {/* share page */}
-                                    {
-                                        shareId === id ?
-                                            <Modal
-                                                key={shareId}
-                                                open={sharePage}
-                                                onClose={handleShareClose}
-                                                aria-labelledby="alert-dialog-title"
-                                                aria-describedby="alert-dialog-overview"
                                             >
-                                                <Box sx={style}>
-                                                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                                                        Share
-                                                    </Typography>
-                                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', padding: 2 }}>
-                                                        <EmailShareButton url={WebsiteUrl}>
-                                                            <EmailIcon round size={50} />
-                                                        </EmailShareButton>
-                                                        <FacebookShareButton url={WebsiteUrl} quote={title}>
-                                                            <FacebookIcon round size={50} />
-                                                        </FacebookShareButton>
-                                                        <FacebookMessengerIcon round size={50} />
-                                                        <LineShareButton url={WebsiteUrl}>
-                                                            <LineIcon round size={50} />
-                                                        </LineShareButton>
-
-                                                        <LinkedinShareButton url={WebsiteUrl} title={title} summary={overview}>
-                                                            <LinkedinIcon round size={50} />
-                                                        </LinkedinShareButton>
-
-
-                                                        <PinterestShareButton url={WebsiteUrl} media={thumbnail}>
-                                                            <PinterestIcon round size={50} />
-                                                        </PinterestShareButton>
-
-                                                        <WeiboIcon round size={50} />
-
-                                                        <RedditShareButton url={WebsiteUrl} title={title}>
-                                                            <RedditIcon round size={50} />
-                                                        </RedditShareButton>
-
-                                                        <TelegramShareButton url={WebsiteUrl} title={title}>
-                                                            <TelegramIcon round size={50} />
-                                                        </TelegramShareButton>
-
-                                                        <TwitterShareButton url={WebsiteUrl} title={title}>
-                                                            <TwitterIcon round size={50} />
-                                                        </TwitterShareButton>
-
-                                                        <WhatsappShareButton url={WebsiteUrl} title={title}>
-                                                            <WhatsappIcon round size={50} />
-                                                        </WhatsappShareButton>
-
-                                                        <WorkplaceShareButton url={WebsiteUrl} quote={overview}>
-                                                            <WorkplaceIcon round size={50} />
-                                                        </WorkplaceShareButton>
-                                                    </Box>
-                                                    <Button onClick={handleShareClose}>Close</Button>
-                                                </Box>
-                                            </Modal> : null
-                                    }
-                                </>
-                            ))}
-                            {/* more to come card */}
-                            <div className="card">
-                                <Card
-                                    sx={{
-                                        position: 'relative',
-                                        width: 'auto',
-                                        height: 'auto',
-                                        marginRight: '20px',
-                                        transition: "all 0.3s cubic-bezier(0,0,.5,1)",
-                                        borderRadius: '16px',
-                                        boxShadow: "0px 2px 12px rgb(0 0 0 / 8%)",
-                                        "&:hover": {
-                                            boxShadow: "0px 4px 24px rgb(0 0 0 / 0.2)",
-                                        },
-                                        // flex: '0 0 10%',
-                                    }}>
-                                    <CardContent>
-                                        <Box sx={{ mx: 1 }}>
-                                            <Typography gutterBottom variant="body1" component="div">
-                                                More to come
-                                            </Typography>
-                                        </Box>
-                                        <Divider />
-                                        <Box sx={{ m: 1 }}>
-                                            <Typography gutterBottom variant="body3">
-                                                Technology used
-                                            </Typography>
-                                        </Box>
-                                        <Divider />
-                                        <Box sx={{ m: 1 }}>
-                                            <Typography gutterBottom variant="body3">
-                                                Library used
-                                            </Typography>
-                                        </Box>
-                                        <Divider />
-                                    </CardContent>
-                                </Card>
-                            </div>
-
-                            {/* swipeabledrawer */}
-                            <Root>
-                                <CssBaseline />
-                                <SwipeableDrawer
-                                    className={classes.drawer}
-                                    anchor="bottom"
-                                    open={open}
-                                    onClose={handleDrawerOpen(false)}
-                                    onOpen={handleDrawerOpen(true)}
-                                    swipeAreaWidth={drawerBleeding}
-                                    elevation={10}
+                                                <CardMedia
+                                                    component="img"
+                                                    alt={title}
+                                                    image={thumbnail}
+                                                    sx={{
+                                                        width: matches ? '275px' : '350px',
+                                                        height: matches ? '400px' : '450px',
+                                                        borderRadius: '20px',
+                                                        boxShadow: "0px 4px 24px rgb(0 0 0 / 0.6)",
+                                                        "&:hover": {
+                                                            transform: 'scale(1.05)',
+                                                            transition: 'transform 0.5s ease-out 0s',
+                                                            cursor: 'pointer'
+                                                        },
+                                                    }}
+                                                    onClick={handleDrawerOpen({ id, title, subtitle, thumbnail, overview, roles, tech, WebsiteUrl, GitHubUrl, library, index, process, results, features })}
+                                                />
+                                            </Card>
+                                        </div>
+                                    </React.Fragment>
+                                ))}
+                                {/* share page */}
+                                <Modal
+                                    open={sharePage}
+                                    onClose={handleShareClose}
                                     projectData={projectData}
-                                    transitionDuration={{ enter: 1000, exit: 500 }}
-                                    disableSwipeToOpen={false}
-                                    sx={{
-                                        '&.MuiDrawer-root > .MuiPaper-root': {
-                                            height: `calc(90% - ${drawerBleeding}px)`,
-                                            overflow: 'visible',
-                                        },
-                                    }}
+                                    aria-labelledby="alert-dialog-title"
+                                    aria-describedby="alert-dialog-overview"
                                 >
-                                    <StyledBox
-                                        sx={{
-                                            position: 'absolute',
-                                            top: -drawerBleeding,
-                                            borderTopLeftRadius: 18,
-                                            borderTopRightRadius: 18,
-                                            visibility: 'visible',
-                                            right: 0,
-                                            left: 0,
-                                        }}
-                                    >
-                                        <Puller />
-                                        <Typography sx={{ p: 2 }}></Typography>
-                                    </StyledBox>
-                                    <StyledBox
-                                        sx={{
-                                            px: 2,
-                                            pb: 2,
-                                            height: '100%',
-                                            overflow: 'auto',
-                                            '&::-webkit-scrollbar-track': {
-                                                backgroundColor: 'transparent',
-                                            },
-                                            '&::-webkit-scrollbar-thumb': {
-                                                backgroundColor: '#d6dee1',
-                                                borderRadius: '20px',
-                                                border: '2px solid transparent',
-                                                backgroundClip: 'content-box',
-                                            },
+                                    <Box sx={style}>
+                                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                                            Share
+                                        </Typography>
+                                        <Box sx={{ display: 'flex', flexWrap: 'wrap', padding: 2 }}>
+                                            <EmailShareButton url={projectData.WebsiteUrl}>
+                                                <EmailIcon round size={50} />
+                                            </EmailShareButton>
+                                            <FacebookShareButton url={projectData.WebsiteUrl} quote={projectData.title}>
+                                                <FacebookIcon round size={50} />
+                                            </FacebookShareButton>
+                                            <FacebookMessengerIcon round size={50} />
+                                            <LineShareButton url={projectData.WebsiteUrl}>
+                                                <LineIcon round size={50} />
+                                            </LineShareButton>
 
-                                            '&::-webkit-scrollbar-thumb:hover': {
-                                                backgroundColor: '#a8bbbf',
-                                            },
+                                            <LinkedinShareButton url={projectData.WebsiteUrl} title={projectData.title} summary={projectData.overview}>
+                                                <LinkedinIcon round size={50} />
+                                            </LinkedinShareButton>
 
-                                            '&::-webkit-scrollbar': {
-                                                width: '14px',
-                                            },
-                                        }}
-                                    >
-                                        <Box sx={{ position: 'relative', display: 'flex', flexDirection: 'column' }}>
-                                            {/* drawer top */}
-                                            <Grid container spacing={2}>
-                                                {/* drawer top left */}
-                                                <Grid xs={12} md={6} item>
-                                                    <CardContent>
-                                                        <Box sx={{ mx: 1 }}>
-                                                            <Typography gutterBottom variant="h4" component="div">
-                                                                {
-                                                                    projectData.title ? projectData.title : <Skeleton animation='wave' variant="rectangular" height={50} />
-                                                                }
-                                                            </Typography>
-                                                            <Typography gutterBottom variant="h5" component="div">
-                                                                {projectData.subtitle ? projectData.subtitle : <Skeleton animation='wave' variant="rectangular" height={40} />}
-                                                            </Typography>
-                                                        </Box>
-                                                        <Divider />
-                                                    </CardContent>
-                                                    <CardActions>
-                                                        <Box sx={{ mx: 1 }}>
-                                                            <Button sx={{ m: 1 }} color="secondary" variant='contained' size="medium" href={projectData.GitHubUrl} target='_blank'>GitHub</Button>
-                                                            <Button sx={{ m: 1 }} color="secondary" variant='contained' size="medium" href={projectData.WebsiteUrl} target='_blank' endIcon={<ForwardRoundedIcon />}>Website</Button>
-                                                            <IconButton sx={{ m: 1 }} onClick={() => handleShareOpen(projectData.id)} >
-                                                                <ShareIcon></ShareIcon>
-                                                            </IconButton>
-                                                            <Divider />
-                                                        </Box>
-                                                    </CardActions>
-                                                    <CardContent>
-                                                        <Box sx={{ mx: 1 }}>
-                                                            <Typography gutterBottom variant="h5" color="text.secondary">
-                                                                OVERVIEW
-                                                            </Typography>
-                                                            <Typography gutterBottom variant="body1" color="text.secondary">
-                                                                {projectData.overview ? projectData.overview : <Skeleton animation='wave' variant="rectangular" height={150} />}
-                                                            </Typography>
-                                                        </Box>
-                                                    </CardContent>
-                                                </Grid>
-                                                {/* drawer top right */}
-                                                <Grid xs={12} md={6} item>
-                                                    <CardContent>
-                                                        <Box sx={{ m: 1 }}>
-                                                            <Typography gutterBottom variant="h6" color="text.secondary">
-                                                                ROLES
-                                                            </Typography>
-                                                            <Stack sx={{ flexWrap: 'wrap' }} alignItems='center' justifyContent='flex-start' direction='row' spacing={1}>
-                                                                {projectData.roles ? projectData.roles.map(role => (
-                                                                    <Chip style={{ fontSize: "18px" }} sx={{ m: 1 }} label={role} key={projectData.index} />
-                                                                )) : <Skeleton animation='wave' variant="circle" />
-                                                                }
-                                                            </Stack>
-                                                        </Box>
-                                                        <Divider />
-                                                        <Box sx={{ m: 1 }}>
-                                                            <Typography gutterBottom variant="h6" color="text.secondary">
-                                                                TECHNOLOGY STACK
-                                                            </Typography>
-                                                            <Stack sx={{ flexWrap: 'wrap' }} alignItems='center' justifyContent='flex-start' direction='row' spacing={1}>
-                                                                {
-                                                                    projectData.tech ? projectData.tech.map(techUrl => (
-                                                                        <img className={classes.imageIcon} src={techUrl} alt={techUrl} height='48px' width='48px' />
-                                                                    )) : <Skeleton animation='wave' variant="circle" />
-                                                                }
-                                                            </Stack>
-                                                        </Box>
-                                                        <Divider />
-                                                        <Box sx={{ m: 1 }}>
-                                                            <Typography gutterBottom variant="h6" color="text.secondary">
-                                                                LIBRARY STACK
-                                                            </Typography>
-                                                            <Stack sx={{ flexWrap: 'wrap' }} alignItems='center' justifyContent='flex-start' direction='row' spacing={1}>
-                                                                {projectData.library ? projectData.library.map(lib => (
-                                                                    <Chip style={{ fontSize: "18px" }} label={lib} sx={{ m: 1 }} key={projectData.index} variant="outlined" />
-                                                                )) : <Skeleton animation='wave' variant="circle" />
-                                                                }
-                                                            </Stack>
-                                                        </Box>
-                                                    </CardContent>
-                                                </Grid>
-                                            </Grid>
-                                            {/* drawer bottom side */}
-                                            <Box>
-                                                <CardContent>
-                                                    <Divider />
-                                                    <Box sx={{ m: 1 }}>
-                                                        <Typography gutterBottom variant="h5" color="text.secondary">
-                                                            Features
-                                                        </Typography>
-                                                        <Typography gutterBottom variant="body1" color="text.secondary">
-                                                            {projectData.features ? projectData.features : <Skeleton animation='wave' variant="rectangular" height={150} />}
-                                                        </Typography>
-                                                        <Box sx={{ p: 2 }}>
-                                                            {projectData ?
-                                                                <CardMedia
-                                                                    component="img"
-                                                                    alt={projectData.title}
-                                                                    height="450px"
-                                                                    width="350px"
-                                                                    image={projectData.thumbnail}
-                                                                    sx={{
-                                                                    }}
-                                                                /> : <Skeleton variant="rectangular" width={350} height={450} />
-                                                            }
-                                                        </Box>
-                                                    </Box>
-                                                    <Divider />
-                                                    <CardContent>
-                                                        <Box sx={{ m: 1 }}>
-                                                            <Typography gutterBottom variant="h5" color="text.secondary">
-                                                                PROCESS
-                                                            </Typography>
-                                                            <Typography gutterBottom variant="body1" color="text.secondary">
-                                                                {projectData.process ? projectData.process : <Skeleton animation='wave' variant="rectangular" height={150} />}
-                                                            </Typography>
-                                                        </Box>
-                                                    </CardContent>
-                                                    <Divider />
-                                                    <CardContent>
-                                                        <Box sx={{ m: 1 }}>
-                                                            <Typography gutterBottom variant="h5" color="text.secondary">
-                                                                RESULTS
-                                                            </Typography>
-                                                            <Typography gutterBottom variant="body1" color="text.secondary">
-                                                                {projectData.results ? projectData.results : <Skeleton animation='wave' variant="rectangular" height={150} />}
-                                                            </Typography>
-                                                        </Box>
-                                                    </CardContent>
-                                                </CardContent>
-                                            </Box>
+
+                                            <PinterestShareButton url={projectData.WebsiteUrl} media={projectData.thumbnail}>
+                                                <PinterestIcon round size={50} />
+                                            </PinterestShareButton>
+
+                                            <WeiboIcon round size={50} />
+
+                                            <RedditShareButton url={projectData.WebsiteUrl} title={projectData.title}>
+                                                <RedditIcon round size={50} />
+                                            </RedditShareButton>
+
+                                            <TelegramShareButton url={projectData.WebsiteUrl} title={projectData.title}>
+                                                <TelegramIcon round size={50} />
+                                            </TelegramShareButton>
+
+                                            <TwitterShareButton url={projectData.WebsiteUrl} title={projectData.title}>
+                                                <TwitterIcon round size={50} />
+                                            </TwitterShareButton>
+
+                                            <WhatsappShareButton url={projectData.WebsiteUrl} title={projectData.title}>
+                                                <WhatsappIcon round size={50} />
+                                            </WhatsappShareButton>
+
+                                            <WorkplaceShareButton url={projectData.WebsiteUrl} quote={projectData.overview}>
+                                                <WorkplaceIcon round size={50} />
+                                            </WorkplaceShareButton>
                                         </Box>
-                                    </StyledBox>
-                                    {/* close button */}
-                                    <CloseButton sx={{ position: 'absolute', bottom: '40px', transform: 'translate(-50%,0)', left: '50%' }} size='large' onClick={handleDrawerOpen(false)}>Close</CloseButton>
-                                </SwipeableDrawer>
-                            </Root>
+                                        <Button onClick={handleShareClose}>Close</Button>
+                                    </Box>
+                                </Modal>
+                                {/* more to come card */}
+                                <div className="card">
+                                    <Card
+                                        sx={{
+                                            position: 'relative',
+                                            width: 'auto',
+                                            height: 'auto',
+                                            marginRight: '20px',
+                                            transition: "all 0.3s cubic-bezier(0,0,.5,1)",
+                                            borderRadius: '16px',
+                                            boxShadow: "0px 2px 12px rgb(0 0 0 / 8%)",
+                                            "&:hover": {
+                                                boxShadow: "0px 4px 24px rgb(0 0 0 / 0.2)",
+                                            },
+                                            // flex: '0 0 10%',
+                                        }}>
+                                        <CardContent>
+                                            <Box sx={{ mx: 1 }}>
+                                                <Typography gutterBottom variant="body1" component="div">
+                                                    More to come
+                                                </Typography>
+                                            </Box>
+                                            <Divider />
+                                            <Box sx={{ m: 1 }}>
+                                                <Typography gutterBottom variant="body3">
+                                                    Technology used
+                                                </Typography>
+                                            </Box>
+                                            <Divider />
+                                            <Box sx={{ m: 1 }}>
+                                                <Typography gutterBottom variant="body3">
+                                                    Library used
+                                                </Typography>
+                                            </Box>
+                                            <Divider />
+                                        </CardContent>
+                                    </Card>
+                                </div>
+
+                                {/* swipeabledrawer */}
+                                <Root>
+                                    <CssBaseline />
+                                    <SwipeableDrawer
+                                        className={classes.drawer}
+                                        anchor="bottom"
+                                        open={open}
+                                        onClose={handleDrawerOpen(false)}
+                                        onOpen={handleDrawerOpen(true)}
+                                        swipeAreaWidth={drawerBleeding}
+                                        elevation={10}
+                                        projectData={projectData}
+                                        transitionDuration={{ enter: 1000, exit: 500 }}
+                                        disableSwipeToOpen={false}
+                                        sx={{
+                                            '&.MuiDrawer-root > .MuiPaper-root': {
+                                                height: `calc(90% - ${drawerBleeding}px)`,
+                                                overflow: 'visible',
+                                            },
+                                        }}
+                                    >
+                                        <StyledBox
+                                            sx={{
+                                                position: 'absolute',
+                                                top: -drawerBleeding,
+                                                borderTopLeftRadius: 18,
+                                                borderTopRightRadius: 18,
+                                                visibility: 'visible',
+                                                right: 0,
+                                                left: 0,
+                                            }}
+                                        >
+                                            <Puller />
+                                            <Typography sx={{ p: 2 }}></Typography>
+                                        </StyledBox>
+                                        <StyledBox
+                                            sx={{
+                                                px: 2,
+                                                pb: 2,
+                                                height: '100%',
+                                                overflow: 'auto',
+                                                '&::-webkit-scrollbar-track': {
+                                                    backgroundColor: 'transparent',
+                                                },
+                                                '&::-webkit-scrollbar-thumb': {
+                                                    backgroundColor: '#d6dee1',
+                                                    borderRadius: '20px',
+                                                    border: '2px solid transparent',
+                                                    backgroundClip: 'content-box',
+                                                },
+
+                                                '&::-webkit-scrollbar-thumb:hover': {
+                                                    backgroundColor: '#a8bbbf',
+                                                },
+
+                                                '&::-webkit-scrollbar': {
+                                                    width: '14px',
+                                                },
+                                            }}
+                                        >
+                                            <Box sx={{ position: 'relative', display: 'flex', flexDirection: 'column' }}>
+                                                {/* drawer top */}
+                                                <Grid container spacing={2}>
+                                                    {/* drawer top left */}
+                                                    <Grid xs={12} md={6} item>
+                                                        <CardContent>
+                                                            <Box sx={{ mx: 1 }}>
+                                                                <Typography gutterBottom variant="h4" component="div">
+                                                                    {
+                                                                        projectData.title ? projectData.title : <Skeleton animation='wave' variant="rectangular" height={50} />
+                                                                    }
+                                                                </Typography>
+                                                                <Typography gutterBottom variant="h5" component="div">
+                                                                    {projectData.subtitle ? projectData.subtitle : <Skeleton animation='wave' variant="rectangular" height={40} />}
+                                                                </Typography>
+                                                            </Box>
+                                                            <Divider />
+                                                        </CardContent>
+                                                        <CardActions>
+                                                            <Box sx={{ mx: 1 }}>
+                                                                <Button sx={{ m: 1 }} color="secondary" variant='contained' size="medium" href={projectData.GitHubUrl} target='_blank'>GitHub</Button>
+                                                                <Button sx={{ m: 1 }} color="secondary" variant='contained' size="medium" href={projectData.WebsiteUrl} target='_blank' endIcon={<ForwardRoundedIcon />}>Website</Button>
+                                                                <IconButton sx={{ m: 1 }} onClick={() => handleShareOpen(projectData.id)} >
+                                                                    <ShareIcon></ShareIcon>
+                                                                </IconButton>
+                                                                <Divider />
+                                                            </Box>
+                                                        </CardActions>
+                                                        <CardContent>
+                                                            <Box sx={{ mx: 1 }}>
+                                                                <Typography gutterBottom variant="h5" color="text.secondary">
+                                                                    OVERVIEW
+                                                                </Typography>
+                                                                <Typography gutterBottom variant="body1" color="text.secondary">
+                                                                    {projectData.overview ? projectData.overview : <Skeleton animation='wave' variant="rectangular" height={150} />}
+                                                                </Typography>
+                                                            </Box>
+                                                        </CardContent>
+                                                    </Grid>
+                                                    {/* drawer top right */}
+                                                    <Grid xs={12} md={6} item>
+                                                        <CardContent>
+                                                            <Box sx={{ m: 1 }}>
+                                                                <Typography gutterBottom variant="h6" color="text.secondary">
+                                                                    ROLES
+                                                                </Typography>
+                                                                <Stack sx={{ flexWrap: 'wrap' }} alignItems='center' justifyContent='flex-start' direction='row' spacing={1}>
+                                                                    {projectData.roles ? projectData.roles.map((role, index) => (
+                                                                        <Chip style={{ fontSize: "18px" }} sx={{ m: 1 }} label={role} key={index} />
+                                                                    )) : <Skeleton animation='wave' variant="circle" />
+                                                                    }
+                                                                </Stack>
+                                                            </Box>
+                                                            <Divider />
+                                                            <Box sx={{ m: 1 }}>
+                                                                <Typography gutterBottom variant="h6" color="text.secondary">
+                                                                    TECHNOLOGY STACK
+                                                                </Typography>
+                                                                <Stack sx={{ flexWrap: 'wrap' }} alignItems='center' justifyContent='flex-start' direction='row' spacing={1}>
+                                                                    {
+                                                                        projectData.tech ? projectData.tech.map((techUrl, index) => (
+                                                                            <img key={index} className={classes.imageIcon} src={techUrl} alt={techUrl} height='48px' width='48px' />
+                                                                        )) : <Skeleton animation='wave' variant="circle" />
+                                                                    }
+                                                                </Stack>
+                                                            </Box>
+                                                            <Divider />
+                                                            <Box sx={{ m: 1 }}>
+                                                                <Typography gutterBottom variant="h6" color="text.secondary">
+                                                                    LIBRARY STACK
+                                                                </Typography>
+                                                                <Stack sx={{ flexWrap: 'wrap' }} alignItems='center' justifyContent='flex-start' direction='row' spacing={1}>
+                                                                    {projectData.library ? projectData.library.map((lib, index) => (
+                                                                        <Chip style={{ fontSize: "18px" }} label={lib} sx={{ m: 1 }} key={index} variant="outlined" />
+                                                                    )) : <Skeleton animation='wave' variant="circle" />
+                                                                    }
+                                                                </Stack>
+                                                            </Box>
+                                                        </CardContent>
+                                                    </Grid>
+                                                </Grid>
+                                                {/* drawer bottom side */}
+                                                <Box>
+                                                    <CardContent>
+                                                        <Divider />
+                                                        <Box sx={{ m: 1 }}>
+                                                            <Typography gutterBottom variant="h5" color="text.secondary">
+                                                                Features
+                                                            </Typography>
+                                                            <Typography gutterBottom variant="body1" color="text.secondary">
+                                                                {projectData.features ? projectData.features : <Skeleton animation='wave' variant="rectangular" height={150} />}
+                                                            </Typography>
+                                                            <Box sx={{ p: 2 }}>
+                                                                {projectData ?
+                                                                    <CardMedia
+                                                                        component="img"
+                                                                        alt={projectData.title}
+                                                                        height="450px"
+                                                                        width="350px"
+                                                                        image={projectData.thumbnail}
+                                                                        sx={{
+                                                                        }}
+                                                                    /> : <Skeleton variant="rectangular" width={350} height={450} />
+                                                                }
+                                                            </Box>
+                                                        </Box>
+                                                        <Divider />
+                                                        <CardContent>
+                                                            <Box sx={{ m: 1 }}>
+                                                                <Typography gutterBottom variant="h5" color="text.secondary">
+                                                                    PROCESS
+                                                                </Typography>
+                                                                <Typography gutterBottom variant="body1" color="text.secondary">
+                                                                    {projectData.process ? projectData.process : <Skeleton animation='wave' variant="rectangular" height={150} />}
+                                                                </Typography>
+                                                            </Box>
+                                                        </CardContent>
+                                                        <Divider />
+                                                        <CardContent>
+                                                            <Box sx={{ m: 1 }}>
+                                                                <Typography gutterBottom variant="h5" color="text.secondary">
+                                                                    RESULTS
+                                                                </Typography>
+                                                                <Typography gutterBottom variant="body1" color="text.secondary">
+                                                                    {projectData.results ? projectData.results : <Skeleton animation='wave' variant="rectangular" height={150} />}
+                                                                </Typography>
+                                                            </Box>
+                                                        </CardContent>
+                                                    </CardContent>
+                                                </Box>
+                                            </Box>
+                                        </StyledBox>
+                                        {/* close button */}
+                                        <CloseButton sx={{ position: 'absolute', bottom: '40px', transform: 'translate(-50%,0)', left: '50%' }} size='large' onClick={handleDrawerOpen(false)}>Close</CloseButton>
+                                    </SwipeableDrawer>
+                                </Root>
+                            </div>
                         </div>
                     </div>
+                    {/* slide button */}
+                    <div className='scroller-button'>
+                        <Box className="button left-button">
+                            <IconButton sx={{ fontSize: 40 }} onClick={handleLeft}>
+                                {/* <ArrowCircleLeftRoundedIcon sx={{ fontSize: 50 }} /> */}
+                                <FontAwesomeIcon icon="fas fa-chevron-circle-left" />
+                            </IconButton>
+                        </Box>
+                        <Box className="button right-button">
+                            <IconButton sx={{ fontSize: 40 }} onClick={handleRight}>
+                                {/* <ArrowCircleRightRoundedIcon sx={{ fontSize: 50 }} /> */}
+                                <FontAwesomeIcon icon="fas fa-chevron-circle-right" />
+                            </IconButton>
+                        </Box>
+                    </div>
                 </div>
-                {/* slide button */}
-                <div className='scroller-button'>
-                    <Box className="button left-button">
-                        <IconButton sx={{ fontSize: 40 }} onClick={handleLeft}>
-                            {/* <ArrowCircleLeftRoundedIcon sx={{ fontSize: 50 }} /> */}
-                            <FontAwesomeIcon icon="fas fa-chevron-circle-left" />
-                        </IconButton>
-                    </Box>
-                    <Box className="button right-button">
-                        <IconButton sx={{ fontSize: 40 }} onClick={handleRight}>
-                            {/* <ArrowCircleRightRoundedIcon sx={{ fontSize: 50 }} /> */}
-                            <FontAwesomeIcon icon="fas fa-chevron-circle-right" />
-                        </IconButton>
-                    </Box>
-                </div>
-            </div>
-        </div >
+            </div >
+        </React.Fragment>
     )
 };

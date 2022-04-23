@@ -45,6 +45,7 @@
     "request": "^2.88.2",
     "sass": "^1.44.0",
     "three": "^0.139.2",
+    "three-css3drenderer": "^1.0.1",
     "web-vitals": "^1.0.1",
     "webpack": "^5.72.0"
   },

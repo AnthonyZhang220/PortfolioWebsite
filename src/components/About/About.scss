@@ -5,16 +5,16 @@
 	background-color: inherit;
 	justify-content: center;
 	align-items: center;
-	background-image: url("./aboutpage.png");
-	background-repeat: no-repeat;
 	flex-direction: column;
-
+	padding-top: 100px;
+	
 	.about-section {
+		max-width: 1200px;
+		margin: 0 auto;
 		position: relative;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding-bottom: 100px;
 
 		.about-title {
 			display: inline-flex;
@@ -36,58 +36,6 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
-
-			.summary-space {
-			}
-
-			.summary {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				flex-wrap: wrap;
-				max-width: 700px;
-				position: relative;
-			}
-		}
-	}
-
-	.skill-section {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		position: relative;
-
-		.title-skills {
-			display: flex;
-			flex-wrap: wrap;
-			padding-bottom: 20px;
-			margin-top: $section-margin-top;
-			margin-left: $section-margin-left;
-			margin-right: $section-margin-right;
-			align-items: center;
-			font-size: 1.5em;
-
-			span {
-				font-size: 1.5em;
-				color: #6e6e73;
-			}
-		}
-
-		.technology {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-
-			.categories {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				flex-wrap: wrap;
-
-				.skill-paper {
-					width: 350px;
-				}
-			}
 		}
 	}
 }

@@ -8,22 +8,22 @@ footer {
 	justify-content: center;
 	background-color: #212121;
 	color: #fafafa;
-	margin-top: 40px;
-	border-radius: 4em 4em 0 0;
-	// margin-bottom: 1em;
-	margin-left: 1em;
-	margin-right: 1em;
-	box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
+	// border-radius: 4em 4em 0 0;
 
-	.top {
+	.footer-top {
 		padding-top: 100px;
 		padding-bottom: 100px;
-		a {
-			text-decoration: none;
-			color: #fafafa;
-		}
-		a:hover {
-			text-decoration: underline;
+
+		.footer-top-container {
+			max-width: 1400px;
+			margin: 0 auto;
+			a {
+				text-decoration: none;
+				color: #fafafa;
+			}
+			a:hover {
+				text-decoration: underline;
+			}
 		}
 	}
 

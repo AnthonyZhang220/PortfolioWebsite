@@ -2,65 +2,56 @@
 
 .contact {
 	background-color: inherit;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
 	position: relative;
+	border-radius: 0 0 4em 4em;
+	padding-top: 100px;
+	padding-bottom: 100px;
 
-	.contact-title {
-		display: flex;
-		align-items: center;
-		flex-wrap: wrap;
-		margin-top: $section-margin-top;
-		margin-left: $section-margin-left;
-		margin-right: $section-margin-right;
-		padding-bottom: 20px;
-		font-size: 1.5em;
+	.contact-grid-container {
+		max-width: 1300px;
+		margin: 0 auto;
 
-		.contact-subtitle {
-			font-size: 1.5em;
-			color: #6e6e73;
-		}
-	}
+		.contact-title-grid {
+			.contact-title-background {
+				.contact-subtitle {
+					color: #6e6e73;
+				}
 
-	.contact-container {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding-top: 30px;
-		padding-bottom: 30px;
-		margin-top: 20px;
-		// width: 100%;
-		// background-image: url("./map.png");
+				.contact-social {
+					.linkedin,
+					.github,
+					.stackoverflow,
+					.hackerrank,
+					.medium {
+						// padding-right: 30%;
+						// vertical-align: middle;
+						// margin-bottom: 30px;
 
-		.curved {
-			// position: absolute;
-			// width: 50%;
-			background-repeat: no-repeat;
-			background-position: center;
-			background-size: cover;
-			background: bottom;
-			z-index: -1;
+						a {
+							color: black;
 
-			svg {
-				display: block;
+							i {
+								text-align: center;
+								width: 2em;
+								font-size: 30px;
+								transition: all 0.5s ease-out;
+								transform-origin: center center;
+								line-height: 2;
+
+								&:hover {
+									transform: scale(1.5);
+									color: $mainColor2;
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 
-		.form-background {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			order: 2;
-			z-index: 4;
-		}
-
-		.form-wrapper {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			order: 1;
-			z-index: 5;
+		.form-grid-container {
+			.form-wrapper {
+			}
 		}
 	}
 }
