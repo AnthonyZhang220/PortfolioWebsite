@@ -7,32 +7,26 @@
 	background-color: inherit;
 	padding-top: 100px;
 	padding-bottom: 100px;
-    
+
 	.skill-section {
-        max-width: 1200px;
-		margin: 0 auto;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		position: relative;
 
-		.title-skills {
+		.skill-title {
 			display: flex;
+			align-items: center;
 			flex-wrap: wrap;
 			padding-bottom: 20px;
-			margin-left: $section-margin-left;
-			margin-right: $section-margin-right;
-			align-items: center;
 
-			span {
-				color: #6e6e73;
-			}
 		}
 
 		.technology {
 			display: flex;
 			justify-content: center;
 			align-items: center;
+			max-width: 1200px;
+			margin: 0 auto;
 
 			.categories {
 				display: flex;

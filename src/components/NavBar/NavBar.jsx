@@ -57,6 +57,28 @@ export default function NavBar({ mode, setMode }) {
 
     });
 
+    useEffect(() => {
+        gsap.to(".top-left", {
+            y: -27, x: -20, scrollTrigger: {
+                trigger: ".hero",
+                start: "0% 0%",
+                // toggleActions: "play none none reverse",
+                // ease: "circ",
+                scrub: 1,
+            },
+        })
+        gsap.to(".top-right", {
+            y: -27, x: 20, scrollTrigger: {
+                trigger: ".hero",
+                start: "0% 0%",
+                // toggleActions: "play none none reverse",
+                // ease: "circ",
+                scrub: 1
+            }
+        })
+
+    })
+
     const toggleDrawer = () => (event) => {
         if (
             event &&
@@ -126,7 +148,7 @@ export default function NavBar({ mode, setMode }) {
                         '&.MuiDrawer-root > .MuiPaper-root': {
                             position: 'relative',
                             backgroundColor: 'transparent',
-                            mt: isMobile ? '60px' : "150px",
+                            mt: isMobile ? '60px' : "100px",
                             height: '100vh',
                             width: 'auto',
                         },

@@ -188,9 +188,9 @@ export default function Project(props) {
     // project
     useEffect(() => {
         const animation = gsap.fromTo(scrollerRef.current, {
-            x: "30%", opacity: 0
+            x: "50%"
         }, {
-            x: "0%", opacity: 1, duration: 1,
+            x: "0%", duration: 1,
             scrollTrigger: {
                 trigger: projectContainerRef.current,
                 start: "top bottom"
@@ -209,26 +209,34 @@ export default function Project(props) {
                 // scrub: true,
             }
         });
+        gsap.fromTo(projectTitleRef.current, { x: "20%" }, {
+            x: "0%",
+            scrollTrigger: {
+                trigger: projectContainerRef.current,
+                start: 'top bottom',
+                scrub: 1,
+            }
+        });
 
         return () => {
             entryAnimation.scrollTrigger.kill();
         }
     }, [])
 
-    useEffect(() => {
-        if (scrollerRef.current) {
-            const onWheel = e => {
-                if (e.deltaY === 0) return;
-                e.preventDefault();
-                scrollerRef.current.scrollTo({
-                    left: scrollerRef.current.scrollLeft + e.deltaY,
-                    behavior: "smooth"
-                });
-            };
-            scrollerRef.current.addEventListener("wheel", onWheel);
-            return () => scrollerRef.current.removeEventListener("wheel", onWheel);
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (scrollerRef.current) {
+    //         const onWheel = e => {
+    //             if (e.deltaY === 0) return;
+    //             e.preventDefault();
+    //             scrollerRef.current.scrollTo({
+    //                 left: scrollerRef.current.scrollLeft + e.deltaY,
+    //                 behavior: "smooth"
+    //             });
+    //         };
+    //         scrollerRef.current.addEventListener("wheel", onWheel);
+    //         return () => scrollerRef.current.removeEventListener("wheel", onWheel);
+    //     }
+    // }, []);
 
 
 
@@ -334,10 +342,10 @@ export default function Project(props) {
             </div>
             <div className='project' id='project'>
                 <div className='project-title' ref={projectTitleRef}>
-                    <Typography variant="h3">
+                    <Typography variant="h2">
                         Project.&nbsp;
                     </Typography>
-                    <Typography variant="h3" color="#6e6e73">
+                    <Typography variant="h2" color="#6e6e73">
                         Take a took at what I have built, in the past.
                     </Typography>
                 </div>
@@ -355,8 +363,8 @@ export default function Project(props) {
                                                 sx={{
                                                     position: 'relative',
                                                     // backgroundColor: 'transparent',
-                                                    width: matches ? '275px' : '350px',
-                                                    height: matches ? '400px' : '450px',
+                                                    width: matches ? '275px' : '400px',
+                                                    height: matches ? '400px' : '500px',
                                                     marginRight: '20px',
                                                     transition: "all 0.3s cubic-bezier(0,0,.5,1)",
                                                     borderRadius: '20px',
@@ -372,8 +380,8 @@ export default function Project(props) {
                                                     alt={title}
                                                     image={thumbnail}
                                                     sx={{
-                                                        width: matches ? '275px' : '350px',
-                                                        height: matches ? '400px' : '450px',
+                                                        width: matches ? '275px' : '400px',
+                                                        height: matches ? '400px' : '500px',
                                                         borderRadius: '20px',
                                                         boxShadow: "0px 4px 24px rgb(0 0 0 / 0.6)",
                                                         "&:hover": {

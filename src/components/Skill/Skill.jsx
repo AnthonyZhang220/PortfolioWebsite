@@ -76,7 +76,7 @@ export default function Skill() {
         },
     ]
 
-    const isMobile = useMediaQuery('(max-width:600px)');
+    const isMobile = useMediaQuery('(max-width:800px)');
 
     useEffect(() => {
         const entryAnimation = gsap.fromTo(skillTitleRef.current, { y: 50, opacity: 0 }, {
@@ -85,6 +85,15 @@ export default function Skill() {
                 trigger: skillTitleRef.current,
                 start: 'top bottom',
                 // scrub: true,
+            }
+        });
+
+        gsap.fromTo(skillTitleRef.current, { x: "30%" }, {
+            x: "0%",
+            scrollTrigger: {
+                trigger: skillTitleRef.current,
+                start: 'top bottom',
+                scrub: 1,
             }
         });
 
@@ -121,11 +130,11 @@ export default function Skill() {
         <ThemeProvider theme={theme}>
             <div className="skill">
                 <div className="skill-section" ref={skillRef} id='skill'>
-                    <div className="title-skills" ref={skillTitleRef}>
-                        <Typography variant="h3">
-                            Skills.&nbsp;
+                    <div className="skill-title" ref={skillTitleRef}>
+                        <Typography variant="h2">
+                            Skill.&nbsp;
                         </Typography>
-                        <Typography variant="h3" color="#6e6e73">
+                        <Typography variant="h2" color="#6e6e73">
                             Technologies are always evolving, so am I.
                         </Typography>
                     </div>
@@ -166,7 +175,7 @@ export default function Skill() {
                                                 skillCategories?.map(({ type, icon }, index) => (
                                                     <ToggleButton value={type} key={index} sx={{ display: "flex", justifyContent: "center", alignItems: "center" }} >
                                                         {
-                                                            isMobile ? <FontAwesomeIcon icon={`fa-solid fa-${icon}`} fontSize={20} key={index}/> :
+                                                            isMobile ? <FontAwesomeIcon icon={`fa-solid fa-${icon}`} fontSize={20} key={index} /> :
                                                                 <Grid container alignItems="center" display="flex" justifyContent="center" key={index}>
                                                                     <FontAwesomeIcon icon={`fa-solid fa-${icon}`} fontSize={20} />
                                                                     <Typography variant="h6" align='center' sx={{ ml: 1 }}>
@@ -181,7 +190,7 @@ export default function Skill() {
                                     </Paper>
                                 </Grid>
                                 <Grid container>
-                                    <Grid container item md={12} justifyContent="center">
+                                    <Grid container justifyContent="center" alignItems="center">
                                         {
                                             skillData?.filter((type) => type.type.find(x => x === skillTypes)).map(({ name, src }, index) => (
                                                 <>

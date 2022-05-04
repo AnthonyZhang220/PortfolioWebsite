@@ -65,7 +65,7 @@
 						line-height: 1;
 						overflow: hidden;
 						z-index: 1;
-						width: 110%;
+						width: 120%;
 
 						h1 {
 							font-size: 4rem;
@@ -132,8 +132,9 @@
 				position: relative;
 				grid-area: 2 / 2 / 6 / 6;
 				z-index: 0;
-
+				
 				img {
+					transform: translateY(-10%);
 					width: 1300px;
 					aspect-ratio: 16/9;
 				}
@@ -202,7 +203,6 @@
 	}
 }
 
-
 @media screen and (max-width: 600px) {
 	.hero {
 		.hero-wrapper-flex {
@@ -214,7 +214,7 @@
 				display: grid;
 				grid-template-columns: 1fr;
 				grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-				
+
 				.hero-text-wrapper {
 					grid-area: 2 / 1 / 3 / 1;
 

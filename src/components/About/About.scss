@@ -7,35 +7,50 @@
 	align-items: center;
 	flex-direction: column;
 	padding-top: 100px;
-	
+
 	.about-section {
-		max-width: 1200px;
+		max-width: 1400px;
 		margin: 0 auto;
-		position: relative;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 
 		.about-title {
-			display: inline-flex;
+			display: flex;
 			align-items: center;
 			flex-wrap: wrap;
-			margin-top: $section-margin-top;
-			margin-left: $section-margin-left;
-			margin-right: $section-margin-right;
 			padding-bottom: 20px;
-			font-size: 1.5em;
 
-			.about-subtitle {
-				font-size: 1.5em;
-				color: #6e6e73;
-			}
 		}
 
 		.about-me {
-			display: flex;
-			justify-content: center;
-			align-items: center;
+			.about-who-section {
+				position: relative;
+
+				.about-who-img img {
+					position: relative;
+					object-fit: cover;
+					max-width: 100%;
+					height: 100%;
+				}
+			}
+
+			.about-where-section {
+				position: relative;
+
+				.about-where-text {
+					position: relative;
+					z-index: 1;
+				}
+
+				.about-where-img img {
+					position: relative;
+					z-index: 0;
+					object-fit: cover;
+					max-width: 100%;
+					height: 100%;
+				}
+			}
 		}
 	}
 }

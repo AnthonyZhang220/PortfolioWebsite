@@ -239,8 +239,29 @@ export default function Contact() {
                 start: 'top bottom',
             }
         })
+        const leftAnimation = gsap.fromTo(contactTitleRef.current, { x: "50%" }, {
+            x: 0, scrollTrigger: {
+                trigger: contactTitleRef.current,
+                start: "top 85%",
+                end: "top center",
+                scrub: 1,
+            }
+        })
+        const rightAnimation = gsap.fromTo(".form-grid-container", { opacity: 0 }, {
+            opacity: 1, scrollTrigger: {
+                trigger: ".form-grid-container",
+                start: "top 70%",
+                end: "center center",
+                scrub: 1,
+            }
+        })
 
-        return () => animation.scrollTrigger.kill();
+        return () => {
+            animation.scrollTrigger.kill();
+            leftAnimation.scrollTrigger.kill();
+            rightAnimation.scrollTrigger.kill();
+
+        }
     }, [])
 
     // useEffect(() => {
@@ -268,16 +289,16 @@ export default function Contact() {
                                 m: 2,
                                 p: 2,
                             }}>
-                            <Typography variant="h3" color="#212121" textAlign="center">
+                            <Typography variant="h2" color="#212121" textAlign="center">
                                 Contact.&nbsp;
                             </Typography>
-                            <Typography variant="h3" color="#6e6e73" textAlign="center">
+                            <Typography variant="h2" color="#6e6e73" textAlign="center">
                                 It's never hard to reach out to me, at any time.
                             </Typography>
                         </Paper>
                         <Grid container className="contact-social" textAlign="center">
                             {
-                                contactSocialIcon?.map(({ name, icon, href,}, index) => (
+                                contactSocialIcon?.map(({ name, icon, href, }, index) => (
                                     <Grid item xs component="a" href={href} m={"auto"} target="_blank" rel="noreferrer" key={index} >
                                         <Paper elevation={0} sx={{
                                             m: 2,

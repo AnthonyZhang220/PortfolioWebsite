@@ -32,7 +32,6 @@ export default function About() {
     const isMobile = useMediaQuery('(max-width:600px)');
 
     const aboutTitleRef = useRef();
-    const aboutTextRef = useRef();
 
 
 
@@ -45,83 +44,162 @@ export default function About() {
                 // scrub: true,
             }
         });
-        console.log(aboutTextRef.current)
+
+        gsap.fromTo(aboutTitleRef.current, { x: "-30%" }, {
+            x: "0%",
+            scrollTrigger: {
+                trigger: aboutTitleRef.current,
+                start: 'top bottom',
+                scrub: true,
+            }
+        });
+
         return () => {
             entryAnimation.scrollTrigger.kill();
         }
     }, [])
 
     useEffect(() => {
-        const textAnimation = gsap.fromTo(aboutTextRef.current, { x: -50, opacity: 0 }, {
-            x: 0, opacity: 1, duration: 1,
-            scrollTrigger: {
-                trigger: aboutTextRef.current,
-                start: 'top bottom',
-                // scrub: true,
-            }
-        });
+
+        // gsap.to(".about-where-img", {
+        //     scrollTrigger: {
+        //         trigger: ".about-where-img",
+        //         start: "0% 50%",
+        //         scrub: 1,
+        //         pin: true,
+        //         markers: true,
+        //     }
+        // })
         return () => {
-            textAnimation.scrollTrigger.kill();
         }
     });
+
+    useEffect(() => {
+        // const imgScrollEffect = gsap.timeline();
+
+        // imgScrollEffect.fromTo(".about-where-img", { y: 0 }, {
+        //     y: -100, scrollTrigger: {
+        //         trigger: ".about-where-section",
+        //         start: "top center",
+        //         scrub: true,
+        //         markers: true
+        //     }
+        // })
+
+        gsap.to("#landscape3", {
+            x: "50%", y: "50%", scrollTrigger: {
+                trigger: ".about-where-img",
+                start: "top center",
+                scrub: 1,
+            },
+        })
+        gsap.to("#landscape2", {
+            x: "0%", y: "50%", scrollTrigger: {
+                trigger: ".about-where-img",
+                start: "top center",
+                scrub: 1,
+            }
+        })
+        gsap.to("#landscape1", {
+            x: "-50%", y: "50%", scrollTrigger: {
+                trigger: ".about-where-img",
+                start: "top center",
+                scrub: 1,
+            }
+        })
+        gsap.to(".about-where-text", {
+            y: "-100%", scrollTrigger: {
+                trigger: ".about-where-section",
+                start: "top center",
+                scrub: 1,
+                markers: true,
+            }
+        })
+        gsap.fromTo(".about-who-text", { y: "0%" }, {
+            y: "20%", scrollTrigger: {
+                trigger: ".about-who-section",
+                start: "top center",
+                scrub: 1,
+            }
+        })
+
+        gsap.to(".about-where-img", {
+            y: 0, scrollTrigger: {
+                trigger: ".about-where-section",
+                start: "top top",
+                end: "center center",
+                markers: true,
+            }
+        })
+
+
+
+
+        return () => {
+            // imgScrollEffect.scrollTrigger.kill();
+        }
+    })
 
 
     return (
         <div className='about' id="about">
             <div className="about-section">
                 <div className="about-title" ref={aboutTitleRef}>
-                    <Typography variant="h3">
+                    <Typography variant="h2">
                         About.&nbsp;
                     </Typography>
-                    <Typography variant="h3" color="#6e6e73">
+                    <Typography variant="h2" color="#6e6e73">
                         Get to know me, in a blink of an eye.
                     </Typography>
                 </div>
-                <div className="about-me">
-                    <Box sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        flexDirection: "column",
-                    }}>
-                        <Grid container sx={{
-                            m: 2,
-                            p: 4,
-                        }}>
-                            <Grid item xs={12} md={6} ref={aboutTextRef}>
-                                <Typography textAlign='start' variant='h6' gutterBottom sx={{ lineHeight: '1.5' }}>
-                                    {aboutText?.find(({ item }) => item === "Who I am").text}
-                                </Typography>
+                <Grid container className="about-me" sx={{
+                    m: 2,
+                    p: 2,
+                }}>
+                    <Grid container className="about-who-section">
+                        <Grid item sm={12} md={12} className="about-who-text" sx={{
+                            m: 1,
+                            p: 1,
+                        }} >
+                            <Typography textAlign='start' variant='h3' sx={{ lineHeight: '2' }}>
+                                {aboutText?.find(({ item }) => item === "Who I am").text}
+                            </Typography>
+                        </Grid>
+                        <Grid item sm={12} md={12} className="about-who-img">
+                            {/* <img src="assets/images/nature.jpg" alt="nature.jpg" /> */}
+                        </Grid>
+                    </Grid>
+                    <Grid container className="about-where-section" sx={{ paddingTop: "100px" }}>
+                        <Grid container sm={12} md={12} className="about-where-img">
+                            <Grid item md={4}>
+                                <img src="assets/images/mountain1.jpg" alt="landscape1.jpg" id="landscape1" />
                             </Grid>
-                            <Grid item xs={12} md={6}>
+                            <Grid item md={4}>
+                                <img src="assets/images/mountain2.jpg" alt="landscape2.jpg" id="landscape2" />
+                            </Grid>
+                            <Grid item md={4}>
+                                <img src="assets/images/mountain3.jpg" alt="landscape3.jpg" id="landscape3" />
                             </Grid>
                         </Grid>
-                        <Grid container sx={{
-                            m: 2,
-                            p: 4,
-                        }}>
-                            <Grid item xs={12} md={6}>
-                            </Grid>
-                            <Grid item xs={12} md={6} ref={aboutTextRef}>
-                                <Typography textAlign='start' variant='h6' gutterBottom sx={{ lineHeight: '1.5' }}>
-                                    {aboutText?.find(({ item }) => item === "Where I'm from").text}
-                                </Typography>
-                            </Grid>
+                        <Grid container sm={12} md={12} className="about-where-text">
+                            <Typography textAlign='start' variant='h3' sx={{ lineHeight: '2' }}>
+                                {aboutText?.find(({ item }) => item === "Where I'm from").text}
+                            </Typography>
                         </Grid>
-                        <Grid container sx={{
+                    </Grid>
+                    {/* <Grid container sx={{
                             m: 2,
                             p: 4,
                         }}>
                             <Grid item xs={12} md={6} ref={aboutTextRef}>
-                                <Typography textAlign='start' variant='h6' gutterBottom sx={{ lineHeight: '1.5' }}>
+                                <Typography textAlign='start' variant='h6' sx={{ lineHeight: '1.5' }}>
                                     {aboutText?.find(({ item }) => item === "What I do").text}
                                 </Typography>
                             </Grid>
                             <Grid item xs={12} md={6}>
                             </Grid>
-                        </Grid>
-                    </Box>
-                </div>
+                        </Grid> */}
+                </Grid>
             </div>
         </div >
     )
