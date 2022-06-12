@@ -242,10 +242,10 @@ export default function Project(props) {
 
     const [open, setOpen] = useState(false);
 
-    const handleDrawerOpen = ({ id, title, subtitle, thumbnail, overview, roles, tech, WebsiteUrl, GitHubUrl, library, index, process, results }) => () => {
+    const handleDrawerOpen = ({ id, title, subtitle, screenshots, thumbnails, overview, roles, tech, WebsiteUrl, GitHubUrl, library, index, process, results }) => () => {
 
         setOpen(!open);
-        setProjectData({ id, title, subtitle, thumbnail, overview, roles, tech, WebsiteUrl, GitHubUrl, library, index, process, results });
+        setProjectData({ id, title, subtitle, screenshots, thumbnails, overview, roles, tech, WebsiteUrl, GitHubUrl, library, index, process, results });
 
 
 
@@ -353,7 +353,7 @@ export default function Project(props) {
                     <div className='card-scroller-crop'>
                         <div className="card-scroller-content" ref={scrollerRef}>
                             <div className="card-scroller-plater">
-                                {projectdata?.map(({ id, title, subtitle, thumbnail, roles, overview, tech, WebsiteUrl, GitHubUrl, library, process, results, features }, index) => (
+                                {projectdata?.map(({ id, title, subtitle, screenshots, thumbnails, roles, overview, tech, WebsiteUrl, GitHubUrl, library, process, results, features }, index) => (
                                     <React.Fragment>
                                         {/* project card */}
                                         <div key={id} className='card'>
@@ -378,7 +378,7 @@ export default function Project(props) {
                                                 <CardMedia
                                                     component="img"
                                                     alt={title}
-                                                    image={thumbnail}
+                                                    image={thumbnails}
                                                     sx={{
                                                         width: matches ? '275px' : '400px',
                                                         height: matches ? '400px' : '500px',
@@ -390,7 +390,7 @@ export default function Project(props) {
                                                             cursor: 'pointer'
                                                         },
                                                     }}
-                                                    onClick={handleDrawerOpen({ id, title, subtitle, thumbnail, overview, roles, tech, WebsiteUrl, GitHubUrl, library, index, process, results, features })}
+                                                    onClick={handleDrawerOpen({ id, title, subtitle, screenshots, thumbnails, overview, roles, tech, WebsiteUrl, GitHubUrl, library, index, process, results, features })}
                                                 />
                                             </Card>
                                         </div>
@@ -425,7 +425,7 @@ export default function Project(props) {
                                             </LinkedinShareButton>
 
 
-                                            <PinterestShareButton url={projectData.WebsiteUrl} media={projectData.thumbnail}>
+                                            <PinterestShareButton url={projectData.WebsiteUrl} media={projectData.thumbnails}>
                                                 <PinterestIcon round size={50} />
                                             </PinterestShareButton>
 
@@ -492,7 +492,6 @@ export default function Project(props) {
                                         </CardContent>
                                     </Card>
                                 </div>
-
                                 {/* swipeabledrawer */}
                                 <Root>
                                     <CssBaseline />
@@ -562,11 +561,11 @@ export default function Project(props) {
                                                             <Box sx={{ mx: 1 }}>
                                                                 <Typography gutterBottom variant="h4" component="div">
                                                                     {
-                                                                        projectData.title ? projectData.title : <Skeleton animation='wave' variant="rectangular" height={50} />
+                                                                        projectData.title ? projectData.title : <Skeleton animation='pulse' variant="rectangular" height={50} />
                                                                     }
                                                                 </Typography>
                                                                 <Typography gutterBottom variant="h5" component="div">
-                                                                    {projectData.subtitle ? projectData.subtitle : <Skeleton animation='wave' variant="rectangular" height={40} />}
+                                                                    {projectData.subtitle ? projectData.subtitle : <Skeleton animation='pulse' variant="rectangular" height={40} />}
                                                                 </Typography>
                                                             </Box>
                                                             <Divider />
@@ -587,7 +586,7 @@ export default function Project(props) {
                                                                     OVERVIEW
                                                                 </Typography>
                                                                 <Typography gutterBottom variant="body1" color="text.secondary">
-                                                                    {projectData.overview ? projectData.overview : <Skeleton animation='wave' variant="rectangular" height={150} />}
+                                                                    {projectData.overview ? projectData.overview : <Skeleton animation='pulse' variant="rectangular" height={150} />}
                                                                 </Typography>
                                                             </Box>
                                                         </CardContent>
@@ -602,7 +601,7 @@ export default function Project(props) {
                                                                 <Stack sx={{ flexWrap: 'wrap' }} alignItems='center' justifyContent='flex-start' direction='row' spacing={1}>
                                                                     {projectData.roles ? projectData.roles.map((role, index) => (
                                                                         <Chip style={{ fontSize: "18px" }} sx={{ m: 1 }} label={role} key={index} />
-                                                                    )) : <Skeleton animation='wave' variant="circle" />
+                                                                    )) : <Skeleton animation='pulse' variant="circle" />
                                                                     }
                                                                 </Stack>
                                                             </Box>
@@ -615,7 +614,7 @@ export default function Project(props) {
                                                                     {
                                                                         projectData.tech ? projectData.tech.map((techUrl, index) => (
                                                                             <img key={index} className={classes.imageIcon} src={techUrl} alt={techUrl} height='48px' width='48px' />
-                                                                        )) : <Skeleton animation='wave' variant="circle" />
+                                                                        )) : <Skeleton animation='pulse' variant="circle" />
                                                                     }
                                                                 </Stack>
                                                             </Box>
@@ -627,7 +626,7 @@ export default function Project(props) {
                                                                 <Stack sx={{ flexWrap: 'wrap' }} alignItems='center' justifyContent='flex-start' direction='row' spacing={1}>
                                                                     {projectData.library ? projectData.library.map((lib, index) => (
                                                                         <Chip style={{ fontSize: "18px" }} label={lib} sx={{ m: 1 }} key={index} variant="outlined" />
-                                                                    )) : <Skeleton animation='wave' variant="circle" />
+                                                                    )) : <Skeleton animation='pulse' variant="circle" />
                                                                     }
                                                                 </Stack>
                                                             </Box>
@@ -635,54 +634,56 @@ export default function Project(props) {
                                                     </Grid>
                                                 </Grid>
                                                 {/* drawer bottom side */}
-                                                <Box>
+                                                <CardContent>
+                                                    <Divider />
                                                     <CardContent>
-                                                        <Divider />
-                                                        <Box sx={{ m: 1 }}>
-                                                            <Typography gutterBottom variant="h5" color="text.secondary">
-                                                                Features
-                                                            </Typography>
-                                                            <Typography gutterBottom variant="body1" color="text.secondary">
-                                                                {projectData.features ? projectData.features : <Skeleton animation='wave' variant="rectangular" height={150} />}
-                                                            </Typography>
-                                                            <Box sx={{ p: 2 }}>
-                                                                {projectData ?
-                                                                    <CardMedia
-                                                                        component="img"
-                                                                        alt={projectData.title}
-                                                                        height="450px"
-                                                                        width="350px"
-                                                                        image={projectData.thumbnail}
-                                                                        sx={{
-                                                                        }}
-                                                                    /> : <Skeleton variant="rectangular" width={350} height={450} />
-                                                                }
-                                                            </Box>
-                                                        </Box>
-                                                        <Divider />
-                                                        <CardContent>
-                                                            <Box sx={{ m: 1 }}>
-                                                                <Typography gutterBottom variant="h5" color="text.secondary">
-                                                                    PROCESS
-                                                                </Typography>
-                                                                <Typography gutterBottom variant="body1" color="text.secondary">
-                                                                    {projectData.process ? projectData.process : <Skeleton animation='wave' variant="rectangular" height={150} />}
-                                                                </Typography>
-                                                            </Box>
-                                                        </CardContent>
-                                                        <Divider />
-                                                        <CardContent>
-                                                            <Box sx={{ m: 1 }}>
-                                                                <Typography gutterBottom variant="h5" color="text.secondary">
-                                                                    RESULTS
-                                                                </Typography>
-                                                                <Typography gutterBottom variant="body1" color="text.secondary">
-                                                                    {projectData.results ? projectData.results : <Skeleton animation='wave' variant="rectangular" height={150} />}
-                                                                </Typography>
-                                                            </Box>
-                                                        </CardContent>
+                                                        <Typography gutterBottom variant="h5" color="text.secondary">
+                                                            Features
+                                                        </Typography>
+                                                        <Typography gutterBottom variant="body1" color="text.secondary">
+                                                            {projectData.features ? projectData.features : <Skeleton animation='pulse' variant="rectangular" height={150} />}
+                                                        </Typography>
                                                     </CardContent>
-                                                </Box>
+                                                    <CardContent>
+                                                        {projectData.screenshots ?
+                                                            <Grid container spacing={4}>
+                                                                {
+                                                                    projectData.screenshots.map((screenshot) => (
+                                                                        <Grid item xs={4}>
+                                                                            <CardMedia
+                                                                                className="project-screenshots"
+                                                                                component="img"
+                                                                                alt={screenshot}
+                                                                                height="100%"
+                                                                                width="100%"
+                                                                                image={screenshot}
+                                                                            />
+                                                                        </Grid>
+                                                                    ))
+                                                                }
+                                                            </Grid>
+                                                            : <Skeleton variant="rectangular" width={350} height={450} />
+                                                        }
+                                                    </CardContent>
+                                                    <Divider />
+                                                    <CardContent>
+                                                        <Typography gutterBottom variant="h5" color="text.secondary">
+                                                            PROCESS
+                                                        </Typography>
+                                                        <Typography gutterBottom variant="body1" color="text.secondary">
+                                                            {projectData.process ? projectData.process : <Skeleton animation='pulse' variant="rectangular" height={150} />}
+                                                        </Typography>
+                                                    </CardContent>
+                                                    <Divider />
+                                                    <CardContent>
+                                                        <Typography gutterBottom variant="h5" color="text.secondary">
+                                                            RESULTS
+                                                        </Typography>
+                                                        <Typography gutterBottom variant="body1" color="text.secondary">
+                                                            {projectData.results ? projectData.results : <Skeleton animation='pulse' variant="rectangular" height={150} />}
+                                                        </Typography>
+                                                    </CardContent>
+                                                </CardContent>
                                             </Box>
                                         </StyledBox>
                                         {/* close button */}

@@ -17,7 +17,6 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 
 import { ThemeProvider, styled } from '@mui/material/styles';
-import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { skillData } from './SkillData'
@@ -44,7 +43,6 @@ export default function Skill() {
     const skillRef = useRef();
     const [skillTypes, setSkillTypes] = useState("All");
 
-    const theme = useTheme();
 
     const skillCategories = [
         {
@@ -92,7 +90,7 @@ export default function Skill() {
             x: "0%",
             scrollTrigger: {
                 trigger: skillTitleRef.current,
-                start: 'top bottom',
+                start: 'top 85%',
                 scrub: 1,
             }
         });
@@ -127,9 +125,8 @@ export default function Skill() {
 
 
     return (
-        <ThemeProvider theme={theme}>
-            <div className="skill">
-                <div className="skill-section" ref={skillRef} id='skill'>
+            <div className="skill" id='skill'>
+                <div className="skill-section" ref={skillRef}>
                     <div className="skill-title" ref={skillTitleRef}>
                         <Typography variant="h2">
                             Skill.&nbsp;
@@ -240,6 +237,5 @@ export default function Skill() {
                     </div>
                 </div>
             </div >
-        </ThemeProvider >
     )
 }

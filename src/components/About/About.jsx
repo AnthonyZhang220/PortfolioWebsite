@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from 'gsap/all';
-import { aboutText } from './aboutText';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -12,8 +11,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
 
 import useMediaQuery from '@mui/material/useMediaQuery';
 import "./About.scss";
@@ -45,12 +42,12 @@ export default function About() {
             }
         });
 
-        gsap.fromTo(aboutTitleRef.current, { x: "-30%" }, {
-            x: "0%",
+        gsap.fromTo(aboutTitleRef.current, { x: "-10%" }, {
+            x: "10%",
             scrollTrigger: {
                 trigger: aboutTitleRef.current,
-                start: 'top bottom',
-                scrub: true,
+                start: 'top 85%',
+                scrub: 1,
             }
         });
 
@@ -59,20 +56,6 @@ export default function About() {
         }
     }, [])
 
-    useEffect(() => {
-
-        // gsap.to(".about-where-img", {
-        //     scrollTrigger: {
-        //         trigger: ".about-where-img",
-        //         start: "0% 50%",
-        //         scrub: 1,
-        //         pin: true,
-        //         markers: true,
-        //     }
-        // })
-        return () => {
-        }
-    });
 
     useEffect(() => {
         // const imgScrollEffect = gsap.timeline();
@@ -86,58 +69,50 @@ export default function About() {
         //     }
         // })
 
-        gsap.to("#landscape3", {
-            x: "50%", y: "50%", scrollTrigger: {
-                trigger: ".about-where-img",
-                start: "top center",
-                scrub: 1,
-            },
-        })
-        gsap.to("#landscape2", {
-            x: "0%", y: "50%", scrollTrigger: {
-                trigger: ".about-where-img",
-                start: "top center",
-                scrub: 1,
-            }
-        })
-        gsap.to("#landscape1", {
-            x: "-50%", y: "50%", scrollTrigger: {
-                trigger: ".about-where-img",
-                start: "top center",
-                scrub: 1,
-            }
-        })
-        gsap.to(".about-where-text", {
-            y: "-100%", scrollTrigger: {
+        gsap.fromTo(".about-where-text", { y: "10%" }, {
+            y: "-20%", scrollTrigger: {
                 trigger: ".about-where-section",
                 start: "top center",
                 scrub: 1,
-                markers: true,
             }
         })
-        gsap.fromTo(".about-who-text", { y: "0%" }, {
-            y: "20%", scrollTrigger: {
+        gsap.fromTo(".about-who-text", { y: "10%" }, {
+            y: "-30%", scrollTrigger: {
                 trigger: ".about-who-section",
                 start: "top center",
                 scrub: 1,
             }
         })
 
-        gsap.to(".about-where-img", {
-            y: 0, scrollTrigger: {
-                trigger: ".about-where-section",
-                start: "top top",
-                end: "center center",
-                markers: true,
-            }
-        })
-
-
-
-
         return () => {
             // imgScrollEffect.scrollTrigger.kill();
         }
+    })
+
+    useEffect(() => {
+        gsap.utils.toArray(".container").forEach((el) => {
+
+            const image = el.querySelector('img.swipeimage'),
+                setX = gsap.quickSetter(image, "x", "px"),
+                setY = gsap.quickSetter(image, "y", "px"),
+                align = e => {
+                    const top = el.getBoundingClientRect().top;
+                    setX(e.clientX);
+                    setY(e.clientY - top);
+                },
+                startFollow = () => document.addEventListener("mousemove", align),
+                stopFollow = () => document.removeEventListener("mousemove", align),
+                fade = gsap.to(image, { autoAlpha: 1, ease: "none", paused: true, onReverseComplete: stopFollow });
+
+            el.addEventListener('mouseenter', (e) => {
+                fade.play();
+                startFollow();
+                align(e);
+            });
+
+            el.addEventListener('mouseleave', () => fade.reverse());
+
+        });
     })
 
 
@@ -162,43 +137,20 @@ export default function About() {
                             p: 1,
                         }} >
                             <Typography textAlign='start' variant='h3' sx={{ lineHeight: '2' }}>
-                                {aboutText?.find(({ item }) => item === "Who I am").text}
-                            </Typography>
-                        </Grid>
-                        <Grid item sm={12} md={12} className="about-who-img">
-                            {/* <img src="assets/images/nature.jpg" alt="nature.jpg" /> */}
-                        </Grid>
-                    </Grid>
-                    <Grid container className="about-where-section" sx={{ paddingTop: "100px" }}>
-                        <Grid container sm={12} md={12} className="about-where-img">
-                            <Grid item md={4}>
-                                <img src="assets/images/mountain1.jpg" alt="landscape1.jpg" id="landscape1" />
-                            </Grid>
-                            <Grid item md={4}>
-                                <img src="assets/images/mountain2.jpg" alt="landscape2.jpg" id="landscape2" />
-                            </Grid>
-                            <Grid item md={4}>
-                                <img src="assets/images/mountain3.jpg" alt="landscape3.jpg" id="landscape3" />
-                            </Grid>
-                        </Grid>
-                        <Grid container sm={12} md={12} className="about-where-text">
-                            <Typography textAlign='start' variant='h3' sx={{ lineHeight: '2' }}>
-                                {aboutText?.find(({ item }) => item === "Where I'm from").text}
+                                I'm Anthony Zhang. A motivated Front End Enigeneer based in New York City. I've spent the last 2 years learning and building websites from simply displaying information and content to dealing with complex state management and data manipulations.
                             </Typography>
                         </Grid>
                     </Grid>
-                    {/* <Grid container sx={{
-                            m: 2,
-                            p: 4,
+                    <Grid container className="about-where-section">
+                        <Grid item sm={12} md={12} className="about-where-text" sx={{
+                            m: 1,
+                            p: 1,
                         }}>
-                            <Grid item xs={12} md={6} ref={aboutTextRef}>
-                                <Typography textAlign='start' variant='h6' sx={{ lineHeight: '1.5' }}>
-                                    {aboutText?.find(({ item }) => item === "What I do").text}
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                            </Grid>
-                        </Grid> */}
+                            <Typography textAlign='start' variant='h3' sx={{ lineHeight: '2' }}>
+                                Rather than having an education in Computer Science, at 18 years old without knowing where my passion was, I decided to pursue a bachelor's degree in Mathematics and Economics from New York University. As a person who always want to mess around with the computer, my interest in software development was buried in my heart since I got my first pc in early childhood. Until recent years, it was uncovered.
+                            </Typography>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </div>
         </div >

@@ -283,7 +283,7 @@ export default function Contact() {
                 <Grid item xs={12} md={6} className="contact-title-grid" ref={contactTitleRef}>
                     <Grid item className='contact-title-background'>
                         <Paper elevation={0}
-                            square={true}
+                            // square={true}
                             sx={{
                                 backgroundColor: "inherit",
                                 m: 2,
@@ -305,9 +305,6 @@ export default function Contact() {
                                             p: 2,
                                             borderRadius: 10,
                                             boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 50px;',
-                                            '&hover': {
-
-                                            }
                                         }}>
                                             <IconButton sx={{ fontSize: 40 }} disableRipple>
                                                 <FontAwesomeIcon icon={`fab fa-${icon}`} />
@@ -323,13 +320,13 @@ export default function Contact() {
                     <Box className="form-wrapper">
                         <Paper
                             elevation={0}
-                            square={true}
+                            // square={true}
                             sx={{
-                                backgroundColor: "inherit",
-                                // borderRadius: '16px',
-                                // boxShadow: '0 3px 6px 0 rgb(23 25 51 / 8%), 0 16px 32px 0 rgb(23 25 51 / 10%);',
+                                backgroundColor: "#ffffff",
+                                borderRadius: 10,
+                                boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 50px;',
                                 m: 4,
-                                p: 2,
+                                p: 4,
 
                             }}>
                             <Grid

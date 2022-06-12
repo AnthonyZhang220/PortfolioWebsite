@@ -575,7 +575,7 @@ export default function Hero() {
                                 </div>
                             </div>
                         </div>
-                        <div className="hero-image">
+                        {/* <div className="hero-image">
                             {
                                 !isMobile ?
                                     < img src="/assets/images/macbook_pro.png" alt="macbook_pro" />
@@ -583,7 +583,7 @@ export default function Hero() {
                                     null
 
                             }
-                        </div>
+                        </div> */}
                         <canvas ref={canvasRef}></canvas>
                         <div className="hero-tech-icon-container" ref={heroIconContainerRef}>
                             {heroTech?.map((path, index) => (
@@ -622,7 +622,7 @@ export default function Hero() {
                         <ArrowRightAltIcon sx={{ fontSize: 30, transform: 'rotate(90deg)' }} />
                     </div>
                 </div>
-                <div className="resume-wrapper">
+                {/* <div className="resume-wrapper">
                     <div className="resume-text">
                         CV Download
                     </div>
@@ -631,7 +631,7 @@ export default function Hero() {
                             <FingerprintIcon sx={{ fontSize: 40, color: 'black' }} />
                         </IconButton>
                     </div>
-                </div>
+                </div> */}
             </div>
         </React.Fragment >
 

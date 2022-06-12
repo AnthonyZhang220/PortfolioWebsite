@@ -92,6 +92,7 @@ export default function NavBar({ mode, setMode }) {
         setIsOpen(!isOpen);
 
         if (!isOpen) {
+            //main
             document.getElementById('main').style.transition = "opacity 0.5s";
             document.getElementById('main').style.opacity = 0;
             document.getElementById('menu-drawer').style.display = "flex";
@@ -100,6 +101,7 @@ export default function NavBar({ mode, setMode }) {
         }
 
         if (isOpen) {
+            //main
             document.getElementById('main').style.transition = "opacity 0.5s";
             document.getElementById('main').style.opacity = 1;
             document.getElementById('menu-drawer').style.display = 'none';
@@ -149,8 +151,8 @@ export default function NavBar({ mode, setMode }) {
                             position: 'relative',
                             backgroundColor: 'transparent',
                             mt: isMobile ? '60px' : "100px",
-                            height: '100vh',
-                            width: 'auto',
+                            mb: isMobile ? '60px' : "100px",
+                            height: "100vh",
                         },
                     }}
                 >
@@ -169,12 +171,12 @@ export default function NavBar({ mode, setMode }) {
                                 </IconButton>
                             </ListItem>
                             {['project', 'about', 'skill', 'contact'].map((text, index) => (
-                                <ListItem button sx={{ height: "100px" }} key={text} alignItems="center" component={HashLink} to={`/#${text}`} >
+                                <ListItem button sx={{ height: isMobile ? 60 : 100 }} key={text} alignItems="center" component={HashLink} to={`/#${text}`} >
                                     <Divider light variant="normal" />
                                     <ListItemText disableTypography primary={<Typography variant="h4" sx={{ letterSpacing: 5 }}>{text.toUpperCase()}</Typography>} sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }} />
                                 </ListItem>
                             ))}
-                            <ListItem button sx={{ height: 100 }} alignItems="center" component={HashLink} to='/blogs' >
+                            <ListItem button sx={{ height: isMobile ? 60 : 100 }} alignItems="center" component={HashLink} to='/blog' >
                                 <ListItemText disableTypography primary={<Typography variant="h4" sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', letterSpacing: 5 }}>BLOG</Typography>} />
                             </ListItem>
                         </List>

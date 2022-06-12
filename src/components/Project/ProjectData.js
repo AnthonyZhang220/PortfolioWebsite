@@ -5,7 +5,12 @@ export const projectdata = [
 		id: 4,
 		title: "Portfolio Website",
 		subtitle: "Personal Portfolio Website",
-		thumbnail: "assets/images/portfolio_cover.png",
+		thumbnails: ["assets/images/portfolio_cover.png"],
+		screenshots: [
+			"assets/project_images/portfolio_1.png",
+			"assets/project_images/portfolio_2.png",
+			"assets/project_images/portfolio_3.png",
+		],
 		roles: ["Front-end Development", "Back-end Development"],
 		overview:
 			"My portfolio website is my lastest work. It is a demonstration of my complete skillset, where I try to include as many as elements as possible to sum up my experience in the front-end development.",
@@ -30,7 +35,12 @@ export const projectdata = [
 		id: 1,
 		title: "LaoMa Spicy",
 		subtitle: "LaoSpicy",
-		thumbnail: "assets/images/laoma.png",
+		thumbnails: ["assets/images/laoma.png"],
+		screenshots: [
+			"assets/project_images/laoma.png",
+			"assets/project_images/laoma_mobile_1.png",
+			"assets/project_images/laoma_mobile_2.png",
+		],
 		roles: ["Front-end Development", "Back-end Development"],
 		overview:
 			"Lao Ma Spicy is an authentic chinese restaurant located in Greenwich Village, Manhattan, New York City, well knowned for its Szchuan dry hot pot & spicy hot stew. Its excellent reputation is spreaded across NYU and its adjacant neighborhoods.",
@@ -53,7 +63,12 @@ export const projectdata = [
 		id: 2,
 		title: "Gaggle",
 		subtitle: "Google Search Clone",
-		thumbnail: "assets/images/gaggle.png",
+		thumbnails: ["assets/images/gaggle.png"],
+		screenshots: [
+			"assets/project_images/gaggle_light.png",
+			"assets/project_images/gaggle_dark.png",
+			"assets/project_images/gaggle_mobile.png",
+		],
 		roles: ["Front-end Development"],
 		overview:
 			"Gaggle, is a Google Search Clone, allows user to search for results, such as news, iamges, videos with a free Google Search API, provided by the Rapid API community.",
@@ -75,7 +90,11 @@ export const projectdata = [
 		id: 3,
 		title: "TripAdvisor",
 		subtitle: "Trip Advisor Clone",
-		thumbnail: "assets/images/tripadvisor.png",
+		thumbnails: ["assets/images/tripadvisor.png"],
+		screenshots: [
+			"assets/project_images/tripadvisor.png",
+			"assets/project_images/tripadvisor_mobile.png",
+		],
 		roles: ["Front-end Development"],
 		overview:
 			"TripAdvisor is a Trip Advisor Clone, that provides end users with the ability to search for restaurants, hotels and attractions. People could filter the search result by type, and ratings, fetched from Trip Advisor. As a side feature, the weather information will be displayed on the map with real-time user location.",
@@ -95,7 +114,8 @@ export const projectdata = [
 		id: 5,
 		title: "Explore Amazon API",
 		subtitle: "Amazon Product Details Data API",
-		thumbnail: "assets/images/exploreamazon.png",
+		thumbnails: ["assets/images/exploreamazon.png"],
+		screenshots: ["assets/project_images/amazon.png"],
 		roles: ["Back-end Development"],
 		overview:
 			"Explore Amazon API gives you access to Amazon product details such as prices, ranks, reviews & offers, etc. in JSON format. ",
@@ -117,12 +137,19 @@ export const projectdata = [
 		id: 6,
 		title: "LaoMa Spicy Waitlist System",
 		subtitle: "LaoMa Spicy Customer Queue System",
-		thumbnail: "assets/images/laoma.png",
+		thumbnails: ["assets/images/laoma.png"],
+		screenshots: [
+			"assets/project_images/laoma.png",
+			"assets/project_images/laoma_mobile_1.png",
+			"assets/project_images/laoma_mobile_2.png",
+		],
 		roles: ["Front-end Development", "Back-end Development"],
 		overview:
 			"LaoMa Spicy Waitlist System is a quick waitlist system for customers.",
-		features: "Enter information -> Get a queue number -> wait to be called for seat",
-		process: "This system is developed rather in a hurry. It has been implemented for restaurant outdoor dining purposes due to Covid-19",
+		features:
+			"Enter information -> Get a queue number -> wait to be called for seat",
+		process:
+			"This system is developed rather in a hurry. It has been implemented for restaurant outdoor dining purposes due to Covid-19",
 		results: "",
 		tech: [
 			`${iconpath}html5.png`,

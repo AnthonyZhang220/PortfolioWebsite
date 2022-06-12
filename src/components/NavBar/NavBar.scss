@@ -31,16 +31,16 @@
 			}
 		}
 	}
+}
 
-	#menu-drawer {
-		display: none;
-		opacity: 0;
-	}
+#menu-drawer {
+	display: none;
+	opacity: 0;
+	margin: auto 0;
 }
 
 @media screen and (max-width: 600px) {
 	.top-nav {
-
 		.top-left {
 			padding: 20px;
 		}

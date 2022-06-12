@@ -6,6 +6,7 @@ html {
 	width: 100%;
 	margin: 0;
 	padding: 0;
+	cursor: none;
 }
 
 body {
@@ -13,9 +14,41 @@ body {
 	overflow-x: hidden;
 	margin: 0;
 	padding: 0;
-	
+
 	.App {
 		background-color: $bg-color-main;
+	}
+
+	.cursor {
+		position: fixed;
+		width: 50px;
+		height: 50px;
+		margin-left: -25px;
+		margin-top: -25px;
+		border-radius: 50%;
+		border: 2px solid #121212;
+		transition: transform 0.2s ease-in-out;
+		transform-origin: center center;
+		pointer-events: none;
+		z-index: 5000;
+	}
+	.grow {
+		transform: scale(2);
+		background: #121212;
+		mix-blend-mode: difference;
+		border: none;
+	}
+	.growtext {
+		transform: scale(3);
+		background: #ffffff;
+		mix-blend-mode: difference;
+		border: none;
+	}
+	.growimg {
+		transform: scale(5);
+		background: #ffffff;
+		mix-blend-mode: difference;
+		border: none;
 	}
 
 	#canvas {
