@@ -279,7 +279,7 @@ export default function Project(props) {
                             }}>
                                 <EventAvailableOutlinedIcon sx={{ color: "#fa5502", fontSize: 40 }} />
                                 <Grid container item xs={12} direction='column' textAlign='center' px={3} wrap='nowrap'>
-                                    <Typography variant="h4"  >
+                                    <Typography variant="h4" >
                                         2+ Years
                                     </Typography>
                                     <Typography variant="h6" noWrap >
@@ -646,22 +646,22 @@ export default function Project(props) {
                                                     </CardContent>
                                                     <CardContent>
                                                         {projectData.screenshots ?
-                                                            <Grid container spacing={4}>
+                                                            <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(400px, 2fr))" gridAutoRows="auto" gridAutoColumns="auto" gap={2}>
                                                                 {
                                                                     projectData.screenshots.map((screenshot) => (
-                                                                        <Grid item xs={4}>
+                                                                        <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
                                                                             <CardMedia
                                                                                 className="project-screenshots"
                                                                                 component="img"
+                                                                                width="auto"
+                                                                                height="auto"
                                                                                 alt={screenshot}
-                                                                                height="100%"
-                                                                                width="100%"
                                                                                 image={screenshot}
                                                                             />
-                                                                        </Grid>
+                                                                        </Box>
                                                                     ))
                                                                 }
-                                                            </Grid>
+                                                            </Box>
                                                             : <Skeleton variant="rectangular" width={350} height={450} />
                                                         }
                                                     </CardContent>
