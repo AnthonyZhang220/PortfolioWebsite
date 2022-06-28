@@ -100,6 +100,13 @@ const style = {
     m: 4,
 };
 
+const projectScreenShotsStyle = {
+    height: "100%",
+    width: "100%",
+    objectFit: "contain",
+    overflow: "scroll",
+};
+
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
         right: -3,
@@ -166,7 +173,6 @@ export default function Project(props) {
 
     const [sharePage, setSharePage] = useState(false);
     const [projectData, setProjectData] = useState({})
-
 
     const handleShareOpen = () => {
         setSharePage(true);
@@ -241,6 +247,8 @@ export default function Project(props) {
 
 
     const [open, setOpen] = useState(false);
+    const [imageOpen, setImageOpen] = useState(false);
+    const [imagesrc, setImagesrc] = useState([]);
 
     const handleDrawerOpen = ({ id, title, subtitle, screenshots, thumbnails, overview, roles, tech, WebsiteUrl, GitHubUrl, library, index, process, results }) => () => {
 
@@ -260,8 +268,15 @@ export default function Project(props) {
 
     };
 
-    const handleImage = () => {
+    const handleImageOpen = (index) => () => {
+        setImageOpen(true);
+        setImagesrc(index)
+        console.log(imagesrc)
+    }
 
+    const handleImageClose = () => {
+        setImageOpen(false);
+        setImagesrc(null);
     }
 
 
@@ -650,41 +665,50 @@ export default function Project(props) {
                                                     </CardContent>
                                                     <CardContent>
                                                         {projectData.screenshots ?
-                                                            <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(400px, 2fr))" gridAutoRows="auto" gridAutoColumns="auto" gap={2}>
+                                                            <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(100px, 2fr))" gridAutoRows="auto" gridAutoColumns="auto" gap={2}>
                                                                 {
-                                                                    projectData.screenshots.map((screenshot) => (
+                                                                    projectData.screenshots.map((screenshot, index) => (
                                                                         <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
                                                                             <CardMedia
+                                                                                sx={{ boxShadow: "-10px -10px 15px rgba(255,255,255,0.5), 10px 10px 15px rgba(70,70,70,0.12)" }}
                                                                                 className="project-screenshots"
+                                                                                key={index}
                                                                                 component="img"
                                                                                 width="auto"
                                                                                 height="auto"
                                                                                 alt={screenshot}
                                                                                 image={screenshot}
-                                                                                onClick={handleImage}
+                                                                                onClick={handleImageOpen(screenshot)}
                                                                             />
+                                                                            {console.log(screenshot)}
                                                                         </Box>
                                                                     ))
                                                                 }
                                                             </Box>
                                                             : <Skeleton variant="rectangular" width={350} height={450} />
                                                         }
-                                                        <Modal
-                                                            open={open}
-                                                            onClose={handleClose}
-                                                            aria-labelledby="modal-modal-title"
-                                                            aria-describedby="modal-modal-description"
-                                                        >
-                                                            <Box sx={style}>
-                                                                <Typography id="modal-modal-title" variant="h6" component="h2">
-                                                                    Text in a modal
-                                                                </Typography>
-                                                                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                                                    Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                                                                </Typography>
-                                                            </Box>
-                                                        </Modal>
                                                     </CardContent>
+                                                    <Modal
+                                                        open={imageOpen}
+                                                        onClose={handleImageClose}
+                                                        imagesrc={imagesrc}
+                                                    >
+                                                        <Box sx={{
+                                                            display: "inline-block",
+                                                            position: 'absolute',
+                                                            top: '50%',
+                                                            left: '50%',
+                                                            transform: 'translate(-50%, -50%)',
+                                                            bgcolor: 'background.paper',
+                                                            boxShadow: 18,
+                                                            border: "none",
+                                                            width: document.documentElement.clientWidth * 0.8,
+                                                            p: 1,
+                                                            m: 1,
+                                                        }}>
+                                                            <Box sx={projectScreenShotsStyle} component="img" alt={imagesrc} src={imagesrc}></Box>
+                                                        </Box>
+                                                    </Modal>
                                                     <Divider />
                                                     <CardContent>
                                                         <Typography gutterBottom variant="h5" color="text.secondary">
@@ -730,6 +754,6 @@ export default function Project(props) {
                     </div>
                 </div>
             </div >
-        </React.Fragment>
+        </React.Fragment >
     )
 };
