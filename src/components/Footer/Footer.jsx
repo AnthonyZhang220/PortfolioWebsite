@@ -1,6 +1,5 @@
-import React, { forwardRef, useEffect, useState, useRef } from 'react';
+import React, { forwardRef, useEffect, useState, useRef, Suspense } from 'react';
 import { useParams, useNavigate } from "react-router";
-import MusicPlayer from './MusicPlayer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
@@ -35,9 +34,14 @@ import { ScrollToPlugin } from 'gsap/all';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { makeStyles } from '@material-ui/core/styles';
 import './Footer.scss';
+import { useTheme } from '@emotion/react';
+import Skeleton from '@mui/material/Skeleton';
 
 library.add(fab);
 
+
+//lazy loading
+const MusicPlayer = React.lazy(() => import("./MusicPlayer"));
 
 const useStyles = makeStyles((theme) => ({
     textField: {
@@ -53,6 +57,19 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         alignItems: 'center',
     },
+}));
+
+const Widget = styled('div')(({ theme }) => ({
+    padding: 16,
+    borderRadius: 16,
+    width: 343,
+    maxWidth: '100%',
+    margin: 'auto',
+    position: 'relative',
+    zIndex: 1,
+    backgroundColor:
+        theme.palette.mode === 'dark' ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.4)',
+    backdropFilter: 'blur(40px)',
 }));
 
 const style = {
@@ -76,6 +93,8 @@ const Alert = forwardRef(function Alert(props, ref) {
 })
 
 export default function Footer() {
+    const theme = useTheme();
+
     let currentYear = new Date().getFullYear();
     const classes = useStyles();
     const [input, setInput] = useState('')
@@ -344,7 +363,9 @@ export default function Footer() {
                             </Grid>
                         </Grid>
                         <Grid item xs={12} sm={12} md={4} lg={4}>
-                            <MusicPlayer />
+                            <Suspense fallback={<Box sx={{ minWidth: '300px', width: '100%', overflow: 'hidden' }}><Widget>Loading...</Widget></Box>}>
+                                <MusicPlayer />
+                            </Suspense>
                         </Grid>
                     </Grid>
                 </div>
