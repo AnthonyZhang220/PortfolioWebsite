@@ -73,7 +73,8 @@ export default function Hero() {
         })
 
         //show laptop
-        entryTimeline.fromTo(laptopRef.current, { opacity: 0 }, { opacity: 1, duration: 1 })
+        entryTimeline.set(document.body, { overflow: "hidden" })
+            .fromTo(laptopRef.current, { opacity: 0 }, { opacity: 1, duration: 1 })
             //show Hi
             .set(hiRef.current, { opacity: 0 })
             .set(happyRef.current, { opacity: 0 })
@@ -89,6 +90,7 @@ export default function Hero() {
             .to(happyRef.current, { opacity: 0, duration: 0.5 })
             .set(happyRef.current, { opacity: 0 })
             .to(laptopRef.current, 1, { scale: 2, opacity: 0, transformOrigin: '50% 50%' })
+            .set(document.body, { overflow: "auto" })
 
 
         //home timeline

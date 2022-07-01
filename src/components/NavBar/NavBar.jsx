@@ -48,8 +48,7 @@ export default function NavBar({ mode, setMode }) {
                     sessionStorage.setItem("navbarPlayed", true)
                 }
             })
-                //landing animation from top for top-nav
-                .fromTo([leftNavRef.current, rightNavRef.current], { y: '-100%', opacity: 0 }, { delay: 4, y: "0%", opacity: 1, duration: 1 })
+
 
             navTl.play();
         }
@@ -64,7 +63,7 @@ export default function NavBar({ mode, setMode }) {
                 start: "0% 0%",
                 // toggleActions: "play none none reverse",
                 // ease: "circ",
-                scrub: 1,
+                scrub: true,
             },
         })
         gsap.to(".top-right", {
@@ -73,7 +72,7 @@ export default function NavBar({ mode, setMode }) {
                 start: "0% 0%",
                 // toggleActions: "play none none reverse",
                 // ease: "circ",
-                scrub: 1
+                scrub: true
             }
         })
 
