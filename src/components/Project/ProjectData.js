@@ -93,7 +93,8 @@ export const projectdata = [
 		thumbnails: ["assets/images/tripadvisor.png"],
 		screenshots: [
 			"assets/project_images/tripadvisor.png",
-			"assets/project_images/tripadvisor_mobile.png",
+			"assets/project_images/tripadvisor_mobile_1.png",
+			"assets/project_images/tripadvisor_mobile_2.png",
 		],
 		roles: ["Front-end Development"],
 		overview:

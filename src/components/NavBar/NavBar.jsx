@@ -29,8 +29,8 @@ import { useMediaQuery } from "@material-ui/core";
 export default function NavBar({ mode, setMode }) {
 
     const isMobile = useMediaQuery("(max-width: 600px)");
-    const CLIENT_SCREEN_HEIGHT = useMediaQuery(("(max-height: 1200px)"));
-    
+    const CLIENT_SCREEN_HEIGHT = useMediaQuery(("(min-height: 900px)"));
+
     gsap.registerPlugin(ScrollToPlugin);
     gsap.registerPlugin(ScrollTrigger);
 
@@ -39,24 +39,6 @@ export default function NavBar({ mode, setMode }) {
     // const [toggle, setToggle] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
-    //top-nav animation
-    useEffect(() => {
-        let navbarPlayed = sessionStorage.getItem("navbarPlayed")
-        if (!navbarPlayed) {
-
-            let navTl = gsap.timeline({
-                onComplete: () => {
-                    sessionStorage.setItem("navbarPlayed", true)
-                }
-            })
-
-
-            navTl.play();
-        }
-
-
-    });
-
     useEffect(() => {
         gsap.to(".top-left", {
             y: -27, x: -20, scrollTrigger: {
@@ -64,7 +46,7 @@ export default function NavBar({ mode, setMode }) {
                 start: "0% 0%",
                 // toggleActions: "play none none reverse",
                 // ease: "circ",
-                scrub: true,
+                scrub: 1,
             },
         })
         gsap.to(".top-right", {
@@ -73,7 +55,7 @@ export default function NavBar({ mode, setMode }) {
                 start: "0% 0%",
                 // toggleActions: "play none none reverse",
                 // ease: "circ",
-                scrub: true
+                scrub: 1
             }
         })
 

@@ -55,7 +55,6 @@ const projectScreenShotsStyle = {
     height: "100%",
     width: "100%",
     objectFit: "contain",
-    overflow: "scroll",
 };
 
 
@@ -321,10 +320,10 @@ export default function ProjectDetails({ open, projectData, handleDrawerOpen }) 
                                 </CardContent>
                                 <CardContent>
                                     {projectData.screenshots ?
-                                        <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(100px, 2fr))" gridAutoRows="auto" gridAutoColumns="auto" gap={2}>
+                                        <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(50px, 2fr))" gridAutoRows="auto" gridAutoColumns="auto" gap={2}>
                                             {
                                                 projectData.screenshots.map((screenshot, index) => (
-                                                    <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
+                                                    <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", objectFit: "contain" }}>
                                                         <CardMedia
                                                             sx={{ boxShadow: "-10px -10px 15px rgba(255,255,255,0.5), 10px 10px 15px rgba(70,70,70,0.12)" }}
                                                             className="project-screenshots"
@@ -358,6 +357,7 @@ export default function ProjectDetails({ open, projectData, handleDrawerOpen }) 
                                         bgcolor: 'background.paper',
                                         boxShadow: 18,
                                         border: "none",
+                                        height: "90%",
                                         width: document.documentElement.clientWidth * 0.8,
                                         p: 1,
                                         m: 1,
