@@ -74,6 +74,7 @@ export default function Hero() {
 
         //show laptop
         entryTimeline.set(document.body, { overflow: "hidden" })
+            .set(".hero-title-line > *", { opacity: 0, })
             .fromTo(laptopRef.current, { opacity: 0 }, { opacity: 1, duration: 1 })
             //show Hi
             .set(hiRef.current, { opacity: 0 })
@@ -99,7 +100,6 @@ export default function Hero() {
                 sessionStorage.setItem("introPlayed", true)
             }
         })
-            .set(".hero-title-line > *", { x: "10%", y: "10%" })
 
             //hero text
             .from(".hero-title-line > *", 1, {
@@ -112,7 +112,7 @@ export default function Hero() {
                 }
             })
 
-            .fromTo(".hero-title-line > *", { x: "10%" }, { x: "0%", duration: 1 })
+            .fromTo(".hero-title-line > *", { x: "10%" }, { x: "0%", opacity: 1, duration: 1 })
 
             .fromTo(".hero-image", { x: "-10%", opacity: 0 }, { x: "0%", opacity: 1, duration: 1 }, "<")
 
@@ -425,7 +425,7 @@ export default function Hero() {
                                     </Typography>
                                 </div>
                                 <div className="hero-title-line">
-                                    <Typography variant="h1">
+                                    <Typography variant="h1" style={{ display: "inline-flex" }}>
                                         Frontend Developer
                                     </Typography>
                                 </div>

@@ -29,7 +29,7 @@ import { useMediaQuery } from "@material-ui/core";
 export default function NavBar({ mode, setMode }) {
 
     const isMobile = useMediaQuery("(max-width: 600px)");
-    const CLIENT_SCREEN_HEIGHT = useMediaQuery(("(min-height: 900px)"));
+    const CLIENT_SCREEN_HEIGHT = useMediaQuery(("(max-height: 700px)"));
 
     gsap.registerPlugin(ScrollToPlugin);
     gsap.registerPlugin(ScrollTrigger);
