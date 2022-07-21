@@ -125,87 +125,87 @@ export default function Skill() {
 
 
     return (
-            <div className="skill" id='skill'>
-                <div className="skill-section" ref={skillRef}>
-                    <div className="skill-title" ref={skillTitleRef}>
-                        <Typography variant="h2">
-                            Skill.&nbsp;
-                        </Typography>
-                        <Typography variant="h2" color="#6e6e73">
-                            Technologies are always evolving, so am I.
-                        </Typography>
-                    </div>
-                    <div className="technology">
-                        <div className='categories'>
-                            <Grid container
-                                sx={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    flexWrap: 'wrap',
-                                    '& > :not(style)': {
-                                        m: 2,
-                                        p: 1,
-                                    },
-                                }}
-                            >
-                                <Grid container justifyContent="center">
-                                    <Paper
-                                        elevation={0}
-                                        sx={{
-                                            display: 'flex',
-                                            border: (theme) => `1px solid ${theme.palette.divider}`,
-                                            flexWrap: 'wrap',
-                                            backgroundColor: "inherit",
-                                            m: "0 auto",
-                                        }}>
-                                        <StyledToggleButtonGroup
-                                            color="primary"
-                                            value={skillTypes}
-                                            exclusive
-                                            onChange={handleChange}
-                                            orientation={'horizontal'}
-                                            size="large"
-                                            sx={{ m: "0 auto", }}
-                                        >
-                                            {
-                                                skillCategories?.map(({ type, icon }, index) => (
-                                                    <ToggleButton value={type} key={index} sx={{ display: "flex", justifyContent: "center", alignItems: "center" }} >
-                                                        {
-                                                            isMobile ? <FontAwesomeIcon icon={`fa-solid fa-${icon}`} fontSize={20} key={index} /> :
-                                                                <Grid container alignItems="center" display="flex" justifyContent="center" key={index}>
-                                                                    <FontAwesomeIcon icon={`fa-solid fa-${icon}`} fontSize={20} />
-                                                                    <Typography variant="h6" align='center' sx={{ ml: 1 }}>
-                                                                        {type}
-                                                                    </Typography>
-                                                                </Grid>
-                                                        }
-                                                    </ToggleButton>
-                                                ))
-                                            }
-                                        </StyledToggleButtonGroup>
-                                    </Paper>
-                                </Grid>
-                                <Grid container>
-                                    <Grid container justifyContent="center" alignItems="center">
+        <div className="skill" id='skill'>
+            <div className="skill-section" ref={skillRef}>
+                <div className="skill-title" ref={skillTitleRef}>
+                    <Typography variant="h2">
+                        Skill.&nbsp;
+                    </Typography>
+                    <Typography variant="h2" color="#6e6e73">
+                        Technologies are always evolving, so am I.
+                    </Typography>
+                </div>
+                <div className="technology">
+                    <div className='categories'>
+                        <Grid container
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                flexWrap: 'wrap',
+                                '& > :not(style)': {
+                                    m: 2,
+                                    p: 1,
+                                },
+                            }}
+                        >
+                            <Grid container justifyContent="center">
+                                <Paper
+                                    elevation={0}
+                                    sx={{
+                                        display: 'flex',
+                                        border: (theme) => `1px solid ${theme.palette.divider}`,
+                                        flexWrap: 'wrap',
+                                        backgroundColor: "inherit",
+                                        m: "0 auto",
+                                    }}>
+                                    <StyledToggleButtonGroup
+                                        color="primary"
+                                        value={skillTypes}
+                                        exclusive
+                                        onChange={handleChange}
+                                        orientation={'horizontal'}
+                                        size="large"
+                                        sx={{ m: "0 auto", }}
+                                    >
                                         {
-                                            skillData?.filter((type) => type.type.find(x => x === skillTypes)).map(({ name, src }, index) => (
-                                                <>
-                                                    <Grid item m={1} p={1} key={index} className="skill-icon-container">
-                                                        <Grid item xs textAlign="center" className="skill-icon-item">
-                                                            <img src={`assets/icon/${src}`} alt={`${src}`} width={isMobile ? "60px" : "80px"} height={isMobile ? "60px" : "80px"} />
-                                                        </Grid>
-                                                        <Grid item xs textAlign="center">
-                                                            <Typography variant='h6' >
-                                                                {name}
-                                                            </Typography>
-                                                        </Grid>
-                                                    </Grid>
-                                                </>
+                                            skillCategories?.map(({ type, icon }, index) => (
+                                                <ToggleButton value={type} key={index} sx={{ display: "flex", justifyContent: "center", alignItems: "center" }} >
+                                                    {
+                                                        isMobile ? <FontAwesomeIcon icon={`fa-solid fa-${icon}`} fontSize={20} key={index} /> :
+                                                            <Grid container alignItems="center" display="flex" justifyContent="center" key={index}>
+                                                                <FontAwesomeIcon icon={`fa-solid fa-${icon}`} fontSize={20} />
+                                                                <Typography variant="h6" align='center' sx={{ ml: 1 }}>
+                                                                    {type}
+                                                                </Typography>
+                                                            </Grid>
+                                                    }
+                                                </ToggleButton>
                                             ))
                                         }
-                                    </Grid>
-                                    {/* <Grid container md={6} justifyContent="center" marginBottom="auto">
+                                    </StyledToggleButtonGroup>
+                                </Paper>
+                            </Grid>
+                            <Grid container>
+                                <Grid container justifyContent="center" alignItems="center">
+                                    {
+                                        skillData?.filter((type) => type.type.find(x => x === skillTypes)).map(({ name, src }, index) => (
+                                            <>
+                                                <Grid item m={1} p={1} key={index} className="skill-icon-container">
+                                                    <Grid item xs textAlign="center" className="skill-icon-item">
+                                                        <img src={`assets/icon/${src}`} alt={`${src}`} loading="lazy" width={isMobile ? "60px" : "80px"} height={isMobile ? "60px" : "80px"} />
+                                                    </Grid>
+                                                    <Grid item xs textAlign="center">
+                                                        <Typography variant='h6' >
+                                                            {name}
+                                                        </Typography>
+                                                    </Grid>
+                                                </Grid>
+                                            </>
+                                        ))
+                                    }
+                                </Grid>
+                                {/* <Grid container md={6} justifyContent="center" marginBottom="auto">
                                         <Typography variant="h4">
                                             {skillTypes}
                                         </Typography>
@@ -217,8 +217,8 @@ export default function Skill() {
                                             ))
                                         }
                                     </Grid> */}
-                                </Grid>
-                                {/* <Grid container item xs>
+                            </Grid>
+                            {/* <Grid container item xs>
                                     {
                                         skillCategories?.map(({ type, icon }) => (
                                             <Grid item xs textAlign="center">
@@ -232,10 +232,10 @@ export default function Skill() {
                                         ))
                                     }
                                 </Grid> */}
-                            </Grid>
-                        </div>
+                        </Grid>
                     </div>
                 </div>
-            </div >
+            </div>
+        </div >
     )
 }
