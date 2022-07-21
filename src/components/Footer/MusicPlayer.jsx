@@ -17,7 +17,6 @@ import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 
 
 import { musicList } from './MusicList.js';
-import { getStepLabelUtilityClass } from '@mui/material';
 
 
 const Widget = styled('div')(({ theme }) => ({
@@ -96,7 +95,7 @@ export default function MusicPlayer() {
             setPosition(audioRef.current.currentTime)
         }
 
-
+        //auto skip to next song when previous song ends
         if (timeLeft === 0) {
             handleSkipNext();
         }
@@ -182,7 +181,6 @@ export default function MusicPlayer() {
 
     useEffect(() => {
         localStorage.setItem('volume', 0.2);
-
     }, [])
 
 
