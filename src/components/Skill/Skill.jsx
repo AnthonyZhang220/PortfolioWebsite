@@ -190,8 +190,8 @@ export default function Skill() {
                                 <Grid container justifyContent="center" alignItems="center">
                                     {
                                         skillData?.filter((type) => type.type.find(x => x === skillTypes)).map(({ name, src }, index) => (
-                                            <>
-                                                <Grid item m={1} p={1} key={index} className="skill-icon-container">
+                                            <React.Fragment key={index}>
+                                                <Grid item m={1} p={1} className="skill-icon-container">
                                                     <Grid item xs textAlign="center" className="skill-icon-item">
                                                         <img src={`assets/icon/${src}`} alt={`${src}`} loading="lazy" width={isMobile ? "60px" : "80px"} height={isMobile ? "60px" : "80px"} />
                                                     </Grid>
@@ -201,7 +201,7 @@ export default function Skill() {
                                                         </Typography>
                                                     </Grid>
                                                 </Grid>
-                                            </>
+                                            </React.Fragment>
                                         ))
                                     }
                                 </Grid>

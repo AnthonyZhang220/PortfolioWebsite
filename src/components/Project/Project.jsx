@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 
-
 import Paper from '@mui/material/Paper';
 import Icon from '@material-ui/core/Icon';
 import Card from '@mui/material/Card';
@@ -29,6 +28,7 @@ import Modal from '@mui/material/Modal';
 import ScienceOutlinedIcon from '@mui/icons-material/ScienceOutlined';
 import EventAvailableOutlinedIcon from '@mui/icons-material/EventAvailableOutlined';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Skeleton from '@mui/material/Skeleton';
@@ -39,6 +39,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { createStyles, makeStyles } from "@material-ui/styles";
 import { styled } from '@mui/material/styles';
 import "./Project.scss"
+import "../../global.scss"
+import { ArrowLeft } from "@material-ui/icons";
 
 const ProjectDetails = React.lazy(() => import("./ProjectDetails"))
 
@@ -54,7 +56,7 @@ export default function Project(props) {
     const projectTitleRef = useRef();
     const scrollerRef = useRef();
 
-    const [projectData, setProjectData] = useState({})
+    const [projectdetails, setProjectdetails] = useState({})
 
     const handleLeft = () => {
         scrollerRef.current.scrollBy(-340, 0);
@@ -108,7 +110,7 @@ export default function Project(props) {
     const handleDrawerOpen = ({ id, title, subtitle, screenshots, thumbnails, overview, roles, tech, WebsiteUrl, GitHubUrl, library, index, process, results }) => () => {
 
         setOpen(!open);
-        setProjectData({ id, title, subtitle, screenshots, thumbnails, overview, roles, tech, WebsiteUrl, GitHubUrl, library, index, process, results });
+        setProjectdetails({ id, title, subtitle, screenshots, thumbnails, overview, roles, tech, WebsiteUrl, GitHubUrl, library, index, process, results });
 
 
 
@@ -215,10 +217,10 @@ export default function Project(props) {
                     <div className='card-scroller-crop'>
                         <div className="card-scroller-content" ref={scrollerRef}>
                             <div className="card-scroller-plater">
-                                {projectdata?.map(({ id, title, subtitle, screenshots, thumbnails, roles, overview, tech, WebsiteUrl, GitHubUrl, library, process, results, features }, index) => (
-                                    <React.Fragment>
+                                {projectdata?.map(({ id, title, subtitle, screenshots, thumbnails, roles, overview, tech, WebsiteUrl, GitHubUrl, library, process, results, features}, index) => (
+                                    <React.Fragment key={index}>
                                         {/* project card */}
-                                        <div key={id} className='card'>
+                                        <div className='card'>
                                             {/* <img className="tape" src="assets/images/tape.png" height='100px' width='100px'>
                                         </img> */}
                                             <Card
@@ -252,7 +254,7 @@ export default function Project(props) {
                                                             cursor: 'pointer'
                                                         },
                                                     }}
-                                                    onClick={handleDrawerOpen({ id, title, subtitle, screenshots, thumbnails, overview, roles, tech, WebsiteUrl, GitHubUrl, library, index, process, results, features })}
+                                                    onClick={handleDrawerOpen({ id, title, subtitle, screenshots, thumbnails, overview, roles, tech, WebsiteUrl, GitHubUrl, library, process, results, features })}
                                                 />
                                             </Card>
                                         </div>
@@ -260,44 +262,73 @@ export default function Project(props) {
                                 ))}
                                 {/* more to come card */}
                                 <div className="card">
-                                    <Card
+                                    <Card elevation={0}
                                         sx={{
                                             position: 'relative',
-                                            width: 'auto',
-                                            height: 'auto',
+                                            // backgroundColor: 'transparent',
+                                            width: matches ? '275px' : '400px',
+                                            height: matches ? '400px' : '500px',
                                             marginRight: '20px',
                                             transition: "all 0.3s cubic-bezier(0,0,.5,1)",
-                                            borderRadius: '16px',
+                                            borderRadius: '20px',
                                             boxShadow: "0px 2px 12px rgb(0 0 0 / 8%)",
                                             "&:hover": {
                                                 boxShadow: "0px 4px 24px rgb(0 0 0 / 0.2)",
                                             },
                                             // flex: '0 0 10%',
                                         }}>
-                                        <CardContent>
-                                            <Box sx={{ mx: 1 }}>
-                                                <Typography gutterBottom variant="body1" component="div">
-                                                    More to come
-                                                </Typography>
-                                            </Box>
-                                            <Divider />
-                                            <Box sx={{ m: 1 }}>
-                                                <Typography gutterBottom variant="body3">
-                                                    Technology used
-                                                </Typography>
-                                            </Box>
-                                            <Divider />
-                                            <Box sx={{ m: 1 }}>
-                                                <Typography gutterBottom variant="body3">
-                                                    Library used
-                                                </Typography>
-                                            </Box>
-                                            <Divider />
-                                        </CardContent>
+                                        <CardMedia sx={{
+                                            width: matches ? '275px' : '400px',
+                                            height: matches ? '400px' : '500px',
+                                            borderRadius: '20px',
+                                            boxShadow: "0px 4px 24px rgb(0 0 0 / 0.6)",
+                                            "&:hover": {
+                                                transform: 'scale(1.05)',
+                                                transition: 'transform 0.5s ease-out 0s',
+                                                cursor: 'pointer',
+                                                ".more-button": {
+                                                    transition: "transform 0.5s ease-in-out 0s",
+                                                    transform: "translate(-50%,-100%)",
+                                                },
+                                                ".more-text": {
+                                                    display: "inline-flex",
+                                                    transition: "transform 0.5s ease-in-out 0s",
+                                                    transform: "translate(-50%,0%)",
+                                                },
+                                            },
+                                        }}
+                                        >
+                                            <IconButton
+                                                className="more-button"
+                                                size="large"
+                                                sx={{
+                                                    position: "absolute",
+                                                    top: "50%",
+                                                    left: "50%",
+                                                    transform: "translate(-50%,-50%)",
+                                                }}>
+                                                <AddCircleOutlineIcon sx={{ fontSize: "128px", color: "#000000" }}></AddCircleOutlineIcon>
+                                            </IconButton>
+                                            <Typography
+                                                className="more-text"
+                                                sx={{
+                                                    position: "absolute",
+                                                    top: "50%",
+                                                    left: "50%",
+                                                    transform: "translate(-50%,-100%)",
+                                                    display: "none",
+                                                    fontSize: "48px",
+                                                    textAlign: "center",
+                                                    fontWeight: "bold",
+                                                }}
+                                                variant="body2">
+                                                MORE COMING
+                                            </Typography>
+                                        </CardMedia>
                                     </Card>
                                 </div>
-                                <Suspense fallback={<div>loading projects...</div>}>
-                                    <ProjectDetails open={open} handleDrawerOpen={handleDrawerOpen} projectData={projectData} />
+                                <Suspense fallback={<div>Loading projects...</div>}>
+                                    <ProjectDetails open={open} handleDrawerOpen={handleDrawerOpen} projectdetails={projectdetails} />
                                 </Suspense>
                             </div>
                         </div>

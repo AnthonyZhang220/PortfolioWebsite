@@ -86,28 +86,27 @@ export default function Contact() {
         {
             name: "Linkedin",
             icon: "linkedin",
+            color: "#0a66c2",
             href: "https://www.linkedin.com/in/anthony-xiangyu-zhang/"
         },
         {
             name: "GitHub",
             icon: "github",
+            color: "#000000",
             href: "https://github.com/AnthonyZhang220"
         },
         {
             name: "StackOverflow",
             icon: "stack-overflow",
+            color: "#f27f24",
             href: "https://stackoverflow.com/users/6162027/anthony220"
         },
         {
             name: "Medium",
             icon: "medium",
+            color: "#000000",
             href: "https://medium.com/@anthonyzhang220"
-        },
-        {
-            name: "HackerRank",
-            icon: "hackerrank",
-            href: "https://www.hackerrank.com/anthonyzhang1997"
-        },
+        }
     ]
 
     const formRef = useRef();
@@ -298,7 +297,7 @@ export default function Contact() {
                         </Paper>
                         <Grid container className="contact-social" textAlign="center">
                             {
-                                contactSocialIcon?.map(({ name, icon, href, }, index) => (
+                                contactSocialIcon?.map(({ name, icon, href, color }, index) => (
                                     <Grid item xs component="a" href={href} m={"auto"} target="_blank" rel="noreferrer" key={index} >
                                         <Paper elevation={0} sx={{
                                             m: 2,
@@ -306,7 +305,7 @@ export default function Contact() {
                                             borderRadius: 10,
                                             boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 50px;',
                                         }}>
-                                            <IconButton sx={{ fontSize: 40 }} disableRipple>
+                                            <IconButton sx={{ fontSize: 40, color: `${color}` }} disableRipple>
                                                 <FontAwesomeIcon icon={`fab fa-${icon}`} />
                                             </IconButton>
                                         </Paper>

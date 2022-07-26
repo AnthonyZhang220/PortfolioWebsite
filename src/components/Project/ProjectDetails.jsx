@@ -133,7 +133,7 @@ const CloseButton = styled(Button)(({ theme }) => ({
 
 
 
-export default function ProjectDetails({ open, projectData, handleDrawerOpen }) {
+export default function ProjectDetails({ open, projectdetails, handleDrawerOpen }) {
 
     const classes = useStyles();
 
@@ -177,7 +177,7 @@ export default function ProjectDetails({ open, projectData, handleDrawerOpen }) 
                     onOpen={handleDrawerOpen(true)}
                     swipeAreaWidth={drawerBleeding}
                     elevation={10}
-                    projectData={projectData}
+                    projectdetails={projectdetails}
                     transitionDuration={{ enter: 1000, exit: 500 }}
                     disableSwipeToOpen={false}
                     sx={{
@@ -235,20 +235,20 @@ export default function ProjectDetails({ open, projectData, handleDrawerOpen }) 
                                         <Box sx={{ mx: 1 }}>
                                             <Typography gutterBottom variant="h4" component="div">
                                                 {
-                                                    projectData.title ? projectData.title : <Skeleton animation='pulse' variant="rectangular" height={50} />
+                                                    projectdetails.title ? projectdetails.title : <Skeleton animation='pulse' variant="rectangular" height={50} />
                                                 }
                                             </Typography>
                                             <Typography gutterBottom variant="h5" component="div">
-                                                {projectData.subtitle ? projectData.subtitle : <Skeleton animation='pulse' variant="rectangular" height={40} />}
+                                                {projectdetails.subtitle ? projectdetails.subtitle : <Skeleton animation='pulse' variant="rectangular" height={40} />}
                                             </Typography>
                                         </Box>
                                         <Divider />
                                     </CardContent>
                                     <CardActions>
                                         <Box sx={{ mx: 1 }}>
-                                            <Button sx={{ m: 1 }} color="secondary" variant='contained' size="medium" href={projectData.GitHubUrl} target='_blank'>GitHub</Button>
-                                            <Button sx={{ m: 1 }} color="secondary" variant='contained' size="medium" href={projectData.WebsiteUrl} target='_blank' endIcon={<ForwardRoundedIcon />}>Website</Button>
-                                            <IconButton sx={{ m: 1 }} onClick={() => handleShareOpen(projectData.id)} >
+                                            <Button sx={{ m: 1 }} color="secondary" variant='contained' size="medium" href={projectdetails.GitHubUrl} target='_blank'>GitHub</Button>
+                                            <Button sx={{ m: 1 }} color="secondary" variant='contained' size="medium" href={projectdetails.WebsiteUrl} target='_blank' endIcon={<ForwardRoundedIcon />}>Website</Button>
+                                            <IconButton sx={{ m: 1 }} onClick={() => handleShareOpen(projectdetails.id)} >
                                                 <ShareIcon></ShareIcon>
                                             </IconButton>
                                             <Divider />
@@ -260,7 +260,7 @@ export default function ProjectDetails({ open, projectData, handleDrawerOpen }) 
                                                 OVERVIEW
                                             </Typography>
                                             <Typography gutterBottom variant="body1" color="text.secondary">
-                                                {projectData.overview ? projectData.overview : <Skeleton animation='pulse' variant="rectangular" height={150} />}
+                                                {projectdetails.overview ? projectdetails.overview : <Skeleton animation='pulse' variant="rectangular" height={150} />}
                                             </Typography>
                                         </Box>
                                     </CardContent>
@@ -273,7 +273,7 @@ export default function ProjectDetails({ open, projectData, handleDrawerOpen }) 
                                                 ROLES
                                             </Typography>
                                             <Stack sx={{ flexWrap: 'wrap' }} alignItems='center' justifyContent='flex-start' direction='row' spacing={1}>
-                                                {projectData.roles ? projectData.roles.map((role, index) => (
+                                                {projectdetails.roles ? projectdetails.roles.map((role, index) => (
                                                     <Chip style={{ fontSize: "18px" }} sx={{ m: 1 }} label={role} key={index} />
                                                 )) : <Skeleton animation='pulse' variant="circle" />
                                                 }
@@ -286,7 +286,7 @@ export default function ProjectDetails({ open, projectData, handleDrawerOpen }) 
                                             </Typography>
                                             <Stack sx={{ flexWrap: 'wrap' }} alignItems='center' justifyContent='flex-start' direction='row' spacing={1}>
                                                 {
-                                                    projectData.tech ? projectData.tech.map((techUrl, index) => (
+                                                    projectdetails.tech ? projectdetails.tech.map((techUrl, index) => (
                                                         <img key={index} className={classes.imageIcon} src={techUrl} alt={techUrl} height='48px' width='48px' />
                                                     )) : <Skeleton animation='pulse' variant="circle" />
                                                 }
@@ -298,7 +298,7 @@ export default function ProjectDetails({ open, projectData, handleDrawerOpen }) 
                                                 LIBRARY STACK
                                             </Typography>
                                             <Stack sx={{ flexWrap: 'wrap' }} alignItems='center' justifyContent='flex-start' direction='row' spacing={1}>
-                                                {projectData.library ? projectData.library.map((lib, index) => (
+                                                {projectdetails.library ? projectdetails.library.map((lib, index) => (
                                                     <Chip style={{ fontSize: "18px" }} label={lib} sx={{ m: 1 }} key={index} variant="outlined" />
                                                 )) : <Skeleton animation='pulse' variant="circle" />
                                                 }
@@ -315,15 +315,15 @@ export default function ProjectDetails({ open, projectData, handleDrawerOpen }) 
                                         Features
                                     </Typography>
                                     <Typography gutterBottom variant="body1" color="text.secondary">
-                                        {projectData.features ? projectData.features : <Skeleton animation='pulse' variant="rectangular" height={150} />}
+                                        {projectdetails.features ? projectdetails.features : <Skeleton animation='pulse' variant="rectangular" height={150} />}
                                     </Typography>
                                 </CardContent>
                                 <CardContent>
-                                    {projectData.screenshots ?
+                                    {projectdetails.screenshots ?
                                         <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(50px, 2fr))" gridAutoRows="auto" gridAutoColumns="auto" gap={2}>
                                             {
-                                                projectData.screenshots.map((screenshot, index) => (
-                                                    <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", objectFit: "contain" }}>
+                                                projectdetails.screenshots.map((screenshot, index) => (
+                                                    <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", objectFit: "contain" }} key={index}>
                                                         <CardMedia
                                                             sx={{ boxShadow: "-10px -10px 15px rgba(255,255,255,0.5), 10px 10px 15px rgba(70,70,70,0.12)" }}
                                                             className="project-screenshots"
@@ -371,7 +371,7 @@ export default function ProjectDetails({ open, projectData, handleDrawerOpen }) 
                                         PROCESS
                                     </Typography>
                                     <Typography gutterBottom variant="body1" color="text.secondary">
-                                        {projectData.process ? projectData.process : <Skeleton animation='pulse' variant="rectangular" height={150} />}
+                                        {projectdetails.process ? projectdetails.process : <Skeleton animation='pulse' variant="rectangular" height={150} />}
                                     </Typography>
                                 </CardContent>
                                 <Divider />
@@ -380,7 +380,7 @@ export default function ProjectDetails({ open, projectData, handleDrawerOpen }) 
                                         RESULTS
                                     </Typography>
                                     <Typography gutterBottom variant="body1" color="text.secondary">
-                                        {projectData.results ? projectData.results : <Skeleton animation='pulse' variant="rectangular" height={150} />}
+                                        {projectdetails.results ? projectdetails.results : <Skeleton animation='pulse' variant="rectangular" height={150} />}
                                     </Typography>
                                 </CardContent>
                             </CardContent>
@@ -394,7 +394,7 @@ export default function ProjectDetails({ open, projectData, handleDrawerOpen }) 
             <Modal
                 open={sharePage}
                 onClose={handleShareClose}
-                projectData={projectData}
+                projectdetails={projectdetails}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-overview"
                 keepMounted
@@ -404,45 +404,45 @@ export default function ProjectDetails({ open, projectData, handleDrawerOpen }) 
                         Share
                     </Typography>
                     <Box sx={{ display: 'flex', flexWrap: 'wrap', padding: 2 }}>
-                        <EmailShareButton url={projectData.WebsiteUrl}>
+                        <EmailShareButton url={projectdetails.WebsiteUrl}>
                             <EmailIcon round size={50} />
                         </EmailShareButton>
-                        <FacebookShareButton url={projectData.WebsiteUrl} quote={projectData.title}>
+                        <FacebookShareButton url={projectdetails.WebsiteUrl} quote={projectdetails.title}>
                             <FacebookIcon round size={50} />
                         </FacebookShareButton>
                         <FacebookMessengerIcon round size={50} />
-                        <LineShareButton url={projectData.WebsiteUrl}>
+                        <LineShareButton url={projectdetails.WebsiteUrl}>
                             <LineIcon round size={50} />
                         </LineShareButton>
 
-                        <LinkedinShareButton url={projectData.WebsiteUrl} title={projectData.title} summary={projectData.overview}>
+                        <LinkedinShareButton url={projectdetails.WebsiteUrl} title={projectdetails.title} summary={projectdetails.overview}>
                             <LinkedinIcon round size={50} />
                         </LinkedinShareButton>
 
 
-                        <PinterestShareButton url={projectData.WebsiteUrl} media={projectData.thumbnails}>
+                        <PinterestShareButton url={projectdetails.WebsiteUrl} media={projectdetails.thumbnails}>
                             <PinterestIcon round size={50} />
                         </PinterestShareButton>
 
                         <WeiboIcon round size={50} />
 
-                        <RedditShareButton url={projectData.WebsiteUrl} title={projectData.title}>
+                        <RedditShareButton url={projectdetails.WebsiteUrl} title={projectdetails.title}>
                             <RedditIcon round size={50} />
                         </RedditShareButton>
 
-                        <TelegramShareButton url={projectData.WebsiteUrl} title={projectData.title}>
+                        <TelegramShareButton url={projectdetails.WebsiteUrl} title={projectdetails.title}>
                             <TelegramIcon round size={50} />
                         </TelegramShareButton>
 
-                        <TwitterShareButton url={projectData.WebsiteUrl} title={projectData.title}>
+                        <TwitterShareButton url={projectdetails.WebsiteUrl} title={projectdetails.title}>
                             <TwitterIcon round size={50} />
                         </TwitterShareButton>
 
-                        <WhatsappShareButton url={projectData.WebsiteUrl} title={projectData.title}>
+                        <WhatsappShareButton url={projectdetails.WebsiteUrl} title={projectdetails.title}>
                             <WhatsappIcon round size={50} />
                         </WhatsappShareButton>
 
-                        <WorkplaceShareButton url={projectData.WebsiteUrl} quote={projectData.overview}>
+                        <WorkplaceShareButton url={projectdetails.WebsiteUrl} quote={projectdetails.overview}>
                             <WorkplaceIcon round size={50} />
                         </WorkplaceShareButton>
                     </Box>

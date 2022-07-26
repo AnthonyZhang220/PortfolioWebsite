@@ -5,7 +5,7 @@ export const projectdata = [
 		id: 4,
 		title: "Portfolio Website",
 		subtitle: "Personal Portfolio Website",
-		thumbnails: ["assets/images/portfolio_cover.png"],
+		thumbnails: "assets/images/portfolio_cover.png",
 		screenshots: [
 			"assets/project_images/portfolio_1.png",
 			"assets/project_images/portfolio_2.png",
@@ -35,7 +35,7 @@ export const projectdata = [
 		id: 1,
 		title: "LaoMa Spicy",
 		subtitle: "LaoSpicy",
-		thumbnails: ["assets/images/laoma.png"],
+		thumbnails: "assets/images/laoma.png",
 		screenshots: [
 			"assets/project_images/laoma.png",
 			"assets/project_images/laoma_mobile_1.png",
@@ -63,7 +63,7 @@ export const projectdata = [
 		id: 2,
 		title: "Gaggle",
 		subtitle: "Google Search Clone",
-		thumbnails: ["assets/images/gaggle.png"],
+		thumbnails: "assets/images/gaggle.png",
 		screenshots: [
 			"assets/project_images/gaggle_light.png",
 			"assets/project_images/gaggle_dark.png",
@@ -90,7 +90,7 @@ export const projectdata = [
 		id: 3,
 		title: "TripAdvisor",
 		subtitle: "Trip Advisor Clone",
-		thumbnails: ["assets/images/tripadvisor.png"],
+		thumbnails: "assets/images/tripadvisor.png",
 		screenshots: [
 			"assets/project_images/tripadvisor.png",
 			"assets/project_images/tripadvisor_mobile_1.png",
@@ -115,7 +115,7 @@ export const projectdata = [
 		id: 5,
 		title: "Explore Amazon API",
 		subtitle: "Amazon Product Details Data API",
-		thumbnails: ["assets/images/exploreamazon.png"],
+		thumbnails: "assets/images/exploreamazon.png",
 		screenshots: ["assets/project_images/amazon.png"],
 		roles: ["Back-end Development"],
 		overview:
@@ -138,7 +138,7 @@ export const projectdata = [
 		id: 6,
 		title: "LaoMa Spicy Waitlist System",
 		subtitle: "LaoMa Spicy Customer Queue System",
-		thumbnails: ["assets/images/laoma.png"],
+		thumbnails: "assets/images/laoma.png",
 		screenshots: [
 			"assets/project_images/laoma.png",
 			"assets/project_images/laoma_mobile_1.png",
