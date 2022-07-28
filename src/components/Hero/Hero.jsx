@@ -52,18 +52,17 @@ export default function Hero() {
         let entryPlayed = sessionStorage.getItem("hasMyAnimationPlayed")
         let introPlayed = sessionStorage.getItem("introPlayed");
 
+
         //entry timeline
         const entryTimeline = gsap.timeline({
             onComplete: () => {
-                console.log(sessionStorage)
-                sessionStorage.setItem("hasMyAnimationPlayed", true);
                 introTimeline.play();
-
+                sessionStorage.setItem("hasMyAnimationPlayed", true);
             }
         })
 
-        //show laptop
-        entryTimeline.set(document.body, { overflow: "hidden" })
+        entryTimeline
+            // .set(document.body, { overflow: "hidden" })
             .set(".hero-title-line > *", { opacity: 0, })
 
             .set(hiRef.current, { opacity: 0 })
@@ -76,7 +75,6 @@ export default function Hero() {
 
             .to(happyRef.current, { opacity: 1, duration: 1 })
             .to(happyRef.current, { opacity: 0, duration: 0.5 })
-            .set(happyRef.current, { opacity: 0 })
             .set(document.body, { overflow: "auto" })
 
 
