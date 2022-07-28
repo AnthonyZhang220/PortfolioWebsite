@@ -1,19 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
-import { init } from 'ityped';
+import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import { TweenMax, Power2 } from "gsap/all";
-import FingerprintIcon from '@mui/icons-material/Fingerprint';
-import IconButton from '@mui/material/IconButton';
 import { ScrollToPlugin } from 'gsap/all';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import SvgIcon from '@mui/material/SvgIcon';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import Grid from '@mui/material/Grid';
+
 
 
 // import './Animation';
@@ -36,9 +30,6 @@ function MouseIcon(props) {
 
 
 export default function Hero() {
-
-    const isMobile = useMediaQuery("(max-width:600px");
-
     const midRef = useRef(null);
     const scrolldownRef = useRef(null);
     const introRef = useRef(null);
@@ -80,8 +71,6 @@ export default function Hero() {
             .set(hiRef.current, { opacity: 0 })
             .set(happyRef.current, { opacity: 0 })
 
-            .to(laptopRef.current, { opacity: 1, duration: 1 })
-
             .to(hiRef.current, { opacity: 1, duration: 1 })
 
             .to(hiRef.current, { opacity: 0, duration: 0.5 })
@@ -90,7 +79,6 @@ export default function Hero() {
             .to(happyRef.current, { opacity: 1, duration: 1 })
             .to(happyRef.current, { opacity: 0, duration: 0.5 })
             .set(happyRef.current, { opacity: 0 })
-            .to(laptopRef.current, 1, { scale: 2, opacity: 0, transformOrigin: '50% 50%' })
             .set(document.body, { overflow: "auto" })
 
 
@@ -113,9 +101,6 @@ export default function Hero() {
             })
 
             .fromTo(".hero-title-line > *", { x: "10%" }, { x: "0%", opacity: 1, duration: 1 })
-
-            .fromTo(".hero-image", { x: "-10%", opacity: 0 }, { x: "0%", opacity: 1, duration: 1 }, "<")
-
 
             .fromTo('#top-nav', {
                 opacity: 0
@@ -400,9 +385,6 @@ export default function Hero() {
     return (
         <React.Fragment>
             <div className="opening-animation">
-                <div className="opening-image" ref={laptopRef}>
-                    <img src="/assets/images/macbook_pro.png" alt="macbook_pro.png" />
-                </div>
                 <div className="hi" ref={hiRef}>Hi</div>
                 <div className="happy" ref={happyRef}>I'm happy you're here</div>
             </div>

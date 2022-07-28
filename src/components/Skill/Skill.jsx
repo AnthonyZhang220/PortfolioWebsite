@@ -2,8 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from 'gsap/all';
-
-import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -16,7 +14,7 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 
 
-import { ThemeProvider, styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { skillData } from './SkillData'

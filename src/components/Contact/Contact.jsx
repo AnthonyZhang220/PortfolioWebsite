@@ -40,9 +40,8 @@ import FormLabel from '@mui/material/FormLabel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
-import { styled } from '@mui/material/styles';
 import "./Contact.scss"
-import { IconButton, useMediaQuery } from '@mui/material';
+import { IconButton } from '@mui/material';
 
 
 library.add(fab);
@@ -64,8 +63,6 @@ function PaperComponent(props) {
 
 
 export default function Contact() {
-
-    const isMobile = useMediaQuery('(max-width: 600px)');
 
     const steps = ['Confirm your info', 'Verify you are a human', 'Submit contact form'];
     const [activeStep, setActiveStep] = useState(1);

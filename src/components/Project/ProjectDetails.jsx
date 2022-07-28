@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Skeleton from '@mui/material/Skeleton';
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -15,7 +14,6 @@ import Divider from "@material-ui/core/Divider";
 import ForwardRoundedIcon from '@mui/icons-material/ForwardRounded';
 import Chip from '@mui/material/Chip';
 import ShareIcon from '@mui/icons-material/Share';
-import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import Modal from '@mui/material/Modal';
 

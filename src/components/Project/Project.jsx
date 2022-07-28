@@ -4,43 +4,26 @@ import { gsap } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fab } from '@fortawesome/free-brands-svg-icons';
 
-import Paper from '@mui/material/Paper';
-import Icon from '@material-ui/core/Icon';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
+
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Stack } from '@mui/material';
-import Divider from "@material-ui/core/Divider";
 import Box from '@mui/material/Box';
-import ForwardRoundedIcon from '@mui/icons-material/ForwardRounded';
-import Chip from '@mui/material/Chip';
-import Badge from '@mui/material/Badge';
 import IconButton from '@mui/material/IconButton';
-import ShareIcon from '@mui/icons-material/Share';
-import Modal from '@mui/material/Modal';
-
 import ScienceOutlinedIcon from '@mui/icons-material/ScienceOutlined';
 import EventAvailableOutlinedIcon from '@mui/icons-material/EventAvailableOutlined';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import Skeleton from '@mui/material/Skeleton';
-import CssBaseline from "@mui/material/CssBaseline";
 import Grid from '@mui/material/Grid';
 
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { createStyles, makeStyles } from "@material-ui/styles";
-import { styled } from '@mui/material/styles';
+
+
 import "./Project.scss"
 import "../../global.scss"
-import { ArrowLeft } from "@material-ui/icons";
 
 const ProjectDetails = React.lazy(() => import("./ProjectDetails"))
 
@@ -217,7 +200,7 @@ export default function Project(props) {
                     <div className='card-scroller-crop'>
                         <div className="card-scroller-content" ref={scrollerRef}>
                             <div className="card-scroller-plater">
-                                {projectdata?.map(({ id, title, subtitle, screenshots, thumbnails, roles, overview, tech, WebsiteUrl, GitHubUrl, library, process, results, features}, index) => (
+                                {projectdata?.map(({ id, title, subtitle, screenshots, thumbnails, roles, overview, tech, WebsiteUrl, GitHubUrl, library, process, results, features }, index) => (
                                     <React.Fragment key={index}>
                                         {/* project card */}
                                         <div className='card'>

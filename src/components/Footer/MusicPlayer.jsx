@@ -284,7 +284,7 @@ export default function MusicPlayer() {
                             <PauseRounded sx={{ fontSize: '3.5rem' }} htmlColor={mainIconColor} />
                         )}
                     </IconButton>
-                    <audio id='audio' preload='auto' ref={audioRef} onLoadedMetadata={handleGetAudioData} onTimeUpdate={handleTimeUpdate}>
+                    <audio id='audio' preload='none' ref={audioRef} onLoadedMetadata={handleGetAudioData} onTimeUpdate={handleTimeUpdate}>
                         <source src={musicList.find(x => x.id === songId).source} type="audio/mpeg"></source>
                     </audio>
                     <IconButton aria-label="next song" onClick={handleForward}>
