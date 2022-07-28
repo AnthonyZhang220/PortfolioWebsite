@@ -1,22 +1,19 @@
-import React, { useContext, useState, useMemo, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import NavBar from "./components/NavBar/NavBar";
 import Main from "./Main"
 import Blog from "./components/Blog/Blog";
-import Canvas from "./components/Canvas/Canvas";
 import BackToTop from "./components/BackToTop/BackToTop";
 
 
 
-import { init } from 'ityped';
 import { gsap } from "gsap/all";
 
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "./App.scss"
-import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { faHourglass1 } from '@fortawesome/free-solid-svg-icons';
 import { useMediaQuery } from '@material-ui/core';
 
 

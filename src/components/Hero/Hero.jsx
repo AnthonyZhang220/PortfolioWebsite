@@ -36,7 +36,6 @@ export default function Hero() {
     const hiRef = useRef(null);
     const happyRef = useRef(null);
 
-    const laptopRef = useRef(null);
     const heroTechIconRef = useRef(null);
     const heroIconContainerRef = useRef(null);
     const canvasRef = useRef(null);
@@ -66,8 +65,7 @@ export default function Hero() {
         //show laptop
         entryTimeline.set(document.body, { overflow: "hidden" })
             .set(".hero-title-line > *", { opacity: 0, })
-            .fromTo(laptopRef.current, { opacity: 0 }, { opacity: 1, duration: 1 })
-            //show Hi
+
             .set(hiRef.current, { opacity: 0 })
             .set(happyRef.current, { opacity: 0 })
 

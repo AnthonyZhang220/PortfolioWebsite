@@ -1,18 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { gsap } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from 'gsap/all';
 
-import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 
-import useMediaQuery from '@mui/material/useMediaQuery';
 import "./About.scss";
 
 
@@ -25,8 +22,6 @@ library.add(fas);
 export default function About() {
     gsap.registerPlugin(ScrollTrigger);
     gsap.registerPlugin(ScrollToPlugin);
-
-    const isMobile = useMediaQuery('(max-width:600px)');
 
     const aboutTitleRef = useRef();
 
