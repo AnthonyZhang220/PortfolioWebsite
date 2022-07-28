@@ -3,6 +3,8 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import emailjs from '@emailjs/browser';
 import { init } from '@emailjs/browser';
 import { gsap } from 'gsap/all';
+import axios from "axios";
+
 
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
@@ -82,6 +84,17 @@ export default function Contact() {
         message: "Hi, ",
     })
 
+    const [isFieldEmpty, setIsFieldEmpty] = useState({
+        name: false,
+        email: false,
+        intention: false,
+    });
+
+    const [isEmailValid, setIsEmailValid] = useState(true);
+    const [isNameValid, setIsNameValid] = useState(true);
+    const [isRecaptchaLoaded, setIsRecaptchaLoaded] = useState(false);
+
+
     const contactSocialIcon = [
         {
             name: "Linkedin",
@@ -121,7 +134,7 @@ export default function Contact() {
         setErrorCode(true);
 
         return (
-            <Snackbar open={errorCode} autoHideDuration={2000} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+            <Snackbar open={errorCode} autoHideDuration={3000} onClose={handleCloseErrorCode} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
                 <Alert onClose={handleCloseErrorCode} severity="error" sx={{ width: '100%' }}>
                     {error}. Please try again later.
                 </Alert>
@@ -135,7 +148,6 @@ export default function Contact() {
 
 
     const handleOnChange = (e) => {
-
 
         const { name, email, phone, date, message, intention, value } = e.target;
 
@@ -152,14 +164,18 @@ export default function Contact() {
     }
 
 
-    const handleShowExpired = () => {
+    const handleShowExpired = async (expire) => {
+        console.log(expire);
         setLoading(true);
         setExpired(true);
 
         setActiveStep(1);
 
     }
-    const handleCloseExpired = () => {
+    const handleCloseExpired = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
         setExpired(false);
         setLoading(false);
     }
@@ -169,7 +185,11 @@ export default function Contact() {
         setIsVerified(false);
     }
 
-    const handleCloseError = () => {
+    const handleCloseError = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        recaptchaRef.current.reset();
         setError(false);
         setLoading(false);
     }
@@ -182,17 +202,69 @@ export default function Contact() {
     }
 
 
-    const handleClickOpen = () => {
-        setOpenDialog(true);
+    const handleDialogOpen = () => {
+
+        if (input.name === "") {
+            setIsFieldEmpty({ name: true });
+            setTimeout(() => {
+                setIsFieldEmpty({ name: false });
+            }, [4000])
+        } else if (input.email === "") {
+            setIsFieldEmpty({ email: true });
+            setTimeout(() => {
+                setIsFieldEmpty({ email: false });
+            }, [4000])
+        } else if (input.intent === "") {
+            setIsFieldEmpty({ intent: true });
+            setTimeout(() => {
+                setIsFieldEmpty({ intent: false });
+            }, [4000])
+        } else {
+            setOpenDialog(true);
+
+        }
     }
 
-    const handleVerify = () => {
-        setIsVerified(true)
-        setActiveStep(activeStep + 1);
+    //close popup warning
+    const handleFieldEmptyClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setIsFieldEmpty({
+            name: false,
+            email: false,
+            intention: false,
+        })
+
     }
+
+    //verify recaptcha with Google on backend
+    const handleVerify = async (token) => {
+        console.log(token)
+        const captchaToken = token;
+
+        await axios.post("http://localhost:5000/recaptcha", { captchaToken })
+            .then(res => {
+                if (res.data === "Human") {
+                    setIsVerified(true);
+                    setActiveStep(activeStep + 1);
+                } else {
+                    setIsVerified(false);
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+
+    }
+
+
+    //final submission after recaptcha validation
     const handleSubmit = () => {
         // setLoading(true);
         // recaptchaRef.current.execute();
+        console.log(input.email)
 
         if (!isVerified) {
             setLoading(true);
@@ -262,6 +334,7 @@ export default function Contact() {
 
         }
     }, [])
+
 
     // useEffect(() => {
     //     const animation = gsap.fromTo(contactContainerRef.current, { y: 0, scale: 1 }, {
@@ -347,6 +420,16 @@ export default function Contact() {
                                         autoComplete='name'
                                         placeholder="Anthony Zhang"
                                         value={input.name}
+                                        error={!isNameValid}
+                                        helperText={isNameValid ? "" : "Your name is required!"}
+                                        onFocus={() => setIsNameValid(true)}
+                                        onBlur={() => {
+                                            if (input.name === "") {
+                                                setIsNameValid(false);
+                                            } else {
+                                                setIsNameValid(true);
+                                            }
+                                        }}
                                         onChange={e => handleOnChange(e)}
                                         variant="standard"
                                         InputProps={{
@@ -371,6 +454,16 @@ export default function Contact() {
                                         placeholder="example@gmail.com"
                                         variant="standard"
                                         value={input.email}
+                                        error={!isEmailValid}
+                                        helperText={isEmailValid ? "" : "Please enter a valid email address!"}
+                                        onBlur={() => {
+                                            if (/^$|^\S+@\S+\.\S+$/.test(input.email)) {
+                                                setIsEmailValid(true);
+                                            } else {
+                                                setIsEmailValid(false);
+                                            };
+                                        }}
+                                        onFocus={() => setIsEmailValid(true)}
                                         onChange={e => handleOnChange(e)}
                                         InputProps={{
                                             startAdornment: <InputAdornment position="start"><EmailIcon /></InputAdornment>,
@@ -392,6 +485,8 @@ export default function Contact() {
                                         placeholder="+1234567890"
                                         variant="standard"
                                         value={input.phone}
+                                        error={!RegExp('^$|^[0-9]+$').test(input.phone)}
+                                        helperText={RegExp('^$|^[0-9]+$').test(input.phone) ? "" : "Numbers Only"}
                                         onChange={e => handleOnChange(e)}
                                         InputProps={{
                                             startAdornment: <InputAdornment position="start"><PhoneIphoneIcon /></InputAdornment>,
@@ -456,6 +551,7 @@ export default function Contact() {
                                         variant="standard"
                                         value={input.message}
                                         onChange={e => handleOnChange(e)}
+
                                         InputProps={{
                                             startAdornment: <InputAdornment position="start"><MessageIcon /></InputAdornment>,
                                             sx: { p: 1 }
@@ -466,136 +562,149 @@ export default function Contact() {
                                     />
                                 </Grid>
                                 <Grid item xs sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 1, textAlign: "start" }}>
-                                    <Button onClick={handleClickOpen} variant="outlined">Submit</Button>
+                                    <Button onClick={handleDialogOpen} variant="outlined">Submit</Button>
                                 </Grid>
+                                <Dialog
+                                    open={openDialog}
+                                    onClose={handleDialogClose}
+                                    PaperComponent={PaperComponent}
+                                >
+                                    <Box sx={{ pt: 4, pl: 4, pr: 4 }}>
+                                        <Stepper activeStep={activeStep} alternativeLabel>
+                                            {steps.map((label, index) => {
+                                                const stepProps = {};
+                                                const labelProps = {};
+
+                                                return (
+                                                    <Step key={label} {...stepProps}>
+                                                        <StepLabel {...labelProps}>{label}</StepLabel>
+                                                    </Step>
+                                                );
+                                            })}
+                                        </Stepper>
+                                    </Box>
+                                    <DialogContent dividers={true}>
+                                        <Grid container spacing={2} direction="row"
+                                            justifyContent="center"
+                                            alignItems="center">
+                                            <Grid container item spacing={2} xs={12}>
+                                                <Grid item>
+                                                    <AccountCircleIcon />
+                                                </Grid>
+                                                <Grid item xs zeroMinWidth>
+                                                    <Typography noWrap>Name: {input.name}</Typography>
+                                                </Grid>
+                                            </Grid>
+                                            <Grid container item spacing={2} xs={12}>
+                                                <Grid item>
+                                                    <EmailIcon />
+                                                </Grid>
+                                                <Grid item xs zeroMinWidth>
+                                                    <Typography noWrap>Email: {input.email}</Typography>
+                                                </Grid>
+                                            </Grid>
+                                            <Grid container item spacing={2} xs={12}>
+                                                <Grid item>
+                                                    <PhoneIphoneIcon />
+                                                </Grid>
+                                                <Grid item xs zeroMinWidth>
+                                                    <Typography noWrap>Phone: {input.phone}</Typography>
+                                                </Grid>
+                                            </Grid>
+                                            <Grid container item spacing={2} xs={12}>
+                                                <Grid item>
+                                                    <ConnectWithoutContactIcon />
+                                                </Grid>
+                                                <Grid item xs zeroMinWidth>
+                                                    <Typography noWrap>Intent: {input.intention}</Typography>
+                                                </Grid>
+                                            </Grid>
+                                            <Grid container item spacing={2} xs={12}>
+                                                <Grid item>
+                                                    <TodayIcon />
+                                                </Grid>
+                                                <Grid item xs zeroMinWidth>
+                                                    <Typography noWrap>Date: {input.date}</Typography>
+                                                </Grid>
+                                            </Grid>
+                                            <Grid container item spacing={2} xs={12}>
+                                                <Grid item>
+                                                    <MessageIcon />
+                                                </Grid>
+                                                <Grid item xs sx={{
+                                                    whiteSpace: "pre-wrap",
+                                                    wordBreak: "break-all",
+                                                }}>
+                                                    <Typography>Message:</Typography>
+                                                    <Typography>{input.message}</Typography>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </DialogContent>
+                                    <DialogActions sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: 'auto' }} >
+                                        <Box>
+                                            <ReCAPTCHA
+                                                ref={recaptchaRef}
+                                                sitekey={process.env.REACT_APP_SITE_KEY}
+                                                onChange={(token) => handleVerify(token)}
+                                                size="normal"
+                                                onExpired={(expire) => handleShowExpired(expire)}
+                                                asyncScriptOnLoad={() => setIsRecaptchaLoaded(true)}
+                                            >
+                                            </ReCAPTCHA>
+                                            <Box sx={{ display: 'flex', width: 'auto', justifyContent: 'center', alignItems: 'center', mt: 2, mb: 2 }}>
+                                                <Button variant='outlined' onClick={handleDialogClose}>
+                                                    Cancel
+                                                </Button>
+                                                {
+                                                    success ?
+                                                        <Snackbar open={success} autoHideDuration={3000} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+                                                            <Alert onClose={handleCloseSuccess} severity="success" sx={{ width: '100%' }}>
+                                                                Success! Please check your email for confirmation.
+                                                            </Alert>
+                                                        </Snackbar>
+                                                        :
+                                                        <>
+                                                            <LoadingButton
+                                                                sx={{ ml: 2 }}
+                                                                onClick={handleSubmit}
+                                                                endIcon={<SendIcon />}
+                                                                variant="contained"
+                                                                loading={loading}
+                                                                disabled={!isRecaptchaLoaded}
+                                                            >
+                                                                Send
+                                                            </LoadingButton>
+                                                            <Snackbar open={error} autoHideDuration={3000} onClose={handleCloseError} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+                                                                <Alert onClose={handleCloseError} severity="error" sx={{ width: '100%' }}>
+                                                                    Please verify you are a human!
+                                                                </Alert>
+                                                            </Snackbar>
+                                                            <Snackbar open={expired} autoHideDuration={3000}
+                                                                onClose={handleCloseExpired} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+                                                                <Alert onClose={handleCloseExpired} severity="warning" sx={{ width: '100%' }}>
+                                                                    Verification expired! Please try again!
+                                                                </Alert>
+                                                            </Snackbar>
+                                                        </>
+                                                }
+                                            </Box>
+                                        </Box>
+                                    </DialogActions>
+                                </Dialog>
+                                <Snackbar open={Object.keys(isFieldEmpty).every(key => isFieldEmpty[key])} autoHideDuration={3000}
+                                    onClose={handleFieldEmptyClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+                                    <Alert onClose={handleFieldEmptyClose} severity="warning" sx={{ width: '100%' }}>
+                                        Please fill out your&nbsp;
+                                        {
+                                            Object.keys(isFieldEmpty).filter((key) => isFieldEmpty[key] === true).map((term) => {
+                                                return term[0].toUpperCase() + term.slice(1);
+                                            })
+                                        }!
+                                    </Alert>
+                                </Snackbar>
                             </Grid>
                         </Paper>
-                        <Dialog
-                            open={openDialog}
-                            onClose={handleDialogClose}
-                            PaperComponent={PaperComponent}
-                        >
-                            <Box sx={{ pt: 4, pl: 4, pr: 4 }}>
-                                <Stepper activeStep={activeStep} alternativeLabel>
-                                    {steps.map((label, index) => {
-                                        const stepProps = {};
-                                        const labelProps = {};
-
-                                        return (
-                                            <Step key={label} {...stepProps}>
-                                                <StepLabel {...labelProps}>{label}</StepLabel>
-                                            </Step>
-                                        );
-                                    })}
-                                </Stepper>
-                            </Box>
-                            <DialogContent dividers={true}>
-                                <Grid container spacing={2} direction="row"
-                                    justifyContent="center"
-                                    alignItems="center">
-                                    <Grid container item spacing={2} xs={12}>
-                                        <Grid item>
-                                            <AccountCircleIcon />
-                                        </Grid>
-                                        <Grid item xs zeroMinWidth>
-                                            <Typography noWrap>Name: {input.name}</Typography>
-                                        </Grid>
-                                    </Grid>
-                                    <Grid container item spacing={2} xs={12}>
-                                        <Grid item>
-                                            <EmailIcon />
-                                        </Grid>
-                                        <Grid item xs zeroMinWidth>
-                                            <Typography noWrap>Email: {input.email}</Typography>
-                                        </Grid>
-                                    </Grid>
-                                    <Grid container item spacing={2} xs={12}>
-                                        <Grid item>
-                                            <PhoneIphoneIcon />
-                                        </Grid>
-                                        <Grid item xs zeroMinWidth>
-                                            <Typography noWrap>Phone: {input.phone}</Typography>
-                                        </Grid>
-                                    </Grid>
-                                    <Grid container item spacing={2} xs={12}>
-                                        <Grid item>
-                                            <ConnectWithoutContactIcon />
-                                        </Grid>
-                                        <Grid item xs zeroMinWidth>
-                                            <Typography noWrap>Intent: {input.intention}</Typography>
-                                        </Grid>
-                                    </Grid>
-                                    <Grid container item spacing={2} xs={12}>
-                                        <Grid item>
-                                            <TodayIcon />
-                                        </Grid>
-                                        <Grid item xs zeroMinWidth>
-                                            <Typography noWrap>Date: {input.date}</Typography>
-                                        </Grid>
-                                    </Grid>
-                                    <Grid container item spacing={2} xs={12}>
-                                        <Grid item>
-                                            <MessageIcon />
-                                        </Grid>
-                                        <Grid item xs sx={{
-                                            whiteSpace: "pre-wrap",
-                                            wordBreak: "break-all",
-                                        }}>
-                                            <Typography>Message:</Typography>
-                                            <Typography>{input.message}</Typography>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </DialogContent>
-                            <DialogActions sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: 'auto' }} >
-                                <Box>
-                                    <ReCAPTCHA
-
-                                        ref={recaptchaRef}
-                                        sitekey={process.env.REACT_APP_SITE_KEY}
-                                        onChange={handleVerify}
-                                        size="normal"
-                                        onExpired={handleShowExpired}
-                                    >
-                                    </ReCAPTCHA>
-                                    <Box sx={{ display: 'flex', width: 'auto', justifyContent: 'center', alignItems: 'center', mt: 2, mb: 2 }}>
-                                        <Button variant='outlined' onClick={handleDialogClose}>
-                                            Cancel
-                                        </Button>
-                                        {
-                                            success ?
-                                                <Snackbar open={success} autoHideDuration={2000} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-                                                    <Alert onClose={handleCloseSuccess} severity="success" sx={{ width: '100%' }}>
-                                                        Success! Please check your email for confirmation.
-                                                    </Alert>
-                                                </Snackbar>
-                                                :
-                                                <>
-                                                    <LoadingButton
-                                                        sx={{ ml: 2 }}
-                                                        onClick={handleSubmit}
-                                                        endIcon={<SendIcon />}
-                                                        variant="contained"
-                                                        loading={loading}
-                                                    >
-                                                        Send
-                                                    </LoadingButton>
-                                                    <Snackbar open={error} autoHideDuration={2000} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-                                                        <Alert onClose={handleCloseError} severity="error" sx={{ width: '100%' }}>
-                                                            Please verify you are human!
-                                                        </Alert>
-                                                    </Snackbar>
-                                                    <Snackbar open={expired} autoHideDuration={2000} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-                                                        <Alert onClose={handleCloseExpired} severity="warning" sx={{ width: '100%' }}>
-                                                            Verification expired! Please try again!
-                                                        </Alert>
-                                                    </Snackbar>
-                                                </>
-                                        }
-                                    </Box>
-                                </Box>
-                            </DialogActions>
-                        </Dialog>
                     </Box>
                 </Grid >
             </Grid>
