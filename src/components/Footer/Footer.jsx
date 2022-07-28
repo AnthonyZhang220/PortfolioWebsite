@@ -1,11 +1,9 @@
 import React, { forwardRef, useEffect, useState, useRef, Suspense } from 'react';
-import { useParams, useNavigate } from "react-router";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import { Box } from '@material-ui/core';
 import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
@@ -34,8 +32,6 @@ import { ScrollToPlugin } from 'gsap/all';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { makeStyles } from '@material-ui/core/styles';
 import './Footer.scss';
-import { useTheme } from '@emotion/react';
-import Skeleton from '@mui/material/Skeleton';
 
 library.add(fab);
 
@@ -93,7 +89,6 @@ const Alert = forwardRef(function Alert(props, ref) {
 })
 
 export default function Footer() {
-    const theme = useTheme();
 
     let currentYear = new Date().getFullYear();
     const classes = useStyles();
@@ -111,8 +106,6 @@ export default function Footer() {
 
     gsap.registerPlugin(ScrollToPlugin);
     gsap.registerPlugin(ScrollTrigger);
-
-    const params = useParams();
 
     const handleShare = () => {
 
@@ -204,7 +197,7 @@ export default function Footer() {
 
             if (!response.ok) {
                 const message = `An error occurred:${response.statusText}`
-                return;
+                return message;
             }
             const count = await response.json();
 
