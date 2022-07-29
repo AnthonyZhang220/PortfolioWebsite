@@ -189,10 +189,10 @@ export default function Project(props) {
             </div>
             <div className='project' id='project'>
                 <div className='project-title' ref={projectTitleRef}>
-                    <Typography variant="h2">
+                    <Typography variant="h2" fontWeight="500" >
                         Project.&nbsp;
                     </Typography>
-                    <Typography variant="h2" color="#6e6e73">
+                    <Typography variant="h2" color="#6e6e73" fontWeight="500" >
                         Take a took at what I have built, in the past.
                     </Typography>
                 </div>

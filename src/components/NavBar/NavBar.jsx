@@ -155,11 +155,11 @@ export default function NavBar({ mode, setMode }) {
                             {['project', 'about', 'skill', 'contact'].map((text, index) => (
                                 <ListItem button sx={{ height: isMobile || CLIENT_SCREEN_HEIGHT ? 70 : 100 }} key={text} alignItems="center" component={HashLink} to={`/#${text}`} >
                                     <Divider light variant="normal" />
-                                    <ListItemText disableTypography primary={<Typography variant="h4" sx={{ letterSpacing: 5 }}>{text.toUpperCase()}</Typography>} sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }} />
+                                    <ListItemText disableTypography primary={<Typography variant="h4" fontWeight="bold" sx={{ letterSpacing: 5 }}>{text.toUpperCase()}</Typography>} sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }} />
                                 </ListItem>
                             ))}
                             <ListItem button sx={{ height: isMobile || CLIENT_SCREEN_HEIGHT ? 70 : 100 }} alignItems="center" component={HashLink} to='/blog' >
-                                <ListItemText disableTypography primary={<Typography variant="h4" sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', letterSpacing: 5 }}>BLOG</Typography>} />
+                                <ListItemText disableTypography primary={<Typography variant="h4" fontWeight="bold" sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', letterSpacing: 5 }}>BLOG</Typography>} />
                             </ListItem>
                         </List>
                     </Box>

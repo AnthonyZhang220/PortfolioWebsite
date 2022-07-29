@@ -393,7 +393,7 @@ export default function Hero() {
                                     <Typography variant="h2" style={{ display: "inline-flex" }}>
                                         I'm&nbsp;
                                     </Typography>
-                                    <Typography variant="h1" style={{ display: "inline-flex" }}>
+                                    <Typography variant="h1" fontWeight="bold" style={{ display: "inline-flex" }}>
                                         Anthony,
                                     </Typography>
                                 </div>
@@ -403,13 +403,13 @@ export default function Hero() {
                                     </Typography>
                                 </div>
                                 <div className="hero-title-line">
-                                    <Typography variant="h1" style={{ display: "inline-flex" }}>
+                                    <Typography variant="h1" fontWeight="bold" style={{ display: "inline-flex" }}>
                                         Frontend Developer
                                     </Typography>
                                 </div>
                                 <div className="hero-title-line">
                                     <Typography variant="h2" style={{ display: "inline-flex" }}>
-                                        based in New York City
+                                        based in New York City.
                                     </Typography>
                                 </div>
                             </div>

@@ -115,10 +115,10 @@ export default function About() {
         <div className='about' id="about">
             <div className="about-section">
                 <div className="about-title" ref={aboutTitleRef}>
-                    <Typography variant="h2">
+                    <Typography variant="h2" fontWeight="500" >
                         About.&nbsp;
                     </Typography>
-                    <Typography variant="h2" color="#6e6e73">
+                    <Typography variant="h2" color="#6e6e73" fontWeight="500">
                         Get to know me, in a blink of an eye.
                     </Typography>
                 </div>

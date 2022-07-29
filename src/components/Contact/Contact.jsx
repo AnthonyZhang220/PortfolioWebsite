@@ -41,7 +41,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import "./Contact.scss"
-import { IconButton } from '@mui/material';
+import { FormHelperText, IconButton } from '@mui/material';
 
 
 library.add(fab);
@@ -89,6 +89,8 @@ export default function Contact() {
 
     const [isEmailValid, setIsEmailValid] = useState(true);
     const [isNameValid, setIsNameValid] = useState(true);
+    const [isIntentionValid, setIsIntentionValid] = useState(true);
+    const [isMessageValid, setIsMessageValid] = useState(true);
     const [isRecaptchaLoaded, setIsRecaptchaLoaded] = useState(false);
 
 
@@ -236,6 +238,14 @@ export default function Contact() {
 
     }
 
+    const handleRadioButton = (event) => {
+        if (event.target.value === input.intention) {
+            setInput({ ...input, intention: "" })
+        } else {
+            setInput({ ...input, intention: event.target.value })
+        }
+    }
+
     //verify recaptcha with Google on backend
     const handleVerify = async (token) => {
         console.log(token)
@@ -358,10 +368,10 @@ export default function Contact() {
                                 m: 2,
                                 p: 2,
                             }}>
-                            <Typography variant="h2" color="#212121" textAlign="center">
+                            <Typography variant="h2" color="#212121" textAlign="center" fontWeight="500">
                                 Contact.&nbsp;
                             </Typography>
-                            <Typography variant="h2" color="#6e6e73" textAlign="center">
+                            <Typography variant="h2" color="#6e6e73" textAlign="center" fontWeight="500">
                                 It's never hard to reach out to me, at any time.
                             </Typography>
                         </Paper>
@@ -406,7 +416,7 @@ export default function Contact() {
                                 }}
                                 ref={formRef}
                             >
-                                <Grid item xs={12} md={6} textAlign="center">
+                                <Grid item xs={12} md={6} textAlign="center" >
                                     <TextField
                                         fullWidth
                                         required
@@ -434,7 +444,7 @@ export default function Contact() {
                                             sx: { p: 1 }
                                         }}
                                         InputLabelProps={{
-                                            sx: { fontSize: '20px' },
+                                            sx: { fontSize: '20px', fontWeight: "bold" },
                                             shrink: true,
                                         }}
                                     />
@@ -467,7 +477,7 @@ export default function Contact() {
                                             sx: { p: 1 }
                                         }}
                                         InputLabelProps={{
-                                            sx: { fontSize: '20px' }
+                                            sx: { fontSize: '20px', fontWeight: "bold" }
                                         }}
                                     />
                                 </Grid>
@@ -490,7 +500,7 @@ export default function Contact() {
                                             sx: { p: 1 }
                                         }}
                                         InputLabelProps={{
-                                            sx: { fontSize: '20px' }
+                                            sx: { fontSize: '20px', fontWeight: "bold" }
                                         }}
                                     />
                                 </Grid>
@@ -510,30 +520,38 @@ export default function Contact() {
                                             sx: { p: 1 }
                                         }}
                                         InputLabelProps={{
-                                            sx: { fontSize: '20px' }
+                                            sx: { fontSize: '20px', fontWeight: "bold" }
                                         }}
                                     />
                                 </Grid>
-                                <Grid container item xs={12} md={6} textAlign='start' flexDirection="column">
-                                    <FormControl sx={{ p: 1 }}>
-                                        <FormLabel id="demo-controlled-radio-buttons-group" required>Intent</FormLabel>
+                                <Grid item xs={12} md={6} textAlign='start'>
+                                    <FormControl sx={{ p: 1 }} required error={!isIntentionValid}>
+                                        <FormLabel id="demo-controlled-radio-buttons-group" sx={{ fontWeight: "bold" }}>Intent</FormLabel>
                                         <RadioGroup
                                             row
                                             aria-labelledby="demo-controlled-radio-buttons-group"
                                             name="controlled-radio-buttons-group"
                                             value={input.intention}
-                                            onChange={e => setInput({ ...input, intention: e.target.value })}
+                                            onBlur={() => {
+                                                if (input.intention === "") {
+                                                    setIsIntentionValid(false)
+                                                } else {
+                                                    setIsIntentionValid(true)
+                                                }
+                                            }}
+                                            onFocus={() => setIsIntentionValid(true)}
                                         >
                                             <Grid item xs>
-                                                <FormControlLabel value="Collaborator" control={<Radio size='small' />} label="Collaborator" />
+                                                <FormControlLabel value="Collaborator" control={<Radio size='medium' onClick={handleRadioButton} />} label="Collaborator" />
                                             </Grid>
                                             <Grid item xs>
-                                                <FormControlLabel value="Recruitor" control={<Radio size='small' />} label="Recruitor" />
+                                                <FormControlLabel value="Recruitor" control={<Radio size='medium' onClick={handleRadioButton} />} label="Recruitor" />
                                             </Grid>
                                             <Grid item xs>
-                                                <FormControlLabel value="Other" control={<Radio size='small' />} label="Other(Please specify in message)" />
+                                                <FormControlLabel value="Other" control={<Radio size='medium' onClick={handleRadioButton} />} label="Other(Please specify in message)" />
                                             </Grid>
                                         </RadioGroup>
+                                        <FormHelperText>{!isIntentionValid ? "Intention is required!" : ""}</FormHelperText>
                                     </FormControl>
                                 </Grid>
                                 <Grid item xs={12} md={6} textAlign="center">
@@ -547,14 +565,23 @@ export default function Contact() {
                                         name='message'
                                         variant="standard"
                                         value={input.message}
+                                        error={input.intention === "Other" && !isMessageValid}
+                                        helperText={input.intention === "Other" && !isMessageValid ? "Since you choose Other for intent, please specify your reason for contact." : ""}
+                                        onBlur={() => {
+                                            if (input.message === "") {
+                                                setIsMessageValid(false);
+                                            } else {
+                                                setIsMessageValid(true);
+                                            }
+                                        }}
+                                        onFocus={() => setIsMessageValid(true)}
                                         onChange={e => handleOnChange(e)}
-
                                         InputProps={{
                                             startAdornment: <InputAdornment position="start"><MessageIcon /></InputAdornment>,
                                             sx: { p: 1 }
                                         }}
                                         InputLabelProps={{
-                                            sx: { fontSize: '20px' }
+                                            sx: { fontSize: '20px', fontWeight: "bold" }
                                         }}
                                     />
                                 </Grid>

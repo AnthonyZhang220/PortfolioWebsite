@@ -46,29 +46,32 @@ export default function Skill() {
         {
             type: "All",
             icon: 'filter',
-            description: "Front-end web development, also known as client-side development is the practice of producing HTML, CSS and JavaScript for a website or Web Application so that a user can see and interact with them directly.The objective of designing a site is to ensure that when the users open up the site they see the information in a format that is easy to read and relevant. "
+            description: ""
         },
         {
             type: "Frontend",
             icon: 'code',
-            description: "Front-end web development, also known as client-side development is the practice of producing HTML, CSS and JavaScript for a website or Web Application so that a user can see and interact with them directly.The objective of designing a site is to ensure that when the users open up the site they see the information in a format that is easy to read and relevant. "
+            description: "2 year experience in frontend development with HTML, CSS, Javascript, and React.  "
         },
         {
             type: "Backend",
             icon: 'server',
-            description: "A back-end web developer is responsible for server-side web application logic and integration of the work front-end web developers do. Back-end developers usually write web services and APIs used by front-end developers and mobile application developers."
+            description: "1 year experience in backend development with Express, Axios, NodeJS. Familiar with RESTful API. "
         },
         {
             type: "Framework",
             icon: 'layer-group',
+            description: "2 year experience in React and Express. Familiar with class and functional component as well as the use of hooks.",
         },
         {
             type: "Library",
             icon: 'folder-tree',
+            description: "",
         },
         {
             type: "Tool",
             icon: 'screwdriver-wrench',
+            description: "Familiar with workflow of Git, and version control. Package Management and Webpack configuration.",
         },
     ]
 
@@ -115,21 +118,21 @@ export default function Skill() {
         return () => iconAnimation.kill();
     })
 
+
     const handleChange = (event, newType) => {
         if (newType) {
             setSkillTypes(newType)
         }
     }
 
-
     return (
         <div className="skill" id='skill'>
             <div className="skill-section" ref={skillRef}>
                 <div className="skill-title" ref={skillTitleRef}>
-                    <Typography variant="h2">
+                    <Typography variant="h2" fontWeight="500">
                         Skill.&nbsp;
                     </Typography>
-                    <Typography variant="h2" color="#6e6e73">
+                    <Typography variant="h2" color="#6e6e73" fontWeight="500">
                         Technologies are always evolving, so am I.
                     </Typography>
                 </div>
@@ -147,7 +150,7 @@ export default function Skill() {
                                 },
                             }}
                         >
-                            <Grid container justifyContent="center">
+                            <Grid container justifyContent="center" alignItems="center">
                                 <Paper
                                     elevation={0}
                                     sx={{
@@ -173,7 +176,7 @@ export default function Skill() {
                                                         isMobile ? <FontAwesomeIcon icon={`fa-solid fa-${icon}`} fontSize={20} key={index} /> :
                                                             <Grid container alignItems="center" display="flex" justifyContent="center" key={index}>
                                                                 <FontAwesomeIcon icon={`fa-solid fa-${icon}`} fontSize={20} />
-                                                                <Typography variant="h6" align='center' sx={{ ml: 1 }}>
+                                                                <Typography variant="h5" align='center' fontWeight="bold" sx={{ ml: 1 }}>
                                                                     {type}
                                                                 </Typography>
                                                             </Grid>
@@ -184,52 +187,39 @@ export default function Skill() {
                                     </StyledToggleButtonGroup>
                                 </Paper>
                             </Grid>
-                            <Grid container>
-                                <Grid container justifyContent="center" alignItems="center">
-                                    {
-                                        skillData?.filter((type) => type.type.find(x => x === skillTypes)).map(({ name, src }, index) => (
-                                            <React.Fragment key={index}>
-                                                <Grid item m={1} p={1} className="skill-icon-container">
-                                                    <Grid item xs textAlign="center" className="skill-icon-item">
-                                                        <img src={`assets/icon/${src}`} alt={`${src}`} loading="lazy" width={isMobile ? "60px" : "80px"} height={isMobile ? "60px" : "80px"} />
-                                                    </Grid>
-                                                    <Grid item xs textAlign="center">
-                                                        <Typography variant='h6' >
-                                                            {name}
-                                                        </Typography>
-                                                    </Grid>
-                                                </Grid>
-                                            </React.Fragment>
-                                        ))
-                                    }
-                                </Grid>
-                                {/* <Grid container md={6} justifyContent="center" marginBottom="auto">
-                                        <Typography variant="h4">
-                                            {skillTypes}
-                                        </Typography>
-                                        {
-                                            skillCategories?.filter(x => x.type === skillTypes).map(({ description }) => (
-                                                <Typography variant="body1">
-                                                    {description}
-                                                </Typography>
-                                            ))
-                                        }
-                                    </Grid> */}
+                            <Grid container justifyContent="center" alignItems="center">
+                                <Typography variant='h4' textAlign="center" fontWeight="500">
+                                    {skillCategories?.find(x => x.type === skillTypes).description}
+                                </Typography>
                             </Grid>
-                            {/* <Grid container item xs>
-                                    {
-                                        skillCategories?.map(({ type, icon }) => (
-                                            <Grid item xs textAlign="center">
-                                                <IconButton onClick={() => setSkillTypes(type)}>
-                                                    <FontAwesomeIcon icon={`fa-solid fa-${icon}`} />
-                                                </IconButton>
-                                                <Typography variant="h6">
-                                                    {type}
-                                                </Typography>
+                            <Grid container justifyContent="center" alignItems="center">
+                                {
+                                    skillData?.filter((type) => type.type.find(x => x === skillTypes)).map(({ name, src }, index) => (
+                                        <React.Fragment key={index}>
+                                            <Grid item m={1} p={1}
+                                                className="skill-icon-container"
+                                            >
+                                                <Grid item xs textAlign="center" className="skill-icon-item" sx={{
+                                                    backgroundColor: "#ffffff",
+                                                    borderRadius: 5,
+                                                    boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 50px;',
+                                                    m: 2,
+                                                    p: 2,
+                                                }}>
+                                                    <img src={`assets/icon/${src}`} alt={`${src}`} loading="lazy" width={isMobile ? "60px" : "80px"} height={isMobile ? "60px" : "80px"} />
+                                                </Grid>
+                                                <Grid item xs textAlign="center">
+                                                    <Typography variant='h6' sx={{
+                                                        textShadow: "0px 0px 6px rgba(255,255,255,0.7)"
+                                                    }} fontWeight="bold">
+                                                        {name}
+                                                    </Typography>
+                                                </Grid>
                                             </Grid>
-                                        ))
-                                    }
-                                </Grid> */}
+                                        </React.Fragment>
+                                    ))
+                                }
+                            </Grid>
                         </Grid>
                     </div>
                 </div>

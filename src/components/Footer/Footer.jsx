@@ -94,12 +94,12 @@ export default function Footer() {
     const classes = useStyles();
     const [input, setInput] = useState('')
     const [success, setSuccess] = useState(false);
-    const [valid, setValid] = useState(true);
     const [openWeChat, setOpenWeChat] = useState(false);
     const [loading, setLoading] = useState(false);
     const [like, setLike] = useState(1);
     const [fav, setFav] = useState(1);
     const [isMobile, setIsMobile] = useState(false);
+    const [isEmailValid, setIsEmailValid] = useState(true);
 
     const footerRef = useRef(null);
     const footerContainer = useRef(null);
@@ -139,13 +139,10 @@ export default function Footer() {
 
     const handleSubmit = () => {
 
-        const res = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/;
-        res.test(input) ? setValid(true) : setValid(false);
-
-        if (valid) {
+        if (isEmailValid) {
             setSuccess(true);
         } else {
-            setSuccess(false)
+            setSuccess(false);
             console.log(success)
         }
     }
@@ -154,7 +151,7 @@ export default function Footer() {
         if (reason === 'clickaway') {
             return;
         }
-        setValid(true);
+        setIsEmailValid(true);
         setSuccess(false);
     }
 
@@ -199,6 +196,7 @@ export default function Footer() {
                 const message = `An error occurred:${response.statusText}`
                 return message;
             }
+
             const count = await response.json();
 
             setLike(count[0].like);
@@ -209,23 +207,6 @@ export default function Footer() {
 
         return;
     }, [fav, like])
-
-    // useEffect(() => {
-    //     let animation = gsap.fromTo(footerRef.current, { scale: 1 }, {
-    //         scale: 1.1, duration: 1,
-    //         scrollTrigger: {
-    //             trigger: footerContainer.current,
-    //             start: 'top bottom',
-    //             scrub: true,
-    //         }
-    //     });
-
-    //     return () => {
-    //         animation.scrollTrigger.kill();
-    //     };
-    // })
-
-
 
     return (
         <div className="footer-container" ref={footerContainer}>
@@ -241,15 +222,24 @@ export default function Footer() {
                             <Box component='form'
                                 sx={{ display: 'flex', justifyContent: 'center' }}>
                                 <TextField
-                                    error={!valid}
                                     hiddenLabel
                                     size='small'
                                     color='secondary'
                                     name='email'
                                     type='email'
                                     variant='filled'
-                                    label=''
                                     placeholder='Your Email Address'
+                                    error={!isEmailValid}
+                                    onFocus={() => {
+                                        setIsEmailValid(true)
+                                    }}
+                                    onBlur={() => {
+                                        if (/^$|^\S+@\S+\.\S+$/.test(input)) {
+                                            setIsEmailValid(true)
+                                        } else {
+                                            setIsEmailValid(false)
+                                        }
+                                    }}
                                     className={classes.input}
                                     onChange={handleEmailChange}
                                     value={input}
@@ -257,12 +247,12 @@ export default function Footer() {
                                 >
                                 </TextField>
                                 <Button color='white' variant='outlined' onClick={handleSubmit} endIcon={<SendIcon />} >Submit</Button>
-                                <Snackbar open={success && valid} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+                                <Snackbar open={success && isEmailValid} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
                                     <Alert onClose={handleClose} severity='success' sx={{ width: '100%' }}>
                                         Your have successfully submitted your email address!
                                     </Alert>
                                 </Snackbar>
-                                <Snackbar open={!success && !valid} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+                                <Snackbar open={!success && !isEmailValid} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
                                     <Alert onClose={handleClose} severity='error' sx={{ width: '100%' }}>
                                         Please enter a valid email address!
                                     </Alert>
@@ -381,9 +371,6 @@ export default function Footer() {
                             </IconButton>
                             <IconButton sx={{ color: '#fafafa', fontSize: 25, ml: 2 }} component='a' href="https://stackoverflow.com/users/6162027/anthony220" target="_blank" rel="noreferrer">
                                 <FontAwesomeIcon icon="fa-brands fa-stack-overflow" />
-                            </IconButton>
-                            <IconButton sx={{ color: '#fafafa', fontSize: 25, ml: 2 }} component='a' href='https://www.hackerrank.com/anthonyzhang1997' target="_blank" rel="noreferrer">
-                                <FontAwesomeIcon icon="fa-brands fa-hackerrank" />
                             </IconButton>
                             <IconButton sx={{ color: '#fafafa', fontSize: 25, ml: 2 }} component='a' href='https://medium.com/@anthonyzhang220' target="_blank" rel="noreferrer">
                                 <FontAwesomeIcon icon="fa-brands fa-medium" />
