@@ -57,7 +57,9 @@ function App() {
 			h3: {
 				fontSize: isMobile ? "1.5em" : "3em",
 			},
-
+			caption: {
+				fontSize: "1em",
+			},
 		}
 	});
 

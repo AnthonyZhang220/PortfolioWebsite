@@ -378,14 +378,14 @@ export default function Contact() {
                         <Grid container className="contact-social" textAlign="center">
                             {
                                 contactSocialIcon?.map(({ name, icon, href, color }, index) => (
-                                    <Grid item xs component="a" href={href} m={"auto"} target="_blank" rel="noreferrer" key={index} >
+                                    <Grid item xs component="a" href={href} m={"auto"} target="_blank" rel="noreferrer" key={index} aria-label={`Link to ${name}`}>
                                         <Paper elevation={0} sx={{
                                             m: 2,
                                             p: 2,
                                             borderRadius: 10,
                                             boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 50px;',
                                         }}>
-                                            <IconButton sx={{ fontSize: 40, color: `${color}` }} disableRipple>
+                                            <IconButton sx={{ fontSize: 40, color: `${color}` }} disableRipple aria-label={`Link to ${icon}`}>
                                                 <FontAwesomeIcon icon={`fab fa-${icon}`} />
                                             </IconButton>
                                         </Paper>
@@ -420,7 +420,7 @@ export default function Contact() {
                                     <TextField
                                         fullWidth
                                         required
-                                        id="standard-basic"
+                                        id="form-name"
                                         label="Name"
                                         type='text'
                                         name='name'
@@ -453,7 +453,7 @@ export default function Contact() {
                                     <TextField
                                         fullWidth
                                         required
-                                        id="outlined-textarea"
+                                        id="form-email"
                                         label="Email"
                                         type='email'
                                         name='email'
@@ -481,10 +481,11 @@ export default function Contact() {
                                         }}
                                     />
                                 </Grid>
+                                {/* email */}
                                 <Grid item xs={12} md={6} textAlign="center">
                                     <TextField
                                         fullWidth
-                                        id="outlined-textarea"
+                                        id="form-phone-number"
                                         label="Phone Number"
                                         type='tel'
                                         name='phone'
@@ -507,7 +508,7 @@ export default function Contact() {
                                 <Grid item xs={12} md={6} textAlign="center">
                                     <TextField
                                         fullWidth
-                                        id="outlined-textarea"
+                                        id="form-date"
                                         type='date'
                                         label="Date"
                                         name='date'
@@ -529,7 +530,7 @@ export default function Contact() {
                                         <FormLabel id="demo-controlled-radio-buttons-group" sx={{ fontWeight: "bold" }}>Intent</FormLabel>
                                         <RadioGroup
                                             row
-                                            aria-labelledby="demo-controlled-radio-buttons-group"
+                                            aria-labelledby="form-intention-ratio-group"
                                             name="controlled-radio-buttons-group"
                                             value={input.intention}
                                             onBlur={() => {
@@ -560,7 +561,7 @@ export default function Contact() {
                                         multiline
                                         required={input.intention === "Other" ? true : false}
                                         maxRows={4}
-                                        id="outlined-helperText"
+                                        id="form-message"
                                         label="Message"
                                         name='message'
                                         variant="standard"
@@ -586,7 +587,7 @@ export default function Contact() {
                                     />
                                 </Grid>
                                 <Grid item xs sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 1, textAlign: "start" }}>
-                                    <Button onClick={handleDialogOpen} variant="outlined">Submit</Button>
+                                    <Button onClick={handleDialogOpen} aria-label="Check Form Info before Submit" variant="outlined">Submit</Button>
                                 </Grid>
                                 <Dialog
                                     open={openDialog}
@@ -696,6 +697,7 @@ export default function Contact() {
                                                                 variant="contained"
                                                                 loading={loading}
                                                                 disabled={!isRecaptchaLoaded}
+                                                                aria-label="Send Form to Server"
                                                             >
                                                                 Send
                                                             </LoadingButton>

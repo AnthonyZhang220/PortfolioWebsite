@@ -197,17 +197,17 @@ export default function MusicPlayer() {
                         />
                     </CoverImage>
                     <Box sx={{ ml: 1.5, minWidth: 0 }}>
-                        <Typography variant="caption" color="text.primary" fontWeight={700}>
+                        <Typography variant="caption" color="text.primary" fontWeight="bold">
                             {musicList.find(x => x.id === songId).artist}
                         </Typography>
-                        <Typography wrap='true'>
+                        <Typography wrap='true' fontWeight="bold">
                             <>
                                 <b>
                                     {musicList.find(x => x.id === songId).title}
                                 </b>
                             </>
                         </Typography>
-                        <Typography noWrap letterSpacing={-0.25}>
+                        <Typography noWrap letterSpacing={-0.25} variant="body1" fontWeight="bold">
                             {musicList.find(x => x.id === songId).performer}
                         </Typography>
                     </Box>
@@ -287,7 +287,7 @@ export default function MusicPlayer() {
                     <audio id='audio' preload='none' ref={audioRef} onLoadedMetadata={handleGetAudioData} onTimeUpdate={handleTimeUpdate}>
                         <source src={musicList.find(x => x.id === songId).source} type="audio/mpeg"></source>
                     </audio>
-                    <IconButton aria-label="next song" onClick={handleForward}>
+                    <IconButton aria-label="previous song" onClick={handleForward}>
                         <FastForwardRounded fontSize="large" htmlColor={mainIconColor} />
                     </IconButton>
                     <IconButton aria-label="next song" onClick={handleSkipNext} >

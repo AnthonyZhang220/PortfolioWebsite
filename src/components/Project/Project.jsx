@@ -284,6 +284,7 @@ export default function Project(props) {
                                             <IconButton
                                                 className="more-button"
                                                 size="large"
+                                                aria-label="More To Come Button"
                                                 sx={{
                                                     position: "absolute",
                                                     top: "50%",
@@ -319,13 +320,13 @@ export default function Project(props) {
                     {/* slide button */}
                     <div className='scroller-button'>
                         <Box className="button left-button">
-                            <IconButton sx={{ fontSize: 40 }} onClick={handleLeft}>
+                            <IconButton sx={{ fontSize: 40 }} onClick={handleLeft} aria-label="Project Scroll Left">
                                 {/* <ArrowCircleLeftRoundedIcon sx={{ fontSize: 50 }} /> */}
                                 <FontAwesomeIcon icon="fas fa-chevron-circle-left" />
                             </IconButton>
                         </Box>
                         <Box className="button right-button">
-                            <IconButton sx={{ fontSize: 40 }} onClick={handleRight}>
+                            <IconButton sx={{ fontSize: 40 }} onClick={handleRight} aria-label="Project Scroll Right">
                                 {/* <ArrowCircleRightRoundedIcon sx={{ fontSize: 50 }} /> */}
                                 <FontAwesomeIcon icon="fas fa-chevron-circle-right" />
                             </IconButton>

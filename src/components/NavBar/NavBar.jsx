@@ -108,11 +108,11 @@ export default function NavBar({ mode, setMode }) {
                         <div className="menubar">
                             {
                                 isOpen ?
-                                    <IconButton onClick={toggleDrawer(false)} color='black'>
+                                    <IconButton onClick={toggleDrawer(false)} color='black' aria-label="menu-button close">
                                         <CloseRoundedIcon sx={{ fontSize: 45 }} />
                                     </IconButton>
                                     :
-                                    <IconButton onClick={toggleDrawer(true)} color='black' >
+                                    <IconButton onClick={toggleDrawer(true)} color='black' aria-label="menu-button open">
                                         <MenuIcon sx={{ fontSize: 45 }} />
                                     </IconButton>
                             }

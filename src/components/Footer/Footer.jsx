@@ -363,19 +363,19 @@ export default function Footer() {
                     </div>
                     <div className='social-icon'>
                         <Box>
-                            <IconButton sx={{ color: '#fafafa', fontSize: 25 }} component='a' href="https://www.linkedin.com/in/anthony-xiangyu-zhang/" target="_blank" rel="noreferrer">
+                            <IconButton sx={{ color: '#fafafa', fontSize: 25 }} component='a' href="https://www.linkedin.com/in/anthony-xiangyu-zhang/" target="_blank" rel="noreferrer" aria-label="Link to Linkedin">
                                 <FontAwesomeIcon icon="fa-brands fa-linkedin-in" />
                             </IconButton>
-                            <IconButton sx={{ color: '#fafafa', fontSize: 25, ml: 2 }} component='a' href="https://github.com/AnthonyZhang220" target="_blank" rel="noreferrer">
+                            <IconButton sx={{ color: '#fafafa', fontSize: 25, ml: 2 }} component='a' href="https://github.com/AnthonyZhang220" target="_blank" rel="noreferrer" aria-label="Link to Github">
                                 <FontAwesomeIcon icon="fa-brands fa-github" />
                             </IconButton>
-                            <IconButton sx={{ color: '#fafafa', fontSize: 25, ml: 2 }} component='a' href="https://stackoverflow.com/users/6162027/anthony220" target="_blank" rel="noreferrer">
+                            <IconButton sx={{ color: '#fafafa', fontSize: 25, ml: 2 }} component='a' href="https://stackoverflow.com/users/6162027/anthony220" target="_blank" rel="noreferrer" aria-label="Link to Stackoverflow">
                                 <FontAwesomeIcon icon="fa-brands fa-stack-overflow" />
                             </IconButton>
-                            <IconButton sx={{ color: '#fafafa', fontSize: 25, ml: 2 }} component='a' href='https://medium.com/@anthonyzhang220' target="_blank" rel="noreferrer">
+                            <IconButton sx={{ color: '#fafafa', fontSize: 25, ml: 2 }} component='a' href='https://medium.com/@anthonyzhang220' target="_blank" rel="noreferrer" aria-label="Link to Medium">
                                 <FontAwesomeIcon icon="fa-brands fa-medium" />
                             </IconButton>
-                            <IconButton sx={{ color: '#fafafa', fontSize: 25, ml: 2, mr: 2 }} onClick={handleOpenWeChat}>
+                            <IconButton sx={{ color: '#fafafa', fontSize: 25, ml: 2, mr: 2 }} onClick={handleOpenWeChat} aria-label="Link to Wechat QR code">
                                 <FontAwesomeIcon icon="fa-brands fa-weixin" />
                             </IconButton>
                         </Box>
@@ -414,6 +414,7 @@ export default function Footer() {
                                         endIcon={<DownloadRoundedIcon />}
                                         loadingPosition="end"
                                         loading={loading}
+                                        aria-label="Button to save Wechat QR code"
                                     >Save QR Code
                                     </LoadingButton>
                                 </Box>
