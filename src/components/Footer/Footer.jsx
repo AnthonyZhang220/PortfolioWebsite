@@ -267,17 +267,17 @@ export default function Footer() {
                                 If you love it, please leave a heart!
                             </Typography>
                             <Box sx={{ mt: 2 }}>
-                                <IconButton sx={{ color: '#fafafa', fontSize: 30 }} onClick={handleLike}>
+                                <IconButton sx={{ color: '#fafafa', fontSize: 30 }} onClick={handleLike} aria-label="Like Thumbup Button">
                                     <Badge badgeContent={like} color="primary">
                                         <ThumbUpRoundedIcon />
                                     </Badge>
                                 </IconButton>
-                                <IconButton sx={{ color: '#fafafa', fontSize: 30 }} onClick={handleFav}>
+                                <IconButton sx={{ color: '#fafafa', fontSize: 30 }} onClick={handleFav} aria-label="Favorite Heart Button">
                                     <Badge badgeContent={fav} color="primary">
                                         <FavoriteRoundedIcon />
                                     </Badge>
                                 </IconButton>
-                                <IconButton sx={{ color: '#fafafa', fontSize: 30 }} onClick={handleShare}>
+                                <IconButton sx={{ color: '#fafafa', fontSize: 30 }} onClick={handleShare} aria-label="Share this Website Button">
                                     <ShareRoundedIcon>
                                     </ShareRoundedIcon>
                                 </IconButton>
