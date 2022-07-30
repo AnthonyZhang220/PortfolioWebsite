@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useState, useRef, Suspense } from 'react';
+import { forwardRef, useEffect, useState, useRef, Suspense, lazy } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
@@ -16,7 +16,7 @@ import Modal from '@mui/material/Modal';
 import Backdrop from '@mui/material/Backdrop';
 import Fade from '@mui/material/Fade';
 import LinearProgress from '@mui/material/LinearProgress';
-import { LoadingButton } from '@mui/lab';
+import LoadingButton from '@mui/lab/LoadingButton';
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
@@ -27,8 +27,8 @@ import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import { HashLink } from "react-router-hash-link";
 
-import { gsap } from "gsap/all";
-import { ScrollToPlugin } from 'gsap/all';
+import { gsap } from "gsap";
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { makeStyles } from '@material-ui/core/styles';
 import './Footer.scss';
@@ -37,7 +37,7 @@ library.add(fab);
 
 
 //lazy loading
-const MusicPlayer = React.lazy(() => import("./MusicPlayer"));
+const MusicPlayer = lazy(() => import("./MusicPlayer"));
 
 const useStyles = makeStyles((theme) => ({
     textField: {

@@ -1,12 +1,11 @@
-import React, { useEffect, useRef, useState, Suspense } from "react";
+import { useEffect, useRef, useState, Suspense, lazy, Fragment } from "react";
 import { projectdata } from "./ProjectData.js"
-import { gsap } from "gsap/all";
+import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import Card from '@mui/material/Card';
-
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
@@ -16,16 +15,14 @@ import ScienceOutlinedIcon from '@mui/icons-material/ScienceOutlined';
 import EventAvailableOutlinedIcon from '@mui/icons-material/EventAvailableOutlined';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-
 import Grid from '@mui/material/Grid';
-
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 
 import "./Project.scss"
 import "../../global.scss"
 
-const ProjectDetails = React.lazy(() => import("./ProjectDetails"))
+const ProjectDetails = lazy(() => import("./ProjectDetails"))
 
 
 export default function Project(props) {
@@ -109,7 +106,7 @@ export default function Project(props) {
     };
 
     return (
-        <React.Fragment>
+        <Fragment>
             <div className='banner'>
                 <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: "30px", flexWrap: 'wrap' }}>
                     <Card elevation={0} sx={{
@@ -201,7 +198,7 @@ export default function Project(props) {
                         <div className="card-scroller-content" ref={scrollerRef}>
                             <div className="card-scroller-plater">
                                 {projectdata?.map(({ id, title, subtitle, screenshots, thumbnails, roles, overview, tech, WebsiteUrl, GitHubUrl, library, process, results, features }, index) => (
-                                    <React.Fragment key={index}>
+                                    <Fragment key={index}>
                                         {/* project card */}
                                         <div className='card'>
                                             {/* <img className="tape" src="assets/images/tape.png" height='100px' width='100px'>
@@ -241,7 +238,7 @@ export default function Project(props) {
                                                 />
                                             </Card>
                                         </div>
-                                    </React.Fragment>
+                                    </Fragment>
                                 ))}
                                 {/* more to come card */}
                                 <div className="card">
@@ -334,6 +331,6 @@ export default function Project(props) {
                     </div>
                 </div>
             </div >
-        </React.Fragment >
+        </Fragment >
     )
 };

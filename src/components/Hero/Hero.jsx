@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef, Fragment } from "react";
 import { gsap } from "gsap";
 import { ScrollToPlugin } from 'gsap/all';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -379,7 +379,7 @@ export default function Hero() {
     // })
 
     return (
-        <React.Fragment>
+        <Fragment>
             <div className="opening-animation">
                 <div className="hi" ref={hiRef}>Hi</div>
                 <div className="happy" ref={happyRef}>I'm happy you're here</div>
@@ -463,7 +463,7 @@ export default function Hero() {
                     </div>
                 </div> */}
             </div>
-        </React.Fragment >
+        </Fragment>
 
     )
 }

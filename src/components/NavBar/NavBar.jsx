@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, useState } from "react";
-import { gsap } from "gsap/all";
+import { useRef, useEffect, useState, Fragment } from "react";
+import { gsap } from "gsap";
 import { HashLink } from "react-router-hash-link";
 import { ScrollToPlugin } from 'gsap/all'
 import { ScrollTrigger } from "gsap/all";
@@ -26,7 +26,7 @@ import "../../global.scss"
 import { useMediaQuery } from "@material-ui/core";
 
 
-export default function NavBar({ mode, setMode }) {
+export default function NavBar() {
 
     const isMobile = useMediaQuery("(max-width: 600px)");
     const CLIENT_SCREEN_HEIGHT = useMediaQuery(("(max-height: 700px)"));
@@ -94,7 +94,7 @@ export default function NavBar({ mode, setMode }) {
 
 
     return (
-        <React.Fragment>
+        <Fragment>
             <nav className='top-nav' id='top-nav'>
                 <div className="top-left" ref={leftNavRef}>
                     <div className='logo'>
@@ -165,6 +165,6 @@ export default function NavBar({ mode, setMode }) {
                     </Box>
                 </SwipeableDrawer>
             </nav >
-        </React.Fragment>
+        </Fragment>
     )
 }

@@ -1,8 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, forwardRef, createRef } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import emailjs from '@emailjs/browser';
 import { init } from '@emailjs/browser';
-import { gsap } from 'gsap/all';
+import { gsap } from 'gsap';
 import axios from "axios";
 
 
@@ -26,7 +26,7 @@ import DialogContent from '@mui/material/DialogContent';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import SendIcon from '@mui/icons-material/Send';
-import { LoadingButton } from '@mui/lab';
+import LoadingButton from '@mui/lab/LoadingButton';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
@@ -48,7 +48,7 @@ library.add(fab);
 init(process.env.REACT_APP_USER_ID);
 
 
-const Alert = React.forwardRef(function Alert(props, ref) {
+const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
@@ -124,7 +124,7 @@ export default function Contact() {
     const formRef = useRef();
     const contactContainerRef = useRef();
     const contactTitleRef = useRef();
-    const recaptchaRef = React.createRef();
+    const recaptchaRef = createRef();
 
     const [errorCode, setErrorCode] = useState(false);
 

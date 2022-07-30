@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { gsap } from "gsap/all";
+import { useEffect, useRef, useState, Fragment } from 'react';
+import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from 'gsap/all';
 import Paper from '@mui/material/Paper';
@@ -195,7 +195,7 @@ export default function Skill() {
                             <Grid container justifyContent="center" alignItems="center">
                                 {
                                     skillData?.filter((type) => type.type.find(x => x === skillTypes)).map(({ name, src }, index) => (
-                                        <React.Fragment key={index}>
+                                        <Fragment key={index}>
                                             <Grid item m={1} p={1}
                                                 className="skill-icon-container"
                                             >
@@ -216,7 +216,7 @@ export default function Skill() {
                                                     </Typography>
                                                 </Grid>
                                             </Grid>
-                                        </React.Fragment>
+                                        </Fragment>
                                     ))
                                 }
                             </Grid>
