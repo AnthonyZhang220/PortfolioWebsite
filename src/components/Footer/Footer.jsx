@@ -35,6 +35,8 @@ import './Footer.scss';
 
 library.add(fab);
 
+const API_URI = "https://anthonyzhang.netlify.app";
+
 
 //lazy loading
 const MusicPlayer = lazy(() => import("./MusicPlayer"));
@@ -158,7 +160,7 @@ export default function Footer() {
     const handleLike = async () => {
         setLike(like + 1);
 
-        await fetch(`http://localhost:5000/update/like`, {
+        await fetch(`/update/like`, {
             method: 'POST',
             body: like,
         })
@@ -166,7 +168,7 @@ export default function Footer() {
     const handleFav = async () => {
         setFav(fav + 1);
 
-        await fetch(`http://localhost:5000/update/fav`, {
+        await fetch(`/update/fav`, {
             method: 'POST',
             body: fav,
         })
@@ -190,7 +192,7 @@ export default function Footer() {
 
     useEffect(() => {
         async function getCount() {
-            const response = await fetch("http://localhost:5000/count/");
+            const response = await fetch(`/count/`);
 
             if (!response.ok) {
                 const message = `An error occurred:${response.statusText}`
