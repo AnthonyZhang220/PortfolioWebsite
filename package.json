@@ -28,7 +28,6 @@
     "dotenv": "^16.0.0",
     "express": "^4.18.1",
     "gsap": "^3.8.0",
-    "http-proxy-middleware": "^2.0.6",
     "mongodb": "^4.4.1",
     "mongoose": "^6.2.9",
     "node": "^17.1.0",
@@ -50,8 +49,7 @@
     "start": "concurrently \"react-scripts --openssl-legacy-provider start\" \"cd server && nodemon server\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "server": "--host=192.168.50.20"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

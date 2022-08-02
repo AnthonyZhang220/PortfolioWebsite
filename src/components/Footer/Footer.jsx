@@ -35,7 +35,6 @@ import './Footer.scss';
 
 library.add(fab);
 
-const API_URI = "https://anthonyzhang.netlify.app";
 
 
 //lazy loading
