@@ -159,7 +159,7 @@ export default function Footer() {
     const handleLike = async () => {
         setLike(like + 1);
 
-        await fetch(`/update/like`, {
+        await fetch(`https://anthonyzhang-server.herokuapp.com/update/like`, {
             method: 'POST',
             body: like,
         })
@@ -167,7 +167,7 @@ export default function Footer() {
     const handleFav = async () => {
         setFav(fav + 1);
 
-        await fetch(`/update/fav`, {
+        await fetch(`https://anthonyzhang-server.herokuapp.com/update/fav`, {
             method: 'POST',
             body: fav,
         })
@@ -191,7 +191,7 @@ export default function Footer() {
 
     useEffect(() => {
         async function getCount() {
-            const response = await fetch(`/count/`);
+            const response = await fetch(`https://anthonyzhang-server.herokuapp.com/count/`);
 
             if (!response.ok) {
                 const message = `An error occurred:${response.statusText}`
