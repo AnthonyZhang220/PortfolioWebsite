@@ -62,7 +62,7 @@ export default function Hero() {
         })
 
         entryTimeline
-            // .set(document.body, { overflow: "hidden" })
+            .set(document.body, { overflow: "hidden" })
             .set(".hero-title-line > *", { opacity: 0, })
 
             .set(hiRef.current, { opacity: 0 })

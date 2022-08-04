@@ -251,7 +251,7 @@ export default function Contact() {
         console.log(token)
         const captchaToken = token;
 
-        await axios.post("http://localhost:5000/recaptcha", { captchaToken })
+        await axios.post("https://anthonyzhang.netlify.app/recaptcha", { captchaToken })
             .then(res => {
                 if (res.data === "Human") {
                     setIsVerified(true);
