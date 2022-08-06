@@ -41,7 +41,7 @@ A few hightlights of my portfolio website:
 - View my projects in swipeable drawer
 - Mobile-ready responsive design
 - Entry animation and randomized position of the technology icons
-- Users can Like and Favorite my website(recorded on MongoDB)
+- Users can Like and Favorite my website with a [backend server](https://github.com/AnthonyZhang220/portfolio-website-server) and a database(MongoDB).
 - View my skillsets in different catogories
 - Form Validation and Recaptcha to prevent Spam and Bot
 - Music Player with essential functionalities
