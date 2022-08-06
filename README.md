@@ -1,7 +1,7 @@
 <h1 align="center"> Portfolio </h1> <br>
 <p align="center">
   <a href="https://anthonyzhang.netlify.app/">
-    <img alt="logo" title="logo" src="assets/az_logo.png" width="450">
+    <img alt="logo" title="logo" src="public/assets/az_logo.png" width="450">
   </a>
 </p>
 
@@ -11,6 +11,7 @@
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 ## Table of Contents
 
 - [Introduction](#introduction)
@@ -31,49 +32,39 @@
 
 View repository and user information, control your notifications and even manage your issues and pull requests. Built with React Native, GitPoint is one of the most feature-rich unofficial GitHub clients that is 100% free.
 
-
 <p align="center">
-  <img src = "http://i.imgur.com/HowF6aM.png" width=350>
+  <img src = "public/assets/project_images/portfolio_1.png" width=350>
 </p>
 
 ## Features
 
-A few of the things you can do with GitPoint:
+A few of the hightlights of my portfolio website:
 
-* View user activity feed
-* Communicate on your issue and pull request conversations
-* Close or lock issues
-* Apply labels and assignees
-* Review and merge pull requests
-* Create new issues
-* Star, watch and fork repositories
-* Control your unread and participating notifications
-* Easily search for any user or repository
+- View my projects in swipeable drawer
+- Mobile-ready responsive design
+- Entry animation and randomized position of the technology icons
+- Users can Like and Favorite my website(recorded on MongoDB)
+- View my skillsets in different catogories
+- Form Validation and Recaptcha to prevent Spam and Bot
+- Music Player will essential functionalities
+- Newsletter
 
 <p align="center">
-  <img src = "http://i.imgur.com/IkSnFRL.png" width=700>
+  <img src = "public/assets/project_images/portfolio_2.png" width=700>
 </p>
 
 <p align="center">
-  <img src = "http://i.imgur.com/0iorG20.png" width=700>
+  <img src = "public/assets/project_images/portfolio_3.png" width=700>
 </p>
 
 ## Feedback
 
-Feel free to send us feedback on [Twitter](https://twitter.com/gitpointapp) or [file an issue](https://github.com/gitpoint/git-point/issues/new). Feature requests are always welcome. If you wish to contribute, please take a quick look at the [guidelines](./CONTRIBUTING.md)!
+Feel free to send me feedback on [Any of my Social Media Account](https://github.com/AnthonyZhang220) or [file an issue](https://github.com/AnthonyZhang220/portfolio-website/issues/new). All contributors are always welcome.
 
-If there's anything you'd like to chat about, please feel free to join our [Gitter chat](https://gitter.im/git-point)!
+If there's anything you'd like to chat about, please feel free to join my discord [Server](https://discord.gg/xkPRmn2HRb)!
 
 ## Build Process
 
-- Follow the [React Native Guide](https://facebook.github.io/react-native/docs/getting-started.html) for getting started building a project with native code. **A Mac is required if you wish to develop for iOS.**
 - Clone or download the repo
-- `yarn` to install dependencies
-- `yarn run link` to link react-native dependencies
-- `yarn start:ios` to start the packager and run the app in the iOS simulator (`yarn start:ios:logger` will boot the application with [redux-logger](<https://github.com/evgenyrodionov/redux-logger>))
-- `yarn start:android` to start the packager and run the app in the the Android device/emulator (`yarn start:android:logger` will boot the application with [redux-logger](https://github.com/evgenyrodionov/redux-logger))
-
-Please take a look at the [contributing guidelines](./CONTRIBUTING.md) for a detailed process on how to build your application as well as troubleshooting information.
-
-**Development Keys**: The `CLIENT_ID` and `CLIENT_SECRET` in `api/index.js` are for development purposes and do not represent the actual application keys. Feel free to use them or use a new set of keys by creating an [OAuth application](https://github.com/settings/applications/new) of your own. Set the "Authorization callback URL" to `gitpoint://welcome`.
-
+- `npm install` to install dependencies
+- `npm start` to start the packager and run the app on localhost:3000
