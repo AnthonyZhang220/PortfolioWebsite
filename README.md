@@ -1,7 +1,7 @@
 <h1 align="center"> Portfolio </h1> <br>
 <p align="center">
   <a href="https://anthonyzhang.netlify.app/">
-    <img alt="logo" title="logo" src="public/assets/az_logo.png" width="450">
+    <img alt="logo" title="logo" src="public/assets/az_logo.png" height="450">
   </a>
 </p>
 
@@ -25,15 +25,13 @@
 
 [![Build Status](https://img.shields.io/travis/gitpoint/git-point.svg?style=flat-square)](https://travis-ci.org/gitpoint/git-point)
 [![Coveralls](https://img.shields.io/coveralls/github/gitpoint/git-point.svg?style=flat-square)](https://coveralls.io/github/gitpoint/git-point)
-[![All Contributors](https://img.shields.io/badge/all_contributors-73-orange.svg?style=flat-square)](./CONTRIBUTORS.md)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)](http://commitizen.github.io/cz-cli/)
-[![Gitter chat](https://img.shields.io/badge/chat-on_gitter-008080.svg?style=flat-square)](https://gitter.im/git-point)
 
 View repository and user information, control your notifications and even manage your issues and pull requests. Built with React Native, GitPoint is one of the most feature-rich unofficial GitHub clients that is 100% free.
 
 <p align="center">
-  <img src = "public/assets/project_images/portfolio_1.png" width=350>
+  <img src = "public/assets/project_images/portfolio_1.png" width=700>
 </p>
 
 ## Features
@@ -46,7 +44,7 @@ A few of the hightlights of my portfolio website:
 - Users can Like and Favorite my website(recorded on MongoDB)
 - View my skillsets in different catogories
 - Form Validation and Recaptcha to prevent Spam and Bot
-- Music Player will essential functionalities
+- Music Player with essential functionalities
 - Newsletter
 
 <p align="center">
