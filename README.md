@@ -28,7 +28,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)](http://commitizen.github.io/cz-cli/)
 
-View repository and user information, control your notifications and even manage your issues and pull requests. Built with React Native, GitPoint is one of the most feature-rich unofficial GitHub clients that is 100% free.
+My portfolio website is my lastest work. It is a demonstration of my complete skillset, where I try to include as many as elements as possible to sum up my experience in the front-end development.
 
 <p align="center">
   <img src = "public/assets/project_images/portfolio_1.png" width=700>
@@ -36,7 +36,7 @@ View repository and user information, control your notifications and even manage
 
 ## Features
 
-A few of the hightlights of my portfolio website:
+A few hightlights of my portfolio website:
 
 - View my projects in swipeable drawer
 - Mobile-ready responsive design
