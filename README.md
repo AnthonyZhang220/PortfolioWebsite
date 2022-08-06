@@ -1,7 +1,7 @@
 <h1 align="center"> Portfolio </h1> <br>
 <p align="center">
   <a href="https://anthonyzhang.netlify.app/">
-    <img alt="logo" title="logo" src="public/assets/az_logo.png" height="450">
+    <img alt="logo" title="logo" src="public/assets/az_logo.png" height="150">
   </a>
 </p>
 
