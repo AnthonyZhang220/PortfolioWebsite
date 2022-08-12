@@ -168,7 +168,7 @@ function App() {
 					</Routes>
 				</BrowserRouter>
 			</ThemeProvider>
-			<div className="cursor" ref={cursorRef}></div>
+			<div className="cursor" ref={cursorRef} id="cursor"></div>
 		</div >
 	);
 };

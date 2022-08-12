@@ -158,7 +158,7 @@ export default function NavBar() {
                                     <ListItemText disableTypography primary={<Typography variant="h4" fontWeight="bold" sx={{ letterSpacing: 5 }}>{text.toUpperCase()}</Typography>} sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }} />
                                 </ListItem>
                             ))}
-                            <ListItem button sx={{ height: isMobile || CLIENT_SCREEN_HEIGHT ? 70 : 100 }} alignItems="center" component={HashLink} to='/blog' >
+                            <ListItem button sx={{ height: isMobile || CLIENT_SCREEN_HEIGHT ? 70 : 100 }} alignItems="center" component="a" href="	https://medium.com/@anthonyzhang220" >
                                 <ListItemText disableTypography primary={<Typography variant="h4" fontWeight="bold" sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', letterSpacing: 5 }}>BLOG</Typography>} />
                             </ListItem>
                         </List>

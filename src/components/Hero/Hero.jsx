@@ -63,19 +63,21 @@ export default function Hero() {
 
         entryTimeline
             .set(document.body, { overflow: "hidden" })
+            .set("#cursor", { display: "none" })
             .set(".hero-title-line > *", { opacity: 0, })
-
+            
             .set(hiRef.current, { opacity: 0 })
             .set(happyRef.current, { opacity: 0 })
-
+            
             .to(hiRef.current, { opacity: 1, duration: 1 })
-
+            
             .to(hiRef.current, { opacity: 0, duration: 0.5 })
             .set(hiRef.current, { opacity: 0 })
-
+            
             .to(happyRef.current, { opacity: 1, duration: 1 })
             .to(happyRef.current, { opacity: 0, duration: 0.5 })
             .set(document.body, { overflow: "auto" })
+            .set("#cursor", { display: "block" })
 
 
         //home timeline
