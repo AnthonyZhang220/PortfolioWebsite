@@ -34,12 +34,16 @@ export const projectdata = [
 	{
 		id: 1,
 		title: "LaoMa Spicy",
-		subtitle: "LaoSpicy",
+		subtitle: "LaoSpicy Official Website",
 		thumbnails: "assets/images/laoma.png",
 		screenshots: [
-			"assets/project_images/laoma.png",
-			"assets/project_images/laoma_mobile_1.png",
-			"assets/project_images/laoma_mobile_2.png",
+			"assets/project_images/laoma_hero",
+			"assets/project_images/laoma.gif",
+			"assets/project_images/laoma_menu.png",
+			"assets/project_images/laoma_info.png",
+			"assets/project_images/laoma_checkout.png",
+			"assets/project_images/laoma_special.png",
+			"assets/project_images/laoma_mobile.png",
 		],
 		roles: ["Front-end Development", "Back-end Development"],
 		overview:
@@ -55,9 +59,9 @@ export const projectdata = [
 			`${iconpath}css3.png`,
 			`${iconpath}redux.png`,
 		],
-		library: ["", ""],
-		WebsiteUrl: "https://laoma-spicy.herokuapp.com/",
-		GitHubUrl: "https://github.com/AnthonyZhang220/qrcode-ordering",
+		library: ["GSAP", ""],
+		WebsiteUrl: "https://laomaspicynyc.netlify.app/",
+		GitHubUrl: "https://github.com/AnthonyZhang220/laoma-spicy-official",
 	},
 	{
 		id: 2,
