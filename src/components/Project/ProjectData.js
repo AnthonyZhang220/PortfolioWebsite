@@ -14,7 +14,7 @@ export const projectdata = [
 		roles: ["Front-end Development", "Back-end Development"],
 		overview:
 			"My portfolio website is my lastest work. It is a demonstration of my complete skillset, where I try to include as many as elements as possible to sum up my experience in the front-end development.",
-		features: "Project, About, Contact, MusicPlayer, interactive canvas",
+		features: "View my projects in swipeable drawer. Mobile- ready responsive design. Entry animation and randomized position of the technology icons. Users can Like and Favorite my website with a backend server and a database(MongoDB). View my skillsets in different catogories. Form Validation and Recaptcha to prevent Spam and Bot. Music Player with essential functionalities. Newsletter",
 		process:
 			"I was planning to build this portfolio website from scratch. However, with little knowledge to UI design, during the middle of the development timeline, I decided to add material-ui library just to fasten the process because I would like to simulate the real world production process.",
 		tech: [
@@ -34,10 +34,10 @@ export const projectdata = [
 	{
 		id: 1,
 		title: "LaoMa Spicy",
-		subtitle: "LaoSpicy Official Website",
+		subtitle: "LaoMaSpicy Official Website",
 		thumbnails: "assets/images/laoma.png",
 		screenshots: [
-			"assets/project_images/laoma_hero",
+			"assets/project_images/laoma_hero.png",
 			"assets/project_images/laoma.gif",
 			"assets/project_images/laoma_menu.png",
 			"assets/project_images/laoma_info.png",
@@ -49,7 +49,7 @@ export const projectdata = [
 		overview:
 			"Lao Ma Spicy is an authentic chinese restaurant located in Greenwich Village, Manhattan, New York City, well knowned for its Szchuan dry hot pot & spicy hot stew. Its excellent reputation is spreaded across NYU and its adjacant neighborhoods.",
 		features: "Menu, Social Media redirect, Price Calculator, Map, Contact,",
-		process: "To ensure a better user experience,",
+		process: "Order Online. Mobile- ready responsive design. Easy user actions with the menu and shopping cart. Embeded Map. Integrated Google Review API and Instagram Basic Display API to display reviews from google maps and posted media and feed from the LaoMa Spicy account.",
 		results: "",
 		tech: [
 			`${iconpath}html5.png`,
@@ -76,7 +76,7 @@ export const projectdata = [
 		roles: ["Front-end Development"],
 		overview:
 			"Gaggle, is a Google Search Clone, allows user to search for results, such as news, iamges, videos with a free Google Search API, provided by the Rapid API community.",
-		features: "Search Enigine, Night Mode",
+		features: "Option to choose display count. Darkmode. Mobile-ready responsive design.",
 		process:
 			"Gaggle is aimed to replicate the same user experience just like Google. To start this project, the first issue I encountered is to find any mock data or free API so that I could fetch data, filter and present them on the webpage. Without much efforts, I replicated the Google-like layout and theme with Tailwind CSS. ",
 		results: "End users would be able to search for up to 100 results.",
@@ -124,7 +124,7 @@ export const projectdata = [
 		roles: ["Back-end Development"],
 		overview:
 			"Explore Amazon API gives you access to Amazon product details such as prices, ranks, reviews & offers, etc. in JSON format. ",
-		features: "",
+		features: "Provide Amazon products information for end users. Records of likes and favorites. Connect to MongoDb.",
 		process: "",
 		results: "",
 		tech: [
@@ -165,5 +165,34 @@ export const projectdata = [
 		library: [""],
 		WebsiteUrl: "https://laoma-spicy.herokuapp.com/",
 		GitHubUrl: "https://github.com/AnthonyZhang220/qrcode-ordering",
+	},
+	{
+		id: 7,
+		title: "Discord Clone",
+		subtitle: "A discord clone with basic functions integrated such as group chat and voice chat",
+		thumbnails: "assets/images/laoma.png",
+		screenshots: [
+			"assets/project_images/discord_login.png",
+			"assets/project_images/discord_friend.png",
+		],
+		roles: ["Front-end Development", "Back-end Development"],
+		overview:
+			"Discord clone is an application where I am tring to",
+		features:
+			"Group chat. Direct Messages. Voice group chat",
+		process:
+			"",
+		results: "",
+		tech: [
+			`${iconpath}html5.png`,
+			`${iconpath}javascript.png`,
+			`${iconpath}react.png`,
+			`${iconpath}webpack.png`,
+			`${iconpath}mui.png`,
+			`${iconpath}scss.png`,
+		],
+		library: ["Material UI", "Agora SDK", "Firebase SDK", "Colortheif"],
+		WebsiteUrl: "https://discordclone-95fc0.web.app/",
+		GitHubUrl: "https://github.com/AnthonyZhang220/discord_clone",
 	},
 ];
