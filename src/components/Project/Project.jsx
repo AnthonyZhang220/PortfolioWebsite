@@ -39,11 +39,11 @@ export default function Project(props) {
     const [projectdetails, setProjectdetails] = useState({})
 
     const handleLeft = () => {
-        scrollerRef.current.scrollBy(-340, 0);
+        scrollerRef.current.scrollBy(-400, 0);
     }
 
     const handleRight = () => {
-        scrollerRef.current.scrollBy(340, 0);
+        scrollerRef.current.scrollBy(400, 0);
     }
 
 
@@ -87,10 +87,10 @@ export default function Project(props) {
 
     const [open, setOpen] = useState(false);
 
-    const handleDrawerOpen = ({ id, title, subtitle, screenshots, thumbnails, overview, roles, tech, WebsiteUrl, GitHubUrl, library, index, process, results }) => () => {
+    const handleDrawerOpen = ({ id, title, subtitle, screenshots, thumbnails, overview, roles, tech, WebsiteUrl, GitHubUrl, library, index, process, results, features }) => () => {
 
         setOpen(!open);
-        setProjectdetails({ id, title, subtitle, screenshots, thumbnails, overview, roles, tech, WebsiteUrl, GitHubUrl, library, index, process, results });
+        setProjectdetails({ id, title, subtitle, screenshots, thumbnails, overview, roles, tech, WebsiteUrl, GitHubUrl, library, index, process, results, features });
 
 
 
@@ -330,7 +330,7 @@ export default function Project(props) {
                         </Box>
                     </div>
                 </div>
-            </div >
-        </Fragment >
+            </div>
+        </Fragment>
     )
 };
