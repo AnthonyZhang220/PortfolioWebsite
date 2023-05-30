@@ -3,8 +3,6 @@ import { projectdata } from "./ProjectData.js"
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -18,9 +16,42 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Grid from '@mui/material/Grid';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
+import CircularProgress from '@mui/material/CircularProgress';
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { faCircleChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 import "./Project.scss"
 import "../../global.scss"
+
+function CircularProgressWithLabel({ progress }) {
+    return (
+        <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+            <CircularProgress variant="determinate" value={progress} size={80} thickness={2} />
+            <Box
+                sx={{
+                    top: 0,
+                    left: 0,
+                    bottom: 0,
+                    right: 0,
+                    position: 'absolute',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
+            >
+                <Typography
+                    variant="h5"
+                    component="div"
+                    color="text.secondary"
+                    sx={{ fontWeight: "bold" }}
+                >{`${Math.round(progress)}%`}</Typography>
+            </Box>
+        </Box>
+    );
+}
+
 
 const ProjectDetails = lazy(() => import("./ProjectDetails"))
 
@@ -29,22 +60,97 @@ export default function Project(props) {
 
     const matches = useMediaQuery('(max-width:600px)');
 
+
     gsap.registerPlugin(ScrollTrigger);
 
 
     const projectContainerRef = useRef();
     const projectTitleRef = useRef();
     const scrollerRef = useRef();
+    const scrollCursorRef = useRef();
 
+    const [progress, setProgress] = useState(0);
     const [projectdetails, setProjectdetails] = useState({})
 
     const handleLeft = () => {
-        scrollerRef.current.scrollBy(-400, 0);
+        const el = scrollerRef.current;
+        const maxScrollLeft = el.scrollWidth - el.clientWidth;
+
+        scrollerRef.current.scrollBy(-600, 0);
+
+        const percentage = el.scrollLeft * 100 / maxScrollLeft
+
+        setProgress(percentage)
+
     }
 
     const handleRight = () => {
-        scrollerRef.current.scrollBy(400, 0);
+        const el = scrollerRef.current;
+        const maxScrollLeft = el.scrollWidth - el.clientWidth;
+
+        scrollerRef.current.scrollBy(600, 0);
+
+        const percentage = el.scrollLeft * 100 / maxScrollLeft
+
+        setProgress(percentage)
     }
+
+    useEffect(() => {
+
+        let mouseX = 0, mouseY = 0;
+
+        gsap.to({}, 0.016, {
+            repeat: -1,
+
+            onRepeat: function () {
+                gsap.set(scrollCursorRef.current, {
+                    css: {
+                        left: mouseX,
+                        top: mouseY
+                    }
+                })
+            }
+        })
+
+        window.addEventListener("mousemove", function (e) {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        })
+
+        const el = scrollerRef.current;
+        const maxScrollLeft = el.scrollWidth - el.clientWidth;
+
+        if (el) {
+            const onWheel = e => {
+                if (e.deltaY === 0) return;
+                e.preventDefault();
+                el.scrollTo({
+                    left: el.scrollLeft + e.deltaY * 10,
+                    behavior: "smooth"
+                });
+                const percentage = el.scrollLeft * 100 / maxScrollLeft
+
+                setProgress(percentage)
+            };
+            el.addEventListener("wheel", onWheel);
+            return () => el.removeEventListener("wheel", onWheel);
+        }
+
+    }, []);
+
+    useEffect(() => {
+        let cursor = document.getElementById("cursor")
+
+        scrollerRef.current.addEventListener("mousemove", () => {
+            cursor.style.display = "none"
+            scrollCursorRef.current.style.display = "inline-flex"
+        })
+
+        scrollerRef.current.addEventListener("mouseleave", () => {
+            cursor.style.display = "block"
+            scrollCursorRef.current.style.display = "none"
+        })
+    })
 
 
     // project
@@ -84,6 +190,9 @@ export default function Project(props) {
             entryAnimation.scrollTrigger.kill();
         }
     }, [])
+
+    useEffect(() => {
+    })
 
     const [open, setOpen] = useState(false);
 
@@ -195,7 +304,7 @@ export default function Project(props) {
                 </div>
                 <div className="project-wrapper" ref={projectContainerRef} >
                     <div className='card-scroller-crop'>
-                        <div className="card-scroller-content" ref={scrollerRef}>
+                        <div className="card-scroller-content" ref={scrollerRef} id="card-scroller-content">
                             <div className="card-scroller-plater">
                                 {projectdata?.map(({ id, title, subtitle, screenshots, thumbnails, roles, overview, tech, WebsiteUrl, GitHubUrl, library, process, results, features }, index) => (
                                     <Fragment key={index}>
@@ -220,6 +329,7 @@ export default function Project(props) {
                                                 }}
                                             >
                                                 <CardMedia
+                                                    className="card-media"
                                                     component="img"
                                                     alt={title}
                                                     image={thumbnails}
@@ -237,6 +347,11 @@ export default function Project(props) {
                                                     onClick={handleDrawerOpen({ id, title, subtitle, screenshots, thumbnails, overview, roles, tech, WebsiteUrl, GitHubUrl, library, process, results, features })}
                                                 />
                                             </Card>
+                                            <Box className="card-title" sx={{}}>
+                                                <Typography variant="h4">
+                                                    {title}
+                                                </Typography>
+                                            </Box>
                                         </div>
                                     </Fragment>
                                 ))}
@@ -317,20 +432,21 @@ export default function Project(props) {
                     {/* slide button */}
                     <div className='scroller-button'>
                         <Box className="button left-button">
-                            <IconButton sx={{ fontSize: 40 }} onClick={handleLeft} aria-label="Project Scroll Left">
-                                {/* <ArrowCircleLeftRoundedIcon sx={{ fontSize: 50 }} /> */}
-                                <FontAwesomeIcon icon="fas fa-chevron-circle-left" />
+                            <IconButton onClick={handleLeft} aria-label="Project Scroll Left">
+                                <FontAwesomeIcon icon={faCircleChevronLeft} fontSize="40px" />
                             </IconButton>
                         </Box>
                         <Box className="button right-button">
-                            <IconButton sx={{ fontSize: 40 }} onClick={handleRight} aria-label="Project Scroll Right">
-                                {/* <ArrowCircleRightRoundedIcon sx={{ fontSize: 50 }} /> */}
-                                <FontAwesomeIcon icon="fas fa-chevron-circle-right" />
+                            <IconButton onClick={handleRight} aria-label="Project Scroll Right">
+                                <FontAwesomeIcon icon={faCircleChevronRight} fontSize="40px" />
                             </IconButton>
                         </Box>
                     </div>
                 </div>
             </div>
+            <Box ref={scrollCursorRef} className="scrollCursor">
+                <CircularProgressWithLabel progress={progress} />
+            </Box>
         </Fragment>
     )
 };

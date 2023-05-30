@@ -145,14 +145,7 @@ function App() {
 			})
 		})
 
-
-
-	})
-
-
-
-
-
+	}, [])
 
 	return (
 		<div className="App" id="App">
@@ -169,7 +162,7 @@ function App() {
 				</BrowserRouter>
 			</ThemeProvider>
 			<div className="cursor" ref={cursorRef} id="cursor"></div>
-		</div >
+		</div>
 	);
 };
 

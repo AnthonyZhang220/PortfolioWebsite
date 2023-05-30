@@ -32,7 +32,7 @@ export default function About() {
             y: 0, opacity: 1, duration: 1,
             scrollTrigger: {
                 trigger: aboutTitleRef.current,
-                start: 'top bottom',
+                start: 'mid bottom',
                 // scrub: true,
             }
         });

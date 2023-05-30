@@ -2,6 +2,38 @@ const iconpath = "assets/tech-icons/";
 
 export const projectdata = [
 	{
+		id: 7,
+		title: "Discord Clone",
+		subtitle: "A discord clone with basic functions integrated such as group chat and voice chat",
+		thumbnails: "assets/images/discord-logo-blue.png",
+		screenshots: [
+			"assets/project_images/discord_login.png",
+			"assets/project_images/discord_friend.png",
+		],
+		roles: ["Front-end Development", "Back-end Development"],
+		overview:
+			"Discord clone is an application where I am tring to",
+		features:
+			"Group chat. Direct Messages. Voice group chat",
+		process:
+			"",
+		results: "",
+		tech: [
+			`${iconpath}html5.png`,
+			`${iconpath}javascript.png`,
+			`${iconpath}react.png`,
+			`${iconpath}webpack.svg`,
+			`${iconpath}material-ui.svg`,
+			`${iconpath}sass.png`,
+			`${iconpath}agora.png`,
+			`${iconpath}firebase.svg`,
+		],
+		library: ["Material UI", "Agora SDK", "Firebase SDK", "Colortheif"],
+		WebsiteUrl: "https://discordclone-95fc0.web.app/",
+		GitHubUrl: "https://github.com/AnthonyZhang220/discord_clone",
+		new: false,
+	},
+	{
 		id: 4,
 		title: "Portfolio Website",
 		subtitle: "Personal Portfolio Website",
@@ -30,6 +62,7 @@ export const projectdata = [
 		library: ["GSAP", "Canvas.js", "ityped"],
 		WebsiteUrl: "https://explore-amazon-api.herokuapp.com/",
 		GitHubUrl: "https://github.com/AnthonyZhang220/portfolio-website",
+		new: false,
 	},
 	{
 		id: 1,
@@ -59,9 +92,10 @@ export const projectdata = [
 			`${iconpath}css3.png`,
 			`${iconpath}redux.png`,
 		],
-		library: ["GSAP", ""],
+		library: ["GSAP", "Redux"],
 		WebsiteUrl: "https://laomaspicynyc.netlify.app/",
 		GitHubUrl: "https://github.com/AnthonyZhang220/laoma-spicy-official",
+		new: false,
 	},
 	{
 		id: 2,
@@ -89,6 +123,7 @@ export const projectdata = [
 		library: ["Google Search API"],
 		WebsiteUrl: "https://gaggle-search-clone.netlify.app",
 		GitHubUrl: "https://github.com/AnthonyZhang220/google-search-clone",
+		new: false,
 	},
 	{
 		id: 3,
@@ -114,6 +149,7 @@ export const projectdata = [
 		library: ["google-map-react"],
 		WebsiteUrl: "https://tripadvisorclone.netlify.app/",
 		GitHubUrl: "https://github.com/AnthonyZhang220/travel-advisor",
+		new: false,
 	},
 	{
 		id: 5,
@@ -137,6 +173,7 @@ export const projectdata = [
 		WebsiteUrl:
 			"https://rapidapi.com/anthonyzhang1997-oQBo4LhQyTx/api/explore-amazon",
 		GitHubUrl: "https://github.com/AnthonyZhang220/Find_GPU_API",
+		new: false,
 	},
 	{
 		id: 6,
@@ -165,34 +202,6 @@ export const projectdata = [
 		library: [""],
 		WebsiteUrl: "https://laoma-spicy.herokuapp.com/",
 		GitHubUrl: "https://github.com/AnthonyZhang220/qrcode-ordering",
-	},
-	{
-		id: 7,
-		title: "Discord Clone",
-		subtitle: "A discord clone with basic functions integrated such as group chat and voice chat",
-		thumbnails: "assets/images/laoma.png",
-		screenshots: [
-			"assets/project_images/discord_login.png",
-			"assets/project_images/discord_friend.png",
-		],
-		roles: ["Front-end Development", "Back-end Development"],
-		overview:
-			"Discord clone is an application where I am tring to",
-		features:
-			"Group chat. Direct Messages. Voice group chat",
-		process:
-			"",
-		results: "",
-		tech: [
-			`${iconpath}html5.png`,
-			`${iconpath}javascript.png`,
-			`${iconpath}react.png`,
-			`${iconpath}webpack.png`,
-			`${iconpath}material-ui`,
-			`${iconpath}sass.png`,
-		],
-		library: ["Material UI", "Agora SDK", "Firebase SDK", "Colortheif"],
-		WebsiteUrl: "https://discordclone-95fc0.web.app/",
-		GitHubUrl: "https://github.com/AnthonyZhang220/discord_clone",
+		new: true,
 	},
 ];

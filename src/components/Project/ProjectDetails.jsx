@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Skeleton from '@mui/material/Skeleton';
 import CssBaseline from "@mui/material/CssBaseline";
@@ -165,7 +165,7 @@ export default function ProjectDetails({ open, projectdetails, handleDrawerOpen 
     return (
         <React.Fragment>
             {/* swipeabledrawer */}
-            < Root >
+            <Root>
                 <CssBaseline />
                 <SwipeableDrawer
                     className={classes.drawer}
@@ -231,12 +231,12 @@ export default function ProjectDetails({ open, projectdetails, handleDrawerOpen 
                                 <Grid xs={12} md={6} item>
                                     <CardContent>
                                         <Box sx={{ mx: 1 }}>
-                                            <Typography gutterBottom variant="h4" component="div">
+                                            <Typography gutterBottom variant="h5" component="div">
                                                 {
                                                     projectdetails.title ? projectdetails.title : <Skeleton animation='pulse' variant="rectangular" height={50} />
                                                 }
                                             </Typography>
-                                            <Typography gutterBottom variant="h5" component="div">
+                                            <Typography gutterBottom variant="h6" component="div">
                                                 {projectdetails.subtitle ? projectdetails.subtitle : <Skeleton animation='pulse' variant="rectangular" height={40} />}
                                             </Typography>
                                         </Box>
@@ -257,7 +257,7 @@ export default function ProjectDetails({ open, projectdetails, handleDrawerOpen 
                                             <Typography gutterBottom variant="h5" color="text.secondary">
                                                 OVERVIEW
                                             </Typography>
-                                            <Typography gutterBottom variant="body1" color="text.secondary">
+                                            <Typography gutterBottom variant="h6" color="text.secondary">
                                                 {projectdetails.overview ? projectdetails.overview : <Skeleton animation='pulse' variant="rectangular" height={150} />}
                                             </Typography>
                                         </Box>
@@ -267,7 +267,7 @@ export default function ProjectDetails({ open, projectdetails, handleDrawerOpen 
                                 <Grid xs={12} md={6} item>
                                     <CardContent>
                                         <Box sx={{ m: 1 }}>
-                                            <Typography gutterBottom variant="h6" color="text.secondary">
+                                            <Typography gutterBottom variant="h5" color="text.secondary">
                                                 ROLES
                                             </Typography>
                                             <Stack sx={{ flexWrap: 'wrap' }} alignItems='center' justifyContent='flex-start' direction='row' spacing={1}>
@@ -279,7 +279,7 @@ export default function ProjectDetails({ open, projectdetails, handleDrawerOpen 
                                         </Box>
                                         <Divider />
                                         <Box sx={{ m: 1 }}>
-                                            <Typography gutterBottom variant="h6" color="text.secondary">
+                                            <Typography gutterBottom variant="h5" color="text.secondary">
                                                 TECHNOLOGY STACK
                                             </Typography>
                                             <Stack sx={{ flexWrap: 'wrap' }} alignItems='center' justifyContent='flex-start' direction='row' spacing={1}>
@@ -292,7 +292,7 @@ export default function ProjectDetails({ open, projectdetails, handleDrawerOpen 
                                         </Box>
                                         <Divider />
                                         <Box sx={{ m: 1 }}>
-                                            <Typography gutterBottom variant="h6" color="text.secondary">
+                                            <Typography gutterBottom variant="h5" color="text.secondary">
                                                 LIBRARY STACK
                                             </Typography>
                                             <Stack sx={{ flexWrap: 'wrap' }} alignItems='center' justifyContent='flex-start' direction='row' spacing={1}>
@@ -312,18 +312,18 @@ export default function ProjectDetails({ open, projectdetails, handleDrawerOpen 
                                     <Typography gutterBottom variant="h5" color="text.secondary">
                                         Features
                                     </Typography>
-                                    <Typography gutterBottom variant="body1" color="text.secondary">
+                                    <Typography gutterBottom variant="h6" color="text.secondary">
                                         {projectdetails.features ? projectdetails.features : <Skeleton animation='pulse' variant="rectangular" height={150} />}
                                     </Typography>
                                 </CardContent>
                                 <CardContent>
                                     {projectdetails.screenshots ?
-                                        <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(50px, 2fr))" gridAutoRows="auto" gridAutoColumns="auto" gap={2}>
+                                        <Box display="grid" gridTemplateColumns="repeat(auto-fill, minmax(350px, 3fr))" gridTemplateRows="repeat(auto-fill, minmax(50px, 2fr))" gridAutoRows="auto" gridAutoColumns="auto" gap={2} gridAutoFlow="dense">
                                             {
                                                 projectdetails.screenshots.map((screenshot, index) => (
                                                     <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", objectFit: "contain" }} key={index}>
                                                         <CardMedia
-                                                            sx={{ boxShadow: "-10px -10px 15px rgba(255,255,255,0.5), 10px 10px 15px rgba(70,70,70,0.12)" }}
+                                                            sx={{ boxShadow: "-10px -10px 15px rgba(255,255,255,0.5), 10px 10px 15px rgba(70,70,70,0.12)", cursor: "zoom-in" }}
                                                             className="project-screenshots"
                                                             key={index}
                                                             component="img"
@@ -333,7 +333,6 @@ export default function ProjectDetails({ open, projectdetails, handleDrawerOpen 
                                                             image={screenshot}
                                                             onClick={handleImageOpen(screenshot)}
                                                         />
-                                                        {console.log(screenshot)}
                                                     </Box>
                                                 ))
                                             }
@@ -363,31 +362,45 @@ export default function ProjectDetails({ open, projectdetails, handleDrawerOpen 
                                         <Box sx={projectScreenShotsStyle} component="img" alt={imagesrc} src={imagesrc}></Box>
                                     </Box>
                                 </Modal>
-                                <Divider />
-                                <CardContent>
-                                    <Typography gutterBottom variant="h5" color="text.secondary">
-                                        PROCESS
-                                    </Typography>
-                                    <Typography gutterBottom variant="body1" color="text.secondary">
-                                        {projectdetails.process ? projectdetails.process : <Skeleton animation='pulse' variant="rectangular" height={150} />}
-                                    </Typography>
-                                </CardContent>
-                                <Divider />
-                                <CardContent>
-                                    <Typography gutterBottom variant="h5" color="text.secondary">
-                                        RESULTS
-                                    </Typography>
-                                    <Typography gutterBottom variant="body1" color="text.secondary">
-                                        {projectdetails.results ? projectdetails.results : <Skeleton animation='pulse' variant="rectangular" height={150} />}
-                                    </Typography>
-                                </CardContent>
+                                {
+                                    projectdetails.process ?
+                                        <Fragment>
+                                            <Divider />
+                                            <CardContent>
+                                                <Typography gutterBottom variant="h5" color="text.secondary">
+                                                    PROCESS
+                                                </Typography>
+                                                <Typography gutterBottom variant="h6" color="text.secondary">
+                                                    {projectdetails.process ? projectdetails.process : <Skeleton animation='pulse' variant="rectangular" height={150} />}
+                                                </Typography>
+                                            </CardContent>
+                                        </Fragment>
+                                        : null
+                                }
+                                {
+                                    projectdetails.results ?
+                                        <Fragment>
+                                            <Divider />
+                                            <CardContent>
+                                                <Typography gutterBottom variant="h5" color="text.secondary">
+                                                    RESULTS
+                                                </Typography>
+                                                <Typography gutterBottom variant="h6" color="text.secondary">
+                                                    {projectdetails.results ? projectdetails.results : <Skeleton animation='pulse' variant="rectangular" height={150} />}
+                                                </Typography>
+                                            </CardContent>
+                                        </Fragment>
+                                        : null
+                                }
                             </CardContent>
+                            <Box sx={{ height: "100px" }}>
+                            </Box>
                         </Box>
                     </StyledBox>
                     {/* close button */}
                     <CloseButton sx={{ position: 'absolute', bottom: '40px', transform: 'translate(-50%,0)', left: '50%' }} size='large' onClick={handleDrawerOpen(false)}>Close</CloseButton>
                 </SwipeableDrawer>
-            </Root >
+            </Root>
             {/* share page */}
             <Modal
                 open={sharePage}
