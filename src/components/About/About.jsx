@@ -131,7 +131,7 @@ export default function About() {
                             m: 1,
                             p: 1,
                         }} >
-                            <Typography textAlign='start' variant='h3' sx={{ lineHeight: '2' }}>
+                            <Typography textAlign='start' variant='h4' sx={{ lineHeight: '2' }}>
                                 I'm Anthony Zhang. A motivated Front End Enigeneer based in New York City. I've spent the last 2 years learning and building websites from simply displaying information and content to dealing with complex state management and data manipulations.
                             </Typography>
                         </Grid>
@@ -141,7 +141,7 @@ export default function About() {
                             m: 1,
                             p: 1,
                         }}>
-                            <Typography textAlign='start' variant='h3' sx={{ lineHeight: '2' }}>
+                            <Typography textAlign='start' variant='h4' sx={{ lineHeight: '2' }}>
                                 Rather than having an education in Computer Science, at 18 years old without knowing where my passion was, I decided to pursue a bachelor's degree in Mathematics and Economics from New York University. As a person who always want to mess around with the computer, my interest in software development was buried in my heart since I got my first pc in early childhood. Until recent years, it was uncovered.
                             </Typography>
                         </Grid>

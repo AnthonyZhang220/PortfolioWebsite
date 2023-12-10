@@ -2,32 +2,30 @@
 
 .top-nav {
 	background-color: transparent;
-	width: 100%;
-	position: fixed;
+	position: sticky;
+	height: 4rem;
 	top: 0;
 	z-index: 2;
+	margin: 0 auto;
+	max-width: 1232px;
 
-	.top-left {
-		position: fixed;
-		left: 0;
-		top: 0;
-		padding: 40px;
+	.top-nav-container {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 
-		.logo {
-			img {
-				vertical-align: middle;
+		.top-left {
+			.logo {
+				img {
+					display: block;
+				}
 			}
 		}
-	}
 
-	.top-right {
-		position: fixed;
-		right: 0;
-		top: 0;
-		padding: 47px;
-
-		.icon {
-			.menubar {
+		.top-right {
+			.icon {
+				.menubar {
+				}
 			}
 		}
 	}

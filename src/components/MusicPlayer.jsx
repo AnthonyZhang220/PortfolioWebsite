@@ -1,4 +1,3 @@
-import React, { useState, useRef, useEffect } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -15,8 +14,7 @@ import SkipNextRoundedIcon from '@mui/icons-material/SkipNextRounded';
 import SkipPreviousRoundedIcon from '@mui/icons-material/SkipPreviousRounded';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 
-
-import { musicList } from './MusicList.js';
+import { useMusicPlayerContext } from '../contexts/MusicPlayerContext.js';
 
 
 const Widget = styled('div')(({ theme }) => ({
@@ -53,138 +51,11 @@ const TinyText = styled(Typography)({
 });
 
 export default function MusicPlayer() {
-
-
-    const randomizer = Math.floor(Math.random() * (musicList.length - 1) + 1)
+    const { audioRef, volume, duration, position, currentMusicInfo, paused, togglePlay, handleForward, handlePosition, handleRewind, handleSkipNext, handleSkipPrevious, handleVolume, formatDuration, handleTimeUpdate, handleGetAudioData } = useMusicPlayerContext()
 
     const theme = useTheme();
-
-    const audioRef = useRef();
-
-
-    const [volume, setVolume] = useState(0.2);
-    const [duration, setDuration] = useState(0); // seconds
-    const [position, setPosition] = useState(0);
-    const [paused, setPaused] = useState(true);
-    const [songId, setSongId] = useState(randomizer);
-
-
-    // const [current, setCurrent] = useState(0);
-
-
-    function formatDuration(value) {
-        const minute = Math.floor(value / 60);
-        const secondLeft = Math.floor(value - minute * 60);
-        return `${minute}:${secondLeft <= 9 ? `0${secondLeft}` : secondLeft}`;
-    }
     const mainIconColor = theme.palette.mode === 'dark' ? '#fff' : '#000';
     const lightIconColor = theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)';
-
-    const handleGetAudioData = () => {
-        audioRef.current.volume = localStorage.getItem('volume');
-
-        if (audioRef.current) {
-            setDuration(audioRef.current.duration);
-        }
-    }
-
-    const timeLeft = Math.floor(duration) - Math.floor(position)
-
-    const handleTimeUpdate = () => {
-        if (audioRef.current) {
-            setPosition(audioRef.current.currentTime)
-        }
-
-        //auto skip to next song when previous song ends
-        if (timeLeft === 0) {
-            handleSkipNext();
-        }
-    }
-
-    const handlePlay = () => {
-
-        if (paused) {
-            audioRef.current.play();
-            setPaused(false)
-
-        } else {
-            audioRef.current.pause();
-            setPaused(true)
-
-        }
-    };
-
-    const handlePosition = (value) => {
-        setPosition(value);
-
-        audioRef.current.currentTime = position;
-    }
-
-    const handleRewind = () => {
-        setPosition(audioRef.current.currentTime - 5);
-        audioRef.current.currentTime -= 5;
-
-        if (position <= 0) {
-            setPosition(0);
-        }
-    }
-
-    const handleForward = () => {
-
-        setPosition(audioRef.current.currentTime + 5);
-        audioRef.current.currentTime += 5;
-
-
-        if (position >= duration) {
-            setPosition(duration);
-        }
-    }
-
-    const handleSkipNext = () => {
-
-        if (songId < musicList.length) {
-            setSongId(songId + 1);
-        }
-
-        if (songId === musicList.length) {
-            setSongId(1);
-        }
-
-        audioRef.current.load();
-
-        setTimeout(() => {
-            audioRef.current.play();
-        }, 1000)
-    }
-
-    const handleSkipPrevious = () => {
-        if (songId > 1) {
-            setSongId(songId - 1);
-        }
-
-        if (songId === 1) {
-            setSongId(musicList.length);
-        }
-
-        audioRef.current.load();
-        audioRef.current.play();
-
-    }
-
-    const handleVolume = (event, newVolume) => {
-        setVolume(newVolume);
-        localStorage.setItem('volume', newVolume);
-
-        audioRef.current.volume = newVolume;
-
-    }
-
-    useEffect(() => {
-        localStorage.setItem('volume', 0.2);
-    }, [])
-
-
-
 
     return (
         <Box sx={{ minWidth: '300px', width: '100%', overflow: 'hidden' }}>
@@ -192,23 +63,23 @@ export default function MusicPlayer() {
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <CoverImage>
                         <img
-                            alt={musicList.find(x => x.id === songId).cover}
-                            src={musicList.find(x => x.id === songId).cover}
+                            alt={currentMusicInfo.cover}
+                            src={currentMusicInfo.cover}
                         />
                     </CoverImage>
                     <Box sx={{ ml: 1.5, minWidth: 0 }}>
                         <Typography variant="caption" color="text.primary" fontWeight="bold">
-                            {musicList.find(x => x.id === songId).artist}
+                            {currentMusicInfo.artist}
                         </Typography>
                         <Typography wrap='true' fontWeight="bold">
                             <>
                                 <b>
-                                    {musicList.find(x => x.id === songId).title}
+                                    {currentMusicInfo.title}
                                 </b>
                             </>
                         </Typography>
                         <Typography noWrap letterSpacing={-0.25} variant="body1" fontWeight="bold">
-                            {musicList.find(x => x.id === songId).performer}
+                            {currentMusicInfo.performer}
                         </Typography>
                     </Box>
                 </Box>
@@ -273,7 +144,7 @@ export default function MusicPlayer() {
                     </IconButton>
                     <IconButton
                         aria-label={paused ? 'play' : 'pause'}
-                        onClick={handlePlay}
+                        onClick={togglePlay}
                     >
                         {paused ? (
                             <PlayArrowRounded
@@ -284,8 +155,8 @@ export default function MusicPlayer() {
                             <PauseRounded sx={{ fontSize: '3.5rem' }} htmlColor={mainIconColor} />
                         )}
                     </IconButton>
-                    <audio id='audio' preload='none' ref={audioRef} onLoadedMetadata={handleGetAudioData} onTimeUpdate={handleTimeUpdate}>
-                        <source src={musicList.find(x => x.id === songId).source} type="audio/mpeg"></source>
+                    <audio id='audio' preload='none' ref={audioRef} onTimeUpdate={handleTimeUpdate} onLoadedMetadata={handleGetAudioData}>
+                        <source src={currentMusicInfo.source} type="audio/mpeg"></source>
                     </audio>
                     <IconButton aria-label="previous song" onClick={handleForward}>
                         <FastForwardRounded fontSize="large" htmlColor={mainIconColor} />

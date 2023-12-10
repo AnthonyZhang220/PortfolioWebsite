@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useState, useRef, Suspense, lazy } from 'react';
+import { useEffect, useState, useRef, Suspense, lazy } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
@@ -6,12 +6,7 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 import Grid from '@mui/material/Grid';
 import { Box } from '@material-ui/core';
 import Divider from '@mui/material/Divider';
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import SendIcon from '@mui/icons-material/Send';
-import Button from '@mui/material/Button';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
 import Modal from '@mui/material/Modal';
 import Backdrop from '@mui/material/Backdrop';
 import Fade from '@mui/material/Fade';
@@ -38,7 +33,7 @@ library.add(fab);
 
 
 //lazy loading
-const MusicPlayer = lazy(() => import("./MusicPlayer"));
+const MusicPlayer = lazy(() => import("../MusicPlayer"));
 
 const useStyles = makeStyles((theme) => ({
     textField: {
@@ -85,22 +80,13 @@ const style = {
     alignItems: 'center',
 };
 
-const Alert = forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />
-})
-
 export default function Footer() {
 
     let currentYear = new Date().getFullYear();
     const classes = useStyles();
-    const [input, setInput] = useState('')
-    const [success, setSuccess] = useState(false);
-    const [openWeChat, setOpenWeChat] = useState(false);
-    const [loading, setLoading] = useState(false);
     const [like, setLike] = useState(1);
     const [fav, setFav] = useState(1);
     const [isMobile, setIsMobile] = useState(false);
-    const [isEmailValid, setIsEmailValid] = useState(true);
 
     const footerRef = useRef(null);
     const footerContainer = useRef(null);
@@ -131,31 +117,6 @@ export default function Footer() {
 
     }
 
-    const handleOpenWeChat = () => setOpenWeChat(true);
-    const handleCloseWeChat = () => setOpenWeChat(false);
-
-    const handleEmailChange = (e) => {
-        setInput(e.target.value);
-    }
-
-    const handleSubmit = () => {
-
-        if (isEmailValid) {
-            setSuccess(true);
-        } else {
-            setSuccess(false);
-            console.log(success)
-        }
-    }
-
-    const handleClose = (e, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setIsEmailValid(true);
-        setSuccess(false);
-    }
-
     const handleLike = async () => {
         setLike(like + 1);
 
@@ -173,21 +134,6 @@ export default function Footer() {
         })
     }
 
-    const handleSave = () => {
-        setLoading(true)
-
-        setTimeout(() => {
-            const link = document.createElement('a')
-            link.href = './assets/images/wechat.png'
-            link.download = `Anthony Zhang WeChat QR Code.png`;
-            link.click();
-        }, 1000)
-
-        setTimeout(() => {
-            setLoading(false)
-
-        }, 2000)
-    }
 
     useEffect(() => {
         async function getCount() {
@@ -215,58 +161,6 @@ export default function Footer() {
                 <div className="footer-top">
                     <Grid container direction='row' className="footer-top-container">
                         <Grid item xs={12} sm={12} md={4} lg={4}>
-                            <Box sx={{ mb: 2 }}>
-                                <Typography variant='h4'>
-                                    Stay Connected
-                                </Typography>
-                            </Box>
-                            <Box component='form'
-                                sx={{ display: 'flex', justifyContent: 'center' }}>
-                                <TextField
-                                    hiddenLabel
-                                    size='small'
-                                    color='secondary'
-                                    name='email'
-                                    type='email'
-                                    variant='filled'
-                                    placeholder='Your Email Address'
-                                    error={!isEmailValid}
-                                    onFocus={() => {
-                                        setIsEmailValid(true)
-                                    }}
-                                    onBlur={() => {
-                                        if (/^$|^\S+@\S+\.\S+$/.test(input)) {
-                                            setIsEmailValid(true)
-                                        } else {
-                                            setIsEmailValid(false)
-                                        }
-                                    }}
-                                    className={classes.input}
-                                    onChange={handleEmailChange}
-                                    value={input}
-                                    autoComplete='email'
-                                >
-                                </TextField>
-                                <Button color='white' variant='outlined' onClick={handleSubmit} endIcon={<SendIcon />} >Submit</Button>
-                                <Snackbar open={success && isEmailValid} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-                                    <Alert onClose={handleClose} severity='success' sx={{ width: '100%' }}>
-                                        Your have successfully submitted your email address!
-                                    </Alert>
-                                </Snackbar>
-                                <Snackbar open={!success && !isEmailValid} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-                                    <Alert onClose={handleClose} severity='error' sx={{ width: '100%' }}>
-                                        Please enter a valid email address!
-                                    </Alert>
-                                </Snackbar>
-                            </Box>
-                            <Box sx={{ mt: 2 }}>
-                                <Typography variant='h6'>
-                                    If you like this website, please leave a like!
-                                </Typography>
-                            </Box>
-                            <Typography variant='h6'>
-                                If you love it, please leave a heart!
-                            </Typography>
                             <Box sx={{ mt: 2 }}>
                                 <IconButton sx={{ color: '#fafafa', fontSize: 30 }} onClick={handleLike} aria-label="Like Thumbup Button">
                                     <Badge badgeContent={like} color="primary">
@@ -282,6 +176,17 @@ export default function Footer() {
                                     <ShareRoundedIcon>
                                     </ShareRoundedIcon>
                                 </IconButton>
+                            </Box>
+                            <Box sx={{ mt: 2 }}>
+                                <Typography variant='h6'>
+                                    If you like this website, please leave a like!
+                                </Typography>
+                                <Typography variant='h6'>
+                                    If you love it, please leave a heart!
+                                </Typography>
+                            </Box>
+                            <Box sx={{ mt: 2 }}>
+                                <FooterSocialIcon />
                             </Box>
                         </Grid>
                         <Grid item xs={12} sm={12} md={4} lg={4}>
@@ -338,8 +243,8 @@ export default function Footer() {
                                             </a>
                                         </Typography>
                                         <Typography variant="h6">
-                                            <a href="https://medium.com/@anthonyzhang220" target="_blank" rel="noreferrer">
-                                                Medium
+                                            <a href="https://dev.to/anthonyzhang220" target="_blank" rel="noreferrer">
+                                                Dev Community
                                             </a>
                                         </Typography>
                                     </Box>
@@ -358,72 +263,99 @@ export default function Footer() {
                     <div className="copyright">
                         <Box sx={{ ml: 2 }}>
                             <span className='copyright-text'>
-                                &copy; 2020-{currentYear} <span className='name'>Anthony Zhang</span>. All Rights Reserved.
+                                &copy; 2020-{currentYear} <span className='name'>Anthony Zhang</span>. All Rights Reserved. Powered by ReactJs + GSAP + Netlify + Material UI.
                             </span>
                         </Box>
                     </div>
-                    <div className='social-icon'>
-                        <Box>
-                            <IconButton sx={{ color: '#fafafa', fontSize: 25 }} component='a' href="https://www.linkedin.com/in/anthony-xiangyu-zhang/" target="_blank" rel="noreferrer" aria-label="Link to Linkedin">
-                                <FontAwesomeIcon icon="fa-brands fa-linkedin-in" />
-                            </IconButton>
-                            <IconButton sx={{ color: '#fafafa', fontSize: 25, ml: 2 }} component='a' href="https://github.com/AnthonyZhang220" target="_blank" rel="noreferrer" aria-label="Link to Github">
-                                <FontAwesomeIcon icon="fa-brands fa-github" />
-                            </IconButton>
-                            <IconButton sx={{ color: '#fafafa', fontSize: 25, ml: 2 }} component='a' href="https://stackoverflow.com/users/6162027/anthony220" target="_blank" rel="noreferrer" aria-label="Link to Stackoverflow">
-                                <FontAwesomeIcon icon="fa-brands fa-stack-overflow" />
-                            </IconButton>
-                            <IconButton sx={{ color: '#fafafa', fontSize: 25, ml: 2 }} component='a' href='https://medium.com/@anthonyzhang220' target="_blank" rel="noreferrer" aria-label="Link to Medium">
-                                <FontAwesomeIcon icon="fa-brands fa-medium" />
-                            </IconButton>
-                            <IconButton sx={{ color: '#fafafa', fontSize: 25, ml: 2, mr: 2 }} onClick={handleOpenWeChat} aria-label="Link to Wechat QR code">
-                                <FontAwesomeIcon icon="fa-brands fa-weixin" />
-                            </IconButton>
-                        </Box>
-                        <Modal
-                            open={openWeChat}
-                            onClose={handleCloseWeChat}
-                            aria-labelledby="modal-modal-title"
-                            aria-describedby="modal-modal-description"
-                            closeAfterTransition
-                            BackdropComponent={Backdrop}
-                            BackdropProps={{
-                                timeout: 500,
-                            }}
-                        >
-                            <Fade in={openWeChat}>
-                                <Box sx={style}>
-                                    {
-                                        loading ?
-                                            <Box sx={{ width: '100%' }}>
-                                                <LinearProgress color="primary" />
-                                            </Box> : null
-                                    }
-                                    <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                        Scan QR code to add me on WeChat.
-                                    </Typography>
-                                    <Box
-                                        component='img'
-                                        alt="WeChat QR code"
-                                        src="./assets/images/wechat.png"
-                                        sx={{ height: 300, width: 300, display: "flex", justifyContent: 'center', alignItems: 'center' }}
-                                    >
-                                    </Box>
-                                    <LoadingButton
-                                        onClick={handleSave}
-                                        variant="contained"
-                                        endIcon={<DownloadRoundedIcon />}
-                                        loadingPosition="end"
-                                        loading={loading}
-                                        aria-label="Button to save Wechat QR code"
-                                    >Save QR Code
-                                    </LoadingButton>
-                                </Box>
-                            </Fade>
-                        </Modal>
-                    </div>
                 </div>
-            </footer >
-        </div >
+            </footer>
+        </div>
     );
 };
+
+const FooterSocialIcon = () => {
+    const [openWeChat, setOpenWeChat] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+    const handleOpenWeChat = () => setOpenWeChat(true);
+    const handleCloseWeChat = () => setOpenWeChat(false);
+
+    const handleSave = () => {
+        setLoading(true)
+
+        setTimeout(() => {
+            const link = document.createElement('a')
+            link.href = './assets/images/wechat.png'
+            link.download = `Anthony Zhang WeChat QR Code.png`;
+            link.click();
+        }, 1000)
+
+        setTimeout(() => {
+            setLoading(false)
+
+        }, 2000)
+    }
+
+    return (
+        <div className='social-icon'>
+            <Box>
+                <IconButton sx={{ color: '#fafafa', fontSize: 25 }} component='a' href="https://www.linkedin.com/in/anthony-xiangyu-zhang/" target="_blank" rel="noreferrer" aria-label="Link to Linkedin">
+                    <FontAwesomeIcon icon="fa-brands fa-linkedin-in" />
+                </IconButton>
+                <IconButton sx={{ color: '#fafafa', fontSize: 25, ml: 2 }} component='a' href="https://github.com/AnthonyZhang220" target="_blank" rel="noreferrer" aria-label="Link to Github">
+                    <FontAwesomeIcon icon="fa-brands fa-github" />
+                </IconButton>
+                <IconButton sx={{ color: '#fafafa', fontSize: 25, ml: 2 }} component='a' href="https://stackoverflow.com/users/6162027/anthony220" target="_blank" rel="noreferrer" aria-label="Link to Stackoverflow">
+                    <FontAwesomeIcon icon="fa-brands fa-stack-overflow" />
+                </IconButton>
+                <IconButton sx={{ color: '#fafafa', fontSize: 25, ml: 2 }} component='a' href='https://dev.to/anthonyzhang220' target="_blank" rel="noreferrer" aria-label="Link to Dev.To">
+                    <FontAwesomeIcon icon="fab fa-dev" />
+                </IconButton>
+                <IconButton sx={{ color: '#fafafa', fontSize: 25, ml: 2, mr: 2 }} onClick={handleOpenWeChat} aria-label="Link to Wechat QR code">
+                    <FontAwesomeIcon icon="fa-brands fa-weixin" />
+                </IconButton>
+            </Box>
+            <Modal
+                open={openWeChat}
+                onClose={handleCloseWeChat}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                    timeout: 500,
+                }}
+            >
+                <Fade in={openWeChat}>
+                    <Box sx={style}>
+                        {
+                            loading ?
+                                <Box sx={{ width: '100%' }}>
+                                    <LinearProgress color="primary" />
+                                </Box> : null
+                        }
+                        <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            Scan QR code to add me on WeChat.
+                        </Typography>
+                        <Box
+                            component='img'
+                            alt="WeChat QR code"
+                            src="./assets/images/wechat.png"
+                            sx={{ height: 300, width: 300, display: "flex", justifyContent: 'center', alignItems: 'center' }}
+                        >
+                        </Box>
+                        <LoadingButton
+                            onClick={handleSave}
+                            variant="contained"
+                            endIcon={<DownloadRoundedIcon />}
+                            loadingPosition="end"
+                            loading={loading}
+                            aria-label="Button to save Wechat QR code"
+                        >Save QR Code
+                        </LoadingButton>
+                    </Box>
+                </Fade>
+            </Modal>
+        </div>
+    )
+}

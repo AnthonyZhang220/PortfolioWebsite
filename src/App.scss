@@ -33,7 +33,18 @@ body {
 		z-index: 5000;
 	}
 
-
+	.progress-cursor {
+		position: fixed;
+		width: 80px;
+		height: 80px;
+		margin-left: -40px;
+		margin-top: -40px;
+		transition: transform 0.2s ease-in-out;
+		transform-origin: center center;
+		pointer-events: none;
+		z-index: 5000;
+	}
+	
 	.grow {
 		transform: scale(2);
 		background: #121212;
@@ -56,15 +67,6 @@ body {
 	#canvas {
 		position: fixed;
 		z-index: 0;
-	}
-
-	.backtotop {
-		position: fixed;
-		bottom: 55px;
-		right: 15px;
-		z-index: 5;
-
-		cursor: pointer;
 	}
 	// scrollbar-color: $mainColor2;
 	// scroll-snap-type: y mandatory;

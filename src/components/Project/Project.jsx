@@ -4,158 +4,46 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
+
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import ScienceOutlinedIcon from '@mui/icons-material/ScienceOutlined';
-import EventAvailableOutlinedIcon from '@mui/icons-material/EventAvailableOutlined';
-import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import Grid from '@mui/material/Grid';
+
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-import CircularProgress from '@mui/material/CircularProgress';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { faCircleChevronRight } from "@fortawesome/free-solid-svg-icons";
 
+import useCustomCursor from "../../hooks/useCustomCursor.js";
+
 import "./Project.scss"
 import "../../global.scss"
 
-function CircularProgressWithLabel({ progress }) {
-    return (
-        <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-            <CircularProgress variant="determinate" value={progress} size={80} thickness={2} />
-            <Box
-                sx={{
-                    top: 0,
-                    left: 0,
-                    bottom: 0,
-                    right: 0,
-                    position: 'absolute',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}
-            >
-                <Typography
-                    variant="h5"
-                    component="div"
-                    color="text.secondary"
-                    sx={{ fontWeight: "bold" }}
-                >{`${Math.round(progress)}%`}</Typography>
-            </Box>
-        </Box>
-    );
-}
 
 
 const ProjectDetails = lazy(() => import("./ProjectDetails"))
 
 
-export default function Project(props) {
+export default function Project() {
 
     const matches = useMediaQuery('(max-width:600px)');
 
-
     gsap.registerPlugin(ScrollTrigger);
 
+    const [projectdetails, setProjectdetails] = useState({})
 
     const projectContainerRef = useRef();
     const projectTitleRef = useRef();
-    const scrollerRef = useRef();
-    const scrollCursorRef = useRef();
 
-    const [progress, setProgress] = useState(0);
-    const [projectdetails, setProjectdetails] = useState({})
+    const { handleLeft, handleRight, projectScrollerRef } = useCustomCursor()
 
-    const handleLeft = () => {
-        const el = scrollerRef.current;
-        const maxScrollLeft = el.scrollWidth - el.clientWidth;
-
-        scrollerRef.current.scrollBy(-600, 0);
-
-        const percentage = el.scrollLeft * 100 / maxScrollLeft
-
-        setProgress(percentage)
-
-    }
-
-    const handleRight = () => {
-        const el = scrollerRef.current;
-        const maxScrollLeft = el.scrollWidth - el.clientWidth;
-
-        scrollerRef.current.scrollBy(600, 0);
-
-        const percentage = el.scrollLeft * 100 / maxScrollLeft
-
-        setProgress(percentage)
-    }
-
+    // project section landing
     useEffect(() => {
-
-        let mouseX = 0, mouseY = 0;
-
-        gsap.to({}, 0.016, {
-            repeat: -1,
-
-            onRepeat: function () {
-                gsap.set(scrollCursorRef.current, {
-                    css: {
-                        left: mouseX,
-                        top: mouseY
-                    }
-                })
-            }
-        })
-
-        window.addEventListener("mousemove", function (e) {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        })
-
-        const el = scrollerRef.current;
-        const maxScrollLeft = el.scrollWidth - el.clientWidth;
-
-        if (el) {
-            const onWheel = e => {
-                if (e.deltaY === 0) return;
-                e.preventDefault();
-                el.scrollTo({
-                    left: el.scrollLeft + e.deltaY * 10,
-                    behavior: "smooth"
-                });
-                const percentage = el.scrollLeft * 100 / maxScrollLeft
-
-                setProgress(percentage)
-            };
-            el.addEventListener("wheel", onWheel);
-            return () => el.removeEventListener("wheel", onWheel);
-        }
-
-    }, []);
-
-    useEffect(() => {
-        let cursor = document.getElementById("cursor")
-
-        scrollerRef.current.addEventListener("mousemove", () => {
-            cursor.style.display = "none"
-            scrollCursorRef.current.style.display = "inline-flex"
-        })
-
-        scrollerRef.current.addEventListener("mouseleave", () => {
-            cursor.style.display = "block"
-            scrollCursorRef.current.style.display = "none"
-        })
-    })
-
-
-    // project
-    useEffect(() => {
-        const animation = gsap.fromTo(scrollerRef.current, {
+        const animation = gsap.fromTo(projectScrollerRef.current, {
             x: "50%"
         }, {
             x: "0%", duration: 1,
@@ -166,8 +54,9 @@ export default function Project(props) {
         });
 
         return () => animation.scrollTrigger.kill();
-    }, []);
+    }, [projectScrollerRef]);
 
+    // project section entry
     useEffect(() => {
         const entryAnimation = gsap.fromTo(projectTitleRef.current, { y: 50, opacity: 0 }, {
             y: 0, opacity: 1, duration: 1,
@@ -189,10 +78,8 @@ export default function Project(props) {
         return () => {
             entryAnimation.scrollTrigger.kill();
         }
-    }, [])
+    }, [projectScrollerRef])
 
-    useEffect(() => {
-    })
 
     const [open, setOpen] = useState(false);
 
@@ -216,83 +103,6 @@ export default function Project(props) {
 
     return (
         <Fragment>
-            <div className='banner'>
-                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: "30px", flexWrap: 'wrap' }}>
-                    <Card elevation={0} sx={{
-                        p: 1,
-                        m: 2,
-                        borderRadius: '30px',
-                        boxShadow: "0 1.5rem 2rem -2rem hsl(200 50% 20% / 40%)",
-                        // boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
-                    }}>
-                        <CardContent>
-                            <Box sx={{
-                                display: 'flex', justifyContent: "center",
-                                alignItems: "center",
-                            }}>
-                                <EventAvailableOutlinedIcon sx={{ color: "#fa5502", fontSize: 40 }} />
-                                <Grid container item xs={12} direction='column' textAlign='center' px={3} wrap='nowrap'>
-                                    <Typography variant="h4" >
-                                        2+ Years
-                                    </Typography>
-                                    <Typography variant="h6" noWrap >
-                                        Frontend Development
-                                    </Typography>
-                                </Grid>
-                            </Box>
-                        </CardContent>
-                    </Card>
-                    <Card elevation={0} sx={{
-                        p: 1,
-                        m: 2,
-                        borderRadius: '30px',
-                        boxShadow: "0 1.5rem 2rem -2rem hsl(200 50% 20% / 40%)",
-                        // boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
-                    }}>
-                        <CardContent>
-                            <Box sx={{
-                                display: 'flex', justifyContent: "center",
-                                alignItems: "center",
-                            }}>
-                                <ScienceOutlinedIcon sx={{ color: "#e39905", fontSize: 40 }} />
-                                <Grid container item xs={12} direction='column' textAlign='center' px={3} wrap='nowrap'>
-                                    <Typography variant='h4' >
-                                        5+ Projects
-                                    </Typography>
-                                    <Typography variant='h6' noWrap >
-                                        Hands-on Experience
-                                    </Typography>
-                                </Grid>
-                            </Box>
-                        </CardContent>
-                    </Card>
-                    <Card elevation={0} sx={{
-                        p: 1,
-                        m: 2,
-                        borderRadius: '30px',
-                        boxShadow: "0 1.5rem 2rem -2rem hsl(200 50% 20% / 40%)",
-                        // boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
-                    }}>
-                        <CardContent>
-                            <Box sx={{
-                                display: 'flex', justifyContent: "center",
-                                alignItems: "center",
-                            }}>
-                                <SchoolOutlinedIcon sx={{ color: "#118a39", fontSize: 40 }} />
-                                <Grid container item xs={12} direction='column' textAlign='center' px={2} wrap='nowrap'>
-                                    <Typography variant='h4' noWrap>
-                                        4 Certificates
-                                    </Typography>
-                                    <Typography variant='h6' noWrap >
-                                        Coursera, MOOC
-                                    </Typography>
-                                </Grid>
-                            </Box>
-
-                        </CardContent>
-                    </Card>
-                </Box>
-            </div>
             <div className='project' id='project'>
                 <div className='project-title' ref={projectTitleRef}>
                     <Typography variant="h2" fontWeight="500" >
@@ -304,7 +114,7 @@ export default function Project(props) {
                 </div>
                 <div className="project-wrapper" ref={projectContainerRef} >
                     <div className='card-scroller-crop'>
-                        <div className="card-scroller-content" ref={scrollerRef} id="card-scroller-content">
+                        <div className="card-scroller-content" ref={projectScrollerRef} id="card-scroller-content">
                             <div className="card-scroller-plater">
                                 {projectdata?.map(({ id, title, subtitle, screenshots, thumbnails, roles, overview, tech, WebsiteUrl, GitHubUrl, library, process, results, features }, index) => (
                                     <Fragment key={index}>
@@ -444,9 +254,6 @@ export default function Project(props) {
                     </div>
                 </div>
             </div>
-            <Box ref={scrollCursorRef} className="scrollCursor">
-                <CircularProgressWithLabel progress={progress} />
-            </Box>
         </Fragment>
     )
 };
