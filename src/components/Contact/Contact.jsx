@@ -359,30 +359,29 @@ export default function Contact() {
     return (
         <Box className='contact' id='contact' sx={{ display: "flex", flexDirection: "column", justifyContent: 'center', alignItem: "center", }} ref={contactContainerRef}>
             <Grid container direction="row" className='contact-grid-container'>
-                <Grid item xs={12} md={6} className="contact-title-grid" ref={contactTitleRef}>
-                    <Grid item className='contact-title-background'>
+                <Grid item xs={12} md={6} className="contact-title-grid" ref={contactTitleRef} padding={2}>
+                    <Box className='contact-title-background'>
                         <Paper elevation={0}
-                            // square={true}
                             sx={{
                                 backgroundColor: "inherit",
                                 m: 2,
-                                p: 2,
+                                p: 3.5,
                             }}>
-                            <Typography variant="h2" color="#212121" textAlign="center" fontWeight="500">
+                            <Typography variant="h3" color="#212121" textAlign="center" fontWeight="500">
                                 Contact.&nbsp;
                             </Typography>
-                            <Typography variant="h2" color="#6e6e73" textAlign="center" fontWeight="500">
+                            <Typography variant="h3" color="#6e6e73" textAlign="center" fontWeight="500">
                                 It's never hard to reach out to me, at any time.
                             </Typography>
                         </Paper>
                         <Grid container className="contact-social" textAlign="center">
                             {
                                 contactSocialIcon?.map(({ name, icon, href, color }, index) => (
-                                    <Grid item xs component="a" href={href} m={"auto"} target="_blank" rel="noreferrer" key={index} aria-label={`Link to ${name}`}>
+                                    <Grid item xs={6} component="a" href={href} target="_blank" rel="noreferrer" key={index} aria-label={`Link to ${name}`}>
                                         <Paper elevation={0} sx={{
-                                            m: 2,
-                                            p: 2,
-                                            borderRadius: 10,
+                                            m: 1,
+                                            p: 1,
+                                            borderRadius: 8,
                                             boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 50px;',
                                         }}>
                                             <IconButton sx={{ fontSize: 40, color: `${color}` }} disableRipple aria-label={`Link to ${icon}`}>
@@ -393,19 +392,18 @@ export default function Contact() {
                                 ))
                             }
                         </Grid>
-                    </Grid>
+                    </Box>
                 </Grid>
-                <Grid item xs={12} md={6} className="form-grid-container">
+                <Grid item xs={12} md={6} className="form-grid-container" padding={2}>
                     <Box className="form-wrapper">
                         <Paper
                             elevation={0}
-                            // square={true}
                             sx={{
                                 backgroundColor: "#ffffff",
                                 borderRadius: 10,
                                 boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 50px;',
-                                m: 4,
-                                p: 4,
+                                m: 2,
+                                p: 3.5,
 
                             }}>
                             <Grid
@@ -732,8 +730,8 @@ export default function Contact() {
                             </Grid>
                         </Paper>
                     </Box>
-                </Grid >
+                </Grid>
             </Grid>
-        </Box >
+        </Box>
     )
 }

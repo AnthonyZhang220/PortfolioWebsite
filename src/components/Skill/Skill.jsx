@@ -129,10 +129,10 @@ export default function Skill() {
         <div className="skill" id='skill'>
             <div className="skill-section" ref={skillRef}>
                 <div className="skill-title" ref={skillTitleRef}>
-                    <Typography variant="h2" fontWeight="500">
+                    <Typography variant="h3" fontWeight="500">
                         Skill.&nbsp;
                     </Typography>
-                    <Typography variant="h2" color="#6e6e73" fontWeight="500">
+                    <Typography variant="h3" color="#6e6e73" fontWeight="500">
                         Technologies are always evolving, so am I.
                     </Typography>
                 </div>
@@ -145,8 +145,8 @@ export default function Skill() {
                                 alignItems: 'center',
                                 flexWrap: 'wrap',
                                 '& > :not(style)': {
-                                    m: 2,
-                                    p: 1,
+                                    m: 0.5,
+                                    p: 0.5,
                                 },
                             }}
                         >
@@ -166,7 +166,7 @@ export default function Skill() {
                                         exclusive
                                         onChange={handleChange}
                                         orientation={'horizontal'}
-                                        size="large"
+                                        size="medium"
                                         sx={{ m: "0 auto", }}
                                     >
                                         {
@@ -203,10 +203,10 @@ export default function Skill() {
                                                     backgroundColor: "#ffffff",
                                                     borderRadius: 5,
                                                     boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 50px;',
-                                                    m: 2,
-                                                    p: 2,
+                                                    m: 0.5,
+                                                    p: 1,
                                                 }}>
-                                                    <img src={`assets/icon/${src}`} alt={`${src}`} loading="lazy" width={isMobile ? "60px" : "80px"} height={isMobile ? "60px" : "80px"} />
+                                                    <img src={`assets/icon/${src}`} alt={`${src}`} loading="lazy" width={isMobile ? "60px" : "80px"} height="auto" style={{ display: "block" }} />
                                                 </Grid>
                                                 <Grid item xs textAlign="center">
                                                     <Typography variant='h6' sx={{

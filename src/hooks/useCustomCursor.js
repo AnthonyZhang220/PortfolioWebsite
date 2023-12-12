@@ -59,10 +59,6 @@ function useCustomCursor() {
             })
 
             //destory listenter
-            return () => {
-                window.removeEventListener("mousemove")
-                window.removeEventListener("mouse")
-            }
         }
     }, [])
 

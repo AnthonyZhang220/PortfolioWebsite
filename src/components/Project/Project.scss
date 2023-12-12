@@ -1,11 +1,12 @@
 @import "../../global.scss";
 
 .project {
-	padding-top: 100px;
+	padding-top: 4rem;
 	background-color: transparent;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+
 
 	.project-title {
 		display: flex;
@@ -123,5 +124,3 @@
 		display: none;
 	}
 }
-
-

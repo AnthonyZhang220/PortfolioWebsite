@@ -1,0 +1,24 @@
+.blog-card {
+	transition: all 0.3s cubic-bezier(0, 0, 0.5, 1);
+	border-radius: 20px;
+	box-shadow: 0px 2px 12px rgb(0 0 0 / 8%);
+
+	&:hover {
+		box-shadow: 0px 4px 24px rgb(0 0 0 / 0.2);
+	}
+
+	.blog-card-cover {
+		box-shadow: 0px 4px 24px rgb(0 0 0 / 0.2);
+		&:hover {
+			transform: scale(1.05);
+			transition: transform 0.5s ease-out 0s;
+		}
+	}
+
+	.tag-list {
+		padding: 0 0.4rem;
+		.tag {
+			margin: 0.4rem 0.4rem;
+		}
+	}
+}

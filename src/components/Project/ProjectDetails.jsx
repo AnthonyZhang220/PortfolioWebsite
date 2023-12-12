@@ -10,7 +10,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
-import Divider from "@material-ui/core/Divider";
+import Divider from "@mui/material/Divider";
 import ForwardRoundedIcon from '@mui/icons-material/ForwardRounded';
 import Chip from '@mui/material/Chip';
 import ShareIcon from '@mui/icons-material/Share';
@@ -46,7 +46,8 @@ import {
 } from "react-share";
 
 import { styled } from '@mui/material/styles';
-import { createStyles, makeStyles } from "@material-ui/styles";
+import createStyles from "@mui/material/styles/createStyles";
+import { makeStyles } from "@mui/styles";
 
 
 const projectScreenShotsStyle = {
@@ -173,40 +174,26 @@ export default function ProjectDetails({ open, projectdetails, handleDrawerOpen 
                     open={open}
                     onClose={handleDrawerOpen(false)}
                     onOpen={handleDrawerOpen(true)}
-                    swipeAreaWidth={drawerBleeding}
                     elevation={10}
                     projectdetails={projectdetails}
                     transitionDuration={{ enter: 1000, exit: 500 }}
                     disableSwipeToOpen={false}
                     sx={{
                         '&.MuiDrawer-root > .MuiPaper-root': {
-                            height: `calc(90% - ${drawerBleeding}px)`,
-                            overflow: 'visible',
+                            backgroundColor: "inherit",
+                            height: "95%",
                         },
                     }}
                 >
                     <StyledBox
                         sx={{
-                            position: 'absolute',
-                            top: -drawerBleeding,
-                            borderTopLeftRadius: 18,
+                            p: 2,
                             borderTopRightRadius: 18,
-                            visibility: 'visible',
-                            right: 0,
-                            left: 0,
-                        }}
-                    >
-                        <Puller />
-                        <Typography sx={{ p: 2 }}></Typography>
-                    </StyledBox>
-                    <StyledBox
-                        sx={{
-                            px: 2,
-                            pb: 2,
-                            height: '100%',
+                            borderTopLeftRadius: 18,
                             overflow: 'auto',
                             '&::-webkit-scrollbar-track': {
                                 backgroundColor: 'transparent',
+                                marginTop: "1rem"
                             },
                             '&::-webkit-scrollbar-thumb': {
                                 backgroundColor: '#d6dee1',
@@ -224,9 +211,20 @@ export default function ProjectDetails({ open, projectdetails, handleDrawerOpen 
                             },
                         }}
                     >
-                        <Box sx={{ position: 'relative', display: 'flex', flexDirection: 'column' }}>
+                        <StyledBox sx={{
+                            position: 'absolute',
+                            right: 0,
+                            left: 0,
+                            top: 0,
+                        }}>
+                            <Puller />
+                        </StyledBox>
+                        <Box sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                        }}>
                             {/* drawer top */}
-                            <Grid container spacing={2}>
+                            <Grid container>
                                 {/* drawer top left */}
                                 <Grid xs={12} md={6} item>
                                     <CardContent>

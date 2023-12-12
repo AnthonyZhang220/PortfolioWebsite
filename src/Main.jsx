@@ -10,7 +10,7 @@ import "./global.scss"
 import Hero from "./components/Hero/Hero";
 const Project = lazy(() => import("./components/Project/Project"))
 const Contact = lazy(() => import("./components/Contact/Contact"))
-const Skill = lazy(() => import("./components/Skill/Skill"))
+const Blog = lazy(() => import("./components/Blog/Blog"))
 
 function Main() {
 
@@ -27,9 +27,9 @@ function Main() {
                     <Project />
                 </Suspense>
             </section>
-            <section className="panel bg-color" id="section4">
-                <Suspense fallback={<Typography variant="h6">Loading Skill</Typography>}>
-                    <Skill />
+            <section className="panel bg-color" id="section3">
+                <Suspense fallback={<Typography variant="h6">Loading Blog</Typography>}>
+                    <Blog />
                 </Suspense>
             </section>
             <section className="panel bg-color" id="section5">

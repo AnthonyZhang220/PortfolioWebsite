@@ -148,6 +148,6 @@ export default function About() {
                     </Grid>
                 </Grid>
             </div>
-        </div >
+        </div>
     )
 }

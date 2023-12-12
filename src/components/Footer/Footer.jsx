@@ -4,28 +4,25 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 
 import Grid from '@mui/material/Grid';
-import { Box } from '@material-ui/core';
+import { Box } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import Backdrop from '@mui/material/Backdrop';
 import Fade from '@mui/material/Fade';
 import LinearProgress from '@mui/material/LinearProgress';
 import LoadingButton from '@mui/lab/LoadingButton';
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
-import ShareRoundedIcon from '@mui/icons-material/ShareRounded';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 
 import { styled } from '@mui/material/styles';
-import { HashLink } from "react-router-hash-link";
+import { Link } from 'react-router-dom';
 
 import { gsap } from "gsap";
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { makeStyles } from '@material-ui/core/styles';
 import './Footer.scss';
 
 library.add(fab);
@@ -34,23 +31,6 @@ library.add(fab);
 
 //lazy loading
 const MusicPlayer = lazy(() => import("../MusicPlayer"));
-
-const useStyles = makeStyles((theme) => ({
-    textField: {
-        padding: 0,
-    },
-    input: {
-        backgroundColor: 'white',
-    },
-    divider: {
-        background: 'white',
-        borderRightWidth: 5,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-}));
-
 const Widget = styled('div')(({ theme }) => ({
     padding: 16,
     borderRadius: 16,
@@ -83,39 +63,14 @@ const style = {
 export default function Footer() {
 
     let currentYear = new Date().getFullYear();
-    const classes = useStyles();
     const [like, setLike] = useState(1);
     const [fav, setFav] = useState(1);
-    const [isMobile, setIsMobile] = useState(false);
 
     const footerRef = useRef(null);
     const footerContainer = useRef(null);
 
     gsap.registerPlugin(ScrollToPlugin);
     gsap.registerPlugin(ScrollTrigger);
-
-    const handleShare = () => {
-
-        if (/iPhone|iPad|Android/i.test(navigator.userAgent)) {
-            setIsMobile(true);
-        }
-
-        if (isMobile) {
-            navigator.share(
-                {
-                    title: document.title,
-                    text: `Check out this portfolio website!`,
-                    url: window.location.href,
-                }).then(() => {
-                    console.log('Success!');
-                }).catch(error => {
-                    console.error('Something went wrong:', error)
-                })
-        } else {
-            return null
-        }
-
-    }
 
     const handleLike = async () => {
         setLike(like + 1);
@@ -172,10 +127,6 @@ export default function Footer() {
                                         <FavoriteRoundedIcon />
                                     </Badge>
                                 </IconButton>
-                                <IconButton sx={{ color: '#fafafa', fontSize: 30 }} onClick={handleShare} aria-label="Share this Website Button">
-                                    <ShareRoundedIcon>
-                                    </ShareRoundedIcon>
-                                </IconButton>
                             </Box>
                             <Box sx={{ mt: 2 }}>
                                 <Typography variant='h6'>
@@ -199,24 +150,24 @@ export default function Footer() {
                                     </Box>
                                     <Box sx={{ mb: 4 }}>
                                         <Typography variant='h6' sx={{ color: '#fafafa' }}>
-                                            <HashLink to='/#hero'>
+                                            <Link to='/'>
                                                 Home
-                                            </HashLink>
+                                            </Link>
                                         </Typography>
                                         <Typography variant='h6'>
-                                            <HashLink to='/#about'>
+                                            <Link to='/about'>
                                                 About
-                                            </HashLink>
+                                            </Link>
                                         </Typography>
                                         <Typography variant='h6'>
-                                            <HashLink to='/#project'>
+                                            <Link to='/#project'>
                                                 Project
-                                            </HashLink>
+                                            </Link>
                                         </Typography>
                                         <Typography variant='h6'>
-                                            <HashLink to='/#contact'>
+                                            <Link to='/#contact'>
                                                 Contact
-                                            </HashLink>
+                                            </Link>
                                         </Typography>
                                     </Box>
                                 </Grid>
@@ -258,8 +209,8 @@ export default function Footer() {
                         </Grid>
                     </Grid>
                 </div>
-                <Divider flexItem variant='middle' classes={{ root: classes.divider }} />
-                <div className="bottom">
+                <Divider flexItem variant='middle' />
+                <div className="footer-bottom">
                     <div className="copyright">
                         <Box sx={{ ml: 2 }}>
                             <span className='copyright-text'>
@@ -321,10 +272,6 @@ const FooterSocialIcon = () => {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
                 closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                    timeout: 500,
-                }}
             >
                 <Fade in={openWeChat}>
                     <Box sx={style}>

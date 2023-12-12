@@ -12,8 +12,10 @@ import PauseRoundedIcon from '@mui/icons-material/PauseRounded';
 import { ReactComponent as BubbleTeaIcon } from "./bubble-tea.svg"
 import { useMusicPlayerContext } from '../../contexts/MusicPlayerContext';
 
-function SpeedDialMenu(props) {
-    const backToTop = props.backToTop;
+
+
+
+function SpeedDialMenu({ backToTop, handlePaymentModalOpen }) {
     const { paused, togglePlay } = useMusicPlayerContext()
 
     const [open, setOpen] = React.useState(false);
@@ -30,6 +32,7 @@ function SpeedDialMenu(props) {
     }
 
     const buyBubbleTea = () => {
+        handlePaymentModalOpen();
         handleClose();
     }
 

@@ -1,0 +1,156 @@
+.blog-detail {
+	max-width: 1232px;
+	margin: 0 auto;
+	padding: 1rem;
+
+	.progress-bar {
+		position: fixed;
+		z-index: 30;
+		width: 100%;
+		top: 4rem;
+		left: 0;
+		height: 0.4rem;
+		display: block;
+		border-radius: 1rem;
+	}
+
+	.blog-detail-container {
+		display: flex;
+		height: auto;
+		gap: 1rem;
+
+		.blog-detail-main {
+			flex: 0 1 70%;
+			display: flex;
+			flex-direction: column;
+			min-width: 0;
+			background-color: white;
+			border-radius: 1.5rem;
+			box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.15em,
+				rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+
+			.blog-cover {
+				img {
+					display: block;
+					border-radius: 1.5rem;
+					height: auto;
+					width: 100%;
+				}
+			}
+
+			.blog-body {
+				display: flex;
+				flex-direction: column;
+				padding: 1.75rem;
+
+				.blog-title {
+				}
+
+				.blog-body-html {
+					display: flex;
+					flex-direction: column;
+
+					a {
+						text-decoration: none;
+					}
+
+					img {
+						display: block;
+						border-radius: 1.5rem;
+						height: auto;
+						width: 100%;
+					}
+
+					pre:not(.highlight),
+					div.highlight,
+					div:not(.highlight) > pre.highlight,
+					li pre.highlight,
+					blockquote pre.highlight {
+						overflow-x: auto;
+						overflow-wrap: break-word;
+						padding: 1rem; // Adjust padding as needed
+					}
+
+					div.highlight {
+						position: relative;
+						background: #08090a;
+						border-radius: 1rem;
+						padding: 1rem;
+						overflow: hidden;
+
+						pre {
+							font-size: 100%;
+							overflow-x: auto;
+						}
+
+						code {
+							font-size: 100%;
+							color: #f8f8f2;
+							font-family: "Fira Code", monospace;
+						}
+
+						.highlight__panel {
+							position: absolute;
+							top: 0;
+							right: 0;
+							display: flex;
+							visibility: hidden;
+
+							.highlight__panel-action {
+								display: flex;
+								padding: 0.5rem;
+								overflow: hidden;
+								background: #717171;
+								opacity: 0.9;
+							}
+						}
+					}
+				}
+
+				* {
+					margin-bottom: 1rem;
+				}
+			}
+		}
+
+		.blog-detail-sidebar {
+			flex: 1 1 30%;
+
+			.blog-detail-sidebar-container {
+				position: sticky;
+				display: flex;
+				flex-direction: column;
+				top: 4.5rem;
+				gap: 1rem;
+
+				& > div {
+					box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.15em,
+						rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+				}
+
+				.blog-author-tile {
+					display: flex;
+					flex-direction: column;
+					background-color: white;
+					border-radius: 1rem;
+
+					.blog-tag-list {
+						padding: 0 0.5rem;
+
+						button {
+							margin: 0.5rem;
+						}
+					}
+				}
+
+				.blog-toc-tile {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					background-color: white;
+					border-radius: 1rem;
+				}
+			}
+		}
+	}
+}

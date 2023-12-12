@@ -1,39 +1,30 @@
 .blog {
-	position: relative;
-	display: flex;
-	height: 100vh;
-	z-index: 1;
+	max-width: 1232px;
+	margin: 0 auto;
 
-	.left {
-		flex: 0.1;
+	.blog-title {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		padding-bottom: 20px;
 	}
 
-	.mid {
-		flex: 0.8;
+	.blog-container {
 		display: flex;
-		flex-direction: column;
-		align-items: center;
 		justify-content: center;
-		font-size: 80px;
+		align-items: center;
+		padding: 1rem 0;
 
-		.main {
+		.blog-list {
 			display: flex;
-			flex-direction: column;
-			align-items: center;
 			justify-content: center;
-
-			i {
-				flex: 0 1 auto;
-				font-size: inherit;
-			}
-
-			h1 {
-				font-size: inherit;
-			}
+			align-items: center;
+			margin: 1rem;
+			flex-wrap: wrap;
 		}
 	}
+}
 
-	.right {
-		flex: 0.1;
-	}
+.article-tag {
+	margin: 0 0.5rem;
 }

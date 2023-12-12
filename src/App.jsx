@@ -2,31 +2,32 @@ import { useState } from 'react';
 import NavBar from "./components/NavBar/NavBar";
 import Main from "./Main"
 import Footer from './components/Footer/Footer';
-import Blog from "./components/Blog/Blog";
 import SpeedDialMenu from './components/SpeedDialMenu/SpeedDialMenu';
 import Cursor from './components/Cursor';
 import About from './components/About/About';
-
 import useBackToTop from './hooks/useBackToTop';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import "./App.scss"
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { useMediaQuery } from '@material-ui/core';
+import { CssBaseline } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { MusicPlayerProvider } from './contexts/MusicPlayerContext';
+import useModalToggle from "./hooks/useModalToggle"
+import BlogDetail from './components/Blog/BlogDetail';
 
+import "./App.scss"
+import PaymentModal from './components/PaymentModal';
 
 
 
 function App() {
 
 	const [mode, setMode] = useState(null);
-
 	const isMobile = useMediaQuery('(max-width: 834px)');
+	const { backToTop } = useBackToTop();
+	const { isOpen, handleClose, handleOpen } = useModalToggle();
 
 
-	const { backToTop } = useBackToTop()
 
 	const theme = createTheme({
 		palette: {
@@ -50,42 +51,42 @@ function App() {
 
 		},
 		typography: {
-			fontFamily: `"myvg", sans-serif`,
+			fontFamily: `"Roboto", sans-serif`,
 			h2: {
-				fontSize: isMobile ? "2.5em" : "4em",
+				fontSize: isMobile ? "3rem" : "4rem",
 			},
 			h3: {
-				fontSize: isMobile ? "1.5em" : "3em",
+				fontSize: isMobile ? "2rem" : "3rem",
 			},
 			caption: {
-				fontSize: "1em",
+				fontSize: "1rem",
 			},
 		}
 	});
 
 
 	return (
-		<div className="App" id="App">
-			<Cursor />
-			<ThemeProvider theme={theme}>
-				<CssBaseline />
-				<BrowserRouter>
-					<MusicPlayerProvider>
+		<ThemeProvider theme={theme}>
+			<MusicPlayerProvider>
+				<div className="App" id="App">
+					<Cursor />
+					<CssBaseline />
+					<BrowserRouter>
 						<NavBar mode={mode} setMode={setMode} />
 						{/* <Canvas id="canvas"></Canvas> */}
-						<SpeedDialMenu backToTop={backToTop} />
+						<SpeedDialMenu backToTop={backToTop} handlePaymentModalOpen={handleOpen} />
+						<PaymentModal isOpen={isOpen} handlePaymentModalClose={handleClose} />
 						<Routes>
 							<Route path="/" element={<Main />}>
-
 							</Route>
 							<Route path="/about" element={<About />} />
-							<Route path="/blog" element={<Blog />} />
+							<Route path="/blog/:blogId" element={<BlogDetail handlePaymentModalOpen={handleOpen} />} />
 						</Routes>
 						<Footer />
-					</MusicPlayerProvider>
-				</BrowserRouter>
-			</ThemeProvider>
-		</div>
+					</BrowserRouter>
+				</div>
+			</MusicPlayerProvider>
+		</ThemeProvider>
 	);
 };
 

@@ -1,4 +1,9 @@
 @import "./global.scss";
+* {
+	font-family: "Roboto", sans-serif;
+	margin: 0;
+	box-sizing: border-box;
+}
 
 html {
 	scroll-behavior: smooth;
@@ -44,7 +49,7 @@ body {
 		pointer-events: none;
 		z-index: 5000;
 	}
-	
+
 	.grow {
 		transform: scale(2);
 		background: #121212;
@@ -95,9 +100,6 @@ body {
 	}
 }
 
-::root {
-}
-
 .darkmode {
 	background-color: #121212;
 	color: rgba(255, 255, 255, 0.87);
@@ -139,3 +141,44 @@ body {
 // 		font-size: 1em;
 // 	}
 // }
+
+.payment-modal {
+	border-radius: 1rem;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	min-width: 400px;
+	background-color: white;
+	border: 2px solid #000;
+	box-shadow: 24;
+	padding: 2rem;
+
+	.payment-modal-container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+
+		.payment-title {
+			text-align: center;
+		}
+
+		.payment-code-container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 0.5rem;
+			
+			.payment-code-image {
+				flex: 1 1 50%;
+
+				img {
+					display: block;
+					height: auto;
+					width: 100%;
+				}
+			}
+		}
+	}
+}
