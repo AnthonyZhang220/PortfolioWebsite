@@ -135,11 +135,7 @@ const CloseButton = styled(Button)(({ theme }) => ({
 export default function ProjectDetails({ open, projectdetails, handleDrawerOpen }) {
 
     const classes = useStyles();
-
-    const drawerBleeding = 20;
-
     const [sharePage, setSharePage] = useState(false);
-
     const [imageOpen, setImageOpen] = useState(false);
     const [imagesrc, setImagesrc] = useState([]);
 

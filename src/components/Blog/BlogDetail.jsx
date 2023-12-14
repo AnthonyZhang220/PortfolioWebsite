@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useRef, useEffect } from "react"
-import { CardActions, CardContent, IconButton, Typography } from "@mui/material"
+import { CardActions, Typography } from "@mui/material"
 import CardHeader from "@mui/material/CardHeader"
 import Avatar from "@mui/material/Avatar"
 import Button from "@mui/material/Button"
@@ -40,7 +40,7 @@ function BlogDetail() {
                 <div className="blog-detail-container">
                     <div className="blog-detail-main">
                         <div className="blog-cover" >
-                            <img src={blog?.cover_image} />
+                            <img src={blog?.cover_image} alt={blog?.cover_iamge} />
                         </div>
                         <div className="blog-body">
                             <div className="blog-title">

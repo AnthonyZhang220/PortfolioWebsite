@@ -1,13 +1,11 @@
-import { useState, useRef, useEffect, forwardRef, createRef } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
-import emailjs from '@emailjs/browser';
+import { useRef, useEffect } from 'react';
 import { init } from '@emailjs/browser';
 import { gsap } from 'gsap';
-import axios from "axios";
 
+import useFormValidation from '../../hooks/useFormValidation';
+import useRecaptcha from '../../hooks/useRecaptcha';
+import useContactForm from '../../hooks/useContactForm';
 
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -15,21 +13,12 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 import MessageIcon from '@mui/icons-material/Message';
-import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
 import TodayIcon from '@mui/icons-material/Today';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
 
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import SendIcon from '@mui/icons-material/Send';
-import LoadingButton from '@mui/lab/LoadingButton';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
 
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -41,59 +30,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import "./Contact.scss"
-import { FormHelperText, IconButton } from '@mui/material';
+import { FormHelperText, IconButton, Tooltip } from '@mui/material';
+import FormSubmitDialog from './FormSubmitDialog';
+import useDialog from '../../hooks/useDialog';
 
 
 library.add(fab);
 init(process.env.REACT_APP_USER_ID);
 
 
-const Alert = forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
-
-
-
-function PaperComponent(props) {
-    return (
-        <Paper {...props} />
-    );
-};
-
 
 
 export default function Contact() {
-
-    const steps = ['Confirm your info', 'Verify you are a human', 'Submit contact form'];
-    const [activeStep, setActiveStep] = useState(1);
-    const [expired, setExpired] = useState(false);
-    const [error, setError] = useState(false);
-    const [isVerified, setIsVerified] = useState(false);
-    const [success, setSuccess] = useState(false);
-    const [openDialog, setOpenDialog] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [input, setInput] = useState({
-        name: "",
-        email: "",
-        phone: "",
-        intention: "",
-        date: "",
-        message: "Hi, ",
-    })
-
-    const [isFieldEmpty, setIsFieldEmpty] = useState({
-        name: false,
-        email: false,
-        intention: false,
-    });
-
-    const [isEmailValid, setIsEmailValid] = useState(true);
-    const [isNameValid, setIsNameValid] = useState(true);
-    const [isIntentionValid, setIsIntentionValid] = useState(true);
-    const [isMessageValid, setIsMessageValid] = useState(true);
-    const [isRecaptchaLoaded, setIsRecaptchaLoaded] = useState(false);
-
-
     const contactSocialIcon = [
         {
             name: "Linkedin",
@@ -114,201 +62,15 @@ export default function Contact() {
             href: "https://stackoverflow.com/users/6162027/anthony220"
         },
         {
-            name: "Medium",
-            icon: "medium",
+            name: "Dev.To",
+            icon: "dev",
             color: "#000000",
-            href: "https://medium.com/@anthonyzhang220"
+            href: "https://dev.to/anthonyzhang220"
         }
     ]
 
-    const formRef = useRef();
     const contactContainerRef = useRef();
     const contactTitleRef = useRef();
-    const recaptchaRef = createRef();
-
-    const [errorCode, setErrorCode] = useState(false);
-
-    const showErrorCode = (error) => {
-
-        setErrorCode(true);
-
-        return (
-            <Snackbar open={errorCode} autoHideDuration={3000} onClose={handleCloseErrorCode} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-                <Alert onClose={handleCloseErrorCode} severity="error" sx={{ width: '100%' }}>
-                    {error}. Please try again later.
-                </Alert>
-            </Snackbar>
-        )
-    }
-
-    const handleCloseErrorCode = () => {
-        setErrorCode(false);
-    }
-
-
-    const handleOnChange = (e) => {
-
-        const { name, email, phone, date, message, intention, value } = e.target;
-
-        setInput({
-            ...input,
-            [name]: value,
-            [email]: value,
-            [phone]: value,
-            [intention]: value,
-            [date]: value,
-            [message]: value,
-        })
-
-    }
-
-
-    const handleShowExpired = async (expire) => {
-        console.log(expire);
-        setLoading(true);
-        setExpired(true);
-
-        setActiveStep(1);
-
-    }
-    const handleCloseExpired = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setExpired(false);
-        setLoading(false);
-    }
-
-    const handleCloseSuccess = () => {
-        setSuccess(false);
-        setIsVerified(false);
-    }
-
-    const handleCloseError = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        recaptchaRef.current.reset();
-        setError(false);
-        setLoading(false);
-    }
-
-    const handleDialogClose = () => {
-        setOpenDialog(false);
-        setActiveStep(1);
-        setIsVerified(false);
-        setSuccess(false);
-    }
-
-
-    const handleDialogOpen = () => {
-
-        if (input.name === "") {
-            setIsFieldEmpty({ name: true });
-            setTimeout(() => {
-                setIsFieldEmpty({ name: false });
-            }, [4000])
-        } else if (input.email === "") {
-            setIsFieldEmpty({ email: true });
-            setTimeout(() => {
-                setIsFieldEmpty({ email: false });
-            }, [4000])
-        } else if (input.intent === "") {
-            setIsFieldEmpty({ intent: true });
-            setTimeout(() => {
-                setIsFieldEmpty({ intent: false });
-            }, [4000])
-        } else {
-            setOpenDialog(true);
-
-        }
-    }
-
-    //close popup warning
-    const handleFieldEmptyClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-
-        setIsFieldEmpty({
-            name: false,
-            email: false,
-            intention: false,
-        })
-
-    }
-
-    const handleRadioButton = (event) => {
-        if (event.target.value === input.intention) {
-            setInput({ ...input, intention: "" })
-        } else {
-            setInput({ ...input, intention: event.target.value })
-        }
-    }
-
-    //verify recaptcha with Google on backend
-    const handleVerify = async (token) => {
-        console.log(token)
-        const captchaToken = token;
-
-        await axios.post("https://anthonyzhang.netlify.app/recaptcha", { captchaToken })
-            .then(res => {
-                if (res.data === "Human") {
-                    setIsVerified(true);
-                    setActiveStep(activeStep + 1);
-                } else {
-                    setIsVerified(false);
-                }
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-
-    }
-
-
-    //final submission after recaptcha validation
-    const handleSubmit = () => {
-        // setLoading(true);
-        // recaptchaRef.current.execute();
-        console.log(input.email)
-
-        if (!isVerified) {
-            setLoading(true);
-            setError(true);
-        } else if (expired) {
-            setLoading(true);
-            setExpired(true);
-        } else {
-
-            // const captcha = document.querySelector('#g-recaptcha-response').value;
-
-            // fetch('/submit', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Accept': 'application/json, text/plain, */*',
-            //         'Content-type': 'application/json'
-            //     },
-            //     body: JSON.stringify({ ...input, captcha: captcha })
-            // })
-            //     .then((res) => {
-            //         res.json();
-            //     })
-            //     .then((data) => {
-            //         console.log(data);
-            //     })
-            emailjs.sendForm(process.env.REACT_APP_SERVICE_ID, process.env.REACT_APP_TEMPLATE_ID, formRef.current).then((response) => {
-                setLoading(false);
-                setSuccess(true);
-                setActiveStep(activeStep + 1);
-
-                console.log('Success!', response)
-            }, (error) => {
-                showErrorCode(error);
-                console.log('Error', error)
-            });
-        }
-    }
 
     useEffect(() => {
         const animation = gsap.fromTo(contactTitleRef.current, { y: 50, opacity: 0 }, {
@@ -342,56 +104,39 @@ export default function Contact() {
         }
     }, [])
 
-
-    // useEffect(() => {
-    //     const animation = gsap.fromTo(contactContainerRef.current, { y: 0, scale: 1 }, {
-    //         y: 50,
-    //         scale: 0.8,
-    //         scrollTrigger: {
-    //             trigger: '.footer',
-    //             start: 'top bottom',
-    //         }
-    //     })
-
-    //     return () => animation.scrollTrigger.kill();
-    // })
-
     return (
         <Box className='contact' id='contact' sx={{ display: "flex", flexDirection: "column", justifyContent: 'center', alignItem: "center", }} ref={contactContainerRef}>
             <Grid container direction="row" className='contact-grid-container'>
                 <Grid item xs={12} md={6} className="contact-title-grid" ref={contactTitleRef} padding={2}>
-                    <Box className='contact-title-background'>
-                        <Paper elevation={0}
-                            sx={{
-                                backgroundColor: "inherit",
-                                m: 2,
-                                p: 3.5,
-                            }}>
+                    <Box sx={{
+                        p: 3.5,
+                    }}>
+                        <Box className='contact-title-background'>
                             <Typography variant="h3" color="#212121" textAlign="center" fontWeight="500">
                                 Contact.&nbsp;
                             </Typography>
                             <Typography variant="h3" color="#6e6e73" textAlign="center" fontWeight="500">
                                 It's never hard to reach out to me, at any time.
                             </Typography>
-                        </Paper>
-                        <Grid container className="contact-social" textAlign="center">
+                        </Box>
+                        <Box className="contact-social-icon" textAlign="center">
                             {
                                 contactSocialIcon?.map(({ name, icon, href, color }, index) => (
-                                    <Grid item xs={6} component="a" href={href} target="_blank" rel="noreferrer" key={index} aria-label={`Link to ${name}`}>
-                                        <Paper elevation={0} sx={{
-                                            m: 1,
-                                            p: 1,
-                                            borderRadius: 8,
-                                            boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 50px;',
-                                        }}>
-                                            <IconButton sx={{ fontSize: 40, color: `${color}` }} disableRipple aria-label={`Link to ${icon}`}>
+                                    <Paper key={index} className="contact-social-icon-tile" elevation={0} sx={{
+                                        m: 1,
+                                        p: 1,
+                                        borderRadius: 8,
+                                        boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 50px;',
+                                    }}>
+                                        <Tooltip title={name}>
+                                            <IconButton sx={{ fontSize: 40, color: `${color}` }} href={href} disableRipple aria-label={`Link to ${name}`}>
                                                 <FontAwesomeIcon icon={`fab fa-${icon}`} />
                                             </IconButton>
-                                        </Paper>
-                                    </Grid>
+                                        </Tooltip>
+                                    </Paper>
                                 ))
                             }
-                        </Grid>
+                        </Box>
                     </Box>
                 </Grid>
                 <Grid item xs={12} md={6} className="form-grid-container" padding={2}>
@@ -402,336 +147,193 @@ export default function Contact() {
                                 backgroundColor: "#ffffff",
                                 borderRadius: 10,
                                 boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 50px;',
-                                m: 2,
                                 p: 3.5,
-
                             }}>
-                            <Grid
-                                component="form"
-                                container
-                                sx={{
-                                    '& .MuiTextField-root': { m: 1, p: 1 },
-                                }}
-                                ref={formRef}
-                            >
-                                <Grid item xs={12} md={6} textAlign="center" >
-                                    <TextField
-                                        fullWidth
-                                        required
-                                        id="form-name"
-                                        label="Name"
-                                        type='text'
-                                        name='name'
-                                        autoComplete='name'
-                                        placeholder="Anthony Zhang"
-                                        value={input.name}
-                                        error={!isNameValid}
-                                        helperText={isNameValid ? "" : "Your name is required!"}
-                                        onFocus={() => setIsNameValid(true)}
-                                        onBlur={() => {
-                                            if (input.name === "") {
-                                                setIsNameValid(false);
-                                            } else {
-                                                setIsNameValid(true);
-                                            }
-                                        }}
-                                        onChange={e => handleOnChange(e)}
-                                        variant="standard"
-                                        InputProps={{
-                                            startAdornment: <InputAdornment position="start"><AccountCircleIcon /></InputAdornment>,
-                                            sx: { p: 1 }
-                                        }}
-                                        InputLabelProps={{
-                                            sx: { fontSize: '20px', fontWeight: "bold" },
-                                            shrink: true,
-                                        }}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} md={6} textAlign="center">
-                                    <TextField
-                                        fullWidth
-                                        required
-                                        id="form-email"
-                                        label="Email"
-                                        type='email'
-                                        name='email'
-                                        autoComplete='email'
-                                        placeholder="example@gmail.com"
-                                        variant="standard"
-                                        value={input.email}
-                                        error={!isEmailValid}
-                                        helperText={isEmailValid ? "" : "Please enter a valid email address!"}
-                                        onBlur={() => {
-                                            if (/^$|^\S+@\S+\.\S+$/.test(input.email)) {
-                                                setIsEmailValid(true);
-                                            } else {
-                                                setIsEmailValid(false);
-                                            };
-                                        }}
-                                        onFocus={() => setIsEmailValid(true)}
-                                        onChange={e => handleOnChange(e)}
-                                        InputProps={{
-                                            startAdornment: <InputAdornment position="start"><EmailIcon /></InputAdornment>,
-                                            sx: { p: 1 }
-                                        }}
-                                        InputLabelProps={{
-                                            sx: { fontSize: '20px', fontWeight: "bold" }
-                                        }}
-                                    />
-                                </Grid>
-                                {/* email */}
-                                <Grid item xs={12} md={6} textAlign="center">
-                                    <TextField
-                                        fullWidth
-                                        id="form-phone-number"
-                                        label="Phone Number"
-                                        type='tel'
-                                        name='phone'
-                                        autoComplete='tel'
-                                        placeholder="+1234567890"
-                                        variant="standard"
-                                        value={input.phone}
-                                        error={!RegExp('^$|^[0-9]+$').test(input.phone)}
-                                        helperText={RegExp('^$|^[0-9]+$').test(input.phone) ? "" : "Numbers Only"}
-                                        onChange={e => handleOnChange(e)}
-                                        InputProps={{
-                                            startAdornment: <InputAdornment position="start"><PhoneIphoneIcon /></InputAdornment>,
-                                            sx: { p: 1 }
-                                        }}
-                                        InputLabelProps={{
-                                            sx: { fontSize: '20px', fontWeight: "bold" }
-                                        }}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} md={6} textAlign="center">
-                                    <TextField
-                                        fullWidth
-                                        id="form-date"
-                                        type='date'
-                                        label="Date"
-                                        name='date'
-                                        placeholder=""
-                                        value={input.date}
-                                        onChange={e => handleOnChange(e)}
-                                        variant="standard"
-                                        InputProps={{
-                                            startAdornment: <InputAdornment position="start"><TodayIcon /></InputAdornment>,
-                                            sx: { p: 1 }
-                                        }}
-                                        InputLabelProps={{
-                                            sx: { fontSize: '20px', fontWeight: "bold" }
-                                        }}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} md={6} textAlign='start'>
-                                    <FormControl sx={{ p: 1 }} required error={!isIntentionValid}>
-                                        <FormLabel id="demo-controlled-radio-buttons-group" sx={{ fontWeight: "bold" }}>Intent</FormLabel>
-                                        <RadioGroup
-                                            row
-                                            aria-labelledby="form-intention-ratio-group"
-                                            name="controlled-radio-buttons-group"
-                                            value={input.intention}
-                                            onBlur={() => {
-                                                if (input.intention === "") {
-                                                    setIsIntentionValid(false)
-                                                } else {
-                                                    setIsIntentionValid(true)
-                                                }
-                                            }}
-                                            onFocus={() => setIsIntentionValid(true)}
-                                        >
-                                            <Grid item xs>
-                                                <FormControlLabel value="Collaborator" control={<Radio size='medium' onClick={handleRadioButton} />} label="Collaborator" />
-                                            </Grid>
-                                            <Grid item xs>
-                                                <FormControlLabel value="Recruitor" control={<Radio size='medium' onClick={handleRadioButton} />} label="Recruitor" />
-                                            </Grid>
-                                            <Grid item xs>
-                                                <FormControlLabel value="Other" control={<Radio size='medium' onClick={handleRadioButton} />} label="Other(Please specify in message)" />
-                                            </Grid>
-                                        </RadioGroup>
-                                        <FormHelperText>{!isIntentionValid ? "Intention is required!" : ""}</FormHelperText>
-                                    </FormControl>
-                                </Grid>
-                                <Grid item xs={12} md={6} textAlign="center">
-                                    <TextField
-                                        fullWidth
-                                        multiline
-                                        required={input.intention === "Other" ? true : false}
-                                        maxRows={4}
-                                        id="form-message"
-                                        label="Message"
-                                        name='message'
-                                        variant="standard"
-                                        value={input.message}
-                                        error={input.intention === "Other" && !isMessageValid}
-                                        helperText={input.intention === "Other" && !isMessageValid ? "Since you choose Other for intent, please specify your reason for contact." : ""}
-                                        onBlur={() => {
-                                            if (input.message === "") {
-                                                setIsMessageValid(false);
-                                            } else {
-                                                setIsMessageValid(true);
-                                            }
-                                        }}
-                                        onFocus={() => setIsMessageValid(true)}
-                                        onChange={e => handleOnChange(e)}
-                                        InputProps={{
-                                            startAdornment: <InputAdornment position="start"><MessageIcon /></InputAdornment>,
-                                            sx: { p: 1 }
-                                        }}
-                                        InputLabelProps={{
-                                            sx: { fontSize: '20px', fontWeight: "bold" }
-                                        }}
-                                    />
-                                </Grid>
-                                <Grid item xs sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 1, textAlign: "start" }}>
-                                    <Button onClick={handleDialogOpen} aria-label="Check Form Info before Submit" variant="outlined">Submit</Button>
-                                </Grid>
-                                <Dialog
-                                    open={openDialog}
-                                    onClose={handleDialogClose}
-                                    PaperComponent={PaperComponent}
-                                >
-                                    <Box sx={{ pt: 4, pl: 4, pr: 4 }}>
-                                        <Stepper activeStep={activeStep} alternativeLabel>
-                                            {steps.map((label, index) => {
-                                                const stepProps = {};
-                                                const labelProps = {};
-
-                                                return (
-                                                    <Step key={label} {...stepProps}>
-                                                        <StepLabel {...labelProps}>{label}</StepLabel>
-                                                    </Step>
-                                                );
-                                            })}
-                                        </Stepper>
-                                    </Box>
-                                    <DialogContent dividers={true}>
-                                        <Grid container spacing={2} direction="row"
-                                            justifyContent="center"
-                                            alignItems="center">
-                                            <Grid container item spacing={2} xs={12}>
-                                                <Grid item>
-                                                    <AccountCircleIcon />
-                                                </Grid>
-                                                <Grid item xs zeroMinWidth>
-                                                    <Typography noWrap>Name: {input.name}</Typography>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid container item spacing={2} xs={12}>
-                                                <Grid item>
-                                                    <EmailIcon />
-                                                </Grid>
-                                                <Grid item xs zeroMinWidth>
-                                                    <Typography noWrap>Email: {input.email}</Typography>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid container item spacing={2} xs={12}>
-                                                <Grid item>
-                                                    <PhoneIphoneIcon />
-                                                </Grid>
-                                                <Grid item xs zeroMinWidth>
-                                                    <Typography noWrap>Phone: {input.phone}</Typography>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid container item spacing={2} xs={12}>
-                                                <Grid item>
-                                                    <ConnectWithoutContactIcon />
-                                                </Grid>
-                                                <Grid item xs zeroMinWidth>
-                                                    <Typography noWrap>Intent: {input.intention}</Typography>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid container item spacing={2} xs={12}>
-                                                <Grid item>
-                                                    <TodayIcon />
-                                                </Grid>
-                                                <Grid item xs zeroMinWidth>
-                                                    <Typography noWrap>Date: {input.date}</Typography>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid container item spacing={2} xs={12}>
-                                                <Grid item>
-                                                    <MessageIcon />
-                                                </Grid>
-                                                <Grid item xs sx={{
-                                                    whiteSpace: "pre-wrap",
-                                                    wordBreak: "break-all",
-                                                }}>
-                                                    <Typography>Message:</Typography>
-                                                    <Typography>{input.message}</Typography>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-                                    </DialogContent>
-                                    <DialogActions sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: 'auto' }} >
-                                        <Box>
-                                            <ReCAPTCHA
-                                                ref={recaptchaRef}
-                                                sitekey={process.env.REACT_APP_SITE_KEY}
-                                                onChange={(token) => handleVerify(token)}
-                                                size="normal"
-                                                onExpired={(expire) => handleShowExpired(expire)}
-                                                asyncScriptOnLoad={() => setIsRecaptchaLoaded(true)}
-                                            >
-                                            </ReCAPTCHA>
-                                            <Box sx={{ display: 'flex', width: 'auto', justifyContent: 'center', alignItems: 'center', mt: 2, mb: 2 }}>
-                                                <Button variant='outlined' onClick={handleDialogClose}>
-                                                    Cancel
-                                                </Button>
-                                                {
-                                                    success ?
-                                                        <Snackbar open={success} autoHideDuration={3000} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-                                                            <Alert onClose={handleCloseSuccess} severity="success" sx={{ width: '100%' }}>
-                                                                Success! Please check your email for confirmation.
-                                                            </Alert>
-                                                        </Snackbar>
-                                                        :
-                                                        <>
-                                                            <LoadingButton
-                                                                sx={{ ml: 2 }}
-                                                                onClick={handleSubmit}
-                                                                endIcon={<SendIcon />}
-                                                                variant="contained"
-                                                                loading={loading}
-                                                                disabled={!isRecaptchaLoaded}
-                                                                aria-label="Send Form to Server"
-                                                            >
-                                                                Send
-                                                            </LoadingButton>
-                                                            <Snackbar open={error} autoHideDuration={3000} onClose={handleCloseError} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-                                                                <Alert onClose={handleCloseError} severity="error" sx={{ width: '100%' }}>
-                                                                    Please verify you are a human!
-                                                                </Alert>
-                                                            </Snackbar>
-                                                            <Snackbar open={expired} autoHideDuration={3000}
-                                                                onClose={handleCloseExpired} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-                                                                <Alert onClose={handleCloseExpired} severity="warning" sx={{ width: '100%' }}>
-                                                                    Verification expired! Please try again!
-                                                                </Alert>
-                                                            </Snackbar>
-                                                        </>
-                                                }
-                                            </Box>
-                                        </Box>
-                                    </DialogActions>
-                                </Dialog>
-                                <Snackbar open={Object.keys(isFieldEmpty).every(key => isFieldEmpty[key])} autoHideDuration={3000}
-                                    onClose={handleFieldEmptyClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-                                    <Alert onClose={handleFieldEmptyClose} severity="warning" sx={{ width: '100%' }}>
-                                        Please fill out your&nbsp;
-                                        {
-                                            Object.keys(isFieldEmpty).filter((key) => isFieldEmpty[key] === true).map((term) => {
-                                                return term[0].toUpperCase() + term.slice(1);
-                                            })
-                                        }!
-                                    </Alert>
-                                </Snackbar>
-                            </Grid>
+                            <ContactForm />
                         </Paper>
                     </Box>
                 </Grid>
             </Grid>
         </Box>
+    )
+}
+
+
+function ContactForm() {
+
+    const formRef = useRef();
+    const { formInput, handleFormSubmit, handleOnFormChange, handleRadioButton, submitStatus } = useContactForm()
+    const { isFormValid, triggerValidation, resetFormValidation, error } = useFormValidation(formInput);
+    const { isVerifyExpired } = useRecaptcha()
+    const { handleDialogOpen, openDialog, activeStep, handleDialogClose } = useDialog(isVerifyExpired, isFormValid);
+
+    useEffect(() => {
+        console.log(openDialog)
+    }, [openDialog])
+
+    return (
+        <Grid
+            component="form"
+            container
+            sx={{
+                '& .MuiTextField-root': { m: 1, p: 1 },
+            }}
+            ref={formRef}
+        >
+            <Grid item xs={12} md={6} textAlign="center" >
+                <TextField
+                    fullWidth
+                    required
+                    id="form-name"
+                    label="Name"
+                    type='text'
+                    name='name'
+                    autoComplete='name'
+                    placeholder="Anthony Zhang"
+                    value={formInput.name}
+                    error={!isFormValid}
+                    helperText={isFormValid ? "" : error}
+                    onFocus={resetFormValidation}
+                    onBlur={triggerValidation}
+                    onChange={e => handleOnFormChange(e)}
+                    variant="standard"
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start"><AccountCircleIcon /></InputAdornment>,
+                        sx: { p: 1 }
+                    }}
+                    InputLabelProps={{
+                        sx: { fontSize: '20px', fontWeight: "bold" },
+                        shrink: true,
+                    }}
+                />
+            </Grid>
+            <Grid item xs={12} md={6} textAlign="center">
+                <TextField
+                    fullWidth
+                    required
+                    id="form-email"
+                    label="Email"
+                    type='email'
+                    name='email'
+                    autoComplete='email'
+                    placeholder="example@gmail.com"
+                    variant="standard"
+                    value={formInput.email}
+                    error={!isFormValid}
+                    helperText={isFormValid ? "" : error}
+                    onBlur={() => {
+                        if (/^$|^\S+@\S+\.\S+$/.test(formInput.email)) {
+                            triggerValidation();
+                        };
+                    }}
+                    onFocus={resetFormValidation}
+                    onChange={e => handleOnFormChange(e)}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start"><EmailIcon /></InputAdornment>,
+                        sx: { p: 1 }
+                    }}
+                    InputLabelProps={{
+                        sx: { fontSize: '20px', fontWeight: "bold" }
+                    }}
+                />
+            </Grid>
+            {/* email */}
+            <Grid item xs={12} md={6} textAlign="center">
+                <TextField
+                    fullWidth
+                    id="form-phone-number"
+                    label="Phone Number"
+                    type='tel'
+                    name='phone'
+                    autoComplete='tel'
+                    placeholder="+1234567890"
+                    variant="standard"
+                    value={formInput.phone}
+                    error={!RegExp('^$|^[0-9]+$').test(formInput.phone)}
+                    helperText={RegExp('^$|^[0-9]+$').test(formInput.phone) ? "" : "Numbers Only"}
+                    onChange={e => handleOnFormChange(e)}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start"><PhoneIphoneIcon /></InputAdornment>,
+                        sx: { p: 1 }
+                    }}
+                    InputLabelProps={{
+                        sx: { fontSize: '20px', fontWeight: "bold" }
+                    }}
+                />
+            </Grid>
+            <Grid item xs={12} md={6} textAlign="center">
+                <TextField
+                    fullWidth
+                    id="form-date"
+                    type='date'
+                    label="Date"
+                    name='date'
+                    placeholder=""
+                    value={formInput.date}
+                    onChange={e => handleOnFormChange(e)}
+                    variant="standard"
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start"><TodayIcon /></InputAdornment>,
+                        sx: { p: 1 }
+                    }}
+                    InputLabelProps={{
+                        sx: { fontSize: '20px', fontWeight: "bold" }
+                    }}
+                />
+            </Grid>
+            <Grid item xs={12} md={6} textAlign='start'>
+                <FormControl sx={{ p: 1 }} required error={!isFormValid}>
+                    <FormLabel id="demo-controlled-radio-buttons-group" sx={{ fontWeight: "bold" }}>Intent</FormLabel>
+                    <RadioGroup
+                        row
+                        aria-labelledby="form-intention-ratio-group"
+                        name="controlled-radio-buttons-group"
+                        value={formInput.intention}
+                        onFocus={resetFormValidation}
+                        onBlur={triggerValidation}
+                    >
+                        <Grid item xs>
+                            <FormControlLabel value="Collaborator" control={<Radio size='medium' onClick={handleRadioButton} />} label="Collaborator" />
+                        </Grid>
+                        <Grid item xs>
+                            <FormControlLabel value="Recruitor" control={<Radio size='medium' onClick={handleRadioButton} />} label="Recruitor" />
+                        </Grid>
+                        <Grid item xs>
+                            <FormControlLabel value="Other" control={<Radio size='medium' onClick={handleRadioButton} />} label="Other(Please specify in message)" />
+                        </Grid>
+                    </RadioGroup>
+                    <FormHelperText>{isFormValid ? "" : error}</FormHelperText>
+                </FormControl>
+            </Grid>
+            <Grid item xs={12} md={6} textAlign="center">
+                <TextField
+                    fullWidth
+                    multiline
+                    required={formInput.intention === "Other" ? true : false}
+                    maxRows={4}
+                    id="form-message"
+                    label="Message"
+                    name='message'
+                    variant="standard"
+                    value={formInput.message}
+                    error={formInput.intention === "Other" && !isFormValid}
+                    helperText={formInput.intention === "Other" && !isFormValid ? "Since you choose Other for intent, please specify your reason for contact." : ""}
+                    onFocus={resetFormValidation}
+                    onBlur={triggerValidation}
+                    onChange={e => handleOnFormChange(e)}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start"><MessageIcon /></InputAdornment>,
+                        sx: { p: 1 }
+                    }}
+                    InputLabelProps={{
+                        sx: { fontSize: '20px', fontWeight: "bold" }
+                    }}
+                />
+            </Grid>
+            <Grid item xs sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 1, textAlign: "start" }}>
+                <Button onClick={handleDialogOpen} aria-label="Check Form Info before Submit" variant="outlined">Submit</Button>
+            </Grid>
+            <FormSubmitDialog openDialog={openDialog} activeStep={activeStep} formInput={formInput} handleFormSubmit={handleFormSubmit} submitStatus={submitStatus} handleDialogClose={handleDialogClose} />
+        </Grid>
     )
 }

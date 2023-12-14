@@ -5,7 +5,7 @@
 	display: flex;
 	flex-direction: column;
 	background-color: inherit;
-	padding-top: 100px;
+	padding: 2rem 0;
 	// padding-bottom: 100px;
 
 	.skill-section {
@@ -20,7 +20,6 @@
 			align-items: center;
 			flex-wrap: wrap;
 			padding-bottom: 20px;
-
 		}
 
 		.technology {

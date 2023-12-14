@@ -7,50 +7,28 @@
 	padding: 2rem 0;
 	max-width: 1232px;
 	margin: 0 auto;
+
 	.contact-grid-container {
 		max-width: 1400px;
 		margin: 0 auto;
 
 		.contact-title-grid {
+			
 			.contact-title-background {
 				.contact-subtitle {
 					color: #6e6e73;
 				}
-
-				.contact-social {
-					.linkedin,
-					.github,
-					.stackoverflow,
-					.hackerrank,
-					.medium {
-						// padding-right: 30%;
-						// vertical-align: middle;
-						// margin-bottom: 30px;
-
-						a {
-							color: black;
-
-							i {
-								text-align: center;
-								width: 2em;
-								font-size: 30px;
-								transition: all 0.5s ease-out;
-								transform-origin: center center;
-								line-height: 2;
-
-								&:hover {
-									transform: scale(1.5);
-									color: $mainColor2;
-								}
-							}
-						}
-					}
-				}
 			}
-		}
 
-		.form-grid-container {
-			.form-wrapper {
+			.contact-social-icon {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-wrap: wrap;
+
+				.contact-social-icon-tile {
+					display: flex;
+				}
 			}
 		}
 	}

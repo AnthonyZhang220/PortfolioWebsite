@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 
 function useBlogScrollProgress() {
     const [progress, setProgress] = useState(null)
@@ -11,9 +11,9 @@ function useBlogScrollProgress() {
         return (h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight) * 100;
     }
 
-    const handleScroll = () => {
+    const handleScroll = useCallback(() => {
         setProgress(getScrollPercent);
-    };
+    }, []);
 
     useEffect(() => {
 
@@ -22,7 +22,7 @@ function useBlogScrollProgress() {
         return () => {
             window.removeEventListener("scroll", handleScroll)
         }
-    }, [])
+    }, [handleScroll])
 
     return { progress }
 }

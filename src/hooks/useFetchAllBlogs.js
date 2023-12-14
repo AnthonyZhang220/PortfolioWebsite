@@ -4,6 +4,17 @@ function useFetchAllBlogs() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [allTags, setAllTags] = useState([]);
+
+  const getAllTags = (articles) => {
+    const newSet = new Set();
+    articles.forEach((article) => {
+      article.tag_list.forEach((tag) => {
+        newSet.add(tag)
+      })
+    })
+    return Array.from(newSet)
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -12,6 +23,7 @@ function useFetchAllBlogs() {
         const response = await fetch(url);
         const data = await response.json();
         setData(data)
+        setAllTags(getAllTags(data))
       } catch (error) {
         setError(error)
       } finally {
@@ -22,7 +34,7 @@ function useFetchAllBlogs() {
     fetchData();
   }, [])
 
-  return { blogList: data, loading, error }
+  return { blogList: data, allTags, loading, error }
 }
 
 export default useFetchAllBlogs

@@ -11,12 +11,9 @@ export const projectdata = [
 			"assets/project_images/discord_friend.png",
 		],
 		roles: ["Front-end Development", "Back-end Development"],
-		overview:
-			"Discord clone is an application where I am tring to",
-		features:
-			"Group chat. Direct Messages. Voice group chat",
-		process:
-			"",
+		overview: "Discord clone is an application where I am tring to",
+		features: "Group chat. Direct Messages. Voice group chat",
+		problem: "",
 		results: "",
 		tech: [
 			`${iconpath}html5.png`,
@@ -44,11 +41,9 @@ export const projectdata = [
 			"assets/project_images/portfolio_3.png",
 		],
 		roles: ["Front-end Development", "Back-end Development"],
-		overview:
-			"My portfolio website is my lastest work. It is a demonstration of my complete skillset, where I try to include as many as elements as possible to sum up my experience in the front-end development.",
+		overview: "My portfolio website is my lastest work. It is a demonstration of my complete skillset, where I try to include as many as elements as possible to sum up my experience in the front-end development.",
 		features: "View my projects in swipeable drawer. Mobile- ready responsive design. Entry animation and randomized position of the technology icons. Users can Like and Favorite my website with a backend server and a database(MongoDB). View my skillsets in different catogories. Form Validation and Recaptcha to prevent Spam and Bot. Music Player with essential functionalities. Newsletter",
-		process:
-			"I was planning to build this portfolio website from scratch. However, with little knowledge to UI design, during the middle of the development timeline, I decided to add material-ui library just to fasten the process because I would like to simulate the real world production process.",
+		process: "I was planning to build this portfolio website from scratch. However, with little knowledge to UI design, during the middle of the development timeline, I decided to add material-ui library just to fasten the process because I would like to simulate the real world production process.",
 		tech: [
 			`${iconpath}react.png`,
 			`${iconpath}nodejs.png`,
@@ -67,7 +62,8 @@ export const projectdata = [
 	{
 		id: 1,
 		title: "LaoMa Spicy",
-		subtitle: "LaoMaSpicy Official Website",
+		subtitle: "LaoMa Spicy Official Website",
+		introduction: "I'm thrilled to introduce my personal project, LaoMa Spicy, inspired by the culinary excellence of a renowned Chinese restaurant nestled in the heart of Greenwich Village, Manhattan, New York City.",
 		thumbnails: "assets/images/laoma.png",
 		screenshots: [
 			"assets/project_images/laoma_hero.png",
@@ -79,11 +75,22 @@ export const projectdata = [
 			"assets/project_images/laoma_mobile.png",
 		],
 		roles: ["Front-end Development", "Back-end Development"],
-		overview:
-			"Lao Ma Spicy is an authentic chinese restaurant located in Greenwich Village, Manhattan, New York City, well knowned for its Szchuan dry hot pot & spicy hot stew. Its excellent reputation is spreaded across NYU and its adjacant neighborhoods.",
-		features: "Menu, Social Media redirect, Price Calculator, Map, Contact,",
+		overview: "LaoMa Spicy pays homage to the authentic flavors and rich culinary heritage of the eponymous restaurant, celebrated city-wide for its Sichuan dry hot pot and mouthwatering spicy hot stew. This digital venture is designed to extend the restaurant's reach, offering a virtual space for spice enthusiasts to explore, savor, and connect.",
+		features: [{
+			name: "Virtual Menu Exploration",
+			detail: "Dive into a virtual menu showcasing the restaurant's signature Sichuan dry hot pot and spicy hot stew"
+		},
+		{
+			name: "Community Engagement",
+			detail: "Connect with fellow spice enthusiasts, share culinary experiences, and discover new ways to elevate your spice game."
+		},
+		{
+			name: "Visual Feast",
+			detail: "Immerse yourself in a visually stunning representation of the restaurant's ambiance and signature dishes."
+		}
+		],
 		process: "Order Online. Mobile- ready responsive design. Easy user actions with the menu and shopping cart. Embeded Map. Integrated Google Review API and Instagram Basic Display API to display reviews from google maps and posted media and feed from the LaoMa Spicy account.",
-		results: "",
+		results: "This project has been a tremendous learning experience, enhancing my skills in [mention specific skills or technologies learned] and reinforcing my commitment to delivering exceptional frontend solutions that capture the soul of a beloved restaurant.",
 		tech: [
 			`${iconpath}html5.png`,
 			`${iconpath}nodejs.png`,
@@ -108,11 +115,9 @@ export const projectdata = [
 			"assets/project_images/gaggle_mobile.png",
 		],
 		roles: ["Front-end Development"],
-		overview:
-			"Gaggle, is a Google Search Clone, allows user to search for results, such as news, iamges, videos with a free Google Search API, provided by the Rapid API community.",
+		overview: "Gaggle, is a Google Search Clone, allows user to search for results, such as news, iamges, videos with a free Google Search API, provided by the Rapid API community.",
 		features: "Option to choose display count. Darkmode. Mobile-ready responsive design.",
-		process:
-			"Gaggle is aimed to replicate the same user experience just like Google. To start this project, the first issue I encountered is to find any mock data or free API so that I could fetch data, filter and present them on the webpage. Without much efforts, I replicated the Google-like layout and theme with Tailwind CSS. ",
+		process: "Gaggle is aimed to replicate the same user experience just like Google. To start this project, the first issue I encountered is to find any mock data or free API so that I could fetch data, filter and present them on the webpage. Without much efforts, I replicated the Google-like layout and theme with Tailwind CSS. ",
 		results: "End users would be able to search for up to 100 results.",
 		tech: [
 			`${iconpath}html5.png`,
@@ -136,8 +141,7 @@ export const projectdata = [
 			"assets/project_images/tripadvisor_mobile_2.png",
 		],
 		roles: ["Front-end Development"],
-		overview:
-			"TripAdvisor is a Trip Advisor Clone, that provides end users with the ability to search for restaurants, hotels and attractions. People could filter the search result by type, and ratings, fetched from Trip Advisor. As a side feature, the weather information will be displayed on the map with real-time user location.",
+		overview: "TripAdvisor is a Trip Advisor Clone, that provides end users with the ability to search for restaurants, hotels and attractions. People could filter the search result by type, and ratings, fetched from Trip Advisor. As a side feature, the weather information will be displayed on the map with real-time user location.",
 		features: "Search for restaurants, hotels, and attractions",
 		process: "",
 		results: "",
@@ -158,8 +162,7 @@ export const projectdata = [
 		thumbnails: "assets/images/exploreamazon.png",
 		screenshots: ["assets/project_images/amazon.png"],
 		roles: ["Back-end Development"],
-		overview:
-			"Explore Amazon API gives you access to Amazon product details such as prices, ranks, reviews & offers, etc. in JSON format. ",
+		overview: "Explore Amazon API gives you access to Amazon product details such as prices, ranks, reviews & offers, etc. in JSON format. ",
 		features: "Provide Amazon products information for end users. Records of likes and favorites. Connect to MongoDb.",
 		process: "",
 		results: "",
@@ -170,8 +173,7 @@ export const projectdata = [
 			`${iconpath}code-json.png`,
 		],
 		library: ["Express.js"],
-		WebsiteUrl:
-			"https://rapidapi.com/anthonyzhang1997-oQBo4LhQyTx/api/explore-amazon",
+		WebsiteUrl: "https://rapidapi.com/anthonyzhang1997-oQBo4LhQyTx/api/explore-amazon",
 		GitHubUrl: "https://github.com/AnthonyZhang220/Find_GPU_API",
 		new: false,
 	},
@@ -186,12 +188,9 @@ export const projectdata = [
 			"assets/project_images/laoma_mobile_2.png",
 		],
 		roles: ["Front-end Development", "Back-end Development"],
-		overview:
-			"LaoMa Spicy Waitlist System is a quick waitlist system for customers.",
-		features:
-			"Enter information -> Get a queue number -> wait to be called for seat",
-		process:
-			"This system is developed rather in a hurry. It has been implemented for restaurant outdoor dining purposes due to Covid-19",
+		overview: "LaoMa Spicy Waitlist System is a quick waitlist system for customers.",
+		features: "Enter information -> Get a queue number -> wait to be called for seat",
+		process: "This system is developed rather in a hurry. It has been implemented for restaurant outdoor dining purposes due to Covid-19",
 		results: "",
 		tech: [
 			`${iconpath}html5.png`,

@@ -11,17 +11,18 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import { Link } from 'react-router-dom';
+import { Chip } from '@mui/material';
 
 import "./BlogCard.scss"
 
 export default function BlogCard(props) {
-    const { id, cover_image, title, name, tag_list, url, readable_publish_date, reading_time_minutes, description, user } = props;
+    const { id, cover_image, title, tag_list, readable_publish_date, reading_time_minutes, description, user } = props;
 
     return (
-        <Card className="blog-card" variant="outlined" sx={{ maxWidth: 345, m: 2, borderRadius: 4, cursor: "pointer" }} >
+        <Card className="blog-card" variant="outlined" sx={{ maxWidth: 400, m: 2, borderRadius: 4, cursor: "pointer" }} >
             <CardMedia
                 className="blog-card-cover"
-                sx={{ height: 175 }}
+                sx={{ height: 200 }}
                 image={cover_image}
                 title={title}
             />
@@ -29,15 +30,13 @@ export default function BlogCard(props) {
                 <Typography gutterBottom variant="body1" component="div">
                     {title}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography gutterBottom variant="body2" component="div">
                     {description}
                 </Typography>
             </CardContent>
             <Box className="tag-list">
                 {tag_list?.map((text, index) => (
-                    <Button className="tag" variant="contained" color="secondary" size="small" key={index}>
-                        #{text}
-                    </Button>
+                    <Chip className="tag" label={`#${text}`} variant="contained" color="secondary" size="small" key={index} />
                 ))}
             </Box>
             <CardHeader

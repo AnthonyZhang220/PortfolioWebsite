@@ -1,9 +1,12 @@
-import { useRef, useEffect, useState } from "react"
+import { useRef, useEffect } from "react"
 import { gsap } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from 'gsap/all';
 import { Typography } from "@mui/material";
+
 import BlogCard from "./BlogCard";
+import BlogSidebar from "./BlogSidebar";
+
 import useFetchAllBlogs from "../../hooks/useFetchAllBlogs";
 import "./Blog.scss";
 
@@ -12,7 +15,7 @@ export default function Blog() {
     gsap.registerPlugin(ScrollToPlugin);
 
     const blogTitleRef = useRef();
-    const { blogList, error, loading } = useFetchAllBlogs();
+    const { blogList, allTags, error } = useFetchAllBlogs();
 
     useEffect(() => {
         const entryAnimation = gsap.fromTo(blogTitleRef.current, { y: 50, opacity: 0 }, {
@@ -49,7 +52,7 @@ export default function Blog() {
                 </Typography>
             </div>
             <div className="blog-container">
-                <div className="blog-list">
+                <div className="blog-list-grid">
                     {
                         error ? <Typography>{error}</Typography> :
                             blogList?.map((item) => (
@@ -57,6 +60,10 @@ export default function Blog() {
                             ))
                     }
                 </div>
+                <div className="blog-sidebar">
+                    <BlogSidebar allTags={allTags} />
+                </div>
+
             </div>
         </div>
     )

@@ -31,6 +31,8 @@ export default function NavBar() {
     gsap.registerPlugin(ScrollToPlugin);
     gsap.registerPlugin(ScrollTrigger);
 
+    const isMobile = useMediaQuery("(max-width: 600px)");
+    const CLIENT_SCREEN_HEIGHT = useMediaQuery(("(max-height: 700px)"));
     const leftNavRef = useRef(null);
     const rightNavRef = useRef(null);
     const [isOpen, setIsOpen] = useState(false);
@@ -54,7 +56,7 @@ export default function NavBar() {
         },
         {
             name: "Blog",
-            link: "/#blog"
+            link: "/blog"
         },
         {
             name: "About",
@@ -62,7 +64,7 @@ export default function NavBar() {
         },
         {
             name: "Contact",
-            link: "/#contact"
+            link: "/contact"
         },
     ]
 
@@ -77,47 +79,47 @@ export default function NavBar() {
                             </Link>
                         </div>
                     </div>
-                    <div className="top-nav-links">
-                        {
-                            linkList?.map((item, index) => (
-                                <div className="nav-link" key={index}>
-                                    <Link to={item.link} >
-                                        <Typography variant="h5">
-                                            {item.name}
-                                        </Typography>
-                                    </Link>
+                    {isMobile ?
+                        <div className="top-right" ref={rightNavRef}>
+                            <div className="icon">
+                                <div className="menubar">
+                                    {
+                                        isOpen ?
+                                            <IconButton onClick={toggleDrawer(false)} color='black' aria-label="menu-button close">
+                                                <CloseRoundedIcon />
+                                            </IconButton>
+                                            :
+                                            <IconButton onClick={toggleDrawer(true)} color='black' aria-label="menu-button open">
+                                                <MenuIcon />
+                                            </IconButton>
+                                    }
                                 </div>
-                            ))
-                        }
-                    </div>
-                    <div className="top-right" ref={rightNavRef}>
-                        <div className="icon">
-                            <div className="menubar">
-                                {
-                                    isOpen ?
-                                        <IconButton onClick={toggleDrawer(false)} color='black' aria-label="menu-button close">
-                                            <CloseRoundedIcon />
-                                        </IconButton>
-                                        :
-                                        <IconButton onClick={toggleDrawer(true)} color='black' aria-label="menu-button open">
-                                            <MenuIcon />
-                                        </IconButton>
-                                }
                             </div>
                         </div>
-                    </div>
-
+                        :
+                        <div className="top-nav-links">
+                            {
+                                linkList?.map((item, index) => (
+                                    <div className="nav-link" key={index}>
+                                        <Link to={item.link} >
+                                            <Typography variant="h5">
+                                                {item.name}
+                                            </Typography>
+                                        </Link>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    }
                 </div>
             </nav>
-            <SwipeableMenu toggleDrawer={toggleDrawer} isOpen={isOpen} />
+            <SwipeableMenu isMobile={isMobile} CLIENT_SCREEN_HEIGHT={CLIENT_SCREEN_HEIGHT} toggleDrawer={toggleDrawer} isOpen={isOpen} />
         </>
     )
 }
 
-export const SwipeableMenu = ({ isOpen, toggleDrawer }) => {
+export const SwipeableMenu = ({ isOpen, toggleDrawer, isMobile, CLIENT_SCREEN_HEIGHT }) => {
 
-    const isMobile = useMediaQuery("(max-width: 600px)");
-    const CLIENT_SCREEN_HEIGHT = useMediaQuery(("(max-height: 700px)"));
 
 
     const menuTopList = [
@@ -157,7 +159,6 @@ export const SwipeableMenu = ({ isOpen, toggleDrawer }) => {
 
     const list = () => (
         <Box
-            sx={{ width: 'auto' }}
             role="presentation"
             onClick={toggleDrawer(false)}
             onKeyDown={toggleDrawer(false)}

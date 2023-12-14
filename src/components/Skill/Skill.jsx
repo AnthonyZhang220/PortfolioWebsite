@@ -176,7 +176,7 @@ export default function Skill() {
                                                         isMobile ? <FontAwesomeIcon icon={`fa-solid fa-${icon}`} fontSize={20} key={index} /> :
                                                             <Grid container alignItems="center" display="flex" justifyContent="center" key={index}>
                                                                 <FontAwesomeIcon icon={`fa-solid fa-${icon}`} fontSize={20} />
-                                                                <Typography variant="h5" align='center' fontWeight="bold" sx={{ ml: 1 }}>
+                                                                <Typography variant="h6" align='center' fontWeight="bold" sx={{ ml: 1 }}>
                                                                     {type}
                                                                 </Typography>
                                                             </Grid>
@@ -188,7 +188,7 @@ export default function Skill() {
                                 </Paper>
                             </Grid>
                             <Grid container justifyContent="center" alignItems="center">
-                                <Typography variant='h4' textAlign="center" fontWeight="500">
+                                <Typography variant='h6' textAlign="center" fontWeight="500">
                                     {skillCategories?.find(x => x.type === skillTypes).description}
                                 </Typography>
                             </Grid>
@@ -209,7 +209,7 @@ export default function Skill() {
                                                     <img src={`assets/icon/${src}`} alt={`${src}`} loading="lazy" width={isMobile ? "60px" : "80px"} height="auto" style={{ display: "block" }} />
                                                 </Grid>
                                                 <Grid item xs textAlign="center">
-                                                    <Typography variant='h6' sx={{
+                                                    <Typography variant='body1' sx={{
                                                         textShadow: "0px 0px 6px rgba(255,255,255,0.7)"
                                                     }} fontWeight="bold">
                                                         {name}
@@ -224,6 +224,6 @@ export default function Skill() {
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
     )
 }

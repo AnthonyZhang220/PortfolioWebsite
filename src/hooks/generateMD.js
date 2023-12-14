@@ -12,7 +12,7 @@ export default function generateMD(html) {
 
     for (let item of html) {
         const tag = item.nodeName;
-        
+
         if (tag === "H2" ||
             tag === "H3" ||
             tag === "H4" ||
@@ -49,6 +49,7 @@ export default function generateMD(html) {
                 case "H5":
                     outputMarkDown += "- ";
                     break
+                default:
             }
             if (tag === "H6") {
                 outputMarkDown += "[*" + item.textContent.trim() + "*](" + link + ")\n";

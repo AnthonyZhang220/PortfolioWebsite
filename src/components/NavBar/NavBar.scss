@@ -25,6 +25,7 @@
 		.top-nav-links {
 			color: black;
 			display: flex;
+			flex-wrap: wrap;
 			margin-left: auto;
 
 			.nav-link {

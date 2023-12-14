@@ -10,21 +10,28 @@
 	}
 
 	.blog-container {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		padding: 1rem 0;
+		display: grid;
+		grid-template-columns: repeat(1, 3fr 1fr);
+		padding: 1rem;
 
-		.blog-list {
+		.blog-list-grid {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.blog-sidebar {
 			display: flex;
-			justify-content: center;
-			align-items: center;
-			margin: 1rem;
-			flex-wrap: wrap;
+			flex-direction: column;
+			flex: 0 1 auto;
+			border-radius: 1rem;
 		}
 	}
 }
 
 .article-tag {
 	margin: 0 0.5rem;
+}
+
+@media screen and (max-width: 768px) {
+	
 }

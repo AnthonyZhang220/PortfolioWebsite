@@ -1,22 +1,27 @@
 import { useState } from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import NavBar from "./components/NavBar/NavBar";
-import Main from "./Main"
 import Footer from './components/Footer/Footer';
 import SpeedDialMenu from './components/SpeedDialMenu/SpeedDialMenu';
 import Cursor from './components/Cursor';
 import About from './components/About/About';
 import useBackToTop from './hooks/useBackToTop';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { CssBaseline } from '@mui/material';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import { MusicPlayerProvider } from './contexts/MusicPlayerContext';
 import useModalToggle from "./hooks/useModalToggle"
-import BlogDetail from './components/Blog/BlogDetail';
 
-import "./App.scss"
+import Main from "./Main"
+import Contact from './components/Contact/Contact';
+import Skill from './components/Skill/Skill';
+import Blog from './components/Blog/Blog';
+import BlogDetail from './components/Blog/BlogDetail';
 import PaymentModal from './components/PaymentModal';
+
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { CssBaseline } from '@mui/material';
+import "./App.scss"
 
 
 
@@ -26,8 +31,6 @@ function App() {
 	const isMobile = useMediaQuery('(max-width: 834px)');
 	const { backToTop } = useBackToTop();
 	const { isOpen, handleClose, handleOpen } = useModalToggle();
-
-
 
 	const theme = createTheme({
 		palette: {
@@ -64,14 +67,13 @@ function App() {
 		}
 	});
 
-
 	return (
-		<ThemeProvider theme={theme}>
-			<MusicPlayerProvider>
-				<div className="App" id="App">
-					<Cursor />
-					<CssBaseline />
-					<BrowserRouter>
+		<BrowserRouter>
+			<ThemeProvider theme={theme}>
+				<MusicPlayerProvider>
+					<div className="App" id="App">
+						<Cursor />
+						<CssBaseline />
 						<NavBar mode={mode} setMode={setMode} />
 						{/* <Canvas id="canvas"></Canvas> */}
 						<SpeedDialMenu backToTop={backToTop} handlePaymentModalOpen={handleOpen} />
@@ -79,14 +81,22 @@ function App() {
 						<Routes>
 							<Route path="/" element={<Main />}>
 							</Route>
-							<Route path="/about" element={<About />} />
+							<Route
+								path="/about"
+								element={
+									<>
+										<About /><Skill />
+									</>
+								} />
+							<Route path="/contact" element={<Contact />} />
+							<Route path="/blog" element={<Blog />} />
 							<Route path="/blog/:blogId" element={<BlogDetail handlePaymentModalOpen={handleOpen} />} />
 						</Routes>
 						<Footer />
-					</BrowserRouter>
-				</div>
-			</MusicPlayerProvider>
-		</ThemeProvider>
+					</div>
+				</MusicPlayerProvider>
+			</ThemeProvider>
+		</BrowserRouter>
 	);
 };
 
