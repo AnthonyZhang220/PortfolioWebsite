@@ -12,14 +12,15 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import { Link } from 'react-router-dom';
 import { Chip } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 import "./BlogCard.scss"
 
 export default function BlogCard(props) {
-    const { id, cover_image, title, tag_list, readable_publish_date, reading_time_minutes, description, user } = props;
-
+    const { id, cover_image, title, tag_list, readable_publish_date, reading_time_minutes, description, user, selectedTags } = props;
+    const navigate = useNavigate();
     return (
-        <Card className="blog-card" variant="outlined" sx={{ maxWidth: 400, m: 2, borderRadius: 4, cursor: "pointer" }} >
+        <Card className="blog-card" variant="outlined" sx={{ maxWidth: 400, m: 2, borderRadius: 4, cursor: "pointer", display: "flex", flexDirection: "column" }} onClick={() => navigate(`/blog/${id}`)} >
             <CardMedia
                 className="blog-card-cover"
                 sx={{ height: 200 }}
@@ -27,7 +28,7 @@ export default function BlogCard(props) {
                 title={title}
             />
             <CardContent>
-                <Typography gutterBottom variant="body1" component="div">
+                <Typography gutterBottom variant="h6" component="div">
                     {title}
                 </Typography>
                 <Typography gutterBottom variant="body2" component="div">
@@ -36,7 +37,9 @@ export default function BlogCard(props) {
             </CardContent>
             <Box className="tag-list">
                 {tag_list?.map((text, index) => (
-                    <Chip className="tag" label={`#${text}`} variant="contained" color="secondary" size="small" key={index} />
+                    <Chip className="tag" label={`#${text}`} color={selectedTags?.has(text) ? "success" : "secondary"}
+                        variant={selectedTags?.has(text) ? "filled" : "outlined"}
+                        size="small" key={index} />
                 ))}
             </Box>
             <CardHeader
@@ -50,10 +53,11 @@ export default function BlogCard(props) {
                 }
                 title={user.name}
                 subheader={`Published on ${readable_publish_date}`}
+                sx={{ marginTop: "auto" }}
             />
             <CardActions>
                 <Button color="success" variant="text">{reading_time_minutes} mins read</Button>
-                <Link to={`/blog/${id}`}>
+                <Link to={`/blog/${id}`} style={{ marginLeft: "auto" }}>
                     <Button variant="text" >Learn More</Button>
                 </Link>
             </CardActions>

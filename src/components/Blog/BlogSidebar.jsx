@@ -5,10 +5,10 @@ import React, { useEffect } from 'react'
 
 import "./BlogSidebar.scss"
 
-function BlogSidebar({ allTags }) {
+function BlogSidebar({ allTags, tagFilter, selectedTags }) {
     useEffect(() => {
-        console.log(allTags)
-    }, [allTags])
+        console.log(allTags, selectedTags)
+    }, [allTags, selectedTags])
     return (
         <Box className="blog-sidebar-container">
             <Box className="blog-sidebar-title">
@@ -20,7 +20,7 @@ function BlogSidebar({ allTags }) {
                 {
                     allTags?.map((tag, index) => (
                         <Box className="blog-sidebar-tag" key={index} >
-                            <Chip label={`#${tag}`} color="primary" size="medium" clickable />
+                            <Chip onClick={() => tagFilter(tag)} label={`#${tag}`} color={selectedTags?.has(tag) ? "success" : "secondary"} variant={selectedTags?.has(tag) ? "filled" : "outlined"} size="medium" clickable />
                         </Box>
                     ))
                 }

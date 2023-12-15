@@ -15,8 +15,10 @@ export default function Blog() {
     gsap.registerPlugin(ScrollToPlugin);
 
     const blogTitleRef = useRef();
-    const { blogList, allTags, error } = useFetchAllBlogs();
-
+    const { blogList, allTags, selectedTags, tagFilter, error } = useFetchAllBlogs();
+    useEffect(() => {
+        console.log(blogList)
+    }, [blogList])
     useEffect(() => {
         const entryAnimation = gsap.fromTo(blogTitleRef.current, { y: 50, opacity: 0 }, {
             y: 0, opacity: 1, duration: 1,
@@ -56,12 +58,12 @@ export default function Blog() {
                     {
                         error ? <Typography>{error}</Typography> :
                             blogList?.map((item) => (
-                                <BlogCard {...item} key={item.id} />
+                                <BlogCard {...item} selectedTags={selectedTags} key={item.id} />
                             ))
                     }
                 </div>
                 <div className="blog-sidebar">
-                    <BlogSidebar allTags={allTags} />
+                    <BlogSidebar allTags={allTags} selectedTags={selectedTags} tagFilter={tagFilter} />
                 </div>
 
             </div>

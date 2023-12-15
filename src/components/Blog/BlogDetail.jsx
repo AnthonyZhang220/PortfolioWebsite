@@ -64,9 +64,7 @@ function BlogDetail() {
                                 />
                                 <div className="blog-tag-list">
                                     {blog?.tags.map((text, index) => (
-                                        <Button className="tag" variant="contained" color="secondary" size="small" key={index}>
-                                            #{text}
-                                        </Button>
+                                        <Chip className="tag" variant="outlined" color="secondary" key={index} label={`#${text}`} />
                                     ))}
                                 </div>
                                 <CardActions>
