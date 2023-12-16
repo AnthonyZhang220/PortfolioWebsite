@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, Suspense, lazy } from 'react';
+import { useState, useRef, Suspense, lazy } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
@@ -23,6 +23,8 @@ import { Link } from 'react-router-dom';
 import { gsap } from "gsap";
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import StatusSnackbar from "../StatusSnackbar"
+import useSupabaseClient from '../../hooks/useSupabaseClient';
 import './Footer.scss';
 
 library.add(fab);
@@ -60,55 +62,22 @@ const style = {
     alignItems: 'center',
 };
 
+const Error = ({ data, reason }) => {
+    return (
+        <StatusSnackbar data={data} reason={reason} />
+    )
+}
+
 export default function Footer() {
 
     let currentYear = new Date().getFullYear();
-    const [like, setLike] = useState(1);
-    const [fav, setFav] = useState(1);
+    const { data, error, incrementUpdate } = useSupabaseClient();
 
     const footerRef = useRef(null);
     const footerContainer = useRef(null);
 
     gsap.registerPlugin(ScrollToPlugin);
     gsap.registerPlugin(ScrollTrigger);
-
-    const handleLike = async () => {
-        setLike(like + 1);
-
-        await fetch(`https://anthonyzhang-server.herokuapp.com/update/like`, {
-            method: 'POST',
-            body: like,
-        })
-    }
-    const handleFav = async () => {
-        setFav(fav + 1);
-
-        await fetch(`https://anthonyzhang-server.herokuapp.com/update/fav`, {
-            method: 'POST',
-            body: fav,
-        })
-    }
-
-
-    useEffect(() => {
-        async function getCount() {
-            const response = await fetch(`https://anthonyzhang-server.herokuapp.com/count/`);
-
-            if (!response.ok) {
-                const message = `An error occurred:${response.statusText}`
-                return message;
-            }
-
-            const count = await response.json();
-
-            setLike(count[0].like);
-            setFav(count[0].fav);
-        }
-
-        getCount();
-
-        return;
-    }, [fav, like])
 
     return (
         <div className="footer-container" ref={footerContainer}>
@@ -117,13 +86,13 @@ export default function Footer() {
                     <Grid container direction='row' className="footer-top-container">
                         <Grid item xs={12} sm={12} md={4} lg={4}>
                             <Box sx={{ mt: 2 }}>
-                                <IconButton sx={{ color: '#fafafa', fontSize: 30 }} onClick={handleLike} aria-label="Like Thumbup Button">
-                                    <Badge badgeContent={like} color="primary">
+                                <IconButton sx={{ color: '#fafafa', fontSize: 30 }} onClick={() => incrementUpdate("like")} aria-label="Like Thumbup Button">
+                                    <Badge badgeContent={data.like} color="primary">
                                         <ThumbUpRoundedIcon />
                                     </Badge>
                                 </IconButton>
-                                <IconButton sx={{ color: '#fafafa', fontSize: 30 }} onClick={handleFav} aria-label="Favorite Heart Button">
-                                    <Badge badgeContent={fav} color="primary">
+                                <IconButton sx={{ color: '#fafafa', fontSize: 30 }} onClick={() => incrementUpdate("fav")} aria-label="Favorite Heart Button">
+                                    <Badge badgeContent={data.fav} color="primary">
                                         <FavoriteRoundedIcon />
                                     </Badge>
                                 </IconButton>
@@ -220,6 +189,7 @@ export default function Footer() {
                     </div>
                 </div>
             </footer>
+            <Error reason={error} />
         </div>
     );
 };

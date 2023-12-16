@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import { Link } from "react-router-dom";
 import { ScrollToPlugin } from 'gsap/all'
 import { ScrollTrigger } from "gsap/all";
+import { HashLink } from "react-router-hash-link"
 
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
@@ -52,19 +53,23 @@ export default function NavBar() {
     const linkList = [
         {
             name: "Project",
-            link: "/#project"
+            link: "/#project",
+            hashlink: true,
         },
         {
             name: "Blog",
-            link: "/blog"
+            link: "/blog",
+            hashlink: false,
         },
         {
             name: "About",
-            link: "/about"
+            link: "/about",
+            hashlink: false,
         },
         {
             name: "Contact",
-            link: "/contact"
+            link: "/contact",
+            hashlink: false,
         },
     ]
 
@@ -101,11 +106,18 @@ export default function NavBar() {
                             {
                                 linkList?.map((item, index) => (
                                     <div className="nav-link" key={index}>
-                                        <Link to={item.link} >
-                                            <Typography variant="h5">
-                                                {item.name}
-                                            </Typography>
-                                        </Link>
+                                        {item.hashlink ?
+                                            <HashLink to={item.link}>
+                                                <Typography variant="h5">
+                                                    {item.name}
+                                                </Typography>
+                                            </HashLink> :
+                                            <Link to={item.link} >
+                                                <Typography variant="h5">
+                                                    {item.name}
+                                                </Typography>
+                                            </Link>
+                                        }
                                     </div>
                                 ))
                             }

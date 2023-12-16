@@ -9,52 +9,28 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Stack } from '@mui/material';
+import { Stack, Tooltip } from '@mui/material';
 import Divider from "@mui/material/Divider";
 import ForwardRoundedIcon from '@mui/icons-material/ForwardRounded';
 import Chip from '@mui/material/Chip';
 import ShareIcon from '@mui/icons-material/Share';
 import IconButton from '@mui/material/IconButton';
-import Modal from '@mui/material/Modal';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import LaunchIcon from '@mui/icons-material/Launch';
+import ShareModal from "./Modals/ShareModal";
+import ImageModal from "./Modals/ImageModal";
 
 
-import {
-    EmailShareButton,
-    FacebookShareButton,
-    LineShareButton,
-    LinkedinShareButton,
-    PinterestShareButton,
-    RedditShareButton,
-    TelegramShareButton,
-    TwitterShareButton,
-    WhatsappShareButton,
-    WorkplaceShareButton
-} from "react-share";
-import {
-    EmailIcon,
-    FacebookIcon,
-    FacebookMessengerIcon,
-    LineIcon,
-    LinkedinIcon,
-    PinterestIcon,
-    RedditIcon,
-    TelegramIcon,
-    TwitterIcon,
-    WeiboIcon,
-    WhatsappIcon,
-    WorkplaceIcon
-} from "react-share";
+
+
 
 import { styled } from '@mui/material/styles';
 import createStyles from "@mui/material/styles/createStyles";
 import { makeStyles } from "@mui/styles";
+import useModalToggle from "../../hooks/useModalToggle";
 
 
-const projectScreenShotsStyle = {
-    height: "100%",
-    width: "100%",
-    objectFit: "contain",
-};
+
 
 
 const Root = styled("div")(({ theme }) => ({
@@ -102,18 +78,7 @@ const useStyles = makeStyles(() => {
     })
 });
 
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 300,
-    bgcolor: 'background.paper',
-    border: '0px solid #000',
-    boxShadow: 24,
-    p: 4,
-    m: 4,
-};
+
 
 const CloseButton = styled(Button)(({ theme }) => ({
     color: '#212121',
@@ -135,35 +100,22 @@ const CloseButton = styled(Button)(({ theme }) => ({
 export default function ProjectDetails({ open, projectdetails, handleDrawerOpen }) {
 
     const classes = useStyles();
-    const [sharePage, setSharePage] = useState(false);
-    const [imageOpen, setImageOpen] = useState(false);
-    const [imagesrc, setImagesrc] = useState([]);
 
-    const handleImageOpen = (index) => () => {
-        setImageOpen(true);
-        setImagesrc(index)
-        console.log(imagesrc)
-    }
+    const [shareOpen, handleShareOpen, handleShareClose] = useModalToggle();
+    const [imageOpen, handleImageOpen, handleImageClose] = useModalToggle();
+    const [zoomImage, setZoomImage] = useState("")
 
-    const handleImageClose = () => {
-        setImageOpen(false);
-        setImagesrc(null);
+    const getImageScrAndOpen = (screenshot) => {
+        setZoomImage(screenshot)
+        handleImageOpen()
     }
 
 
-    const handleShareOpen = () => {
-        setSharePage(true);
-    }
-
-    const handleShareClose = () => {
-        setSharePage(false);
-    }
 
     return (
         <React.Fragment>
             {/* swipeabledrawer */}
             <Root>
-                <CssBaseline />
                 <SwipeableDrawer
                     className={classes.drawer}
                     anchor="bottom"
@@ -177,7 +129,7 @@ export default function ProjectDetails({ open, projectdetails, handleDrawerOpen 
                     sx={{
                         '&.MuiDrawer-root > .MuiPaper-root': {
                             backgroundColor: "inherit",
-                            height: "95%",
+                            maxHeight: "90%"
                         },
                     }}
                 >
@@ -218,98 +170,125 @@ export default function ProjectDetails({ open, projectdetails, handleDrawerOpen 
                         <Box sx={{
                             display: 'flex',
                             flexDirection: 'column',
+                            margin: "0 auto",
+                            maxWidth: "1323px"
                         }}>
                             {/* drawer top */}
                             <Grid container>
-                                {/* drawer top left */}
-                                <Grid xs={12} md={6} item>
+                                <Grid xs={12} md={12} item>
                                     <CardContent>
                                         <Box sx={{ mx: 1 }}>
-                                            <Typography gutterBottom variant="h5" component="div">
+                                            <Typography variant="h4" component="div">
                                                 {
                                                     projectdetails.title ? projectdetails.title : <Skeleton animation='pulse' variant="rectangular" height={50} />
                                                 }
                                             </Typography>
-                                            <Typography gutterBottom variant="h6" component="div">
+                                            <Typography variant="body1" component="div">
                                                 {projectdetails.subtitle ? projectdetails.subtitle : <Skeleton animation='pulse' variant="rectangular" height={40} />}
-                                            </Typography>
-                                        </Box>
-                                        <Divider />
-                                    </CardContent>
-                                    <CardActions>
-                                        <Box sx={{ mx: 1 }}>
-                                            <Button sx={{ m: 1 }} color="secondary" variant='contained' size="medium" href={projectdetails.GitHubUrl} target='_blank'>GitHub</Button>
-                                            <Button sx={{ m: 1 }} color="secondary" variant='contained' size="medium" href={projectdetails.WebsiteUrl} target='_blank' endIcon={<ForwardRoundedIcon />}>Website</Button>
-                                            <IconButton sx={{ m: 1 }} onClick={() => handleShareOpen(projectdetails.id)} >
-                                                <ShareIcon></ShareIcon>
-                                            </IconButton>
-                                            <Divider />
-                                        </Box>
-                                    </CardActions>
-                                    <CardContent>
-                                        <Box sx={{ mx: 1 }}>
-                                            <Typography gutterBottom variant="h5" color="text.secondary">
-                                                OVERVIEW
-                                            </Typography>
-                                            <Typography gutterBottom variant="h6" color="text.secondary">
-                                                {projectdetails.overview ? projectdetails.overview : <Skeleton animation='pulse' variant="rectangular" height={150} />}
                                             </Typography>
                                         </Box>
                                     </CardContent>
                                 </Grid>
-                                {/* drawer top right */}
-                                <Grid xs={12} md={6} item>
+                                {/* drawer top left */}
+                                <Grid xs={12} md={12} item>
+                                    <Divider variant="middle" />
                                     <CardContent>
-                                        <Box sx={{ m: 1 }}>
-                                            <Typography gutterBottom variant="h5" color="text.secondary">
-                                                ROLES
-                                            </Typography>
-                                            <Stack sx={{ flexWrap: 'wrap' }} alignItems='center' justifyContent='flex-start' direction='row' spacing={1}>
-                                                {projectdetails.roles ? projectdetails.roles.map((role, index) => (
-                                                    <Chip style={{ fontSize: "18px" }} sx={{ m: 1 }} label={role} key={index} />
-                                                )) : <Skeleton animation='pulse' variant="circle" />
-                                                }
-                                            </Stack>
-                                        </Box>
-                                        <Divider />
-                                        <Box sx={{ m: 1 }}>
-                                            <Typography gutterBottom variant="h5" color="text.secondary">
-                                                TECHNOLOGY STACK
-                                            </Typography>
-                                            <Stack sx={{ flexWrap: 'wrap' }} alignItems='center' justifyContent='flex-start' direction='row' spacing={1}>
-                                                {
-                                                    projectdetails.tech ? projectdetails.tech.map((techUrl, index) => (
-                                                        <img key={index} className={classes.imageIcon} src={techUrl} alt={techUrl} height='48px' width='48px' />
-                                                    )) : <Skeleton animation='pulse' variant="circle" />
-                                                }
-                                            </Stack>
-                                        </Box>
-                                        <Divider />
-                                        <Box sx={{ m: 1 }}>
-                                            <Typography gutterBottom variant="h5" color="text.secondary">
-                                                LIBRARY STACK
-                                            </Typography>
-                                            <Stack sx={{ flexWrap: 'wrap' }} alignItems='center' justifyContent='flex-start' direction='row' spacing={1}>
-                                                {projectdetails.library ? projectdetails.library.map((lib, index) => (
-                                                    <Chip style={{ fontSize: "18px" }} label={lib} sx={{ m: 1 }} key={index} variant="outlined" />
-                                                )) : <Skeleton animation='pulse' variant="circle" />
-                                                }
-                                            </Stack>
-                                        </Box>
+                                        <Typography variant="h5" component="div">
+                                            Overview
+                                        </Typography>
+                                        <Typography variant="body1" component="div" >
+                                            {projectdetails.overview ? projectdetails.overview : <Skeleton animation='pulse' variant="rectangular" height={150} />}
+                                        </Typography>
+                                    </CardContent>
+                                </Grid>
+                                <Grid xs={12} md={4} item>
+                                    <Divider variant="middle" />
+                                    <CardContent>
+                                        <Typography variant="h5" component="div">
+                                            Features
+                                        </Typography>
+                                        {projectdetails.features ? projectdetails.features.map(({ name, detail }, index) => (
+                                            <Box>
+                                                <Typography variant="body1" component="li">
+                                                    {name}
+                                                </Typography>
+                                                <Typography variant="body2" component="ul">
+                                                    {detail}
+                                                </Typography>
+                                            </Box>
+                                        )) : <Skeleton animation='pulse' variant="rectangular" height={150} />}
+                                    </CardContent>
+                                </Grid>
+                                <Grid xs={12} md={4} item>
+                                    <Divider variant="middle" />
+                                    <CardContent>
+                                        <Typography variant="h5" component="div" >
+                                            Process
+                                        </Typography>
+                                        {projectdetails.process ?
+                                            <Typography variant="body1" component="div">
+                                                {projectdetails.process}
+                                            </Typography> : null
+                                        }
+                                    </CardContent>
+                                </Grid>
+                                <Grid xs={12} md={4} item>
+                                    <Divider variant="middle" />
+                                    <CardContent>
+                                        <Typography variant="h5" component="div" >
+                                            Challenges
+                                        </Typography>
+                                        {
+                                            projectdetails.challenge ?
+                                                <Typography variant="body1">
+                                                    {projectdetails.challenge}
+                                                </Typography> : null
+                                        }
+                                    </CardContent>
+                                </Grid>
+                                <Grid xs={12} md={4} item>
+                                    <Divider variant="middle" />
+                                    <CardContent>
+                                        <Typography variant="h5" component="div" >
+                                            Technology
+                                        </Typography>
+                                        {
+                                            projectdetails.tech ? projectdetails.tech.map((techUrl, index) => (
+                                                <Tooltip title={techUrl.split("/")[2].split(".")[0].toUpperCase()}>
+                                                    <img key={index} className={classes.imageIcon} src={techUrl} alt={techUrl} height='48px' width='48px' />
+                                                </Tooltip>
+                                            )) : <Skeleton animation='pulse' variant="circle" />
+                                        }
+                                    </CardContent>
+                                </Grid>                               <Grid xs={12} md={4} item>
+                                    <Divider variant="middle" />
+                                    <CardContent>
+                                        <Typography variant="h5" component="div" >
+                                            Library
+                                        </Typography>
+                                        {projectdetails.library ? projectdetails.library.map((lib, index) => (
+                                            <Chip style={{ fontSize: "18px" }} label={lib} sx={{ m: 1 }} key={index} variant="outlined" />
+                                        )) : <Skeleton animation='pulse' variant="circle" />
+                                        }
+                                    </CardContent>
+                                </Grid>
+                                {/* drawer top right */}
+                                <Grid xs={12} md={4} item>
+                                    <Divider variant="middle" />
+                                    <CardContent>
+                                        <Typography variant="h5" component="div" >
+                                            Source Code
+                                        </Typography>
+                                        <Button sx={{ m: 1 }} color="secondary" variant='outlined' size="medium" href={projectdetails.GitHubUrl} target='_blank' endIcon={<GitHubIcon />}>GitHub</Button>
+                                        <Button sx={{ m: 1 }} color="secondary" variant='outlined' size="medium" href={projectdetails.WebsiteUrl} target='_blank' endIcon={<LaunchIcon />}>Website</Button>
+                                        <Button sx={{ m: 1 }} color="secondary" variant='outlined' size="medium" onClick={handleShareOpen} target='_blank' endIcon={<ShareIcon />}>Share</Button>
+                                        <ShareModal projectdetails={projectdetails} shareOpen={shareOpen} handleShareClose={handleShareClose} />
                                     </CardContent>
                                 </Grid>
                             </Grid>
                             {/* drawer bottom side */}
                             <CardContent>
                                 <Divider />
-                                <CardContent>
-                                    <Typography gutterBottom variant="h5" color="text.secondary">
-                                        Features
-                                    </Typography>
-                                    <Typography gutterBottom variant="h6" color="text.secondary">
-                                        {projectdetails.features ? projectdetails.features : <Skeleton animation='pulse' variant="rectangular" height={150} />}
-                                    </Typography>
-                                </CardContent>
                                 <CardContent>
                                     {projectdetails.screenshots ?
                                         <Box display="grid" gridTemplateColumns="repeat(auto-fill, minmax(350px, 3fr))" gridTemplateRows="repeat(auto-fill, minmax(50px, 2fr))" gridAutoRows="auto" gridAutoColumns="auto" gap={2} gridAutoFlow="dense">
@@ -325,67 +304,16 @@ export default function ProjectDetails({ open, projectdetails, handleDrawerOpen 
                                                             height="auto"
                                                             alt={screenshot}
                                                             image={screenshot}
-                                                            onClick={handleImageOpen(screenshot)}
+                                                            onClick={() => getImageScrAndOpen(screenshot)}
                                                         />
                                                     </Box>
                                                 ))
                                             }
+                                            <ImageModal imageSrc={zoomImage} imageOpen={imageOpen} handleImageClose={handleImageClose} />
                                         </Box>
                                         : <Skeleton variant="rectangular" width={350} height={450} />
                                     }
                                 </CardContent>
-                                <Modal
-                                    open={imageOpen}
-                                    onClose={handleImageClose}
-                                    imagesrc={imagesrc}
-                                >
-                                    <Box sx={{
-                                        display: "inline-block",
-                                        position: 'absolute',
-                                        top: '50%',
-                                        left: '50%',
-                                        transform: 'translate(-50%, -50%)',
-                                        bgcolor: 'background.paper',
-                                        boxShadow: 18,
-                                        border: "none",
-                                        height: "90%",
-                                        width: document.documentElement.clientWidth * 0.8,
-                                        p: 1,
-                                        m: 1,
-                                    }}>
-                                        <Box sx={projectScreenShotsStyle} component="img" alt={imagesrc} src={imagesrc}></Box>
-                                    </Box>
-                                </Modal>
-                                {
-                                    projectdetails.process ?
-                                        <Fragment>
-                                            <Divider />
-                                            <CardContent>
-                                                <Typography gutterBottom variant="h5" color="text.secondary">
-                                                    PROCESS
-                                                </Typography>
-                                                <Typography gutterBottom variant="h6" color="text.secondary">
-                                                    {projectdetails.process ? projectdetails.process : <Skeleton animation='pulse' variant="rectangular" height={150} />}
-                                                </Typography>
-                                            </CardContent>
-                                        </Fragment>
-                                        : null
-                                }
-                                {
-                                    projectdetails.results ?
-                                        <Fragment>
-                                            <Divider />
-                                            <CardContent>
-                                                <Typography gutterBottom variant="h5" color="text.secondary">
-                                                    RESULTS
-                                                </Typography>
-                                                <Typography gutterBottom variant="h6" color="text.secondary">
-                                                    {projectdetails.results ? projectdetails.results : <Skeleton animation='pulse' variant="rectangular" height={150} />}
-                                                </Typography>
-                                            </CardContent>
-                                        </Fragment>
-                                        : null
-                                }
                             </CardContent>
                             <Box sx={{ height: "100px" }}>
                             </Box>
@@ -394,66 +322,8 @@ export default function ProjectDetails({ open, projectdetails, handleDrawerOpen 
                     {/* close button */}
                     <CloseButton sx={{ position: 'absolute', bottom: '40px', transform: 'translate(-50%,0)', left: '50%' }} size='large' onClick={handleDrawerOpen(false)}>Close</CloseButton>
                 </SwipeableDrawer>
+                {/* share page */}
             </Root>
-            {/* share page */}
-            <Modal
-                open={sharePage}
-                onClose={handleShareClose}
-                projectdetails={projectdetails}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-overview"
-                keepMounted
-            >
-                <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Share
-                    </Typography>
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', padding: 2 }}>
-                        <EmailShareButton url={projectdetails.WebsiteUrl}>
-                            <EmailIcon round size={50} />
-                        </EmailShareButton>
-                        <FacebookShareButton url={projectdetails.WebsiteUrl} quote={projectdetails.title}>
-                            <FacebookIcon round size={50} />
-                        </FacebookShareButton>
-                        <FacebookMessengerIcon round size={50} />
-                        <LineShareButton url={projectdetails.WebsiteUrl}>
-                            <LineIcon round size={50} />
-                        </LineShareButton>
-
-                        <LinkedinShareButton url={projectdetails.WebsiteUrl} title={projectdetails.title} summary={projectdetails.overview}>
-                            <LinkedinIcon round size={50} />
-                        </LinkedinShareButton>
-
-
-                        <PinterestShareButton url={projectdetails.WebsiteUrl} media={projectdetails.thumbnails}>
-                            <PinterestIcon round size={50} />
-                        </PinterestShareButton>
-
-                        <WeiboIcon round size={50} />
-
-                        <RedditShareButton url={projectdetails.WebsiteUrl} title={projectdetails.title}>
-                            <RedditIcon round size={50} />
-                        </RedditShareButton>
-
-                        <TelegramShareButton url={projectdetails.WebsiteUrl} title={projectdetails.title}>
-                            <TelegramIcon round size={50} />
-                        </TelegramShareButton>
-
-                        <TwitterShareButton url={projectdetails.WebsiteUrl} title={projectdetails.title}>
-                            <TwitterIcon round size={50} />
-                        </TwitterShareButton>
-
-                        <WhatsappShareButton url={projectdetails.WebsiteUrl} title={projectdetails.title}>
-                            <WhatsappIcon round size={50} />
-                        </WhatsappShareButton>
-
-                        <WorkplaceShareButton url={projectdetails.WebsiteUrl} quote={projectdetails.overview}>
-                            <WorkplaceIcon round size={50} />
-                        </WorkplaceShareButton>
-                    </Box>
-                    <Button onClick={handleShareClose}>Close</Button>
-                </Box>
-            </Modal>
-        </React.Fragment>
+        </React.Fragment >
     )
 }

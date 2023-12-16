@@ -1,0 +1,15 @@
+@use "tokens.scss";
+@use "colors.module.scss";
+@use "typography.module.scss";
+
+// theme.scss
+$light-theme: "theme.light.scss";
+$dark-theme: "theme.dark.scss";
+
+@media (prefers-color-scheme: light) {
+	@import url($light-theme);
+}
+
+@media (prefers-color-scheme: dark) {
+	@import url($dark-theme);
+}

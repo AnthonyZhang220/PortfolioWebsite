@@ -11,10 +11,19 @@ export const projectdata = [
 			"assets/project_images/discord_friend.png",
 		],
 		roles: ["Front-end Development", "Back-end Development"],
-		overview: "Discord clone is an application where I am tring to",
-		features: "Group chat. Direct Messages. Voice group chat",
-		problem: "",
-		results: "",
+		overview: "The Discord Clone Web App is a real-time communication platform designed to replicate the functionality and experience of the popular Discord application. It provides users with a seamless and interactive environment for text, voice, and video communication, tailored for community building and collaboration.",
+		features: [{
+			name: "Real-time Messaging:",
+			detail: "Instantly exchange text messages with friends or within community channels. Utilizes Socket.IO for real-time updates and synchronization."
+		}, {
+			name: "Voice and Video Chat: ",
+			detail: "Enable voice and video communication within servers or direct messages. Integration with Agora RTC SDK for high-quality audio and video streaming."
+		}, {
+			name: "User Authentication:", detail: "Secure user authentication using Firebase Authentication. Authorization ensures a personalized and secure environment."
+		}, {
+			name: "Channel Organization:", detail: "Create and join different channels for focused discussions. Simple and intuitive channel management."
+		}],
+		challenges: "",
 		tech: [
 			`${iconpath}html5.png`,
 			`${iconpath}javascript.png`,
@@ -41,8 +50,25 @@ export const projectdata = [
 			"assets/project_images/portfolio_3.png",
 		],
 		roles: ["Front-end Development", "Back-end Development"],
-		overview: "My portfolio website is my lastest work. It is a demonstration of my complete skillset, where I try to include as many as elements as possible to sum up my experience in the front-end development.",
-		features: "View my projects in swipeable drawer. Mobile- ready responsive design. Entry animation and randomized position of the technology icons. Users can Like and Favorite my website with a backend server and a database(MongoDB). View my skillsets in different catogories. Form Validation and Recaptcha to prevent Spam and Bot. Music Player with essential functionalities. Newsletter",
+		overview: "The Portfolio Website is a showcase of your skills, experiences, and projects, serving as an online presence to highlight your frontend development expertise. With a modern and responsive design, it aims to impress potential employers, collaborators, and clients, providing them with insights into your capabilities and achievements.",
+		features: [
+			{
+				name: "Interactive Design:",
+				detail: "Utilizes GSAP (GreenSock Animation Platform) for smooth and engaging animations, creating an interactive and visually appealing user experience.Responsive design with MUI (Material-UI) components for consistency across various devices."
+			},
+			{
+				name: "Project Showcase:",
+				detail: "Showcases your frontend projects with detailed descriptions and interactive elements. Integration of react-share for easy social media sharing of your projects.",
+			},
+			{
+				name: "Contact Form with reCAPTCHA:",
+				detail: "Implements a secure contact form with reCAPTCHA verification using react-google-recaptcha. Allows potential employers or collaborators to reach out to you while preventing spam.",
+			},
+			{
+				name: "Technology Stack:",
+				detail: "Developed using React and React Router for a single-page application. Utilizes MongoDB and Mongoose for data storage and retrieval. Express.js server for backend logic, configured with CORS for secure API communication.",
+			},
+		],
 		process: "I was planning to build this portfolio website from scratch. However, with little knowledge to UI design, during the middle of the development timeline, I decided to add material-ui library just to fasten the process because I would like to simulate the real world production process.",
 		tech: [
 			`${iconpath}react.png`,
@@ -56,7 +82,7 @@ export const projectdata = [
 		],
 		library: ["GSAP", "Canvas.js", "ityped"],
 		WebsiteUrl: "https://explore-amazon-api.herokuapp.com/",
-		GitHubUrl: "https://github.com/AnthonyZhang220/portfolio-website",
+		GitHubUrl: "https://github.com/AnthonyZhang220/discord_clone",
 		new: false,
 	},
 	{
@@ -76,18 +102,19 @@ export const projectdata = [
 		],
 		roles: ["Front-end Development", "Back-end Development"],
 		overview: "LaoMa Spicy pays homage to the authentic flavors and rich culinary heritage of the eponymous restaurant, celebrated city-wide for its Sichuan dry hot pot and mouthwatering spicy hot stew. This digital venture is designed to extend the restaurant's reach, offering a virtual space for spice enthusiasts to explore, savor, and connect.",
-		features: [{
-			name: "Virtual Menu Exploration",
-			detail: "Dive into a virtual menu showcasing the restaurant's signature Sichuan dry hot pot and spicy hot stew"
-		},
-		{
-			name: "Community Engagement",
-			detail: "Connect with fellow spice enthusiasts, share culinary experiences, and discover new ways to elevate your spice game."
-		},
-		{
-			name: "Visual Feast",
-			detail: "Immerse yourself in a visually stunning representation of the restaurant's ambiance and signature dishes."
-		}
+		features: [
+			{
+				name: "Virtual Menu Exploration",
+				detail: "Dive into a virtual menu showcasing the restaurant's signature Sichuan dry hot pot and spicy hot stew"
+			},
+			{
+				name: "Community Engagement",
+				detail: "Connect with fellow spice enthusiasts, share culinary experiences, and discover new ways to elevate your spice game."
+			},
+			{
+				name: "Visual Feast",
+				detail: "Immerse yourself in a visually stunning representation of the restaurant's ambiance and signature dishes."
+			}
 		],
 		process: "Order Online. Mobile- ready responsive design. Easy user actions with the menu and shopping cart. Embeded Map. Integrated Google Review API and Instagram Basic Display API to display reviews from google maps and posted media and feed from the LaoMa Spicy account.",
 		results: "This project has been a tremendous learning experience, enhancing my skills in [mention specific skills or technologies learned] and reinforcing my commitment to delivering exceptional frontend solutions that capture the soul of a beloved restaurant.",
@@ -116,7 +143,23 @@ export const projectdata = [
 		],
 		roles: ["Front-end Development"],
 		overview: "Gaggle, is a Google Search Clone, allows user to search for results, such as news, iamges, videos with a free Google Search API, provided by the Rapid API community.",
-		features: "Option to choose display count. Darkmode. Mobile-ready responsive design.",
+		features: [
+			{
+				name: "Real-time Search:",
+				detail: "Instantly fetch search results as the user types with the help of the use-debounce library. Utilizes React and MUI components to create a dynamic and responsive user interface."
+			},
+			{
+				name: "Multimedia Integration:",
+				detail: "Displays relevant videos using the react-player library for a comprehensive search experience. Enhances user engagement with multimedia content directly within the search results."
+			},
+			{
+				name: "Responsive Design:",
+				detail: "Ensures a seamless user experience across various devices, including desktops, tablets, and mobile phones. Tailored styling with the Tailwind CSS library for a modern and clean appearance."
+			}, {
+				name: "Loading Spinner:",
+				detail: "Utilizes react-loader-spinner to provide visual feedback to users during data fetching."
+			}
+		],
 		process: "Gaggle is aimed to replicate the same user experience just like Google. To start this project, the first issue I encountered is to find any mock data or free API so that I could fetch data, filter and present them on the webpage. Without much efforts, I replicated the Google-like layout and theme with Tailwind CSS. ",
 		results: "End users would be able to search for up to 100 results.",
 		tech: [
@@ -141,10 +184,9 @@ export const projectdata = [
 			"assets/project_images/tripadvisor_mobile_2.png",
 		],
 		roles: ["Front-end Development"],
-		overview: "TripAdvisor is a Trip Advisor Clone, that provides end users with the ability to search for restaurants, hotels and attractions. People could filter the search result by type, and ratings, fetched from Trip Advisor. As a side feature, the weather information will be displayed on the map with real-time user location.",
-		features: "Search for restaurants, hotels, and attractions",
+		overview: "The Travel Advisor App is a dynamic and user-friendly web application designed to assist users in planning and exploring travel destinations. Leveraging cutting-edge technologies, it provides users with valuable information about various locations, attractions, and recommendations to enhance their travel experience.",
+		features: [{ name: "Interactive Map:", detail: "Utilizes Google Maps API and google-map-react for an interactive and visually rich map interface. Offers dynamic markers and information windows to highlight points of interest." }, { name: "Location Recommendations:", detail: "Integrates with third-party APIs, such as TripAdvisor or Yelp, to fetch real-time recommendations and reviews for restaurants, hotels, and attractions. Employs Axios for efficient API requests and data retrieval." }, { name: "Sass Styling:", detail: "Implements Sass for efficient and maintainable styling, allowing for a customized and visually appealing aesthetic." }],
 		process: "",
-		results: "",
 		tech: [
 			`${iconpath}javascript.png`,
 			`${iconpath}react.png`,
@@ -163,7 +205,7 @@ export const projectdata = [
 		screenshots: ["assets/project_images/amazon.png"],
 		roles: ["Back-end Development"],
 		overview: "Explore Amazon API gives you access to Amazon product details such as prices, ranks, reviews & offers, etc. in JSON format. ",
-		features: "Provide Amazon products information for end users. Records of likes and favorites. Connect to MongoDb.",
+		features: [{ name: "Provide Amazon products information for end users. Records of likes and favorites. Connect to MongoDb." }],
 		process: "",
 		results: "",
 		tech: [
@@ -189,7 +231,7 @@ export const projectdata = [
 		],
 		roles: ["Front-end Development", "Back-end Development"],
 		overview: "LaoMa Spicy Waitlist System is a quick waitlist system for customers.",
-		features: "Enter information -> Get a queue number -> wait to be called for seat",
+		features: [{ name: "Enter information -> Get a queue number -> wait to be called for seat" }],
 		process: "This system is developed rather in a hurry. It has been implemented for restaurant outdoor dining purposes due to Covid-19",
 		results: "",
 		tech: [
