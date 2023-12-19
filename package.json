@@ -22,6 +22,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.27.2",
     "body-parser": "^1.19.2",
+    "canvas-confetti": "^1.9.2",
     "concurrently": "^7.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",

@@ -11,8 +11,11 @@ import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import PauseRoundedIcon from '@mui/icons-material/PauseRounded';
 import { ReactComponent as BubbleTeaIcon } from "./bubble-tea.svg"
 import { useMusicPlayerContext } from '../../contexts/MusicPlayerContext';
+import confetti from "canvas-confetti";
 
-
+function displayConfetti() {
+    confetti({ zIndex: 1400, spread: 75, particleCount: 100 })
+}
 
 
 function SpeedDialMenu({ backToTop, handlePaymentModalOpen }) {
@@ -33,6 +36,7 @@ function SpeedDialMenu({ backToTop, handlePaymentModalOpen }) {
 
     const buyBubbleTea = () => {
         handlePaymentModalOpen();
+        displayConfetti();
         handleClose();
     }
 

@@ -2,6 +2,38 @@ const iconpath = "assets/tech-icons/";
 
 export const projectdata = [
 	{
+		id: 8,
+		title: "Moments",
+		subtitle: "A social app, integrating Wechat, Twitter and Tiktok",
+		thumbnails: "",
+		screenshots: [],
+		roles: ["Full-Stack"],
+		overview: "This project is a dynamic fusion of WeChat, Twitter, and TikTok, creating a unique social experience that brings together the best features of these popular platforms. This innovative application is built on a modern tech stack, leveraging Next.js, Apollo, and Prisma to deliver a seamless and engaging social networking experience.",
+		features: [
+			{
+				name: "Interactive Feed:",
+				detail: "Utilizes Apollo Client and GraphQL for efficient data fetching, providing a real-time, interactive, and visually engaging feed. Incorporates GSAP for smooth animations, enhancing the overall user experience."
+			},
+			{
+				name: "Multi-Media Content:",
+				detail: "Supports a variety of content types, including images, videos, and interactive media, offering a rich and diverse user experience. Replicate UI from TikTok's content presentation."
+			},
+			{
+				name: "Real-time Interactions:",
+				detail: "Enables real-time engagement with friends and followers through GraphQL subscriptions, ensuring instant updates on comments, likes, and shares. Aiming for a Wechat-like conversational experience.",
+			},
+			{
+				name: "Authentication and Security:", detail: "Implements secure user authentication with Next-Auth, supporting various authentication providers for a safe and hassle-free login experience. Prioritizes user data security through GraphQL and Prisma."
+			}
+		],
+		challenges: "",
+		tech: [],
+		library: ["Apollo Client", "Material-UI", "Prisma", "Pothos GraphQL", "GraphQL Yoga", "Next-Auth"],
+		WebsiteUrl: "",
+		GithubUrl: "https://github.com/AnthonyZhang220/nextjs-social-app",
+		new: true,
+	},
+	{
 		id: 7,
 		title: "Discord Clone",
 		subtitle: "A discord clone with basic functions integrated such as group chat and voice chat",
@@ -243,6 +275,6 @@ export const projectdata = [
 		library: [""],
 		WebsiteUrl: "https://laoma-spicy.herokuapp.com/",
 		GitHubUrl: "https://github.com/AnthonyZhang220/qrcode-ordering",
-		new: true,
+		new: false,
 	},
 ];

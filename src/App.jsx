@@ -27,7 +27,7 @@ function App() {
 
 	const [mode, setMode] = useState(null);
 	const { backToTop } = useBackToTop();
-	const [isOpen, handleClose, handleOpen] = useModalToggle();
+	const [isOpen, handleOpen, handleClose] = useModalToggle();
 
 	return (
 		<BrowserRouter>

@@ -68,8 +68,8 @@ export default function NavBar() {
         },
         {
             name: "Contact",
-            link: "/contact",
-            hashlink: false,
+            link: "/#contact",
+            hashlink: true,
         },
     ]
 
