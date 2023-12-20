@@ -5,7 +5,7 @@ export const projectdata = [
 		id: 8,
 		title: "Moments",
 		subtitle: "A social app, integrating Wechat, Twitter and Tiktok",
-		thumbnails: "",
+		thumbnails: "assets/project_images/Moment-logos.jpeg",
 		screenshots: [],
 		roles: ["Full-Stack"],
 		overview: "This project is a dynamic fusion of WeChat, Twitter, and TikTok, creating a unique social experience that brings together the best features of these popular platforms. This innovative application is built on a modern tech stack, leveraging Next.js, Apollo, and Prisma to deliver a seamless and engaging social networking experience.",
