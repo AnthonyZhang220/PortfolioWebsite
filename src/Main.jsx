@@ -4,7 +4,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import Typography from "@mui/material/Typography";
 
-import "./Main.scss"
 import "./global.scss"
 
 import Hero from "./components/Hero/Hero";

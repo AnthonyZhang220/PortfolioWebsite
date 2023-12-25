@@ -2,7 +2,6 @@
 
 .about {
 	display: flex;
-	background-color: inherit;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
@@ -20,35 +19,29 @@
 			align-items: center;
 			flex-wrap: wrap;
 			padding-bottom: 20px;
-
 		}
 
-		.about-me {
-			.about-who-section {
-				position: relative;
+		div {
+			padding: 0.5rem 1rem;
+		}
 
-				.about-who-img img {
-					position: relative;
-					object-fit: cover;
-					max-width: 100%;
-					height: 100%;
+		.about-section-grid {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			place-items: start;
+
+			.about-section-text {
+				.about-section-text-title {
+				}
+				.about-section-text-body {
 				}
 			}
-
-			.about-where-section {
-				position: relative;
-
-				.about-where-text {
-					position: relative;
-					z-index: 1;
-				}
-
-				.about-where-img img {
-					position: relative;
-					z-index: 0;
+			.about-section-image {
+				& > img {
+					border-radius: 1rem;
+					width: 100%;
 					object-fit: cover;
-					max-width: 100%;
-					// height: 100%;
+					max-height: auto;
 				}
 			}
 		}
@@ -56,6 +49,11 @@
 }
 @media screen and (max-width: 834px) {
 	.about {
+		.about-section {
+			.about-section-grid {
+				grid-template-columns: 1fr;
+			}
+		}
 		.skill-section {
 			.technology {
 				.categories {

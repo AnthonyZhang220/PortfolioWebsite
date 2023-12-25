@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useRef, useEffect } from "react"
-import { CardActions, Typography } from "@mui/material"
+import { CardActions, Typography, Box } from "@mui/material"
 import CardHeader from "@mui/material/CardHeader"
 import Avatar from "@mui/material/Avatar"
 import Button from "@mui/material/Button"
@@ -11,7 +11,11 @@ import LinearProgress from '@mui/material/LinearProgress';
 import ChatBubbleOutlineRoundedIcon from '@mui/icons-material/ChatBubbleOutlineRounded';
 import MoodRoundedIcon from '@mui/icons-material/MoodRounded';
 import Chip from "@mui/material/Chip"
+import { Card } from "@mui/material"
+import BlogCard from "./BlogCard"
+import useFetchAllBlogs from "../../hooks/useFetchAllBlogs"
 import "./BlogDetail.scss"
+import BlogSidebar from "./BlogSidebar"
 
 function BlogDetail() {
 
@@ -19,7 +23,7 @@ function BlogDetail() {
     const { blogId } = useParams();
     const { blog } = useFetchBlogById(blogId)
     const { progress } = useBlogScrollProgress()
-
+    const { blogList, allTags, selectedTags, tagFilter, error } = useFetchAllBlogs();
     useEffect(() => {
         console.log(blogId)
         const bodyEle = document.getElementById("blog-body-html")
@@ -35,26 +39,26 @@ function BlogDetail() {
 
     return (
         <>
-            <div className="blog-detail">
+            <Box className="blog-detail">
                 <LinearProgress className="progress-bar" variant="determinate" value={progress} />
-                <div className="blog-detail-container">
-                    <div className="blog-detail-main">
-                        <div className="blog-cover" >
+                <Box className="blog-detail-container">
+                    <Card className="blog-detail-main" variant="outlined">
+                        <Box className="blog-cover" >
                             <img src={blog?.cover_image} alt={blog?.cover_iamge} />
-                        </div>
-                        <div className="blog-body">
-                            <div className="blog-title">
+                        </Box>
+                        <Box className="blog-body">
+                            <Box className="blog-title">
                                 <Typography variant="h4">
                                     {blog?.title}
                                 </Typography>
-                            </div>
-                            <div className="blog-body-html" id="blog-body-html" ref={bodyHTMLRef}>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="blog-detail-sidebar">
-                        <div className="blog-detail-sidebar-container">
-                            <div className="blog-author-tile">
+                            </Box>
+                            <Box className="blog-body-html" id="blog-body-html" ref={bodyHTMLRef}>
+                            </Box>
+                        </Box>
+                    </Card>
+                    <Box className="blog-detail-sidebar">
+                        <Box className="blog-detail-sidebar-container">
+                            <Box className="blog-author-tile">
                                 <CardHeader
                                     avatar={
                                         <Avatar src={blog?.user.profile_image} alt={blog?.username} />
@@ -62,25 +66,32 @@ function BlogDetail() {
                                     title={blog?.user.name}
                                     subheader={`Published on ${blog?.readable_publish_date}`}
                                 />
-                                <div className="blog-tag-list">
+                                <Box className="blog-tag-list">
                                     {blog?.tags.map((text, index) => (
                                         <Chip className="tag" variant="outlined" color="secondary" key={index} label={`#${text}`} />
                                     ))}
-                                </div>
+                                </Box>
                                 <CardActions>
                                     <Button color="success" variant="text">{blog?.reading_time_minutes} mins read</Button>
                                 </CardActions>
                                 <CardActions>
-                                    <Chip icon={<ChatBubbleOutlineRoundedIcon />} label={`${blog?.comments_count} comments`} variant="outlined" />
-                                    <Chip icon={<MoodRoundedIcon />} label={`${blog?.public_reactions_count} reactions`} variant="outlined" />
+                                    <Chip icon={<ChatBubbleOutlineRoundedIcon />} label={`${blog?.comments_count} comments`} className="count-chip" variant="outlined" />
+                                    <Chip icon={<MoodRoundedIcon />} label={`${blog?.public_reactions_count} reactions`} className="count-chip" variant="outlined" />
                                 </CardActions>
-                            </div>
-                            <div className="blog-toc-tile" id="blog-toc">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                            </Box>
+                            <Card className="blog-toc-tile" id="blog-toc">
+                            </Card>
+                            <BlogSidebar allTags={allTags} tagFilter={tagFilter} selectedTags={selectedTags} />
+                            {
+                                error ? <Typography>{error}</Typography> :
+                                    blogList?.map((item) => (
+                                        <BlogCard {...item} cover_image={item.cover_image = null} user={item.user = null} selectedTags={selectedTags} key={item.id} />
+                                    ))
+                            }
+                        </Box>
+                    </Box>
+                </Box>
+            </Box>
         </>
     )
 }

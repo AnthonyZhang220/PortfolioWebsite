@@ -4,16 +4,15 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from 'gsap/all';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import { Box } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fab } from '@fortawesome/free-brands-svg-icons';
-import { fas } from '@fortawesome/free-solid-svg-icons';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import { library } from '@fortawesome/fontawesome-svg-core';
 
-
-
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { fab } from "@fortawesome/free-brands-svg-icons"
 import { styled } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
@@ -21,9 +20,8 @@ import { skillData } from './SkillData'
 
 import "./Skill.scss"
 
-library.add(fab);
-library.add(fas);
-
+library.add(fas)
+library.add(fab)
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
     '& .MuiToggleButtonGroup-grouped': {
@@ -126,18 +124,18 @@ export default function Skill() {
     }
 
     return (
-        <div className="skill" id='skill'>
-            <div className="skill-section" ref={skillRef}>
-                <div className="skill-title" ref={skillTitleRef}>
+        <Box className="skill" id='skill'>
+            <Box className="skill-section" ref={skillRef}>
+                <Box className="skill-title" ref={skillTitleRef}>
                     <Typography variant="h3" fontWeight="500">
                         Skill.&nbsp;
                     </Typography>
                     <Typography variant="h3" color="#6e6e73" fontWeight="500">
                         Technologies are always evolving, so am I.
                     </Typography>
-                </div>
-                <div className="technology">
-                    <div className='categories'>
+                </Box>
+                <Box className="technology">
+                    <Box className='categories'>
                         <Grid container
                             sx={{
                                 display: 'flex',
@@ -206,7 +204,7 @@ export default function Skill() {
                                                     m: 0.5,
                                                     p: 1,
                                                 }}>
-                                                    <img src={`assets/icon/${src}`} alt={`${src}`} loading="lazy" width={isMobile ? "60px" : "80px"} height="auto" style={{ display: "block" }} />
+                                                    <img src={`assets/skill_icons/${src}`} alt={`${src}`} loading="lazy" width={isMobile ? "60px" : "80px"} height="auto" style={{ display: "block" }} />
                                                 </Grid>
                                                 <Grid item xs textAlign="center">
                                                     <Typography variant='body1' sx={{
@@ -221,9 +219,9 @@ export default function Skill() {
                                 }
                             </Grid>
                         </Grid>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    </Box>
+                </Box>
+            </Box>
+        </Box>
     )
 }

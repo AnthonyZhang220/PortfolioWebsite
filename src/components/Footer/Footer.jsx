@@ -33,7 +33,7 @@ library.add(fab);
 
 //lazy loading
 const MusicPlayer = lazy(() => import("../MusicPlayer"));
-const Widget = styled('div')(({ theme }) => ({
+const Widget = styled('Box')(({ theme }) => ({
     padding: 16,
     borderRadius: 16,
     width: 343,
@@ -80,9 +80,9 @@ export default function Footer() {
     gsap.registerPlugin(ScrollTrigger);
 
     return (
-        <div className="footer-container" ref={footerContainer}>
+        <Box className="footer-container" ref={footerContainer}>
             <footer className='footer' id='footer' ref={footerRef}>
-                <div className="footer-top">
+                <Box className="footer-top">
                     <Grid container direction='row' className="footer-top-container">
                         <Grid item xs={12} sm={12} md={4} lg={4}>
                             <Box sx={{ mt: 2 }}>
@@ -177,20 +177,20 @@ export default function Footer() {
                             </Suspense>
                         </Grid>
                     </Grid>
-                </div>
+                </Box>
                 <Divider flexItem variant='middle' />
-                <div className="footer-bottom">
-                    <div className="copyright">
+                <Box className="footer-bottom">
+                    <Box className="copyright">
                         <Box sx={{ ml: 2 }}>
                             <span className='copyright-text'>
                                 &copy; 2020-{currentYear} <span className='name'>Anthony Zhang</span>. All Rights Reserved. Powered by ReactJs + GSAP + Netlify + Material UI.
                             </span>
                         </Box>
-                    </div>
-                </div>
+                    </Box>
+                </Box>
             </footer>
             <Error reason={error} />
-        </div>
+        </Box>
     );
 };
 
@@ -218,7 +218,7 @@ const FooterSocialIcon = () => {
     }
 
     return (
-        <div className='social-icon'>
+        <Box className='social-icon'>
             <Box>
                 <IconButton sx={{ color: '#fafafa', fontSize: 25 }} component='a' href="https://www.linkedin.com/in/anthony-xiangyu-zhang/" target="_blank" rel="noreferrer" aria-label="Link to Linkedin">
                     <FontAwesomeIcon icon="fa-brands fa-linkedin-in" />
@@ -273,6 +273,6 @@ const FooterSocialIcon = () => {
                     </Box>
                 </Fade>
             </Modal>
-        </div>
+        </Box>
     )
 }

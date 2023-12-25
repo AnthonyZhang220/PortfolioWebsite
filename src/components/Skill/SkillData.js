@@ -12,10 +12,15 @@ export const skillData = [
 		exp: "2 years",
 	},
 	{
-		name: "Javascript",
+		name: "JavaScript",
 		src: "js_official.svg",
 		type: ["All", "Frontend"],
 		exp: "2 years",
+	},
+	{
+		name: "TypeScript",
+		src: "typescript.svg",
+		type: ["All", "Frontend",],
 	},
 	{
 		name: "Node",
@@ -24,19 +29,57 @@ export const skillData = [
 		exp: "1 year",
 	},
 	{
+		name: "GraphQL",
+		src: "graphql.svg",
+		type: ["All", "Frontend"],
+		exp: "1 years",
+	},
+	{
+		name: "Next.js",
+		src: "nextjs.svg",
+		type: ["All", "Frontend", "Framework"],
+	},
+	{
+		name: "PostgreSQL",
+		src: "postgresql.svg",
+		type: ["All", "Backend"],
+	},
+	{
+		name: "Docker",
+		src: "docker.svg",
+		type: ["All", "Tool"],
+	},
+	{
+		name: "MongoDB",
+		src: "mongodb.svg",
+		type: ["All", "Backend"],
+	},
+	{
 		name: "Express",
 		src: "expressjs.svg",
-		type: ["All", "Backend","Framework"],
+		type: ["All", "Backend", "Framework"],
 		exp: "1 year",
 	},
 	{
-		name: "Axios",
-		src: "node.svg",
-		type: ["All", "Backend"],
+		name: "ReactJS",
+		src: "reactjs.svg",
+		type: ["All", "Frontend", "Framework", "Library"],
+		exp: "2 years",
+	},
+	{
+		name: "Material UI",
+		src: "mui.svg",
+		type: ["All", "Frontend", "Library"],
 		exp: "1 year",
 	},
 	{
-		name: "NPM",
+		name: "Sass",
+		src: "scss.svg",
+		type: ["All", "Frontend", "Library", "Tool"],
+		exp: "2 years",
+	},
+	{
+		name: "npm",
 		src: "npm.svg",
 		type: ["All", "Tool"],
 		exp: "2 years",
@@ -52,23 +95,5 @@ export const skillData = [
 		src: "webpack.svg",
 		type: ["All", "Tool"],
 		exp: "6 months",
-	},
-	{
-		name: "React JS",
-		src: "reactjs.svg",
-		type: ["All", "Frontend", "Framework", "Library"],
-		exp: "2 years",
-	},
-	{
-		name: "Material UI",
-		src: "mui.svg",
-		type: ["All", "Frontend", "Library"],
-		exp: "1 year",
-	},
-	{
-		name: "SASS",
-		src: "scss.svg",
-		type: ["All", "Frontend", "Library", "Tool"],
-		exp: "2 years",
 	},
 ];

@@ -2,7 +2,7 @@ import { useRef, useEffect } from "react"
 import { gsap } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from 'gsap/all';
-import { Typography } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 
 import BlogCard from "./BlogCard";
 import BlogSidebar from "./BlogSidebar";
@@ -44,29 +44,29 @@ export default function Blog() {
     }, [])
 
     return (
-        <div className="blog" id="blog">
-            <div className='blog-title' ref={blogTitleRef} >
+        <Box className="blog" id="blog">
+            <Box className='blog-title' ref={blogTitleRef} >
                 <Typography variant="h3" fontWeight="500" >
                     Blogs.&nbsp;
                 </Typography>
                 <Typography variant="h3" color="#6e6e73" fontWeight="500" >
                     These articles might make you ponder, for a while.
                 </Typography>
-            </div>
-            <div className="blog-container">
-                <div className="blog-list-grid">
+            </Box>
+            <Box className="blog-container">
+                <Box className="blog-list-grid">
                     {
                         error ? <Typography>{error}</Typography> :
                             blogList?.map((item) => (
                                 <BlogCard {...item} selectedTags={selectedTags} key={item.id} />
                             ))
                     }
-                </div>
-                <div className="blog-sidebar">
+                </Box>
+                <Box className="blog-sidebar">
                     <BlogSidebar allTags={allTags} selectedTags={selectedTags} tagFilter={tagFilter} />
-                </div>
+                </Box>
 
-            </div>
-        </div>
+            </Box>
+        </Box>
     )
 }

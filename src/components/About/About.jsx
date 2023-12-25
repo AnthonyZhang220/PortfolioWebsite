@@ -1,32 +1,19 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from 'gsap/all';
 
-import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fab } from '@fortawesome/free-brands-svg-icons';
-import { fas } from '@fortawesome/free-solid-svg-icons';
-
+import { Backdrop, Box } from '@mui/material';
+import { aboutText as aboutData } from './aboutText';
 import "./About.scss";
-
-
-library.add(fab);
-library.add(fas);
-
-
-
 
 export default function About() {
     gsap.registerPlugin(ScrollTrigger);
     gsap.registerPlugin(ScrollToPlugin);
 
-    const aboutTitleRef = useRef();
-
-
-
+    const aboutTitleRef = useRef(null);
+    const [imageOpen, setImageOpen] = useState(false)
     useEffect(() => {
         const entryAnimation = gsap.fromTo(aboutTitleRef.current, { y: 50, opacity: 0 }, {
             y: 0, opacity: 1, duration: 1,
@@ -50,39 +37,6 @@ export default function About() {
             entryAnimation.scrollTrigger.kill();
         }
     }, [])
-
-
-    useEffect(() => {
-        // const imgScrollEffect = gsap.timeline();
-
-        // imgScrollEffect.fromTo(".about-where-img", { y: 0 }, {
-        //     y: -100, scrollTrigger: {
-        //         trigger: ".about-where-section",
-        //         start: "top center",
-        //         scrub: true,
-        //         markers: true
-        //     }
-        // })
-
-        gsap.fromTo(".about-where-text", { y: "10%" }, {
-            y: "-20%", scrollTrigger: {
-                trigger: ".about-where-section",
-                start: "top center",
-                scrub: 1,
-            }
-        })
-        gsap.fromTo(".about-who-text", { y: "10%" }, {
-            y: "-30%", scrollTrigger: {
-                trigger: ".about-who-section",
-                start: "top center",
-                scrub: 1,
-            }
-        })
-
-        return () => {
-            // imgScrollEffect.scrollTrigger.kill();
-        }
-    })
 
     useEffect(() => {
         gsap.utils.toArray(".container").forEach((el) => {
@@ -112,42 +66,59 @@ export default function About() {
 
 
     return (
-        <div className='about' id="about">
-            <div className="about-section">
-                <div className="about-title" ref={aboutTitleRef}>
+        <Box className='about' id="about">
+            <Box className="about-section">
+                <Box className="about-title" ref={aboutTitleRef}>
                     <Typography variant="h3" fontWeight="500" >
                         About.&nbsp;
                     </Typography>
                     <Typography variant="h3" color="#6e6e73" fontWeight="500">
                         Get to know me, in a blink of an eye.
                     </Typography>
-                </div>
-                <Grid container className="about-me" sx={{
-                    m: 2,
-                    p: 2,
-                }}>
-                    <Grid container className="about-who-section">
-                        <Grid item sm={12} md={12} className="about-who-text" sx={{
-                            m: 1,
-                            p: 1,
-                        }} >
-                            <Typography textAlign='start' variant='h5' sx={{ lineHeight: '2' }}>
-                                I'm Anthony Zhang. A motivated Front End Enigeneer based in New York City. I've spent the last 2 years learning and building websites from simply displaying information and content to dealing with complex state management and data manipulations.
+                </Box>
+                <Box className="about-section-grid" >
+                    <Box className='about-section-image'>
+                        <Box className='about-section-text-title' >
+                            <Typography textAlign='start' variant='h5' >
+                                About me
                             </Typography>
-                        </Grid>
-                    </Grid>
-                    <Grid container className="about-where-section">
-                        <Grid item sm={12} md={12} className="about-where-text" sx={{
-                            m: 1,
-                            p: 1,
-                        }}>
-                            <Typography textAlign='start' variant='h5' sx={{ lineHeight: '2' }}>
-                                Rather than having an education in Computer Science, at 18 years old without knowing where my passion was, I decided to pursue a bachelor's degree in Mathematics and Economics from New York University. As a person who always want to mess around with the computer, my interest in software development was buried in my heart since I got my first pc in early childhood. Until recent years, it was uncovered.
+                        </Box>
+                        <Box className='about-section-text-body' >
+                            <Typography textAlign='start' variant='h6' >
+                                I'm Anthony. A Front End Engineer with two years of experience. I have written React, Typescript, C#. I thrive on crafting interactive, responsive, and user-friendly web applications that scale seamlessly. My journey is fueled by a self-driven passion for learning programming languages and staying abreast of modern web technologies.
                             </Typography>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </div>
-        </div>
+                        </Box>
+                        <Box className="about-section-image" onClick={() => setImageOpen(true)}>
+                            <img src="assets/workspace.jpg" alt="workspaceimage" />
+                        </Box>
+                    </Box>
+                    <Box className="about-section-text">
+                        {aboutData?.map(({ title, text }, index) => (
+                            <Box key={index}>
+                                <Box className='about-section-text-title' >
+                                    <Typography textAlign='start' variant='h5' >
+                                        {title}
+                                    </Typography>
+                                </Box>
+                                <Box className='about-section-text-body' >
+                                    <Typography textAlign='start' variant='h6' >
+                                        {text}
+                                    </Typography>
+                                </Box>
+                            </Box>
+                        ))}
+                    </Box>
+                </Box>
+            </Box>
+            <EnlargeImage imageOpen={imageOpen} setImageOpen={setImageOpen} />
+        </Box>
+    )
+}
+
+export function EnlargeImage({ imageOpen, setImageOpen }) {
+    return (
+        <Backdrop open={imageOpen} onClick={() => setImageOpen(false)} sx={{ zIndex: 1000 }}>
+            <img src="assets/workspace.jpg" alt="workspaceimage" style={{ maxWidth: "90%", objectFit: "contain", height: "auto", backgroundColor: "inherit" }} />
+        </Backdrop>
     )
 }

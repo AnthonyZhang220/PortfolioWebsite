@@ -21,12 +21,15 @@ export default function BlogCard(props) {
     const navigate = useNavigate();
     return (
         <Card className="blog-card" variant="outlined" sx={{ maxWidth: 400, m: 2, borderRadius: 4, cursor: "pointer", display: "flex", flexDirection: "column" }} onClick={() => navigate(`/blog/${id}`)} >
-            <CardMedia
-                className="blog-card-cover"
-                sx={{ height: 200 }}
-                image={cover_image}
-                title={title}
-            />
+            {
+                cover_image &&
+                <CardMedia
+                    className="blog-card-cover"
+                    sx={{ height: 200 }}
+                    image={cover_image}
+                    title={title}
+                />
+            }
             <CardContent>
                 <Typography gutterBottom variant="h6" component="div">
                     {title}
@@ -42,19 +45,22 @@ export default function BlogCard(props) {
                         size="small" key={index} />
                 ))}
             </Box>
-            <CardHeader
-                avatar={
-                    <Avatar aria-label="recipe" src={user.profile_image} alt={user.username} />
-                }
-                action={
-                    <IconButton aria-label="settings">
-                        <MoreVertIcon />
-                    </IconButton>
-                }
-                title={user.name}
-                subheader={`Published on ${readable_publish_date}`}
-                sx={{ marginTop: "auto" }}
-            />
+            {
+                user &&
+                <CardHeader
+                    avatar={
+                        <Avatar aria-label="recipe" src={user.profile_image} alt={user.username} />
+                    }
+                    action={
+                        <IconButton aria-label="settings">
+                            <MoreVertIcon />
+                        </IconButton>
+                    }
+                    title={user.name}
+                    subheader={`Published on ${readable_publish_date}`}
+                    sx={{ marginTop: "auto" }}
+                />
+            }
             <CardActions>
                 <Button color="success" variant="text">{reading_time_minutes} mins read</Button>
                 <Link to={`/blog/${id}`} style={{ marginLeft: "auto" }}>

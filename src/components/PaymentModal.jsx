@@ -14,7 +14,9 @@ function PaymentModal({ isOpen, handlePaymentModalClose }) {
             aria-labelledby="parent-modal-title"
             aria-describedby="parent-modal-description"
         >
-            <Box className="payment-modal">
+            <Box className="payment-modal"
+                sx={{ bgcolor: "background.default" }}
+            >
                 <Box className="payment-modal-container">
                     <Box className="payment-modal-close" onClick={handlePaymentModalClose}>
                         <CloseRoundedIcon className="close-icon" />

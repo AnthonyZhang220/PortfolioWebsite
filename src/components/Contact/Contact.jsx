@@ -27,15 +27,12 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fab } from '@fortawesome/free-brands-svg-icons';
 import "./Contact.scss"
 import { FormHelperText, IconButton, Tooltip } from '@mui/material';
 import FormSubmitDialog from './FormSubmitDialog';
 import useDialog from '../../hooks/useDialog';
 
 
-library.add(fab);
 init(process.env.REACT_APP_USER_ID);
 
 
@@ -112,7 +109,7 @@ export default function Contact() {
                         p: 3.5,
                     }}>
                         <Box className='contact-title-background'>
-                            <Typography variant="h3" color="#212121" textAlign="center" fontWeight="500">
+                            <Typography variant="h3" textAlign="center" fontWeight="500">
                                 Contact.&nbsp;
                             </Typography>
                             <Typography variant="h3" color="#6e6e73" textAlign="center" fontWeight="500">
@@ -144,7 +141,6 @@ export default function Contact() {
                         <Paper
                             elevation={0}
                             sx={{
-                                backgroundColor: "#ffffff",
                                 borderRadius: 10,
                                 boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 50px;',
                                 p: 3.5,
@@ -191,8 +187,8 @@ function ContactForm() {
                     autoComplete='name'
                     placeholder="Anthony Zhang"
                     value={formInput.name}
-                    error={!isFormValid}
-                    helperText={isFormValid ? "" : error}
+                    error={error.find((x) => x.field === "name")}
+                    helperText={error.find((x) => x.field === "name") ? error.find((x) => x.field === "name").message : ""}
                     onFocus={resetFormValidation}
                     onBlur={triggerValidation}
                     onChange={e => handleOnFormChange(e)}
@@ -219,8 +215,8 @@ function ContactForm() {
                     placeholder="example@gmail.com"
                     variant="standard"
                     value={formInput.email}
-                    error={!isFormValid}
-                    helperText={isFormValid ? "" : error}
+                    error={error.find((x) => x.field === "email")}
+                    helperText={error.find((x) => x.field === "email") ? error.find((x) => x.field === "email").message : ""}
                     onBlur={() => {
                         if (/^$|^\S+@\S+\.\S+$/.test(formInput.email)) {
                             triggerValidation();
@@ -282,7 +278,7 @@ function ContactForm() {
                 />
             </Grid>
             <Grid item xs={12} md={6} textAlign='start'>
-                <FormControl sx={{ p: 1 }} required error={!isFormValid}>
+                <FormControl sx={{ p: 1 }} required>
                     <FormLabel id="demo-controlled-radio-buttons-group" sx={{ fontWeight: "bold" }}>Intent</FormLabel>
                     <RadioGroup
                         row
@@ -302,7 +298,7 @@ function ContactForm() {
                             <FormControlLabel value="Other" control={<Radio size='medium' onClick={handleRadioButton} />} label="Other(Please specify in message)" />
                         </Grid>
                     </RadioGroup>
-                    <FormHelperText>{isFormValid ? "" : error}</FormHelperText>
+                    <FormHelperText>{error.find((x) => x.field === "intention") ? error.find((x) => x.field === "intention").message : ""}</FormHelperText>
                 </FormControl>
             </Grid>
             <Grid item xs={12} md={6} textAlign="center">
@@ -313,11 +309,11 @@ function ContactForm() {
                     maxRows={4}
                     id="form-message"
                     label="Message"
-                    name='message'
+                    name="message"
                     variant="standard"
                     value={formInput.message}
-                    error={formInput.intention === "Other" && !isFormValid}
-                    helperText={formInput.intention === "Other" && !isFormValid ? "Since you choose Other for intent, please specify your reason for contact." : ""}
+                    error={formInput.intention === "Other" && error.find((x) => x.field === "message")}
+                    helperText={(formInput.intention === "Other" && "Since you choose Other for intent, please specify your reason for contact.") || (error.find((x) => x.field === "message") && error.find((x) => x.field === "message".message))}
                     onFocus={resetFormValidation}
                     onBlur={triggerValidation}
                     onChange={e => handleOnFormChange(e)}

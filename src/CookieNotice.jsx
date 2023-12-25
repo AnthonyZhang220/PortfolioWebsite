@@ -23,7 +23,9 @@ function CookieNotice() {
         if (accepted) {
             setOpen(false)
         } else {
-            setOpen(true)
+            setTimeout(() => {
+                setOpen(true)
+            }, [5000])
         }
     }, [])
 

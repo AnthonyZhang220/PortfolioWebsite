@@ -2,6 +2,7 @@ import { Typography } from '@mui/material'
 import Box from "@mui/material/Box";
 import Chip from '@mui/material/Chip';
 import React, { useEffect } from 'react'
+import { Card } from '@mui/material';
 
 import "./BlogSidebar.scss"
 
@@ -10,7 +11,7 @@ function BlogSidebar({ allTags, tagFilter, selectedTags }) {
         console.log(allTags, selectedTags)
     }, [allTags, selectedTags])
     return (
-        <Box className="blog-sidebar-container">
+        <Box className="blog-sidebar-container" component={Card} variant='outlined' sx={{ borderRadius: 4 }}>
             <Box className="blog-sidebar-title">
                 <Typography variant='h6'>
                     All Tags

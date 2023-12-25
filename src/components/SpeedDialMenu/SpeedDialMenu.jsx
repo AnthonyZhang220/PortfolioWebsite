@@ -11,6 +11,8 @@ import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import PauseRoundedIcon from '@mui/icons-material/PauseRounded';
 import { ReactComponent as BubbleTeaIcon } from "./bubble-tea.svg"
 import { useMusicPlayerContext } from '../../contexts/MusicPlayerContext';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
 import confetti from "canvas-confetti";
 
 function displayConfetti() {
@@ -18,7 +20,7 @@ function displayConfetti() {
 }
 
 
-function SpeedDialMenu({ backToTop, handlePaymentModalOpen }) {
+function SpeedDialMenu({ backToTop, handlePaymentModalOpen, toggleColorMode, mode }) {
     const { paused, togglePlay } = useMusicPlayerContext()
 
     const [open, setOpen] = React.useState(false);
@@ -40,8 +42,13 @@ function SpeedDialMenu({ backToTop, handlePaymentModalOpen }) {
         handleClose();
     }
 
+    const modeHandler = () => {
+        toggleColorMode();
+    }
+
 
     const actions = [
+        { icon: mode === "light" ? <DarkModeIcon fontSize="large" /> : <LightModeIcon fontSize='large' />, name: mode === "light" ? "Switch to Darkmode" : "Switch to Lightmode", action: modeHandler, },
         { icon: paused ? <PlayArrowRoundedIcon fontSize='large' /> : <PauseRoundedIcon fontSize='large' />, name: paused ? 'Play some music!' : 'Pause', action: togglePlay },
         { icon: <GitHubIcon fontSize='large' />, name: 'Go to Github', action: goToGitHubHandler },
         { icon: <SvgIcon fontSize='large'><BubbleTeaIcon /></SvgIcon>, name: 'Buy me a bubble tea', action: buyBubbleTea },

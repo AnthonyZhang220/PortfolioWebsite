@@ -26,7 +26,7 @@ import "../../global.scss"
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 
-export default function NavBar() {
+export default function NavBar({ mode }) {
 
 
     gsap.registerPlugin(ScrollToPlugin);
@@ -72,22 +72,26 @@ export default function NavBar() {
             hashlink: true,
         },
     ]
-
     return (
         <>
-            <nav className='top-nav' id='top-nav'>
-                <div className="top-nav-container">
-                    <div className="top-left" ref={leftNavRef}>
-                        <div className='logo'>
+            <Box className='top-nav' id='top-nav' sx={{ bgcolor: "background.default" }}>
+                <Box className="top-nav-container">
+                    <Box className="top-left" ref={leftNavRef}>
+                        <Box className='logo'>
                             <Link to='/'>
-                                <img src="/assets/az_logo.png" alt="logo" width='64px' height='64px' />
+                                {
+                                    mode === "light" ?
+                                        <img src="/assets/az_logo.png" alt="logo" width='64px' height='64px' />
+                                        :
+                                        <img src="/assets/az_logo_white.png" alt="logo" width='64px' height='64px' />
+                                }
                             </Link>
-                        </div>
-                    </div>
+                        </Box>
+                    </Box>
                     {isMobile ?
-                        <div className="top-right" ref={rightNavRef}>
-                            <div className="icon">
-                                <div className="menubar">
+                        <Box className="top-right" ref={rightNavRef}>
+                            <Box className="icon">
+                                <Box className="menubar">
                                     {
                                         isOpen ?
                                             <IconButton onClick={toggleDrawer(false)} color='black' aria-label="menu-button close">
@@ -98,14 +102,14 @@ export default function NavBar() {
                                                 <MenuIcon />
                                             </IconButton>
                                     }
-                                </div>
-                            </div>
-                        </div>
+                                </Box>
+                            </Box>
+                        </Box>
                         :
-                        <div className="top-nav-links">
+                        <Box className="top-nav-links">
                             {
                                 linkList?.map((item, index) => (
-                                    <div className="nav-link" key={index}>
+                                    <Box className="nav-link" key={index}>
                                         {item.hashlink ?
                                             <HashLink to={item.link}>
                                                 <Typography variant="h5">
@@ -118,54 +122,57 @@ export default function NavBar() {
                                                 </Typography>
                                             </Link>
                                         }
-                                    </div>
+                                    </Box>
                                 ))
                             }
-                        </div>
+                        </Box>
                     }
-                </div>
-            </nav>
+                </Box>
+            </Box>
             <SwipeableMenu isMobile={isMobile} CLIENT_SCREEN_HEIGHT={CLIENT_SCREEN_HEIGHT} toggleDrawer={toggleDrawer} isOpen={isOpen} />
         </>
     )
 }
 
 export const SwipeableMenu = ({ isOpen, toggleDrawer, isMobile, CLIENT_SCREEN_HEIGHT }) => {
-
-
-
     const menuTopList = [
         {
             text: "Home",
             icon: "",
-            link: "/"
+            link: "/",
+            hashlink: false,
         },
         {
             text: "Project",
             icon: "",
             link: "/#project",
+            hashlink: true,
         },
         {
             text: "Blog",
             icon: "",
-            link: "/#blog"
+            link: "/blog",
+            hashlink: true,
         },
     ]
     const menuBottomList = [
         {
             text: "About",
             icon: "",
-            link: "/about"
+            link: "/about",
+            hashlink: false,
         },
         {
             text: "Skill",
             icon: "",
-            link: "/#skill"
+            link: "/about/#skill",
+            hashlink: true,
         },
         {
             text: "Contact",
             icon: "",
-            link: "/#contact"
+            link: "/#contact",
+            hashlink: true,
         },
     ]
 

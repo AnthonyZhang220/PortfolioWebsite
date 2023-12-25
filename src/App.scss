@@ -1,5 +1,5 @@
-@import "./global.scss";
-@import "./scss/theme.scss";
+@use "global.scss";
+@import url(./scss/theme.scss);
 
 * {
 	font-family: "Roboto", sans-serif;
@@ -17,21 +17,16 @@ html {
 }
 
 body {
-	background-color: #121212;
 	overflow-x: hidden;
 	margin: 0;
 	padding: 0;
 
-	.App {
-		background-color: $bg-color-main;
-	}
-
 	.cursor {
 		position: fixed;
-		width: 50px;
-		height: 50px;
-		margin-left: -25px;
-		margin-top: -25px;
+		width: 40px;
+		height: 40px;
+		margin-left: -20px;
+		margin-top: -20px;
 		border-radius: 50%;
 		border: 2px solid #121212;
 		transition: transform 0.2s ease-in-out;
@@ -53,19 +48,19 @@ body {
 	}
 
 	.grow {
-		transform: scale(2);
+		transform: scale(1.2);
 		background: #121212;
 		mix-blend-mode: difference;
 		border: none;
 	}
 	.growtext {
-		transform: scale(3);
+		transform: scale(1.2);
 		background: #ffffff;
 		mix-blend-mode: difference;
 		border: none;
 	}
 	.growimg {
-		transform: scale(5);
+		transform: scale(1.2);
 		background: #ffffff;
 		mix-blend-mode: difference;
 		border: none;
@@ -102,47 +97,28 @@ body {
 	}
 }
 
-.darkmode {
-	background-color: #121212;
-	color: rgba(255, 255, 255, 0.87);
-
-	nav {
-		color: rgba(255, 255, 255, 0.87);
-	}
-
-	a {
-		color: rgba(255, 255, 255, 0.87);
-	}
-
-	i {
-		color: rgba(255, 255, 255, 0.87);
-	}
-
-	span {
-		color: rgba(255, 255, 255, 0.87);
-	}
-
-	p {
-		color: rgba(255, 255, 255, 0.87);
-	}
-
-	h1 {
-		color: rgba(255, 255, 255, 0.87);
-	}
-
-	h2 {
-		color: rgba(255, 255, 255, 0.87);
-	}
+img {
+	display: block;
 }
 
-// @media screen and (max-width: 400px) {
-// 	h2 {
-// 		font-size: 1em;
-// 	}
-// 	span {
-// 		font-size: 1em;
-// 	}
-// }
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.cursor-dark {
+	position: fixed;
+	width: 40px;
+	height: 40px;
+	margin-left: -20px;
+	margin-top: -20px;
+	border-radius: 50%;
+	border: 2px solid #ffffff;
+	transition: transform 0.2s ease-in-out;
+	transform-origin: center center;
+	pointer-events: none;
+	z-index: 5000;
+}
 
 .payment-modal {
 	border-radius: 1rem;
@@ -151,7 +127,6 @@ body {
 	left: 50%;
 	transform: translate(-50%, -50%);
 	min-width: 400px;
-	background-color: white;
 	border: 2px solid #000;
 	box-shadow: 24;
 	padding: 1.5rem;
