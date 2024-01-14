@@ -39,14 +39,14 @@ export default function Hero() {
 
     //entry animation
     useEffect(() => {
-        let entryPlayed = sessionStorage.getItem("hasMyAnimationPlayed")
-        let introPlayed = sessionStorage.getItem("introPlayed");
+        let entryPlayed = localStorage.getItem("hasMyAnimationPlayed")
+        let introPlayed = localStorage.getItem("introPlayed");
 
         //entry timeline
         const entryTimeline = gsap.timeline({
             onComplete: () => {
                 introTimeline.play();
-                sessionStorage.setItem("hasMyAnimationPlayed", true);
+                localStorage.setItem("hasMyAnimationPlayed", true);
             }
         })
 
@@ -71,7 +71,7 @@ export default function Hero() {
         //home timeline
         const introTimeline = gsap.timeline({
             onComplete: () => {
-                sessionStorage.setItem("introPlayed", true)
+                localStorage.setItem("introPlayed", true)
             }
         })
             .fromTo('.hero-tech-icon-container > .hero-tech-icon', { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, x: "20%", duration: 1 }, "<")

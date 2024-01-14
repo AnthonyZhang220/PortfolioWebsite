@@ -56,7 +56,7 @@ function SpeedDialMenu({ backToTop, handlePaymentModalOpen, toggleColorMode, mod
     ];
 
     return (
-        <Box sx={{ position: "fixed", bottom: 0, right: 0, height: 330, transform: 'translateZ(0px)', flexGrow: 1, zIndex: 999, }}>
+        <Box sx={{ position: "fixed", bottom: 0, right: 0, height: 330, transform: 'translateZ(0px)', flexGrow: 1, zIndex: 999 }}>
             <Backdrop open={open} />
             <SpeedDial
                 ariaLabel="SpeedDial tooltip"
