@@ -48,9 +48,13 @@ function useSupabaseClient() {
                 { ...prevData, [type]: prevData[type] + 1 }
             ))
         } else {
-            setError(error)
+            setError(error.message)
         }
     }
+
+    useEffect(() => {
+        console.log(error)
+    }, [error])
 
     return { data, error, incrementUpdate }
 }

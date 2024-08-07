@@ -16,9 +16,7 @@ export default function Blog() {
 
     const blogTitleRef = useRef();
     const { blogList, allTags, selectedTags, tagFilter, error } = useFetchAllBlogs();
-    useEffect(() => {
-        console.log(blogList)
-    }, [blogList])
+
     useEffect(() => {
         const entryAnimation = gsap.fromTo(blogTitleRef.current, { y: 50, opacity: 0 }, {
             y: 0, opacity: 1, duration: 1,

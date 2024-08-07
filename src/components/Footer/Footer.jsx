@@ -4,7 +4,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 
 import Grid from '@mui/material/Grid';
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
@@ -25,6 +25,7 @@ import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import StatusSnackbar from "../StatusSnackbar"
 import useSupabaseClient from '../../hooks/useSupabaseClient';
+import { ErrorRounded } from '@mui/icons-material';
 import './Footer.scss';
 
 library.add(fab);
@@ -86,16 +87,16 @@ export default function Footer() {
                     <Grid container direction='row' className="footer-top-container">
                         <Grid item xs={12} sm={12} md={4} lg={4}>
                             <Box sx={{ mt: 2 }}>
-                                <IconButton sx={{ color: '#fafafa', fontSize: 30 }} onClick={() => incrementUpdate("like")} aria-label="Like Thumbup Button">
-                                    <Badge badgeContent={data.like} color="primary">
+                                {/* <IconButton sx={{ color: '#fafafa', fontSize: 30 }} onClick={() => incrementUpdate("like")} aria-label="Like Thumbup Button">
+                                    <Badge badgeContent={data.like ?? <ErrorRounded />} color="primary">
                                         <ThumbUpRoundedIcon />
                                     </Badge>
                                 </IconButton>
                                 <IconButton sx={{ color: '#fafafa', fontSize: 30 }} onClick={() => incrementUpdate("fav")} aria-label="Favorite Heart Button">
-                                    <Badge badgeContent={data.fav} color="primary">
+                                    <Badge badgeContent={data.fav ?? <ErrorRounded />} color="primary">
                                         <FavoriteRoundedIcon />
                                     </Badge>
-                                </IconButton>
+                                </IconButton> */}
                             </Box>
                             <Box sx={{ mt: 2 }}>
                                 <Typography variant='h6'>
@@ -189,7 +190,7 @@ export default function Footer() {
                     </Box>
                 </Box>
             </footer>
-            <Error reason={error} />
+            {/* <Error reason={error} /> */}
         </Box>
     );
 };

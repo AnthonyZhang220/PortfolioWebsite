@@ -25,14 +25,12 @@ function BlogDetail() {
     const { progress } = useBlogScrollProgress()
     const { blogList, allTags, selectedTags, tagFilter, error } = useFetchAllBlogs();
     useEffect(() => {
-        console.log(blogId)
         const bodyEle = document.getElementById("blog-body-html")
         const tocEle = document.getElementById("blog-toc")
         // Check if blog is not null before updating innerHTML
         if (blog && blog.body_html) {
             bodyEle.innerHTML = blog.body_html;
             tocEle.innerHTML = generateMD(blog.body_html);
-            console.log(1, tocEle.innerHTML)
         }
 
     }, [blogId, blog])

@@ -1,5 +1,4 @@
 export default function generateMD(html) {
-    console.log(html)
     let outputMarkDown = "## Table of Contents\n";
     const orderedNumbers = {}
     let markDownIndentation = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
@@ -58,7 +57,6 @@ export default function generateMD(html) {
                 outputMarkDown += "[" + item.textContent.trim() + "](" + link + ")\n";
             }
 
-            console.log("markdown", outputMarkDown)
         }
     }
 

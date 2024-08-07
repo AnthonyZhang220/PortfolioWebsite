@@ -30,7 +30,6 @@ export default function Hero() {
     const heroTitleRef = useRef(null);
     const heroTechIconRef = useRef(null);
     const heroIconContainerRef = useRef(null);
-    const canvasRef = useRef(null);
 
     const heroTech = ["assets/skill_icons/js_official.svg", "assets/skill_icons/reactjs.svg", "assets/skill_icons/css.svg", "assets/skill_icons/html.svg", "assets/skill_icons/scss.svg", "assets/skill_icons/git.svg", "assets/skill_icons/graphql.svg", "assets/skill_icons/typescript.svg", "assets/skill_icons/postgresql.svg", "assets/skill_icons/docker.svg", "assets/skill_icons/nextjs.svg"]
 
@@ -166,7 +165,6 @@ export default function Hero() {
                 );
 
                 const overlapsWithTitles = titleBounds.overlaps(iconBox);
-                console.log(overlapsWithTitles, iconBox)
                 if (!overlapsWithTitles && fitted.every(placed => !placed.overlaps(iconBox))) {
                     fitted.push(iconBounds.splice(i--, 1)[0].placeElement())
                 } else { maxTries-- }
@@ -180,7 +178,6 @@ export default function Hero() {
                 right: heroIconContainerRef.current.clientWidth, bottom: heroIconContainerRef.current.clientHeight,
                 width: heroIconContainerRef.current.clientWidth, height: heroIconContainerRef.current.clientHeight
             };
-            console.log(box)
             return {
                 l: box.left - pad,
                 t: box.top - pad,

@@ -2,8 +2,6 @@ import { useState, useCallback } from 'react'
 
 function useDialog(isVerifyExpired, isFormValid) {
 
-    console.log(isFormValid)
-
     const [activeStep, setActiveStep] = useState(1);
     const [openDialog, setOpenDialog] = useState(false);
     const [loading, setLoading] = useState(false);

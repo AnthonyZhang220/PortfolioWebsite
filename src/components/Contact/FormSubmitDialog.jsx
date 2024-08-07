@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 import SendIcon from '@mui/icons-material/Send';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Stepper from '@mui/material/Stepper';
@@ -32,9 +31,6 @@ function PaperComponent(props) {
 export default function FormSubmitDialog({ formInput, openDialog, activeStep, submitStatus, handleFormSubmit, handleDialogClose }) {
     const steps = ['Confirm your info', 'Verify you are a human', 'Submit contact form']
     const { isRecaptchaLoaded } = useRecaptcha();
-    useEffect(() => {
-        console.log(openDialog)
-    }, [openDialog])
 
     const formConfirmationList = [
         {

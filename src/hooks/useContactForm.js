@@ -39,7 +39,6 @@ function useContactForm(isHumanVerified, isVerifyExpired, formRef) {
     const handleFormSubmit = async () => {
         // setLoading(true);
         // recaptchaRef.current.execute();
-        console.log(formInput.email)
         setSubmitStatus({ status: "loading", reason: "" });
 
         if (!isHumanVerified) {

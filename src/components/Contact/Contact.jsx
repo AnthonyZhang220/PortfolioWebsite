@@ -163,10 +163,6 @@ function ContactForm() {
     const { isVerifyExpired } = useRecaptcha()
     const { handleDialogOpen, openDialog, activeStep, handleDialogClose } = useDialog(isVerifyExpired, isFormValid);
 
-    useEffect(() => {
-        console.log(openDialog)
-    }, [openDialog])
-
     return (
         <Grid
             component="form"

@@ -16,7 +16,6 @@ function useRecaptcha() {
 
   //verify recaptcha with Google on backend
   const handleHumanVerify = async (token) => {
-    console.log(token)
     const captchaToken = token;
 
     try {

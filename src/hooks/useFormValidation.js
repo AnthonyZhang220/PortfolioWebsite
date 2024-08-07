@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 
 function useFormValidation(formInput) {
     const [error, setError] = useState([]);
@@ -14,10 +14,6 @@ function useFormValidation(formInput) {
     const resetFormValidation = () => {
         setError([])
     }
-
-    useEffect(() => {
-        console.log(error)
-    }, [error])
 
     return { error, resetFormValidation, triggerValidation }
 }
