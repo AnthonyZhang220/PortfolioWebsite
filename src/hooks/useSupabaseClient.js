@@ -10,18 +10,20 @@ function useSupabaseClient() {
     const supabase = createClient(supabaseUrl, supabaseKey);
     const [data, setData] = useState({ like: 0, fav: 0 })
     const [error, setError] = useState(null)
+    const [liked, setLiked] = useState(false);
+    const [faved, setFaved] = useState(false);
 
 
     useEffect(() => {
         const getCount = async () => {
             const { count: likeCount, error: likeError } = await supabase.from("like").select("*", { count: "exact", head: true })
             setData((prevData) => ({ ...prevData, like: likeCount }))
-            setError(likeError)
+            setError({ message: likeError.message + " like count. Please contact me at anthonyzhang1997@gmail.com." })
 
             const { count: favCount, error: favError } = await supabase.from("fav").select("*", { count: "exact", head: true })
 
             setData((prevData) => ({ ...prevData, fav: favCount }))
-            setError(favError)
+            setError({ message: favError.message + " favorite count. Please contact me at anthonyzhang1997@gmail.com." })
         };
 
         getCount()
@@ -32,12 +34,14 @@ function useSupabaseClient() {
         const fav = Cookies.get("fav");
 
         if (like && type === "like") {
-            setError("You can only leave a like once!")
+            setLiked(true);
+            setError({ message: "You can only leave a like once!" })
             return;
         }
 
         if (fav && type === "fav") {
-            setError("You can only leave a heart once!")
+            setFaved(true);
+            setError({ message: "You can only leave a heart once!" })
             return;
         }
         const { error } = await supabase.from(type).insert({})
@@ -48,15 +52,12 @@ function useSupabaseClient() {
                 { ...prevData, [type]: prevData[type] + 1 }
             ))
         } else {
-            setError(error.message)
+            setError({ message: "Like and Fav count" + error.message }
+            )
         }
     }
 
-    useEffect(() => {
-        console.log(error)
-    }, [error])
-
-    return { data, error, incrementUpdate }
+    return { data, error, incrementUpdate, liked, faved }
 }
 
 export default useSupabaseClient

@@ -25,7 +25,6 @@ import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import StatusSnackbar from "../StatusSnackbar"
 import useSupabaseClient from '../../hooks/useSupabaseClient';
-import { ErrorRounded } from '@mui/icons-material';
 import './Footer.scss';
 
 library.add(fab);
@@ -72,7 +71,8 @@ const Error = ({ data, reason }) => {
 export default function Footer() {
 
     let currentYear = new Date().getFullYear();
-    const { data, error, incrementUpdate } = useSupabaseClient();
+    const { data, error, incrementUpdate, liked, faved } = useSupabaseClient();
+    const [hover, setHover] = useState(false);
 
     const footerRef = useRef(null);
     const footerContainer = useRef(null);
@@ -87,16 +87,45 @@ export default function Footer() {
                     <Grid container direction='row' className="footer-top-container">
                         <Grid item xs={12} sm={12} md={4} lg={4}>
                             <Box sx={{ mt: 2 }}>
-                                {/* <IconButton sx={{ color: '#fafafa', fontSize: 30 }} onClick={() => incrementUpdate("like")} aria-label="Like Thumbup Button">
-                                    <Badge badgeContent={data.like ?? <ErrorRounded />} color="primary">
-                                        <ThumbUpRoundedIcon />
+                                <IconButton sx={{
+                                    color: '#fafafa', fontSize: 30,
+                                }} onClick={() => incrementUpdate("like")} aria-label="Like Thumbup Button"
+                                    onMouseEnter={() => setHover(true)}
+                                    onMouseLeave={() => setHover(false)}
+                                >
+                                    <Badge
+                                        color="primary"
+                                        badgeContent={hover ? "+1" : data.like ?? "!"}>
+                                        <ThumbUpRoundedIcon
+                                            color={liked ? "error" : "white"}
+                                            sx={{
+                                                "&:hover": {
+                                                    "scale": "1.2",
+                                                    "transition": "all 0.3s"
+                                                }
+                                            }} />
                                     </Badge>
                                 </IconButton>
-                                <IconButton sx={{ color: '#fafafa', fontSize: 30 }} onClick={() => incrementUpdate("fav")} aria-label="Favorite Heart Button">
-                                    <Badge badgeContent={data.fav ?? <ErrorRounded />} color="primary">
-                                        <FavoriteRoundedIcon />
+                                <IconButton sx={{
+                                    color: '#fafafa', fontSize: 30,
+                                }} onClick={() => incrementUpdate("fav")}
+                                    onMouseEnter={() => setHover(true)}
+                                    onMouseLeave={() => setHover(false)}
+                                    aria-label="Favorite Heart Button">
+                                    <Badge
+                                        color="primary"
+                                        badgeContent={hover ? "+1" : data.fav ?? "!"}>
+                                        <FavoriteRoundedIcon
+                                            color={faved ? "error" : "white"}
+                                            sx={{
+                                                "&:hover": {
+                                                    "scale": "1.2",
+                                                    "transition": "all 0.3s"
+                                                }
+                                            }}
+                                        />
                                     </Badge>
-                                </IconButton> */}
+                                </IconButton>
                             </Box>
                             <Box sx={{ mt: 2 }}>
                                 <Typography variant='h6'>
@@ -190,7 +219,7 @@ export default function Footer() {
                     </Box>
                 </Box>
             </footer>
-            {/* <Error reason={error} /> */}
+            <Error reason={error?.message} />
         </Box>
     );
 };

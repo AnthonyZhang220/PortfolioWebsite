@@ -15,7 +15,7 @@ function StatusSnackbar({ status, reason }) {
         }
     }, [status, reason])
     return (
-        <Snackbar open={statusOpen} autoHideDuration={3000} onClose={() => setStatusOpen(false)} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+        <Snackbar open={statusOpen} autoHideDuration={5000} onClose={() => setStatusOpen(false)} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
             <Alert onClose={() => setStatusOpen(false)} severity="error" sx={{ width: '100%' }}>
                 {reason}
             </Alert>
