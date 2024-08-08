@@ -10,7 +10,7 @@ const Alert = forwardRef(function Alert(props, ref) {
 function StatusSnackbar({ status, reason }) {
     const [statusOpen, setStatusOpen] = useState(null);
     useEffect(() => {
-        if (reason !== null) {
+        if (reason) {
             setStatusOpen(true)
         }
     }, [status, reason])

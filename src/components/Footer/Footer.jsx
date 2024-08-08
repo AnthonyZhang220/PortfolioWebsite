@@ -33,7 +33,7 @@ library.add(fab);
 
 //lazy loading
 const MusicPlayer = lazy(() => import("../MusicPlayer"));
-const Widget = styled('Box')(({ theme }) => ({
+const Widget = styled('div')(({ theme }) => ({
     padding: 16,
     borderRadius: 16,
     width: 343,
@@ -82,7 +82,7 @@ export default function Footer() {
 
     return (
         <Box className="footer-container" ref={footerContainer}>
-            <footer className='footer' id='footer' ref={footerRef}>
+            <Box component="footer" className='footer' id='footer' ref={footerRef}>
                 <Box className="footer-top">
                     <Grid container direction='row' className="footer-top-container">
                         <Grid item xs={12} sm={12} md={4} lg={4}>
@@ -202,7 +202,10 @@ export default function Footer() {
                             </Grid>
                         </Grid>
                         <Grid item xs={12} sm={12} md={4} lg={4}>
-                            <Suspense fallback={<Box sx={{ minWidth: '300px', width: '100%', overflow: 'hidden' }}><Widget>Loading...</Widget></Box>}>
+                            <Suspense fallback={<>
+                                <Box sx={{ minWidth: '300px', width: '100%', overflow: 'hidden' }}><Widget>Loading...</Widget></Box>
+                            </>
+                            }>
                                 <MusicPlayer />
                             </Suspense>
                         </Grid>
@@ -218,7 +221,7 @@ export default function Footer() {
                         </Box>
                     </Box>
                 </Box>
-            </footer>
+            </Box>
             <Error reason={error?.message} />
         </Box>
     );

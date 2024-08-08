@@ -18,12 +18,17 @@ function useSupabaseClient() {
         const getCount = async () => {
             const { count: likeCount, error: likeError } = await supabase.from("like").select("*", { count: "exact", head: true })
             setData((prevData) => ({ ...prevData, like: likeCount }))
-            setError({ message: likeError.message + " like count. Please contact me at anthonyzhang1997@gmail.com." })
+            if (likeError) {
+                setError({ message: likeError.message + " like count. Please contact me at anthonyzhang1997@gmail.com." })
+            }
 
             const { count: favCount, error: favError } = await supabase.from("fav").select("*", { count: "exact", head: true })
 
             setData((prevData) => ({ ...prevData, fav: favCount }))
-            setError({ message: favError.message + " favorite count. Please contact me at anthonyzhang1997@gmail.com." })
+            if (favError) {
+                setError({ message: favError.message + " favorite count. Please contact me at anthonyzhang1997@gmail.com." })
+
+            }
         };
 
         getCount()
